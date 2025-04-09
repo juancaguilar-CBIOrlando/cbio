@@ -1,0 +1,42 @@
+---
+import background from '../assets/background.svg';
+import Hero from './Hero.astro';
+---
+
+<Hero />
+
+<div class="relative min-h-56 font-['Inter',_'Roboto',_'Helvetica_Neue',_'Arial_Nova',_'Nimbus_Sans',_'Arial',_sans-serif] text-[#2c3e50]">
+	<img 
+		src={background.src} 
+		alt="" 
+		fetchpriority="high"
+		class="fixed top-0 left-0 w-full h-full -z-10 blur-[100px] opacity-80"
+	/>
+	<main class="h-full flex justify-center">
+		<section class="flex flex-col items-center justify-center p-4 text-center">
+			<h1 class="text-5xl font-bold m-0 text-[#2c3e50]">Welcome to CBI Orlando</h1>
+			<p class="text-xl text-[#34495e] my-4 mb-8">A place of worship, community, and spiritual growth</p>
+			<section class="flex gap-4">
+				<a 
+					href="#about" 
+					class="flex items-center px-6 py-3 text-white no-underline transition-all duration-200 rounded-lg bg-[#3498db] shadow-md hover:bg-[#2980b9] hover:-translate-y-0.5 font-medium"
+				>
+					Learn More
+				</a>
+				<a 
+					href="#contact" 
+					class="flex items-center px-6 py-3 text-white no-underline transition-all duration-200 rounded-lg bg-[#2ecc71] hover:bg-[#27ae60] hover:-translate-y-0.5 font-medium"
+				>
+					Contact Us
+				</a>
+			</section>
+		</section>
+	</main>
+
+	<!-- <div class="max-w-[300px] p-6 bg-white/95 rounded-2xl shadow-md transition-all duration-200 hover:-translate-y-1 hover:shadow-lg">
+		<h2 class="text-2xl font-semibold text-[#2c3e50] mb-4">Upcoming Events</h2>
+		<p class="text-[#34495e] text-base leading-relaxed m-0">
+			Join us for our weekly Sunday service at 10:00 AM. All are welcome to experience the love and grace of God in our community.
+		</p>
+	</div> -->
+</div>

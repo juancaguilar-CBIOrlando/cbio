@@ -1,0 +1,23 @@
+---
+const routes = [
+  { name: 'Inicio', path: '/' },
+  { name: 'Blog', path: '/blog' },
+  { name: 'Conectate', path: '/conectate' },
+  { name: 'Donation', path: '/donation' }
+];
+---
+
+<nav class="w-full bg-white shadow-sm max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+  {routes.map((route) => (
+    <a
+      href={route.path}
+      class={`inline-flex items-center font-bold px-4 py-2 transition-all duration-300 ${
+        route.name === 'Donation'
+          ? 'text-[#b81516] border-2 border-[#b81516] rounded-md hover:bg-[#b81516] hover:text-white'
+          : 'hover:text-gray-700'
+      }`}
+    >
+      {route.name}
+    </a>
+  ))}
+</nav>
