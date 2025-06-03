@@ -1,5 +1,6 @@
 ---
-import { Icon } from "astro-icon/components"
+import SermonCard from "./sermons/SermonCard.astro"
+import ArrowRightIcon from "./icons/ArrowRightIcon.astro"
 
 type Sermon = {
   id: number
@@ -52,61 +53,16 @@ const sermons: Sermon[] = [
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
       {
         sermons.map((sermon: Sermon) => (
-          <div class="bg-white rounded-lg shadow-md overflow-hidden">
-            <div class="relative">
-              <img
-                src={sermon.image}
-                alt={sermon.title}
-                class="w-full h-48 object-cover"
-              />
-              <div class="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center">
-                <button class="bg-blue-800 text-white p-3 rounded-full hover:bg-blue-700">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    class="lucide lucide-play">
-                    <polygon points="5 3 19 12 5 21 5 3" />
-                  </svg>
-                </button>
-              </div>
-            </div>
-            <div class="p-6">
-              <h3 class="font-bold text-xl mb-2">{sermon.title}</h3>
-              <p class="text-gray-600">{sermon.speaker}</p>
-              <div class="flex justify-between items-center mt-4 text-sm text-gray-500">
-                <span>{sermon.date}</span>
-                <span>{sermon.duration}</span>
-              </div>
-            </div>
-          </div>
+          <SermonCard sermon={sermon} />
         ))
       }
     </div>
-    <div class="mt-10 text-center">
+    <div id="all-sermons-btn" class="mt-10 text-center">
       <a
         href="#"
         class="inline-flex items-center text-blue-800 font-medium hover:text-blue-700">
         View All Sermons
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="16"
-          height="16"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          class="lucide lucide-arrow-right ml-2"
-          ><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg
-        >
+        <ArrowRightIcon size={16} class="ml-2" />
       </a>
     </div>
   </div>
