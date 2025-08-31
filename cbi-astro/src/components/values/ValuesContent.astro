@@ -1,0 +1,87 @@
+---
+import HeartIcon from "../icons/HeartIcon.astro"
+import UsersIcon from "../icons/UsersIcon.astro"
+import BookIcon from "../icons/BookIcon.astro"
+import HandIcon from "../icons/HandIcon.astro"
+
+type Value = {
+  id: number
+  title: string
+  description: string
+  icon: any
+  color: string
+}
+
+const values: Value[] = [
+  {
+    id: 1,
+    title: "Pasión por Dios",
+    description:
+      "Porque amamos a Dios queremos tener relación íntima y apasionada con Él, la cual se refleja en nuestro carácter, viviendo una vida que muestre su presencia en nosotros.",
+    icon: BookIcon,
+    color: "bg-blue-100 text-blue-800",
+  },
+  {
+    id: 2,
+    title: "Unidad",
+    description:
+      "Trabajamos por crecer en unidad en las relaciones con nuestro equipo, iglesia, familia y comunidad.",
+    icon: UsersIcon,
+    color: "bg-green-100 text-green-800",
+  },
+  {
+    id: 3,
+    title: "Crecimiento",
+    description:
+      "Todo lo hacemos enfocados en desarrollar nuestras habilidades, reconociendo nuestra responsabilidad de administrar los dones que Dios nos ha dado para así llevarlos a su máximo potencial.",
+    icon: HeartIcon,
+    color: "bg-red-100 text-red-800",
+  },
+  {
+    id: 4,
+    title: "Servicio",
+    description:
+      "Porque todos hemos sido llamados a servirle a Dios queremos poner en práctica nuestros dones y talentos sirviendo con gozo a las personas y a la comunidad",
+    icon: HandIcon,
+    color: "bg-amber-100 text-amber-800",
+  },
+]
+---
+
+<section id="values" class="py-16 ">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-8">
+      <h2 class="text-3xl font-bold text-gray-900 ">Nuestros Valores</h2>
+      <p class="mt-1 text-lg text-gray-600 max-w-[100%] sm:max-w-[60%] mx-auto">
+        Ayudan a crear una cultura clara a través de la cual las personas pueden experimentar nuestra identidad como iglesia.
+        Las personas que prosperan en nuestra cultura operan dentro de estos valores.        
+      </p>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      {values.map((value) => (
+        <div
+          class={`bg-white rounded-lg p-6 shadow-md shadow-[${value.color}] border border-gray-100`}
+        >
+          <div class="flex items-center justify-star gap-x-4"> 
+          <div
+            class={`w-12 h-12 rounded-full ${value.color} flex items-center justify-center mb-4`}
+          >
+            <value.icon size={24} />
+          </div>
+          <h3 class="text-xl font-bold mb-2">{value.title}</h3>
+
+        </div>
+          <p class="text-gray-600">{value.description}</p>
+        </div>
+      ))}
+    </div>
+    <div class="mt-12 text-center">
+      <a
+        href="#"
+        class="inline-block bg-blue-800 text-white px-6 py-3 rounded-md font-medium hover:bg-blue-700"
+      >
+        Conoce Más Sobre Nosotros
+      </a>
+    </div>
+  </div>
+</section>

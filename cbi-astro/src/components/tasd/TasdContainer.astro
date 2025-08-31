@@ -1,0 +1,65 @@
+---
+import ArrowRightIcon from "../icons/ArrowRightIcon.astro"
+import OpenBookIcon from "../icons/OpenBookIcon.astro"
+---
+
+<section id="tasd" class="mt-10 py-4">
+  <header class="text-center flex-col justify-center items-center mb-6">
+    <div class="flex gap-x-4 justify-center">
+      <h3 class="text-3xl font-bold text-gray-900">Tiempo a solas con Dios</h3>
+    </div>
+    <h6 class="mt-2 text-lg text-gray-600">
+      Prepara tu corazón para un tiempo exclusivo entre tú y Dios
+    </h6>
+  </header>
+  <div class="bg-blue-100 w-[90%] mx-auto p-4 rounded-lg mt-2 relative overflow-hidden">
+    <!-- previewContent -->
+    <div class="flex w-full mb-3 p-2 items-center gap-x-5">
+      <!-- content header -->
+      <div class="bg-blue-800 rounded-full p-4">
+        <OpenBookIcon size={28} color="white" />
+      </div>
+      <h4 class="font-bold text-black text-xl ">Mateo 2:19-21</h4>
+    </div>
+    <div class="flex flex-col gap-y-6">
+      <!-- Verse & Explanation content -->
+      <p id="verse-content" class="w-[90%] line-clamp-2">
+        <!-- verse content preview -->
+        "Cuando Herodes murió, un ángel del Señor se le apareció en un sueño a
+        José en Egipto. 20 «¡Levántate!—dijo el ángel—. Lleva al niño y a su
+        madre de regreso a la tierra de Israel, porque ya murieron los que
+        trataban de matar al niño»."
+      </p>
+      <p id="explanation" class="w-[90%] line-clamp-2">
+        <span class="font-bold">Estimado lector:</span> <br />
+        Tras la muerte de Herodes, un ángel indicó que era
+        momento de regresar, pero debido al gobierno cruel de su hijo Arquelao
+        en Judea, Belén fue descartado como destino. Ante esta incertidumbre,
+        una nueva revelación divina en sueños guió el camino. La familia fue
+        dirigida al norte, hacia Galilea. Este retorno, tras varios años fuera,
+        no debió ser sencillo.
+      </p>
+    </div>
+
+    <div>
+      <!-- Date and read more button -->
+      <div class="flex justify-between items-center py-4">
+        <p class="text-gray-500 text-sm z-10">Junio 04, 2025</p>
+        <button class="hover:underline">
+          <a href="/devocional" class="inline-flex items-center text-blue-800 hover:text-blue-600 hover:underline-offset-4">
+            Leer más
+            <ArrowRightIcon size={16} class="ml-2" />
+          </a>
+      </div>
+    </div>
+
+    <div class="absolute -top-10 bottom-0 w-[80px] h-[80px] -right-10 bg-blue-300 rounded-full p-2"/>
+    <div class="absolute -bottom-10 w-[80px] h-[80px] -left-10 bg-blue-300 rounded-full p-2"/>
+  </div>
+  <button class="text-blue-800 p-2 text-center w-full mt-4 hover:underline hover:underline-offset-4">
+    <a href="#" class="inline-flex items-center text-blue-800 font-medium hover:text-blue-600">
+      Ver Devocionales
+      <ArrowRightIcon size={16} class="ml-2 hover:text-blue-600" />
+    </a>
+  </button>
+</section>

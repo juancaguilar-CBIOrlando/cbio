@@ -1,0 +1,25 @@
+---
+interface Props {
+  value: {
+    id: number
+    title: string
+    description: string
+    icon: any
+    color: string
+  }
+}
+
+const { value } = Astro.props
+---
+
+<div class="bg-white rounded-lg p-6 shadow-sm border border-gray-100">
+  <div class="flex items-center justify-start gap-x-4">
+    <div
+      class={`w-12 h-12 rounded-full ${value.color} flex items-center justify-center`}
+    >
+      <value.icon size={24} />
+    </div>
+    <h3 class="text-xl font-bold">{value.title}</h3>
+  </div>
+  <p class="text-gray-600 mt-4">{value.description}</p>
+</div>

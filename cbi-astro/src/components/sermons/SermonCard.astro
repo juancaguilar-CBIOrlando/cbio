@@ -1,0 +1,40 @@
+---
+import PlayIcon from "../icons/PlayIcon.astro"
+
+interface Props {
+  sermon: {
+    id: number
+    title: string
+    speaker: string
+    date: string
+    image: string
+    duration: string
+  }
+}
+
+const { sermon } = Astro.props
+---
+
+<div class="bg-white rounded-lg shadow-md overflow-hidden">
+  <div class="relative">
+    <img
+      src={sermon.image}
+      alt={sermon.title}
+      class="w-full h-56 object-cover"
+    />
+    <div
+      class="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center">
+      <button class="bg-blue-800 text-white p-3 rounded-full hover:bg-blue-700">
+        <PlayIcon size={24} />
+      </button>
+    </div>
+  </div>
+  <div class="p-6">
+    <h3 class="font-bold text-xl mb-2">{sermon.title}</h3>
+    <p class="text-gray-600">{sermon.speaker}</p>
+    <div class="flex justify-between items-center mt-4 text-sm text-gray-500">
+      <span>{sermon.date}</span>
+      <span>{sermon.duration}</span>
+    </div>
+  </div>
+</div>
