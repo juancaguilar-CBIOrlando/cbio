@@ -1,4 +1,5 @@
 ---
+const { logo = 'black' } = Astro.props;
 const routes = [
   { name: 'Inicio', path: '/' },
   { name: 'Devocional', path: '/devocional' },
@@ -9,11 +10,12 @@ const routes = [
 ];
 ---
 
-<nav class="fixed top-0 left-0 w-full z-50 bg-transparent px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+<nav class="fixed top-0 left-0 w-full z-50 bg-transparent px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between" data-preferred-logo={logo}>
   <div class="w-full flex items-center justify-between">
     <!-- Brand / Logo -->
-    <a href="/" class="inline-flex items-center pt-4">
-      <img src="/mainlogoWhite.png" alt="CBI Orlando" class="h-16 w-auto" />
+    <a href="/" class="inline-flex items-center pt-4 relative h-16">
+      <img data-logo="white" src="/mainlogoWhite.png" alt="CBI Orlando" class="absolute inset-0 h-16 w-auto transition-opacity duration-300 opacity-0" />
+      <img data-logo="black" src="/mainLogoBlack.png" alt="CBI Orlando" class="h-16 w-auto transition-opacity duration-300 opacity-0" />
     </a>
 
     <!-- Desktop menu -->
@@ -100,6 +102,54 @@ const routes = [
 </nav>
 
 <script>
+  // @ts-nocheck
+  // Logo crossfade logic (white over hero, black after scrolling)
+  const navEl = document.querySelector('nav[data-preferred-logo]');
+  const preferredLogo = navEl?.getAttribute('data-preferred-logo') || 'black';
+  const whiteLogo = document.querySelector('img[data-logo="white"]');
+  const blackLogo = document.querySelector('img[data-logo="black"]');
+
+  function setLogo(color) {
+    if (!whiteLogo || !blackLogo) return;
+    if (color === 'white') {
+      whiteLogo.classList.remove('opacity-0');
+      whiteLogo.classList.add('opacity-100');
+      blackLogo.classList.remove('opacity-100');
+      blackLogo.classList.add('opacity-0');
+    } else {
+      whiteLogo.classList.remove('opacity-100');
+      whiteLogo.classList.add('opacity-0');
+      blackLogo.classList.remove('opacity-0');
+      blackLogo.classList.add('opacity-100');
+    }
+  }
+
+  // Initial state uses the server-provided preference
+  setLogo(preferredLogo === 'white' ? 'white' : 'black');
+
+  // If a hero is present, auto-toggle based on its visibility
+  const hero = document.querySelector('[data-hero]');
+  if (hero) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            // While hero is in view, show white logo
+            setLogo('white');
+          } else {
+            // After scrolling past hero, show black logo
+            setLogo('black');
+          }
+        });
+      },
+      {
+        root: null,
+        threshold: 0.2, // toggle a bit before fully leaving/entering
+      }
+    );
+    observer.observe(hero);
+  }
+
   const mobileMenuButton = document.getElementById('mobile-menu-button');
   const closeMenuButton = document.getElementById('close-menu-button');
   const mobileMenu = document.getElementById('mobile-menu');
