@@ -2,6 +2,7 @@
 import "swiper/css"
 import "swiper/css/pagination"
 import "swiper/css/autoplay"
+import ActionButton from "./common/ActionButton.astro"
 
 type Slide = {
   id: number
@@ -106,13 +107,7 @@ const slides: Slide[] = [
 
               <div class="flex flex-col sm:flex-row gap-4 items-center justify-center w-3/5 max-w-[400px]">
                 {slide.cta.map((cta) => (
-                  <a
-                    href={cta.link}
-                    target={cta.isExternal ? "_blank" : "_self"}
-                    rel={cta.isExternal ? "noopener noreferrer" : ""}
-                    class={`border-3 border-white px-8 py-3 rounded-sm font-semibold tracking-tight uppercase text-lg transition-all duration-200 whitespace-nowrap w-full sm:w-auto ${cta.isExternal ? "bg-white text-black hover:bg-black hover:text-white hover:border-black" : "text-white hover:bg-white hover:text-black hover:border-white"}`}>
-                    {cta.text}
-                  </a>
+                  <ActionButton text={cta.text} link={cta.link} color={cta.color} isExternal={cta.isExternal} />
                 ))}
               </div>
             </div>

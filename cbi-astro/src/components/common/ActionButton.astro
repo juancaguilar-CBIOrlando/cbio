@@ -1,0 +1,18 @@
+---
+interface Props {
+  text: string
+  link: string
+  color?: string
+  isExternal?: boolean
+}
+
+const { text, link, color, isExternal = false } = Astro.props
+---
+
+<a
+  href={link}
+  target={isExternal ? "_blank" : "_self"}
+  rel={isExternal ? "noopener noreferrer" : ""}
+  class={`border-3 border-white px-8 py-3 rounded-sm font-semibold tracking-tight uppercase text-lg transition-all duration-200 whitespace-nowrap w-full sm:w-auto ${isExternal ? `bg-white text-black hover:bg-black hover:text-white hover:border-black` : `text-white hover:bg-white hover:text-black hover:border-white`}`}>
+  {text}
+</a>
