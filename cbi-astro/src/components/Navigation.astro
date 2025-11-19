@@ -3,9 +3,9 @@ const { logo = 'black' } = Astro.props;
 const routes = [
   { name: 'Inicio', path: '/' },
   { name: 'Devocional', path: '/devocional' },
-  { name: 'Valores', path: '/' },
-  { name: 'Galeria', path: '/galeria' },
-  { name: 'Donation', path: '/donation' },
+  { name: 'Valores', path: '/valores' },
+  // { name: 'Galeria', path: '/galeria' },
+  { name: 'Dar', path: '/donation' },
   { name: 'Conectate', path: '/conectate' },
 ];
 ---
@@ -36,7 +36,7 @@ const routes = [
 
     <!-- Mobile menu button -->
     <button
-      class="md:hidden p-2 rounded-md hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-[#b81516]"
+      class="md:hidden p-4 rounded-md cursor-pointer"
       aria-label="Toggle menu"
       id="mobile-menu-button"
     >
@@ -88,7 +88,7 @@ const routes = [
           <a
             href={route.path}
             class={`w-full text-center font-bold px-4 py-2 transition-all duration-300 ${
-              route.name === 'Donation'
+              route.name === 'Conectate'
                 ? 'text-[#b81516] border-2 border-[#b81516] rounded-md hover:bg-[#b81516] hover:text-white'
                 : 'hover:text-gray-700'
             }`}

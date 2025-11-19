@@ -9,7 +9,7 @@ type Slide = {
   videoUrl?: string | null
   title: string
   description: string
-  cta: { text: string; link: string; color: string; isHighlighted?: boolean }[]
+  cta: { text: string; link: string; color: string; isExternal?: boolean }[]
 }
 
 const slides: Slide[] = [
@@ -23,18 +23,18 @@ const slides: Slide[] = [
     cta: [
       {
         text: "Soy Nuevo",
-        link: "https://www.youtube.com/", //FIXME: CHANGE TO CHANNEL YT LINK
+        link: "/conectate",
         color: "#3498db",
       },
       {
         text: "Ver En Linea",
-        link: "https://www.youtube.com/", //FIXME: CHANGE TO CHANNEL YT LINK
+        link: "https://www.youtube.com/channel/UC5xttzojPMWk73I66cI6rhw",
         color: "#3498db",
-        isHighlighted: true,
+        isExternal: true,
       },
       {
         text: "Como llegar",
-        link: "/como-llegar",
+        link: "/visitanos",
         color: "#b81516",
       },
     ],
@@ -108,7 +108,9 @@ const slides: Slide[] = [
                 {slide.cta.map((cta) => (
                   <a
                     href={cta.link}
-                    class={`border-3 border-white px-8 py-3 rounded-sm font-semibold tracking-tight uppercase text-lg transition-all duration-200 whitespace-nowrap w-full sm:w-auto ${cta.isHighlighted ? "bg-white text-black hover:bg-black hover:text-white" : "text-white hover:bg-white hover:text-black hover:border-white"}`}>
+                    target={cta.isExternal ? "_blank" : "_self"}
+                    rel={cta.isExternal ? "noopener noreferrer" : ""}
+                    class={`border-3 border-white px-8 py-3 rounded-sm font-semibold tracking-tight uppercase text-lg transition-all duration-200 whitespace-nowrap w-full sm:w-auto ${cta.isExternal ? "bg-white text-black hover:bg-black hover:text-white hover:border-black" : "text-white hover:bg-white hover:text-black hover:border-white"}`}>
                     {cta.text}
                   </a>
                 ))}
