@@ -1,53 +1,62 @@
 ---
+const { logo = 'black' } = Astro.props;
 const routes = [
   { name: 'Inicio', path: '/' },
   { name: 'Devocional', path: '/devocional' },
-  { name: 'Valores', path: '/' },
-  { name: 'Galeria', path: '/galeria' },
-  { name: 'Donation', path: '/donation' },
+  { name: 'Valores', path: '/valores' },
+  // { name: 'Galeria', path: '/galeria' },
+  { name: 'Dar', path: '/donation' },
   { name: 'Conectate', path: '/conectate' },
 ];
 ---
 
-<nav class="w-full bg-white shadow-sm max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between border border-red-500">
-  <!-- Mobile menu button -->
-  <button
-    class="md:hidden p-2 rounded-md hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-[#b81516]"
-    aria-label="Toggle menu"
-    id="mobile-menu-button"
-  >
-    <svg
-      class="h-6 w-6"
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke="currentColor"
-    >
-      <path
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        stroke-width="2"
-        d="M4 6h16M4 12h16M4 18h16"
-      />
-    </svg>
-  </button>
+<nav class="fixed top-0 left-0 w-full z-50 bg-transparent px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between" data-preferred-logo={logo}>
+  <div class="w-full flex items-center justify-between">
+    <!-- Brand / Logo -->
+    <a href="/" class="inline-flex items-center pt-4 relative h-16">
+      <img data-logo="white" src="/mainlogoWhite.png" alt="CBI Orlando" class="absolute inset-0 h-16 w-auto transition-opacity duration-300 opacity-0" />
+      <img data-logo="black" src="/mainLogoBlack.png" alt="CBI Orlando" class="h-16 w-auto transition-opacity duration-300 opacity-0" />
+    </a>
 
-  <!-- Desktop menu -->
-  <div class="hidden md:flex md:items-center md:space-x-4 border w-full ">
-    {routes.map((route) => (
-      <a
-        href={route.path}
-        class={`inline-flex items-center font-bold px-4 py-2 transition-all duration-300 ${
-          route.name === 'Conectate'
-            ? 'text-[#b81516] border-2 border-[#b81516] rounded-md hover:bg-[#b81516] hover:text-white'
-            : 'hover:text-gray-700'
-        }`}
+    <!-- Desktop menu -->
+    <div class="hidden md:flex md:items-center md:space-x-4">
+      {routes.map((route) => (
+        <a
+          href={route.path}
+          class={`inline-flex items-center font-bold px-4 py-2 transition-all duration-300 ${
+            route.name === 'Conectate'
+              ? 'text-[#b81516] border-2 border-[#b81516] rounded-md hover:bg-[#b81516] hover:text-white'
+              : 'hover:text-gray-700'
+          }`}
+        >
+          {route.name}
+        </a>
+      ))}
+    </div>
+
+    <!-- Mobile menu button -->
+    <button
+      class="md:hidden p-4 pr-2 rounded-md cursor-pointer"
+      aria-label="Toggle menu"
+      id="mobile-menu-button"
+    >
+      <svg
+        class="h-6 w-6"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
       >
-        {route.name}
-      </a>
-    ))}
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M4 6h16M4 12h16M4 18h16"
+        />
+      </svg>
+    </button>
   </div>
 
-  <!-- Mobile menu -->
+  <!-- Mobile menu OPENED STATE -->
   <div
     id="mobile-menu"
     class="fixed inset-0 z-50 hidden bg-white transform transition-all duration-300 ease-in-out -translate-x-full"
@@ -79,7 +88,7 @@ const routes = [
           <a
             href={route.path}
             class={`w-full text-center font-bold px-4 py-2 transition-all duration-300 ${
-              route.name === 'Donation'
+              route.name === 'Conectate'
                 ? 'text-[#b81516] border-2 border-[#b81516] rounded-md hover:bg-[#b81516] hover:text-white'
                 : 'hover:text-gray-700'
             }`}
@@ -93,6 +102,54 @@ const routes = [
 </nav>
 
 <script>
+  // @ts-nocheck
+  // Logo crossfade logic (white over hero, black after scrolling)
+  const navEl = document.querySelector('nav[data-preferred-logo]');
+  const preferredLogo = navEl?.getAttribute('data-preferred-logo') || 'black';
+  const whiteLogo = document.querySelector('img[data-logo="white"]');
+  const blackLogo = document.querySelector('img[data-logo="black"]');
+
+  function setLogo(color) {
+    if (!whiteLogo || !blackLogo) return;
+    if (color === 'white') {
+      whiteLogo.classList.remove('opacity-0');
+      whiteLogo.classList.add('opacity-100');
+      blackLogo.classList.remove('opacity-100');
+      blackLogo.classList.add('opacity-0');
+    } else {
+      whiteLogo.classList.remove('opacity-100');
+      whiteLogo.classList.add('opacity-0');
+      blackLogo.classList.remove('opacity-0');
+      blackLogo.classList.add('opacity-100');
+    }
+  }
+
+  // Initial state uses the server-provided preference
+  setLogo(preferredLogo === 'white' ? 'white' : 'black');
+
+  // If a hero is present, auto-toggle based on its visibility
+  const hero = document.querySelector('[data-hero]');
+  if (hero) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            // While hero is in view, show white logo
+            setLogo('white');
+          } else {
+            // After scrolling past hero, show black logo
+            setLogo('black');
+          }
+        });
+      },
+      {
+        root: null,
+        threshold: 0.2, // toggle a bit before fully leaving/entering
+      }
+    );
+    observer.observe(hero);
+  }
+
   const mobileMenuButton = document.getElementById('mobile-menu-button');
   const closeMenuButton = document.getElementById('close-menu-button');
   const mobileMenu = document.getElementById('mobile-menu');

@@ -1,85 +1,139 @@
 ---
-import 'swiper/css';
-import 'swiper/css/pagination';
-import 'swiper/css/autoplay';
+import "swiper/css"
+import "swiper/css/pagination"
+import "swiper/css/autoplay"
+import ActionButton from "./common/ActionButton.astro"
 
-const slides = [
+type Slide = {
+  id: number
+  image: string | null
+  videoUrl?: string | null
+  title: string
+  description: string
+  cta: { text: string; link: string; color: string; isExternal?: boolean }[]
+}
+
+const slides: Slide[] = [
   {
-    image: '/images/slide1.jpg',
-    title: 'Bienvenidos a CBI Orlando',
-    description: 'Una comunidad de fe y amor',
-    cta: {
-      text: 'Únete a nosotros',
-      link: '/conectate',
-      color: 'bg-[#3498db] hover:bg-[#2980b9]'
-    }
+    id: 1,
+    image: null,
+    videoUrl:
+      "https://cbistcloud.org/wp-content/uploads/2023/01/CBI-Hero-Video-40black.mp4",
+    title: "Bienvenido a Casa",
+    description: "Existimos para ayudarte a crecer en tu relación con Dios",
+    cta: [
+      {
+        text: "Soy Nuevo",
+        link: "/conectate",
+        color: "#3498db",
+      },
+      {
+        text: "Ver En Linea",
+        link: "https://www.youtube.com/channel/UC5xttzojPMWk73I66cI6rhw",
+        color: "#3498db",
+        isExternal: true,
+      },
+      {
+        text: "Como llegar",
+        link: "/visitanos",
+        color: "#b81516",
+      },
+    ],
   },
   {
-    image: '/images/slide2.jpg',
-    title: 'Servicios Dominicales',
-    description: 'Todos los domingos a las 10:00 AM',
-    cta: {
-      text: 'Ver horarios',
-      link: '/servicios',
-      color: 'bg-[#2ecc71] hover:bg-[#27ae60]'
-    }
+    id: 2,
+    image: "/images/slide2.jpg",
+    title: "Servicios Dominicales",
+    description: "Todos los domingos a las 10:00 AM",
+    cta: [
+      {
+        text: "Ver horarios",
+        link: "/servicios",
+        color: "#2ecc71",
+      },
+    ],
   },
   {
-    image: '/images/slide3.jpg',
-    title: 'Apoya nuestra misión',
-    description: 'Tu generosidad hace la diferencia',
-    cta: {
-      text: 'Donar ahora',
-      link: '/donation',
-      color: 'bg-[#b81516] hover:bg-[#9a1213]'
-    }
-  }
-];
+    id: 3,
+    image: "/images/slide3.jpg",
+    title: "Apoya nuestra misión",
+    description: "Tu generosidad hace la diferencia",
+    cta: [
+      {
+        text: "Donar ahora",
+        link: "/donation",
+        color: "#b81516",
+      },
+    ],
+  },
+]
 ---
 
-<div class="relative w-full">
+<div class="relative w-full" data-hero>
   <div class="swiper w-full h-[80vh] md:h-[30vh]">
     <div class="swiper-wrapper">
-      {slides.map((slide) => (
-        <div class="swiper-slide relative">
-          <div class="absolute inset-0 bg-black/40 z-10"></div>
-          <img
-            src={slide.image}
-            alt={slide.title}
-            class="w-full h-full object-cover"
-          />
-          <div class="absolute inset-0 z-20 flex flex-col items-center justify-center text-white p-4 text-center">
-            <h2 class="text-4xl md:text-5xl font-bold mb-4">{slide.title}</h2>
-            <p class="text-xl md:text-2xl mb-8">{slide.description}</p>
-            <a
-              href={slide.cta.link}
-              class={`${slide.cta.color} text-white px-8 py-3 rounded-lg font-medium transition-colors duration-200`}
-            >
-              {slide.cta.text}
-            </a>
+      {
+        slides.map((slide) => (
+          <div class="swiper-slide relative">
+            {/* FIXME: GET ACTUAL IMAGE AND VIDEO STORAGE SETUP */}
+            <div class="absolute inset-0 bg-black/40 z-10" />
+            {slide.image ? (
+              <img
+                src={slide.image}
+                alt={slide.title}
+                class="w-full h-full object-cover"
+              />
+            ) : (
+              <video
+                src={slide.videoUrl}
+                class="w-full h-full object-cover"
+                autoplay="true"
+                muted="true"
+                loop="true"
+                playsinline="true"
+                preload="auto"
+                controls="false"
+                disableRemotePlayback="true"
+                disablepictureinpicture="true"
+              />
+            )}
+            <div class="absolute inset-0 z-20 flex flex-col items-center justify-center text-white p-4 text-center gap-y-16">
+              <div class="flex flex-col items-center justify-center mb-8">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4">
+                  {slide.title}
+                </h2>
+                <p class="text-xl md:text-2xl">{slide.description}</p>
+              </div>
+
+              <div class="flex flex-col sm:flex-row gap-4 items-center justify-center w-3/5 max-w-[400px]">
+                {slide.cta.map((cta) => (
+                  <ActionButton text={cta.text} link={cta.link} color={cta.color} isExternal={cta.isExternal} />
+                ))}
+              </div>
+            </div>
           </div>
-        </div>
-      ))}
+        ))
+      }
     </div>
     <div class="swiper-pagination"></div>
   </div>
 </div>
 
 <script>
-  import Swiper from 'swiper';
-  import { Autoplay, Pagination } from 'swiper/modules';
+  import Swiper from "swiper"
+  import { Autoplay, Pagination } from "swiper/modules"
 
-  document.addEventListener('DOMContentLoaded', () => {
-    new Swiper('.swiper', {
+  document.addEventListener("DOMContentLoaded", () => {
+    new Swiper(".swiper", {
       modules: [Autoplay, Pagination],
-      autoplay: {
-        delay: 5000,
-        disableOnInteraction: false,
-      },
+      // autoplay: {
+      //   delay: 10000,
+      //   disableOnInteraction: false,
+      // },
       pagination: {
-        el: '.swiper-pagination',
+        el: ".swiper-pagination",
         clickable: true,
       },
-    });
-  });
-</script> 
+    })
+  })
+</script>

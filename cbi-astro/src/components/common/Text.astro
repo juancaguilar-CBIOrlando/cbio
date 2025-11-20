@@ -1,0 +1,22 @@
+---
+interface Props {
+  variant?: 'title' | 'subtitle';
+  class?: string;
+  as?: 'p' | 'span' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
+}
+
+const { variant = 'subtitle', class: className = '', as: Tag = 'span' } = Astro.props;
+
+const baseStyles = 'uppercase';
+const variantStyles = {
+  title: 'font-bold text-md text-gray-900',
+  subtitle: 'text-xs text-gray-600',
+};
+
+const classes = `${baseStyles} ${variantStyles[variant]} ${className}`.trim();
+---
+
+<Tag class={classes} style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;">
+  <slot />
+</Tag>
+
