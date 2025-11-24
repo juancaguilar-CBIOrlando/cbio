@@ -16,7 +16,7 @@ const routes = [
   <div class="w-full flex items-center justify-between">
     <!-- Brand / Logo -->
     <a href="/" class="inline-flex items-center pt-4 relative h-16">
-      <img data-logo="white" src="/mainlogoWhite.png" alt="CBI Orlando" class="absolute inset-0 h-20 w-auto transition-opacity duration-300 opacity-0 pt-2" />
+      <img data-logo="white" src="/mainlogoWhite.png" alt="CBI Orlando" class="absolute inset-0 h-20 w-auto transition-opacity duration-300 opacity-0 pt-1" />
       <img data-logo="black" src="/mainLogoBlack.png" alt="CBI Orlando" class="h-18 w-auto transition-opacity duration-300 opacity-0" />
     </a>
 
@@ -42,7 +42,7 @@ const routes = [
       aria-label="Toggle menu"
       id="mobile-menu-button"
     >
-      <MenuIcon color="white" size={26} />
+      <MenuIcon id="mobile-menu-icon" color="white" size={26} />
     </button>
   </div>
 
@@ -102,8 +102,20 @@ const routes = [
     }
   }
 
+  function setMenuIconColor(color) {
+    const menuIcon = document.getElementById('mobile-menu-icon');
+    if (!menuIcon) return;
+    // lucide-react icons render as SVG, change stroke color of all paths
+    const paths = menuIcon.querySelectorAll('path');
+    paths.forEach((path) => {
+      path.setAttribute('stroke', color);
+    });
+  }
+
   // Initial state uses the server-provided preference
-  setLogo(preferredLogo === 'white' ? 'white' : 'black');
+  const initialColor = preferredLogo === 'white' ? 'white' : 'black';
+  setLogo(initialColor);
+  setMenuIconColor(initialColor);
 
   // If a hero is present, auto-toggle based on its visibility
   const hero = document.querySelector('[data-hero]');
@@ -112,17 +124,19 @@ const routes = [
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            // While hero is in view, show white logo
+            // While hero is in view, show white logo and icon
             setLogo('white');
+            setMenuIconColor('white');
           } else {
-            // After scrolling past hero, show black logo
+            // After scrolling past hero, show black logo and icon
             setLogo('black');
+            setMenuIconColor('black');
           }
         });
       },
       {
         root: null,
-        threshold: 0.2, // toggle a bit before fully leaving/entering
+        threshold: 0.1, // toggle a bit before fully leaving/entering
       }
     );
     observer.observe(hero);
