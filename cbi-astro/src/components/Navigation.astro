@@ -1,4 +1,6 @@
 ---
+import { MenuIcon, XIcon } from "lucide-react";
+
 const { logo = 'black' } = Astro.props;
 const routes = [
   { name: 'Inicio', path: '/' },
@@ -14,8 +16,8 @@ const routes = [
   <div class="w-full flex items-center justify-between">
     <!-- Brand / Logo -->
     <a href="/" class="inline-flex items-center pt-4 relative h-16">
-      <img data-logo="white" src="/mainlogoWhite.png" alt="CBI Orlando" class="absolute inset-0 h-16 w-auto transition-opacity duration-300 opacity-0" />
-      <img data-logo="black" src="/mainLogoBlack.png" alt="CBI Orlando" class="h-16 w-auto transition-opacity duration-300 opacity-0" />
+      <img data-logo="white" src="/mainlogoWhite.png" alt="CBI Orlando" class="absolute inset-0 h-20 w-auto transition-opacity duration-300 opacity-0 pt-2" />
+      <img data-logo="black" src="/mainLogoBlack.png" alt="CBI Orlando" class="h-18 w-auto transition-opacity duration-300 opacity-0" />
     </a>
 
     <!-- Desktop menu -->
@@ -40,19 +42,7 @@ const routes = [
       aria-label="Toggle menu"
       id="mobile-menu-button"
     >
-      <svg
-        class="h-6 w-6"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-      >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          d="M4 6h16M4 12h16M4 18h16"
-        />
-      </svg>
+      <MenuIcon color="white" size={26} />
     </button>
   </div>
 
@@ -68,19 +58,7 @@ const routes = [
           aria-label="Close menu"
           id="close-menu-button"
         >
-          <svg
-            class="h-6 w-6"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M6 18L18 6M6 6l12 12"
-            />
-          </svg>
+          <XIcon color="black" />
         </button>
       </div>
       <div class="flex flex-col items-center space-y-4 p-4">
