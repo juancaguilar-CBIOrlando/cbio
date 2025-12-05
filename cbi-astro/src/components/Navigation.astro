@@ -20,8 +20,8 @@ const routes = [
       <img data-logo="black" src="/mainLogoBlack.png" alt="CBI Orlando" class="h-18 w-auto transition-opacity duration-300 opacity-0" />
     </a>
 
-    <!-- Desktop menu -->
-    <div class="hidden md:flex md:items-center md:space-x-4">
+    <!-- Desktop menu (show from large screens and up so tablets use mobile nav) -->
+    <div class="hidden lg:flex lg:items-center lg:space-x-4">
       {routes.map((route) => (
         <a
           href={route.path}
@@ -38,7 +38,7 @@ const routes = [
 
     <!-- Mobile menu button -->
     <button
-      class="md:hidden p-4 pr-2 rounded-md cursor-pointer"
+      class="lg:hidden p-4 pr-2 rounded-md cursor-pointer"
       aria-label="Toggle menu"
       id="mobile-menu-button"
     >
