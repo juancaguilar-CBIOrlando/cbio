@@ -3,7 +3,9 @@
 import Layout from "../../layouts/Layout.astro"
 import OpenBookIcon from "../../components/icons/OpenBookIcon.astro"
 import { getDevotionals } from "../../helpers/notion"
-import { ChevronRight } from "lucide-react"
+
+// Disable prerender so this route fetches fresh data on each request
+export const prerender = false;
 
 // Get all devotionals from the last 2 weeks
 const devotionals = await getDevotionals()
@@ -50,9 +52,6 @@ const devotionals = await getDevotionals()
                   {devotional.verse && (
                     <p class="text-gray-700 italic line-clamp-2" set:html={devotional.verse} />
                   )}
-                </div>
-                <div class="">
-                  <ChevronRight size={24} color="black" />
                 </div>
               </div>
             </a>
