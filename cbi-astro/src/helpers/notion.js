@@ -2,9 +2,35 @@
 const NOTION_API_KEY = import.meta.env.NOTION_API_KEY;
 const NOTION_DATABASE_ID = import.meta.env.NOTION_DATABASE_ID;
 
+// Helper function to parse Notion page into devotional object
+function parseDevotional(notionPage) {
+  const page = notionPage.properties;
+  
+  // Helper to extract text from rich_text array
+  const getRichText = (richTextArray) => {
+    if (!richTextArray || !Array.isArray(richTextArray)) return "";
+    return richTextArray.map(item => item.plain_text || "").join("");
+  };
+
+  // Helper to extract text from title array
+  const getTitle = (titleArray) => {
+    if (!titleArray || !Array.isArray(titleArray)) return "";
+    return titleArray.map(item => item.plain_text || "").join("");
+  };
+
+  return {
+    id: notionPage.id,
+    title: getTitle(page.Title?.title) || "",
+    content: getRichText(page.Content?.rich_text) || "",
+    explanation: getRichText(page.Explanation?.rich_text) || "",
+    verse: getRichText(page.Verses?.rich_text) || "",
+    assets: page.Assets?.url || "",
+    date: page.Date?.date?.start || ""
+  };
+}
+
 export async function getTodaysDevotional() {
   const today = new Date().toISOString().split("T")[0]; // YYYY-MM-DD
-  console.log("HERE TODAY", today)
   const response = await fetch(`https://api.notion.com/v1/databases/${NOTION_DATABASE_ID}/query`, {
     method: "POST",
     headers: {
@@ -25,17 +51,84 @@ export async function getTodaysDevotional() {
       return null; // no devotional today
     }
 
-    const page = data.results[0].properties;
-    return {
-      title: page.Title.title[0]?.plain_text || "",
-      content: page.Content.rich_text[0]?.plain_text || "",
-      explanation: page.Explanation.rich_text[0]?.plain_text || "",
-      verse: page.Verses.rich_text[0]?.plain_text || "",
-      assets: page.Assets?.url || "",
-      date: page.Date.date.start
-    };
+    return parseDevotional(data.results[0]);
   } catch (error) {
     console.error("Error fetching devotional:", error);
+    return null;
+  }
+}
+
+// Get all devotionals from the last 2 weeks
+export async function getDevotionals() {
+  const today = new Date();
+  const twoWeeksAgo = new Date(today);
+  twoWeeksAgo.setDate(today.getDate() - 14);
+  
+  const todayISO = today.toISOString().split("T")[0];
+  const twoWeeksAgoISO = twoWeeksAgo.toISOString().split("T")[0];
+
+  const response = await fetch(`https://api.notion.com/v1/databases/${NOTION_DATABASE_ID}/query`, {
+    method: "POST",
+    headers: {
+      "Authorization": `Bearer ${NOTION_API_KEY}`,
+      "Notion-Version": "2022-06-28",
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      filter: {
+        and: [
+          {
+            property: "Date",
+            date: { on_or_after: twoWeeksAgoISO }
+          },
+          {
+            property: "Date",
+            date: { on_or_before: todayISO }
+          }
+        ]
+      },
+      sorts: [
+        {
+          property: "Date",
+          direction: "descending"
+        }
+      ]
+    })
+  });
+
+  try {
+    const data = await response.json();
+    if (!data.results?.length) {
+      return [];
+    }
+
+    return data.results.map(parseDevotional);
+  } catch (error) {
+    console.error("Error fetching devotionals:", error);
+    return [];
+  }
+}
+
+// Get a specific devotional by ID
+export async function getDevotionalById(id) {
+  try {
+    const response = await fetch(`https://api.notion.com/v1/pages/${id}`, {
+      method: "GET",
+      headers: {
+        "Authorization": `Bearer ${NOTION_API_KEY}`,
+        "Notion-Version": "2022-06-28",
+        "Content-Type": "application/json"
+      }
+    });
+
+    if (!response.ok) {
+      return null;
+    }
+
+    const page = await response.json();
+    return parseDevotional(page);
+  } catch (error) {
+    console.error("Error fetching devotional by ID:", error);
     return null;
   }
 }

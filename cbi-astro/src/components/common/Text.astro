@@ -8,12 +8,12 @@ interface Props {
 const { variant = 'subtitle', class: className = '', as: Tag = 'span' } = Astro.props;
 
 const baseStyles = 'uppercase';
-const variantStyles = {
+const variantStyles: Record<'title' | 'subtitle', string> = {
   title: 'font-bold text-md text-gray-900',
   subtitle: 'text-xs text-gray-600',
 };
 
-const classes = `${baseStyles} ${variantStyles[variant]} ${className}`.trim();
+const classes = `${baseStyles} ${variantStyles[variant as keyof typeof variantStyles]} ${className}`.trim();
 ---
 
 <Tag class={classes} style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;">
