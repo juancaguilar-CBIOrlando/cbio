@@ -1,61 +1,71 @@
 ---
 // src/pages/devocional/[id].astro
-import Layout from "../../layouts/Layout.astro";
-import OpenBookIcon from "../../components/icons/OpenBookIcon.astro";
-import { ArrowLeft, ChevronDown, ChevronRight, ClipboardList } from "lucide-react";
-import { getDevotionalById, getDevotionals } from "../../helpers/notion";
+import Layout from "../../layouts/Layout.astro"
+import OpenBookIcon from "../../components/icons/OpenBookIcon.astro"
+import {
+  ArrowLeft,
+  ChevronDown,
+  ChevronRight,
+  ClipboardList,
+} from "lucide-react"
+import { getDevotionalById, getDevotionals } from "../../helpers/notion"
 
 type Devotional = {
-  id: string;
-  title: string;
-  date: string;
-  verse?: string;
-  content?: string;
-};
+  id: string
+  title: string
+  date: string
+  verse?: string
+  content?: string
+}
 
 type Step = {
-  title: string;
-  description: string;
-  bullets?: string[];
-};
+  title: string
+  description: string
+  bullets?: string[]
+}
 
 // Disable prerendering since we're fetching dynamic content from Notion
-export const prerender = false;
+export const prerender = false
 
-const { id } = Astro.params;
+const { id } = Astro.params
 
 // Get the devotional data and a small list of recent devotionals
 const [devotional, devotionals] = await Promise.all([
   getDevotionalById(id),
   getDevotionals(),
-]);
+])
 
 if (!devotional) {
-  return Astro.redirect("/devocional");
+  return Astro.redirect("/devocional")
 }
 
-const { title, content, explanation, verse, assets, date } = devotional;
+const { title, content, explanation, verse, assets, date } = devotional
 
 const formattedDate = new Date(date).toLocaleDateString("es-ES", {
   weekday: "long",
   year: "numeric",
   month: "long",
   day: "numeric",
-});
+})
 
 const recentDevotionals = (devotionals ?? [])
   .filter((item: Devotional) => item.id !== id)
-  .slice(0, 4);
+  .slice(0, 4)
 
 const steps: Step[] = [
   {
     title: "Prepárate para escuchar a Dios",
-    description: "Invita en oración la presencia de Dios y pídele que su verdad te sea revelada antes de leer.",
-    bullets: ["Respira profundo y aquieta tu mente.", "Pide que la lectura te muestre a Jesús y su voluntad."],
+    description:
+      "Invita en oración la presencia de Dios y pídele que su verdad te sea revelada antes de leer.",
+    bullets: [
+      "Respira profundo y aquieta tu mente.",
+      "Pide que la lectura te muestre a Jesús y su voluntad.",
+    ],
   },
   {
     title: "Lee y reflexiona en la Palabra",
-    description: "Lee despacio y en voz alta si puedes, dejando que el Espíritu Santo subraye lo que necesitas hoy.",
+    description:
+      "Lee despacio y en voz alta si puedes, dejando que el Espíritu Santo subraye lo que necesitas hoy.",
     bullets: [
       "¿Qué te muestra este pasaje sobre quién es Dios?",
       "¿Qué te dice sobre tus actitudes o decisiones?",
@@ -74,9 +84,13 @@ const steps: Step[] = [
   {
     title: "Aplica y registra",
     description: "Anota lo que Dios te habló y un paso concreto para hoy.",
-    bullets: ["¿Qué le habló Dios?", "¿Qué cambiará en tu perspectiva?", "¿Cómo lo aplicarás en tu día a día?"],
+    bullets: [
+      "¿Qué le habló Dios?",
+      "¿Qué cambiará en tu perspectiva?",
+      "¿Cómo lo aplicarás en tu día a día?",
+    ],
   },
-];
+]
 
 const prompts: string[] = [
   "¿Quién es Dios aquí? ¿Qué hace o promete?",
@@ -84,20 +98,29 @@ const prompts: string[] = [
   "¿Qué mandamiento debo obedecer hoy?",
   "¿Qué promesa puedo abrazar en este momento?",
   "¿Qué ejemplo me invita a seguir o evitar?",
-];
+]
 ---
 
 <Layout title={title}>
-  <section class="bg-black text-white relative">
+  <section class="bg-primary text-white relative">
     <div class="container mx-auto px-4 py-6 md:py-8">
-      <a href="/devocional" class="inline-flex items-center gap-2 text-white/80 hover:text-white transition-colors text-sm font-medium">
+      <a
+        href={"/devocional"}
+        class="inline-flex items-center gap-1 text-white/80 hover:text-white transition-colors text-sm font-medium mt-12">
         <ArrowLeft size={18} />
-        Volver a devocionales
+        Volver
       </a>
     </div>
-    <div class="min-h-[35vh] flex flex-col items-center justify-center text-center px-4">
-      <p class="text-xs uppercase tracking-[0.3em] text-white/70 font-semibold mb-3">Tiempo a solas con Dios</p>
-      <h1 class="text-3xl md:text-5xl font-bold leading-tight max-w-3xl" set:html={title} />
+    <div
+      class="min-h-[35vh] flex flex-col items-center justify-center text-center px-4">
+      <p
+        class="text-xs uppercase tracking-[0.3em] text-white/70 font-semibold mb-3">
+        Tiempo a solas con Dios
+      </p>
+      <h1
+        class="text-3xl md:text-5xl font-bold leading-tight max-w-3xl"
+        set:html={title}
+      />
       <p class="mt-4 text-sm md:text-base text-white/70 capitalize">
         {formattedDate}
       </p>
@@ -105,24 +128,40 @@ const prompts: string[] = [
   </section>
 
   <main class="container mx-auto px-4 pb-16 space-y-12 md:space-y-16 mt-4">
-    <article class="max-w-4xl mx-auto bg-white border border-gray-200 rounded-3xl shadow-sm px-6 md:px-10 py-8 md:py-10 space-y-8">
+    <article
+      class="max-w-4xl mx-auto bg-white border border-gray-200 rounded-3xl shadow-sm px-6 md:px-10 py-8 md:py-10 space-y-8">
+      <!-- ADD VERSES EG: Mateo 2:19-21 -->
+      {
+        content && (
+          <div
+            class="prose prose-lg max-w-none text-gray-800 leading-relaxed"
+            set:html={content}
+          />
+        )
+      }
 
-      {content && (
-        <div class="prose prose-lg max-w-none text-gray-800 leading-relaxed" set:html={content} />
-      )}
+      {
+        explanation && (
+          <div class="rounded-2xl bg-gray-50 px-5 py-4">
+            <p class="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-2 text-center">
+              Estimado lector
+            </p>
+            <div
+              class="prose prose-lg max-w-none text-gray-800 leading-relaxed"
+              set:html={explanation}
+            />
+          </div>
+        )
+      }
 
-      {explanation && (
-        <div class="rounded-2xl bg-gray-50 px-5 py-4">
-          <p class="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-2 text-center">Estimado lector</p>
-          <div class="prose prose-lg max-w-none text-gray-800 leading-relaxed" set:html={explanation} />
-        </div>
-      )}
-
-      <div class="rounded-2xl border border-blue-100 bg-blue-50 px-5 py-4">
+      <div class="rounded-2xl border border-primary/20 bg-primary/5 px-5 py-4">
         <div class="space-y-1">
-          <p class="text-sm font-semibold text-blue-800 text-center">Lleva la Palabra a tu día</p>
+          <p class="text-sm font-semibold text-primary text-center">
+            Lleva la Palabra a tu día
+          </p>
           <p class="text-sm text-gray-700">
-            Pregúntale al Señor cómo puedes vivir esto hoy: en tu trabajo, en tu familia, en tu forma de servir y amar.
+            Pregúntale al Señor cómo puedes vivir esto hoy: en tu trabajo, en tu
+            familia, en tu forma de servir y amar.
           </p>
         </div>
       </div>
@@ -130,94 +169,138 @@ const prompts: string[] = [
 
     <section class="max-w-5xl mx-auto">
       <div class="flex items-center gap-3 mb-4">
-        <ClipboardList size={20} className="text-blue-800" />
+        <ClipboardList size={20} className="text-primary" />
         <div>
-          <p class="text-xs uppercase tracking-[0.2em] text-blue-700 font-semibold">Guía diaria</p>
-          <h2 class="text-2xl font-bold text-gray-900 font-bebas">4 pasos para tu tiempo con Dios</h2>
+          <p
+            class="text-xs uppercase tracking-[0.2em] text-primary/90 font-semibold">
+            Guía diaria
+          </p>
+          <h2 class="text-2xl font-bold text-gray-900 font-bebas">
+            4 pasos para tu tiempo con Dios
+          </h2>
         </div>
       </div>
       <div class="grid lg:grid-cols-[1.2fr_0.8fr] gap-8">
         <div class="space-y-3">
-          {steps.map((step: Step, index: number) => (
-            <details class="group border border-gray-200 rounded-2xl bg-white px-4 md:px-5 py-4 transition-shadow hover:shadow-sm">
-              <summary class="flex items-center justify-between gap-4 cursor-pointer list-none">
-                <div class="flex items-center gap-3">
-                  <div class="h-9 w-9 rounded-full bg-blue-50 text-blue-800 flex items-center justify-center font-semibold">{index + 1}</div>
-                  <div>
-                    <p class="text-[11px] uppercase tracking-[0.2em] text-blue-700 font-semibold">Paso {index + 1}</p>
-                    <h3 class="text-lg font-semibold text-gray-900">{step.title}</h3>
+          {
+            steps.map((step: Step, index: number) => (
+              <details class="group border border-gray-200 rounded-2xl bg-white px-4 md:px-5 py-4 transition-shadow hover:shadow-sm">
+                <summary class="flex items-center justify-between gap-4 cursor-pointer list-none">
+                  <div class="flex items-center gap-3">
+                    <div class="h-9 w-9 rounded-full bg-primary/5 text-primary flex items-center justify-center font-semibold">
+                      {index + 1}
+                    </div>
+                    <div>
+                      <p class="text-[11px] uppercase tracking-[0.2em] text-primary/90 font-semibold">
+                        Paso {index + 1}
+                      </p>
+                      <h3 class="text-lg font-semibold text-gray-900">
+                        {step.title}
+                      </h3>
+                    </div>
                   </div>
+                  <ChevronDown
+                    size={18}
+                    className="text-gray-500 transition-transform duration-200 group-open:rotate-180"
+                  />
+                </summary>
+                <div class="mt-3 text-gray-700 leading-relaxed space-y-2">
+                  <p>{step.description}</p>
+                  {step.bullets && (
+                    <ul class="list-disc list-inside space-y-1 text-gray-700">
+                      {step.bullets.map((item: string) => (
+                        <li>{item}</li>
+                      ))}
+                    </ul>
+                  )}
                 </div>
-                <ChevronDown size={18} className="text-gray-500 transition-transform duration-200 group-open:rotate-180" />
-              </summary>
-              <div class="mt-3 text-gray-700 leading-relaxed space-y-2">
-                <p>{step.description}</p>
-                {step.bullets && (
-                  <ul class="list-disc list-inside space-y-1 text-gray-700">
-                    {step.bullets.map((item: string) => (
-                      <li>{item}</li>
-                    ))}
-                  </ul>
-                )}
-              </div>
-            </details>
-          ))}
+              </details>
+            ))
+          }
         </div>
 
         <div class="space-y-4">
-          <div class="rounded-2xl border border-blue-100 bg-blue-50 px-5 py-4">
-            <p class="text-sm font-semibold text-blue-800 mb-1">Preguntas que ayudan</p>
-            <p class="text-sm text-gray-700 mb-3">Usa estas preguntas mientras lees para ir más profundo.</p>
+          <div class="rounded-2xl border border-primary/20 bg-primary/5 px-5 py-4">
+            <p class="text-sm font-semibold text-primary mb-1">
+              Preguntas que ayudan
+            </p>
+            <p class="text-sm text-gray-700 mb-3">
+              Usa estas preguntas mientras lees para ir más profundo.
+            </p>
             <ul class="space-y-2 text-gray-800 text-sm">
-              {prompts.map((prompt: string) => (
-                <li class="flex items-start gap-2">
-                  <span class="mt-1 h-2 w-2 rounded-full bg-blue-700" />
-                  <span>{prompt}</span>
-                </li>
-              ))}
+              {
+                prompts.map((prompt: string) => (
+                  <li class="flex items-start gap-2">
+                    <span class="mt-1 h-2 w-2 rounded-full bg-primary/90" />
+                    <span>{prompt}</span>
+                  </li>
+                ))
+              }
             </ul>
           </div>
-          <div class="rounded-2xl border border-gray-200 bg-white px-5 py-4 flex gap-3">
+          <div
+            class="rounded-2xl border border-gray-200 bg-white px-5 py-4 flex gap-3">
             <div class="space-y-1">
-              <p class="text-sm font-semibold text-gray-900">Registra lo que Dios te habló</p>
-              <p class="text-sm text-gray-700">Guarda tus notas en un cuaderno o en tu app favorita. Eso hará que puedas volver a ellas y compartirlas con alguien más.</p>
+              <p class="text-sm font-semibold text-gray-900">
+                Registra lo que Dios te habló
+              </p>
+              <p class="text-sm text-gray-700">
+                Guarda tus notas en un cuaderno o en tu app favorita. Eso hará
+                que puedas volver a ellas y compartirlas con alguien más.
+              </p>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    {recentDevotionals.length > 0 && (
-      <section class="max-w-5xl mx-auto">
-        <div class="flex items-center gap-3 mb-6">
-          <OpenBookIcon size={24} />
-          <h2 class="text-2xl font-bold text-gray-900 text-center leading-tight font-bebas">Devocionales recientes</h2>
-        </div>
-        <div class="grid gap-4 md:grid-cols-3">
-          {recentDevotionals.map((item: Devotional) => (
-            <a
-              href={`/devocional/${item.id}`}
-              class="group block rounded-2xl border border-gray-200 bg-white p-5 hover:border-blue-500 hover:shadow-md transition-all"
-            >
-              <p class="text-xs uppercase tracking-[0.2em] text-blue-700 font-semibold mb-2">Devocional</p>
-              <h3 class="text-lg font-semibold text-gray-900 mb-2 group-hover:text-blue-800 transition-colors" set:html={item.title} />
-              <p class="text-sm text-gray-500 mb-3 capitalize">
-                {new Date(item.date).toLocaleDateString("es-ES", {
-                  weekday: "short",
-                  year: "numeric",
-                  month: "short",
-                  day: "numeric",
-                })}
-              </p>
-              {item.verse && <p class="text-sm text-gray-700 line-clamp-2 mb-4" set:html={item.verse} />}
-              <div class="inline-flex items-center gap-2 text-blue-800 font-semibold text-sm">
-                Leer devocional
-                <ChevronRight size={16} className="transition-transform group-hover:translate-x-1" />
-              </div>
-            </a>
-          ))}
-        </div>
-      </section>
-    )}
+    {
+      recentDevotionals.length > 0 && (
+        <section class="max-w-5xl mx-auto">
+          <div class="flex items-center gap-3 mb-6">
+            <OpenBookIcon size={24} />
+            <h2 class="text-2xl font-bold text-gray-900 text-center leading-tight font-bebas">
+              Devocionales recientes
+            </h2>
+          </div>
+          <div class="grid gap-4 md:grid-cols-3">
+            {recentDevotionals.map((item: Devotional) => (
+              <a
+                href={`/devocional/${item.id}`}
+                class="group block rounded-2xl border border-gray-200 bg-white p-5 hover:border-primary hover:shadow-md transition-all">
+                <p class="text-xs uppercase tracking-[0.2em] text-primary/90 font-semibold mb-2">
+                  Devocional
+                </p>
+                <h3
+                  class="text-lg font-semibold text-gray-900 mb-2 group-hover:text-primary transition-colors"
+                  set:html={item.title}
+                />
+                <p class="text-sm text-gray-500 mb-3 capitalize">
+                  {new Date(item.date).toLocaleDateString("es-ES", {
+                    weekday: "short",
+                    year: "numeric",
+                    month: "short",
+                    day: "numeric",
+                  })}
+                </p>
+                {item.verse && (
+                  <p
+                    class="text-sm text-gray-700 line-clamp-2 mb-4"
+                    set:html={item.verse}
+                  />
+                )}
+                <div class="inline-flex items-center gap-2 text-primary font-semibold text-sm">
+                  Leer devocional
+                  <ChevronRight
+                    size={16}
+                    className="transition-transform group-hover:translate-x-1"
+                  />
+                </div>
+              </a>
+            ))}
+          </div>
+        </section>
+      )
+    }
   </main>
 </Layout>

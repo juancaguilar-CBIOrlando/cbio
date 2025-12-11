@@ -61,11 +61,11 @@ export async function getTodaysDevotional() {
 // Get all devotionals from the last 2 weeks
 export async function getDevotionals() {
   const today = new Date();
-  const twoWeeksAgo = new Date(today);
-  twoWeeksAgo.setDate(today.getDate() - 14);
+  const sevenDaysAgo = new Date(today);
+  sevenDaysAgo.setDate(today.getDate() - 7);
   
   const todayISO = today.toISOString().split("T")[0];
-  const twoWeeksAgoISO = twoWeeksAgo.toISOString().split("T")[0];
+  const sevenDaysAgoISO = sevenDaysAgo.toISOString().split("T")[0];
 
   const response = await fetch(`https://api.notion.com/v1/databases/${NOTION_DATABASE_ID}/query`, {
     method: "POST",
@@ -79,7 +79,7 @@ export async function getDevotionals() {
         and: [
           {
             property: "Date",
-            date: { on_or_after: twoWeeksAgoISO }
+            date: { on_or_after: sevenDaysAgoISO }
           },
           {
             property: "Date",
