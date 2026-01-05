@@ -16,6 +16,7 @@ type Devotional = {
   date: string
   verse?: string
   content?: string
+  assets?: string | string[]
 }
 
 type Step = {
@@ -40,6 +41,36 @@ if (!devotional) {
 }
 
 const { title, content, explanation, verse, assets, date } = devotional
+
+const assetUrl =
+  typeof assets === "string"
+    ? assets
+    : Array.isArray(assets)
+      ? assets[0]
+      : undefined
+
+function toYouTubeEmbedUrl(rawUrl: string): string | null {
+  // Supports:
+  // - https://youtu.be/:id
+  // - https://www.youtube.com/watch?v=:id
+  // - https://www.youtube.com/embed/:id
+  const patterns = [
+    /youtu\.be\/([^?&#/]+)/i,
+    /youtube\.com\/watch\?v=([^?&#/]+)/i,
+    /youtube\.com\/embed\/([^?&#/]+)/i,
+  ]
+
+  for (const regex of patterns) {
+    const match = rawUrl.match(regex)
+    if (match?.[1]) {
+      return `https://www.youtube-nocookie.com/embed/${match[1]}?rel=0`
+    }
+  }
+
+  return null
+}
+
+const youTubeEmbedUrl = assetUrl ? toYouTubeEmbedUrl(assetUrl) : null
 
 const formattedDate = new Date(date).toLocaleDateString("es-ES", {
   weekday: "long",
@@ -137,10 +168,35 @@ const prompts: string[] = [
             class="prose prose-lg max-w-none text-gray-800 leading-relaxed"
             set:html={content}
           />
-          <p class="text-sm text-gray-600 text-center -mt-4 font-bold" set:html={verse} />
+          <p class="text-sm text-gray-600 text-center -mt-6 font-bold" set:html={verse} />
         )
       }
-
+      {
+        assetUrl &&
+          (youTubeEmbedUrl ? (
+            <div class="w-full overflow-hidden rounded-2xl border border-gray-200 bg-black">
+              <div class="relative w-full" style="padding-top: 56.25%;">
+                <iframe
+                  class="absolute inset-0 h-full w-full"
+                  src={youTubeEmbedUrl}
+                  title="Video devocional"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowfullscreen
+                  loading="lazy"
+                  referrerpolicy="strict-origin-when-cross-origin"
+                />
+              </div>
+            </div>
+          ) : (
+            <video
+              src={assetUrl}
+              class="w-full h-full object-cover rounded-2xl border border-gray-200"
+              playsinline
+              preload="metadata"
+              controls
+            />
+          ))
+      }
       {
         explanation && (
           <div class="rounded-2xl bg-gray-50 px-5 py-4">
