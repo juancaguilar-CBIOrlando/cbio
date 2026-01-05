@@ -87,15 +87,15 @@ const slides: Slide[] = [
             ) : (
               <video
                 src={slide.videoUrl}
-                class="w-full h-full object-cover"
-                autoplay="true"
-                muted="true"
-                loop="true"
-                playsinline="true"
+                class="w-full h-full object-cover pointer-events-none"
+                autoplay
+                muted
+                loop
+                playsinline
                 preload="auto"
-                controls="false"
-                disableRemotePlayback="true"
-                disablepictureinpicture="true"
+                tabindex="-1"
+                disableRemotePlayback
+                disablepictureinpicture
               />
             )}
             <div class="absolute inset-0 z-20 flex flex-col items-center justify-center text-white p-4 text-center gap-y-16">
