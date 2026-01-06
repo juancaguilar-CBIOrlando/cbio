@@ -1,5 +1,6 @@
 ---
 import PlayIcon from "../icons/PlayIcon.astro"
+import { Play } from "lucide-react"
 
 interface Props {
   sermon: {
@@ -24,17 +25,20 @@ const { sermon } = Astro.props
     />
     <div
       class="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center">
-      <button class="bg-primary text-white p-3 rounded-full hover:bg-primary/90">
-        <PlayIcon size={24} />
+      <button class="bg-accent/95 text-white p-3 rounded-full hover:bg-accent/90">
+        <Play size={24} />
       </button>
     </div>
   </div>
   <div class="p-6">
-    <h3 class="font-bold text-xl mb-2">{sermon.title}</h3>
-    <p class="text-gray-600">{sermon.speaker}</p>
+    <div class="flex items-center justify-between gap-2"> 
+      <h3 class="font-bold text-xl text-gray-900 font-bebas tracking-wide">{sermon.title}</h3>
+      <p class="text-gray-600 text-xs uppercase font-semibold tracking-wide">{sermon.speaker}</p>
+    </div>
     <div class="flex justify-between items-center mt-4 text-sm text-gray-500">
       <span>{sermon.date}</span>
-      <span>{sermon.duration}</span>
+        <span>{sermon.duration}</span>
+      </div>
     </div>
   </div>
 </div>
