@@ -9,8 +9,8 @@ const { variant = 'subtitle', class: className = '', as: Tag = 'span' } = Astro.
 
 const baseStyles = 'uppercase';
 const variantStyles: Record<'title' | 'subtitle', string> = {
-  title: 'font-bold text-md text-gray-900',
-  subtitle: 'text-xs text-gray-600',
+  title: 'font-bold text-sm text-gray-900',
+  subtitle: 'text-xs text-gray-600 px-2',
 };
 
 const classes = `${baseStyles} ${variantStyles[variant as keyof typeof variantStyles]} ${className}`.trim();

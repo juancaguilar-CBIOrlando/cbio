@@ -1,0 +1,558 @@
+---
+import Layout from "../layouts/Layout.astro"
+import { Shield, Heart, BookOpen, Users, Sparkles, CheckCircle, ArrowRight } from "@lucide/astro"
+---
+
+<Layout title="CBI Kids - Centro Bíblico Internacional">
+  <!-- Hero Section -->
+  <section class="relative min-h-[100vh] flex items-center justify-center overflow-hidden">
+    <!-- Background Image with Overlay -->
+    <div class="absolute inset-0 z-0">
+      <img 
+        src="https://images.unsplash.com/photo-1587654780291-39c9404d746b?q=80&w=2070&auto=format&fit=crop"
+        alt="Niños felices en la iglesia"
+        class="w-full h-full object-cover blur-sm"
+      />
+    </div>
+    
+    <!-- Hero Content -->
+    <div class="relative z-20 container mx-auto px-4 text-center">      
+      <h1 class="text-5xl md:text-7xl lg:text-8xl font-bold text-white leading-tight animate-fade-in-up" style="font-family: 'Bebas Neue', sans-serif; letter-spacing: 0.02em;">
+        CBI <span class="text-primary">KIDS</span>
+      </h1>
+      
+      <p class="text-xl md:text-2xl text-white/90 max-w-3xl mx-auto mb-8 leading-relaxed animate-fade-in-up" style="animation-delay: 0.2s;">
+        Un lugar <strong class="text-primary">seguro</strong>, <strong class="text-yellow-400">divertido</strong> y <strong class="text-white">lleno de amor</strong> donde tus hijos descubren el amor de Dios y crecen en fe.
+      </p>
+      
+      <!-- Trust Badges -->
+      <div class="flex flex-wrap justify-center gap-4 mb-10 animate-fade-in-up" style="animation-delay: 0.4s;">
+        <div class="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full">
+          <Shield class="w-5 h-5 text-primary" />
+          <span class="text-white text-sm">100% Seguro</span>
+        </div>
+        <div class="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full">
+          <Users class="w-5 h-5 text-yellow-400" />
+          <span class="text-white text-sm">Personal Capacitado</span>
+        </div>
+        <div class="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full">
+          <BookOpen class="w-5 h-5 text-primary" />
+          <span class="text-white text-sm">Enseñanza Bíblica</span>
+        </div>
+      </div>
+  
+      <!-- <a 
+        href="#primera-visita" 
+        class="inline-flex items-center gap-2 bg-primary text-white px-4 py-2 rounded-full font-semibold text-md transition-all duration-300 hover:scale-105 animate-fade-in-up"
+        style="animation-delay: 0.6s;"
+      >
+        Pre-Registrar Mi Hijo
+        <ArrowRight class="w-4 h-4" />
+      </a> -->
+    </div>
+  </section>
+
+    <!-- What We Teach Section -->
+    <section class="relative overflow-hidden">
+      <!-- Mobile Layout: Image as background with overlay content -->
+      <div class="lg:hidden relative min-h-[500px]">
+        <!-- Background Image -->
+        <div class="absolute inset-0">
+          <img 
+            src="https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?q=80&w=1972&auto=format&fit=crop"
+            alt="Niños aprendiendo"
+            class="w-full h-full object-cover"
+          />
+          <div class="absolute inset-0 bg-accent/85"></div>
+        </div>
+        
+        <!-- Content Overlay -->
+        <div class="relative z-10 px-4 py-12 flex flex-col justify-center min-h-[500px]">
+          <h2 class="text-3xl sm:text-4xl font-bold mb-4 font-bebas text-center text-white underline decoration-primary">
+            Pequeños Discípulos
+          </h2>
+          <p class="text-white/80 text-base mb-4 leading-relaxed text-center">
+            Nuestro currículo está diseñado para enseñar verdades bíblicas de manera relevante y memorable.
+          </p>
+          
+          <ul class="space-y-3 max-w-md mx-auto">
+            <li class="flex items-start gap-3">
+              <CheckCircle class="w-5 h-5 text-primary shrink-0 mt-0.5" />
+              <span class="text-white/90 text-sm">Lecciones bíblicas adaptadas por edad</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <CheckCircle class="w-5 h-5 text-primary shrink-0 mt-0.5" />
+              <span class="text-white/90 text-sm">Adoración con música y movimiento</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <CheckCircle class="w-5 h-5 text-primary shrink-0 mt-0.5" />
+              <span class="text-white/90 text-sm">Actividades creativas y manualidades</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <CheckCircle class="w-5 h-5 text-primary shrink-0 mt-0.5" />
+              <span class="text-white/90 text-sm">Juegos que refuerzan el aprendizaje</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+      
+      <!-- Desktop Layout: Side by side -->
+      <div class="hidden lg:block py-20 bg-accent text-white">
+        <div class="absolute inset-0 opacity-10">
+          <div class="absolute top-10 left-10 w-64 h-64 border border-white/20 rounded-full"></div>
+          <div class="absolute bottom-10 right-10 w-96 h-96 border border-white/20 rounded-full"></div>
+        </div>
+        
+        <div class="container mx-auto px-4 relative z-10">
+          <div class="grid grid-cols-2 gap-16 items-center">
+            <div>
+              <h2 class="text-4xl xl:text-5xl font-bold mb-6 font-bebas text-center underline decoration-primary">
+                Pequeños Discípulos
+              </h2>
+              <p class="text-white/80 text-lg mb-4 leading-relaxed">
+                Nuestro currículo está diseñado para enseñar verdades bíblicas de manera relevante y memorable.
+              </p>
+              
+              <ul class="space-y-4">
+                <li class="flex items-start gap-3">
+                  <CheckCircle class="w-6 h-6 text-primary shrink-0 mt-0.5" />
+                  <span class="text-white/90">Lecciones bíblicas adaptadas por edad</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <CheckCircle class="w-6 h-6 text-primary shrink-0 mt-0.5" />
+                  <span class="text-white/90">Adoración con música y movimiento</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <CheckCircle class="w-6 h-6 text-primary shrink-0 mt-0.5" />
+                  <span class="text-white/90">Actividades creativas y manualidades</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <CheckCircle class="w-6 h-6 text-primary shrink-0 mt-0.5" />
+                  <span class="text-white/90">Juegos que refuerzan el aprendizaje</span>
+                </li>
+              </ul>
+            </div>
+            
+            <div class="relative">
+              <div class="absolute -inset-4 bg-primary/20 rounded-3xl blur-2xl"></div>
+              <img 
+                src="https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?q=80&w=1972&auto=format&fit=crop"
+                alt="Niños aprendiendo"
+                class="relative rounded-3xl shadow-2xl w-full h-auto object-cover aspect-4/3"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  
+  <!-- Safety & Security Section -->
+  <section class="py-20 bg-slate-50 relative overflow-hidden">
+    <div class="absolute top-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+    
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-16">
+        <span class="inline-block bg-primary/10 text-primary px-4 py-1 rounded-full text-sm font-semibold mb-4">
+          SEGURIDAD PRIMERO
+        </span>
+        <h2 class="text-4xl md:text-5xl font-bold text-accent mb-4" style="font-family: 'Bebas Neue', sans-serif;">
+          La Seguridad de Tus Hijos es Nuestra Prioridad
+        </h2>
+        <p class="text-gray-600 max-w-2xl mx-auto text-lg">
+          Entendemos que confiar a tus hijos es una gran responsabilidad. Por eso, hemos implementado las más altas medidas de seguridad.
+        </p>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Security Card 1 -->
+        <div class="security-card group bg-white rounded-2xl p-8 shadow-lg shadow-gray-200/50 hover:shadow-xl hover:shadow-primary/10 transition-all duration-300 hover:-translate-y-1 border border-gray-100">
+          <div class="w-16 h-16 bg-linear-to-br from-primary to-primary/70 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+            <Shield class="w-8 h-8 text-white" />
+          </div>
+          <h3 class="text-xl font-bold text-accent mb-3">Check-In Seguro</h3>
+          <p class="text-gray-600 leading-relaxed">
+            Sistema de check-in digital con código único para padres e hijos.
+          </p>
+        </div>
+        
+        <!-- Security Card 2 -->
+        <div class="security-card group bg-white rounded-2xl p-8 shadow-lg shadow-gray-200/50 hover:shadow-xl hover:shadow-primary/10 transition-all duration-300 hover:-translate-y-1 border border-gray-100" style="animation-delay: 0.1s;">
+          <div class="w-16 h-16 bg-linear-to-br from-accent to-accent/70 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+            <Users class="w-8 h-8 text-white" />
+          </div>
+          <h3 class="text-xl font-bold text-accent mb-3">Personal Verificado</h3>
+          <p class="text-gray-600 leading-relaxed">
+            Equipo verificado y capacitado para brindar un ambiente seguro y acogedor.
+          </p>
+        </div>
+        
+        <!-- Security Card 3 -->
+        <div class="security-card group bg-white rounded-2xl p-8 shadow-lg shadow-gray-200/50 hover:shadow-xl hover:shadow-primary/10 transition-all duration-300 hover:-translate-y-1 border border-gray-100" style="animation-delay: 0.2s;">
+          <div class="w-16 h-16 bg-linear-to-br from-yellow-500 to-yellow-400 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+            <Heart class="w-8 h-8 text-white" />
+          </div>
+          <h3 class="text-xl font-bold text-accent mb-3">Ambiente Seguro</h3>
+          <p class="text-gray-600 leading-relaxed">
+            Áreas limpias, seguras y diseñadas para diferentes edades.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Age Groups Section -->
+  <section class="py-20 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-16">
+        <span class="inline-block bg-accent/10 text-accent px-4 py-1 rounded-full text-sm font-semibold mb-4">
+          GRUPOS POR EDAD
+        </span>
+        <h2 class="text-4xl md:text-5xl font-bold text-accent mb-4" style="font-family: 'Bebas Neue', sans-serif;">
+          Un Lugar Para Cada Niño
+        </h2>
+        <p class="text-gray-600 max-w-2xl mx-auto text-lg">
+          Tenemos programas diseñados específicamente para cada etapa del desarrollo de tu hijo.
+        </p>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Nursery -->
+        <div class="age-card group relative bg-linear-to-br from-pink-50 to-pink-100/50 rounded-3xl p-8 overflow-hidden hover:shadow-xl transition-all duration-300">
+          <div class="absolute top-0 right-0 w-32 h-32 bg-pink-200/30 rounded-full blur-2xl"></div>
+          <div class="relative z-10">
+            <div class="text-6xl mb-4">👶</div>
+            <h3 class="text-2xl font-bold text-accent mb-2" style="font-family: 'Bebas Neue', sans-serif;">Cuneros</h3>
+            <p class="text-gray-600 mb-4">18 meses - 2 años</p>
+            <p class="text-gray-700 leading-relaxed">
+              Un espacio amoroso y seguro donde los más pequeños reciben cuidado mientras los padres disfrutan del servicio.
+            </p>
+          </div>
+        </div>
+        
+        <!-- Toddlers -->
+        <div class="age-card group relative bg-linear-to-br from-blue-50 to-blue-100/50 rounded-3xl p-8 overflow-hidden hover:shadow-xl transition-all duration-300">
+          <div class="absolute top-0 right-0 w-32 h-32 bg-blue-200/30 rounded-full blur-2xl"></div>
+          <div class="relative z-10">
+            <div class="text-6xl mb-4">🧒</div>
+            <h3 class="text-2xl font-bold text-accent mb-2" style="font-family: 'Bebas Neue', sans-serif;">Exploradores</h3>
+            <p class="text-gray-600 mb-4">3 - 5 años</p>
+            <p class="text-gray-700 leading-relaxed">
+              Aprendizaje interactivo con historias bíblicas, canciones, y actividades sensoriales que despiertan la curiosidad.
+            </p>
+          </div>
+        </div>
+        
+        <!-- Elementary -->
+        <div class="age-card group relative bg-linear-to-br from-green-50 to-green-100/50 rounded-3xl p-8 overflow-hidden hover:shadow-xl transition-all duration-300">
+          <div class="absolute top-0 right-0 w-32 h-32 bg-green-200/30 rounded-full blur-2xl"></div>
+          <div class="relative z-10">
+            <div class="text-6xl mb-4">🌟</div>
+            <h3 class="text-2xl font-bold text-accent mb-2" style="font-family: 'Bebas Neue', sans-serif;">Conquistadores</h3>
+            <p class="text-gray-600 mb-4">6 - 12 años</p>
+            <p class="text-gray-700 leading-relaxed">
+              Enseñanza profunda con discusiones, juegos de equipo, y proyectos que desarrollan liderazgo y carácter cristiano.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery Section -->
+  <section class="py-20 bg-slate-50">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-16">
+        <span class="inline-block bg-primary/10 text-primary px-4 py-1 rounded-full text-sm font-semibold mb-4">
+          MOMENTOS ESPECIALES
+        </span>
+        <h2 class="text-4xl md:text-5xl font-bold text-accent mb-4" style="font-family: 'Bebas Neue', sans-serif;">
+          La Diversión es Parte del Aprendizaje
+        </h2>
+        <p class="text-gray-600 max-w-2xl mx-auto text-lg">
+          Cada domingo es una nueva aventura donde los niños crean recuerdos mientras aprenden sobre Jesús.
+        </p>
+      </div>
+      
+      <!-- Bento Grid Gallery -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 auto-rows-[200px]">
+        <div class="gallery-item relative rounded-2xl overflow-hidden md:col-span-2 md:row-span-2 group">
+          <img 
+            src="https://images.unsplash.com/photo-1560419015-7c427e8ae5ba?q=80&w=2070&auto=format&fit=crop"
+            alt="Niños en adoración"
+            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+          />
+          <div class="absolute inset-0 bg-linear-to-t from-black/60 to-transparent opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4 md:p-6">
+            <span class="text-white font-semibold text-sm md:text-base">Adoración</span>
+          </div>
+        </div>
+        
+        <div class="gallery-item relative rounded-2xl overflow-hidden group">
+          <img 
+            src="https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?q=80&w=1972&auto=format&fit=crop"
+            alt="Manualidades"
+            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+          />
+          <div class="absolute inset-0 bg-linear-to-t from-black/60 to-transparent opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+            <span class="text-white font-semibold text-sm">Manualidades</span>
+          </div>
+        </div>
+        
+        <div class="gallery-item relative rounded-2xl overflow-hidden group">
+          <img 
+            src="https://images.unsplash.com/photo-1516627145497-ae6968895b74?q=80&w=2040&auto=format&fit=crop"
+            alt="Juegos"
+            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+          />
+          <div class="absolute inset-0 bg-linear-to-t from-black/60 to-transparent opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+            <span class="text-white font-semibold text-sm">Juegos</span>
+          </div>
+        </div>
+        
+        <div class="gallery-item relative rounded-2xl overflow-hidden group">
+          <img 
+            src="https://images.unsplash.com/photo-1602030028438-4cf153cbae9e?q=80&w=2070&auto=format&fit=crop"
+            alt="Aprendizaje Bíblico"
+            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+          />
+          <div class="absolute inset-0 bg-linear-to-t from-black/60 to-transparent opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+            <span class="text-white font-semibold text-sm">Lecciones</span>
+          </div>
+        </div>
+        
+        <div class="gallery-item relative rounded-2xl overflow-hidden group">
+          <img 
+            src="https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=2032&auto=format&fit=crop"
+            alt="Eventos especiales"
+            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+          />
+          <div class="absolute inset-0 bg-linear-to-t from-black/60 to-transparent opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+            <span class="text-white font-semibold text-sm">Eventos Especiales</span>
+          </div>
+        </div>
+        
+        <div class="gallery-item relative rounded-2xl overflow-hidden md:col-span-2 group">
+          <img 
+            src="https://images.unsplash.com/photo-1544776193-352d25ca82cd?q=80&w=2070&auto=format&fit=crop"
+            alt="Comunidad"
+            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+          />
+          <div class="absolute inset-0 bg-linear-to-t from-black/60 to-transparent opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4 md:p-6">
+            <span class="text-white font-semibold text-sm md:text-base">Comunidad</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- First Visit Section -->
+  <section id="primera-visita" class="py-20 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="max-w-4xl mx-auto">
+        <div class="text-center mb-12">
+          <span class="inline-block bg-yellow-100 text-yellow-700 px-4 py-1 rounded-full text-sm font-semibold mb-4">
+            TU PRIMERA VISITA
+          </span>
+          <h2 class="text-4xl md:text-5xl font-bold text-accent mb-4" style="font-family: 'Bebas Neue', sans-serif;">
+            ¿Qué Esperar el Domingo?
+          </h2>
+          <p class="text-gray-600 text-lg">
+            Queremos que tu experiencia sea lo más fluida posible. Aquí te explicamos cómo funciona.
+          </p>
+        </div>
+        
+        <div class="grid gap-8">
+          <!-- Step 1 -->
+          <div class="visit-step flex gap-6 items-start bg-slate-50 rounded-2xl p-6 md:p-8 border border-slate-100">
+            <div class="shrink-0 w-12 h-12 bg-primary text-white rounded-full flex items-center justify-center font-bold text-xl">
+              1
+            </div>
+            <div>
+              <h3 class="text-xl font-bold text-accent mb-2">Llega al Área de Check-In</h3>
+              <p class="text-gray-600 leading-relaxed">
+                Al llegar, dirígete al área de CBI Kids donde nuestro equipo te dará la bienvenida. Te ayudaremos con el proceso de registro si es tu primera vez.
+              </p>
+            </div>
+          </div>
+          
+          <!-- Step 2 -->
+          <div class="visit-step flex gap-6 items-start bg-slate-50 rounded-2xl p-6 md:p-8 border border-slate-100">
+            <div class="shrink-0 w-12 h-12 bg-accent text-white rounded-full flex items-center justify-center font-bold text-xl">
+              2
+            </div>
+            <div>
+              <h3 class="text-xl font-bold text-accent mb-2">Registra a Tu Hijo</h3>
+              <p class="text-gray-600 leading-relaxed">
+                Completarás un breve formulario con información importante como alergias, contactos de emergencia y necesidades especiales. Recibirás un código único.
+              </p>
+            </div>
+          </div>
+          
+          <!-- Step 3 -->
+          <div class="visit-step flex gap-6 items-start bg-slate-50 rounded-2xl p-6 md:p-8 border border-slate-100">
+            <div class="shrink-0 w-12 h-12 bg-yellow-500 text-white rounded-full flex items-center justify-center font-bold text-xl">
+              3
+            </div>
+            <div>
+              <h3 class="text-xl font-bold text-accent mb-2">Disfruta del Servicio</h3>
+              <p class="text-gray-600 leading-relaxed">
+                Mientras tu hijo disfruta de una experiencia increíble en CBI Kids, tú puedes concentrarte en el servicio principal. Si te necesitamos, te enviaremos un mensaje de texto.
+              </p>
+            </div>
+          </div>
+          
+          <!-- Step 4 -->
+          <div class="visit-step flex gap-6 items-start bg-slate-50 rounded-2xl p-6 md:p-8 border border-slate-100">
+            <div class="shrink-0 w-12 h-12 bg-primary text-white rounded-full flex items-center justify-center font-bold text-xl">
+              4
+            </div>
+            <div>
+              <h3 class="text-xl font-bold text-accent mb-2">Recoge a Tu Hijo</h3>
+              <p class="text-gray-600 leading-relaxed">
+                Al terminar el servicio, presenta tu código de seguridad en el área de check-out. Solo los adultos con el código pueden recoger al niño.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="py-20 bg-linear-to-br from-primary via-primary to-accent relative overflow-hidden">
+    <div class="absolute inset-0 opacity-10">
+      <svg class="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+        <pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse">
+          <path d="M 10 0 L 0 0 0 10" fill="none" stroke="white" stroke-width="0.5"/>
+        </pattern>
+        <rect width="100" height="100" fill="url(#grid)"/>
+      </svg>
+    </div>
+    
+    <div class="container mx-auto px-4 relative z-10">
+      <div class="max-w-3xl mx-auto text-center text-white">
+        <h2 class="text-4xl md:text-5xl font-bold mb-6" style="font-family: 'Bebas Neue', sans-serif;">
+          ¿Listo Para Que Tu Hijo Viva Una Experiencia Increíble?
+        </h2>
+        <p class="text-white/90 text-lg mb-8 leading-relaxed">
+          Pre-registra a tu hijo hoy y ahorra tiempo el domingo. Nuestro equipo estará esperando para darles la bienvenida.
+        </p>
+        
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a 
+            href="#" 
+            class="inline-flex items-center justify-center gap-2 bg-white text-accent px-8 py-4 rounded-full font-semibold text-lg transition-all duration-300 hover:scale-105 hover:shadow-lg"
+          >
+            Pre-Registrar Ahora
+            <ArrowRight class="w-5 h-5" />
+          </a>
+          <a 
+            href="/conectate" 
+            class="inline-flex items-center justify-center gap-2 bg-transparent border-2 border-white text-white px-8 py-4 rounded-full font-semibold text-lg transition-all duration-300 hover:bg-white hover:text-accent"
+          >
+            Contactar al Equipo
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Parent Testimonial/Quote -->
+  <section class="py-16 bg-slate-50">
+    <div class="container mx-auto px-4">
+      <div class="max-w-4xl mx-auto text-center">
+        <svg class="w-12 h-12 text-primary/30 mx-auto mb-6" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
+        </svg>
+        <blockquote class="text-lg md:text-xl text-accent font-medium mb-6 leading-relaxed">
+          "Mis hijos esperan con ansias el domingo para ir a CBI Kids. Sé que están seguros y aprendiendo sobre Jesús de una manera divertida."
+        </blockquote>
+        <cite class="text-gray-600 not-italic">— Familia García, miembros desde 2022</cite>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  /* Hero Animations */
+  @keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  
+  @keyframes fade-in-up {
+    from { 
+      opacity: 0; 
+      transform: translateY(20px);
+    }
+    to { 
+      opacity: 1; 
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes scroll-down {
+    0%, 100% { 
+      opacity: 0;
+      transform: translateY(-8px);
+    }
+    50% { 
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .animate-fade-in {
+    animation: fade-in 0.8s ease-out forwards;
+  }
+  
+  .animate-fade-in-up {
+    opacity: 0;
+    animation: fade-in-up 0.8s ease-out forwards;
+  }
+  
+  .animate-scroll-down {
+    animation: scroll-down 2s ease-in-out infinite;
+  }
+  
+  /* Card Animations */
+  .security-card {
+    opacity: 0;
+    animation: fade-in-up 0.6s ease-out forwards;
+  }
+  
+  .security-card:nth-child(1) { animation-delay: 0.1s; }
+  .security-card:nth-child(2) { animation-delay: 0.2s; }
+  .security-card:nth-child(3) { animation-delay: 0.3s; }
+  
+  .age-card {
+    opacity: 0;
+    animation: fade-in-up 0.6s ease-out forwards;
+  }
+  
+  .age-card:nth-child(1) { animation-delay: 0.1s; }
+  .age-card:nth-child(2) { animation-delay: 0.2s; }
+  .age-card:nth-child(3) { animation-delay: 0.3s; }
+  
+  .gallery-item {
+    opacity: 0;
+    animation: fade-in-up 0.5s ease-out forwards;
+  }
+  
+  .gallery-item:nth-child(1) { animation-delay: 0.05s; }
+  .gallery-item:nth-child(2) { animation-delay: 0.1s; }
+  .gallery-item:nth-child(3) { animation-delay: 0.15s; }
+  .gallery-item:nth-child(4) { animation-delay: 0.2s; }
+  .gallery-item:nth-child(5) { animation-delay: 0.25s; }
+  .gallery-item:nth-child(6) { animation-delay: 0.3s; }
+  
+  .visit-step {
+    opacity: 0;
+    animation: fade-in-up 0.6s ease-out forwards;
+  }
+  
+  .visit-step:nth-child(1) { animation-delay: 0.1s; }
+  .visit-step:nth-child(2) { animation-delay: 0.2s; }
+  .visit-step:nth-child(3) { animation-delay: 0.3s; }
+  .visit-step:nth-child(4) { animation-delay: 0.4s; }
+</style>
