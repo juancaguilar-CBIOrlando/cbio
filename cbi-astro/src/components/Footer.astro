@@ -146,21 +146,80 @@ const currentYear = new Date().getFullYear()
       <!-- Sedes CBI -->
       <div class="flex flex-col">
         <Text variant="title" as="h4" class="text-center">Sedes CBI</Text>
-        <div class="space-y-1 mx-auto">
-          <Text as="p" variant="subtitle" class="max-w-[200px] text-center"
-            >Barranquilla</Text
-          >
-          <Text as="p" variant="subtitle" class="max-w-[200px] text-center"
-            >Barcelona</Text
-          >
-          <Text as="p" variant="subtitle" class="max-w-[200px] text-center"
-            >New Jersey</Text
-          >
-          <Text as="p" variant="subtitle" class="max-w-[200px] text-center"
-            >St. Cloud</Text
-          >
-          <Text as="p" variant="subtitle" class="text-center">Más</Text>
-        </div>
+        <ul class="space-y-1 mx-auto">
+          <li>
+            <a
+              href="https://www.cbint.org"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-gray-700 hover:text-primary transition-colors inline-flex items-center gap-1 group">
+              <Text
+                as="span"
+                variant="subtitle"
+                class="max-w-[200px] text-center group-hover:text-primary"
+                >Barranquilla</Text
+              >
+            </a>
+          </li>
+
+          <li>
+            <a
+              href="https://www.facebook.com/CBIBCN"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-gray-700 hover:text-primary transition-colors inline-flex items-center gap-1 group">
+              <Text
+                as="span"
+                variant="subtitle"
+                class="max-w-[200px] text-center group-hover:text-primary"
+                >Barcelona</Text
+              >
+            </a>
+          </li>
+
+          <li>
+            <a
+              href="https://www.facebook.com/CbintNJ"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-gray-700 hover:text-primary transition-colors inline-flex items-center gap-1 group">
+              <Text
+                as="span"
+                variant="subtitle"
+                class="max-w-[200px] text-center group-hover:text-primary"
+                >New Jersey</Text
+              >
+            </a>
+          </li>
+
+          <li>
+            <a
+              href="https://www.facebook.com/cbistcloud"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-gray-700 hover:text-primary transition-colors inline-flex items-center gap-1 group">
+              <Text
+                as="span"
+                variant="subtitle"
+                class="max-w-[200px] text-center group-hover:text-primary"
+                >St. Cloud</Text
+              >
+            </a>
+          </li>
+
+          <li>
+            <a
+              href="/iglesias"
+              class="font-bold hover:text-primary transition-colors group">
+              <Text
+                as="p"
+                variant="subtitle"
+                class="uppercase tracking-wide group-hover:text-primary"
+                >Ver Todas</Text
+              >
+            </a>
+          </li>
+        </ul>
       </div>
     </div>
 
