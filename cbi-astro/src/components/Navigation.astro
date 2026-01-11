@@ -13,7 +13,7 @@ const routes: Route[] = [
   { name: 'Inicio', path: '/' },
   { name: 'CBI Kids', path: '/kids' },
   { name: 'Devocional', path: '/devocional' },
-  { name: 'Acerca de Nosotros', path: '/nosotros' },
+  { name: 'Nosotros', path: '/nosotros' },
   { 
     name: 'Next Steps', 
     children: [
@@ -27,11 +27,11 @@ const routes: Route[] = [
 ];
 ---
 
-<nav class="fixed top-0 left-0 w-full z-50 bg-transparent lg:bg-white/75 lg:backdrop-blur-xs px-4 sm:px-6 lg:px-8 lg:py-10 h-16 flex items-center justify-between">
+<nav class="absolute top-0 left-0 w-full z-50 bg-transparent px-4 sm:px-6 lg:px-8 lg:py-10 h-16 flex items-center justify-between">
   <div class="w-full flex items-center justify-between">
     <!-- Brand / Logo -->
-    <a href="/" class="inline-flex items-center h-16">
-      <img src="/mainLogoBlack.png" alt="CBI Orlando" class="h-18 w-auto" />
+    <a href="/" class="inline-flex items-center h-16 mt-4 lg:mt-0">
+      <img src="/mainlogoWhite.png" alt="CBI Orlando" class="h-18 w-auto" />
     </a>
 
     <!-- Desktop menu (show from large screens and up so tablets use mobile nav) -->
@@ -41,25 +41,26 @@ const routes: Route[] = [
           <!-- Desktop Dropdown -->
           <div class="relative" data-dropdown>
             <button
-              class="inline-flex items-center gap-1 font-bold px-4 py-2 transition-all duration-300 hover:text-gray-700 cursor-pointer"
+              class="inline-flex items-center gap-1 font-bold px-4 py-2 text-white transition-all duration-300 hover:text-white/80 cursor-pointer"
               data-dropdown-trigger
             >
               {route.name}
               <ChevronDownIcon 
                 size={18} 
+                color="white"
                 className="transition-transform duration-300" 
                 data-dropdown-icon
               />
             </button>
             <div 
-              class="absolute top-full left-0 mt-2 w-56 bg-white rounded-lg shadow-xl opacity-0 invisible transform -translate-y-2 transition-all duration-300 overflow-hidden"
+              class="absolute top-full left-0 mt-2 w-56 bg-primary rounded-lg shadow-xl opacity-0 invisible transform -translate-y-2 transition-all duration-300 overflow-hidden"
               data-dropdown-panel
             >
               <div class="py-2">
                 {route.children.map((child) => (
                   <a
                     href={child.path}
-                    class="block px-4 py-3 text-gray-800 font-medium hover:bg-gray-100 hover:text-[#b81516] transition-colors duration-200"
+                    class="block px-4 py-3 text-white font-medium hover:bg-white/20 transition-colors duration-200"
                   >
                     {child.name}
                   </a>
@@ -70,7 +71,7 @@ const routes: Route[] = [
         ) : (
           <a
             href={route.path}
-            class="inline-flex items-center font-bold px-4 py-2 transition-all duration-300 hover:text-gray-700"
+            class="inline-flex items-center font-bold px-4 py-2 text-white transition-all duration-300 hover:text-gray-700"
           >
             {route.name}
           </a>
@@ -177,58 +178,35 @@ const routes: Route[] = [
     }, 300);
   });
 
-  // Desktop Dropdown Logic
+  // Desktop Dropdown Logic (hover-based)
   const dropdowns = document.querySelectorAll('[data-dropdown]');
   
   dropdowns.forEach((dropdown) => {
-    const trigger = dropdown.querySelector('[data-dropdown-trigger]');
     const panel = dropdown.querySelector('[data-dropdown-panel]');
     const icon = dropdown.querySelector('[data-dropdown-icon]');
     
-    if (!trigger || !panel || !icon) return;
-    
-    let isOpen = false;
+    if (!panel || !icon) return;
     
     function openDropdown() {
-      isOpen = true;
       panel.classList.remove('opacity-0', 'invisible', '-translate-y-2');
       panel.classList.add('opacity-100', 'visible', 'translate-y-0');
       icon.style.transform = 'rotate(180deg)';
     }
     
     function closeDropdown() {
-      isOpen = false;
       panel.classList.add('opacity-0', 'invisible', '-translate-y-2');
       panel.classList.remove('opacity-100', 'visible', 'translate-y-0');
       icon.style.transform = 'rotate(0deg)';
     }
     
-    trigger.addEventListener('click', (e) => {
-      e.stopPropagation();
-      if (isOpen) {
-        closeDropdown();
-      } else {
-        // Close other dropdowns first
-        dropdowns.forEach((other) => {
-          if (other !== dropdown) {
-            const otherPanel = other.querySelector('[data-dropdown-panel]');
-            const otherIcon = other.querySelector('[data-dropdown-icon]');
-            if (otherPanel && otherIcon) {
-              otherPanel.classList.add('opacity-0', 'invisible', '-translate-y-2');
-              otherPanel.classList.remove('opacity-100', 'visible', 'translate-y-0');
-              otherIcon.style.transform = 'rotate(0deg)';
-            }
-          }
-        });
-        openDropdown();
-      }
+    // Open on hover
+    dropdown.addEventListener('mouseenter', () => {
+      openDropdown();
     });
     
-    // Close on click outside
-    document.addEventListener('click', (e) => {
-      if (isOpen && !dropdown.contains(e.target)) {
-        closeDropdown();
-      }
+    // Close when mouse leaves
+    dropdown.addEventListener('mouseleave', () => {
+      closeDropdown();
     });
   });
 
@@ -259,3 +237,46 @@ const routes: Route[] = [
     });
   });
 </script>
+
+<style>
+  /* CBI Kids animated gradient border */
+  .kids-link-animated {
+    position: relative;
+    background: white;
+    z-index: 1;
+  }
+
+  .kids-link-animated::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border-radius: 9999px;
+    background: linear-gradient(90deg, #FF6B6B, #FFD93D, #6BCB77, #45B7D1, #FF6B6B);
+    background-size: 300% 100%;
+    animation: gradient-flow 3s ease infinite;
+    z-index: -1;
+  }
+
+  /* Mobile version with dark background context */
+  .kids-link-animated-mobile {
+    position: relative;
+    background: white;
+    z-index: 1;
+  }
+
+  .kids-link-animated-mobile::before {
+    content: '';
+    position: absolute;
+    inset: -3px;
+    border-radius: 9999px;
+    background: linear-gradient(90deg, #FF6B6B, #FFD93D, #6BCB77, #45B7D1, #FF6B6B);
+    background-size: 300% 100%;
+    animation: gradient-flow 3s ease infinite;
+    z-index: -1;
+  }
+
+  @keyframes gradient-flow {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+</style>
