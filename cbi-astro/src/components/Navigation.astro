@@ -1,40 +1,84 @@
 ---
-import { MenuIcon, XIcon } from "lucide-react";
+import { MenuIcon, XIcon, ChevronDownIcon } from "lucide-react";
 
-const { logo = 'black' } = Astro.props;
-const routes = [
+
+// Route type definitions
+type Route = {
+  name: string;
+  path?: string;
+  children?: { name: string; path: string }[];
+};
+
+const routes: Route[] = [
   { name: 'Inicio', path: '/' },
-  { name: 'Nosotros', path: '/nosotros' },
+  { name: 'Acerca de Nosotros', path: '/nosotros' },
+  { 
+    name: 'Next Steps', 
+    children: [
+      { name: 'Conectate', path: '/conectate' },
+      { name: 'Bautizos', path: '/conectate#bautizos' },
+      { name: 'Clases de Conexión', path: '/conectate#conexion' },
+      { name: 'El Dream Team', path: '/conectate#dream-team' },
+      { name: 'Grupos Pequeños', path: '/conectate#grupos' },
+    ]
+  },
   { name: 'Devocional', path: '/devocional' },
   { name: 'CBI Kids', path: '/kids' },
-  { name: 'Valores', path: '/valores' },
-  // { name: 'Galeria', path: '/galeria' },
-  { name: 'Dar', path: '/donation' },
-  { name: 'Conectate', path: '/conectate' },
 ];
 ---
 
-<nav class="fixed top-0 left-0 w-full z-50 bg-transparent px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between" data-preferred-logo={logo}>
+<nav class="fixed top-0 left-0 w-full z-50 bg-transparent lg:bg-white/90 lg:backdrop-blur-sm lg:shadow-sm px-4 sm:px-6 lg:px-8 lg:py-10 h-16 flex items-center justify-between">
   <div class="w-full flex items-center justify-between">
     <!-- Brand / Logo -->
-    <a href="/" class="inline-flex items-center pt-4 relative h-16">
-      <img data-logo="white" src="/mainlogoWhite.png" alt="CBI Orlando" class="absolute inset-0 h-20 w-auto transition-opacity duration-300 opacity-0 pt-1" />
-      <img data-logo="black" src="/mainLogoBlack.png" alt="CBI Orlando" class="h-18 w-auto transition-opacity duration-300 opacity-0" />
+    <a href="/" class="inline-flex items-center h-16">
+      <img src="/mainLogoBlack.png" alt="CBI Orlando" class="h-18 w-auto" />
     </a>
 
     <!-- Desktop menu (show from large screens and up so tablets use mobile nav) -->
     <div class="hidden lg:flex lg:items-center lg:space-x-4">
       {routes.map((route) => (
-        <a
-          href={route.path}
-          class={`inline-flex items-center font-bold px-4 py-2 transition-all duration-300 ${
-            route.name === 'Conectate'
-              ? 'text-[#b81516] border-2 border-[#b81516] rounded-md hover:bg-[#b81516] hover:text-white'
-              : 'hover:text-gray-700'
-          }`}
-        >
-          {route.name}
-        </a>
+        route.children ? (
+          <!-- Desktop Dropdown -->
+          <div class="relative" data-dropdown>
+            <button
+              class="inline-flex items-center gap-1 font-bold px-4 py-2 transition-all duration-300 hover:text-gray-700 cursor-pointer"
+              data-dropdown-trigger
+            >
+              {route.name}
+              <ChevronDownIcon 
+                size={18} 
+                className="transition-transform duration-300" 
+                data-dropdown-icon
+              />
+            </button>
+            <div 
+              class="absolute top-full left-0 mt-2 w-56 bg-white rounded-lg shadow-xl opacity-0 invisible transform -translate-y-2 transition-all duration-300 overflow-hidden"
+              data-dropdown-panel
+            >
+              <div class="py-2">
+                {route.children.map((child) => (
+                  <a
+                    href={child.path}
+                    class="block px-4 py-3 text-gray-800 font-medium hover:bg-gray-100 hover:text-[#b81516] transition-colors duration-200"
+                  >
+                    {child.name}
+                  </a>
+                ))}
+              </div>
+            </div>
+          </div>
+        ) : (
+          <a
+            href={route.path}
+            class={`inline-flex items-center font-bold px-4 py-2 transition-all duration-300 ${
+              route.name === 'Conectate'
+                ? 'text-[#b81516] border-2 border-[#b81516] rounded-md hover:bg-[#b81516] hover:text-white'
+                : 'hover:text-gray-700'
+            }`}
+          >
+            {route.name}
+          </a>
+        )
       ))}
     </div>
 
@@ -56,7 +100,7 @@ const routes = [
     <div class="flex flex-col h-full">
       <div class="flex justify-end p-4">
         <button
-          class="p-2 rounded-md hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-[#b81516]"
+          class="p-2 rounded-md hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-[#b81516]"
           aria-label="Close menu"
           id="close-menu-button"
         >
@@ -65,16 +109,52 @@ const routes = [
       </div>
       <div class="flex flex-col items-center space-y-4 p-4">
         {routes.map((route) => (
-          <a
-            href={route.path}
-            class={`w-full text-center font-bold px-4 py-2 transition-all duration-300 ${
-              route.name === 'Conectate'
-                ? 'text-[#b81516] border-2 border-[#b81516] rounded-md hover:bg-[#b81516] hover:text-white'
-                : 'hover:text-gray-700'
-            }`}
-          >
-            {route.name}
-          </a>
+          route.children ? (
+            <!-- Mobile Accordion -->
+            <div class="w-full" data-accordion>
+              <button
+                class="w-full flex items-center justify-center font-bold px-4 py-2 transition-all duration-300 hover:text-gray-700 cursor-pointer relative"
+                data-accordion-trigger
+              >
+                <span>{route.name}</span>
+                <div class="absolute right-4 w-8 h-8 rounded-full bg-primary flex items-center justify-center transition-all duration-300" data-accordion-icon-wrapper>
+                  <ChevronDownIcon 
+                    size={20} 
+                    color="white"
+                    className="transition-transform duration-300" 
+                    data-accordion-icon
+                  />
+                </div>
+              </button>
+              <div 
+                class="overflow-hidden transition-all duration-300 ease-in-out"
+                style="max-height: 0;"
+                data-accordion-panel
+              >
+                <div class="pb-2 space-y-1">
+                  {route.children.map((child) => (
+                    <a
+                      href={child.path}
+                      class="block text-center font-semibold text-base py-3 px-2 hover:text-gray-700 transition-colors duration-200"
+                    >
+                      {child.name}
+                    </a>
+                  ))}
+                </div>
+              </div>
+            </div>
+          ) : (
+            <a
+              href={route.path}
+              class={`w-full text-center font-bold px-4 py-2 transition-all duration-300 ${
+                route.name === 'Conectate'
+                  ? 'text-[#b81516] border-2 border-[#b81516] rounded-md hover:bg-[#b81516] hover:text-white'
+                  : 'hover:text-gray-700'
+              }`}
+            >
+              {route.name}
+            </a>
+          )
         ))}
       </div>
     </div>
@@ -83,74 +163,13 @@ const routes = [
 
 <script>
   // @ts-nocheck
-  // Logo crossfade logic (white over hero, black after scrolling)
-  const navEl = document.querySelector('nav[data-preferred-logo]');
-  const preferredLogo = navEl?.getAttribute('data-preferred-logo') || 'black';
-  const whiteLogo = document.querySelector('img[data-logo="white"]');
-  const blackLogo = document.querySelector('img[data-logo="black"]');
-
-  function setLogo(color) {
-    if (!whiteLogo || !blackLogo) return;
-    if (color === 'white') {
-      whiteLogo.classList.remove('opacity-0');
-      whiteLogo.classList.add('opacity-100');
-      blackLogo.classList.remove('opacity-100');
-      blackLogo.classList.add('opacity-0');
-    } else {
-      whiteLogo.classList.remove('opacity-100');
-      whiteLogo.classList.add('opacity-0');
-      blackLogo.classList.remove('opacity-0');
-      blackLogo.classList.add('opacity-100');
-    }
-  }
-
-  function setMenuIconColor(color) {
-    const menuIcon = document.getElementById('mobile-menu-icon');
-    if (!menuIcon) return;
-    // lucide-react icons render as SVG, change stroke color of all paths
-    const paths = menuIcon.querySelectorAll('path');
-    paths.forEach((path) => {
-      path.setAttribute('stroke', color);
-    });
-  }
-
-  // Initial state uses the server-provided preference
-  const initialColor = preferredLogo === 'white' ? 'white' : 'black';
-  setLogo(initialColor);
-  setMenuIconColor(initialColor);
-
-  // If a hero is present, auto-toggle based on its visibility
-  const hero = document.querySelector('[data-hero]');
-  if (hero) {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            // While hero is in view, show white logo and icon
-            setLogo('white');
-            setMenuIconColor('white');
-          } else {
-            // After scrolling past hero, show black logo and icon
-            setLogo('black');
-            setMenuIconColor('black');
-          }
-        });
-      },
-      {
-        root: null,
-        threshold: 0.1, // toggle a bit before fully leaving/entering
-      }
-    );
-    observer.observe(hero);
-  }
-
+  // Mobile menu open/close
   const mobileMenuButton = document.getElementById('mobile-menu-button');
   const closeMenuButton = document.getElementById('close-menu-button');
   const mobileMenu = document.getElementById('mobile-menu');
 
   mobileMenuButton?.addEventListener('click', () => {
     mobileMenu?.classList.remove('hidden');
-    // Force a reflow to ensure the animation starts from the correct position
     mobileMenu?.offsetHeight;
     mobileMenu?.classList.remove('-translate-x-full');
   });
@@ -161,4 +180,86 @@ const routes = [
       mobileMenu?.classList.add('hidden');
     }, 300);
   });
-</script> 
+
+  // Desktop Dropdown Logic
+  const dropdowns = document.querySelectorAll('[data-dropdown]');
+  
+  dropdowns.forEach((dropdown) => {
+    const trigger = dropdown.querySelector('[data-dropdown-trigger]');
+    const panel = dropdown.querySelector('[data-dropdown-panel]');
+    const icon = dropdown.querySelector('[data-dropdown-icon]');
+    
+    if (!trigger || !panel || !icon) return;
+    
+    let isOpen = false;
+    
+    function openDropdown() {
+      isOpen = true;
+      panel.classList.remove('opacity-0', 'invisible', '-translate-y-2');
+      panel.classList.add('opacity-100', 'visible', 'translate-y-0');
+      icon.style.transform = 'rotate(180deg)';
+    }
+    
+    function closeDropdown() {
+      isOpen = false;
+      panel.classList.add('opacity-0', 'invisible', '-translate-y-2');
+      panel.classList.remove('opacity-100', 'visible', 'translate-y-0');
+      icon.style.transform = 'rotate(0deg)';
+    }
+    
+    trigger.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (isOpen) {
+        closeDropdown();
+      } else {
+        // Close other dropdowns first
+        dropdowns.forEach((other) => {
+          if (other !== dropdown) {
+            const otherPanel = other.querySelector('[data-dropdown-panel]');
+            const otherIcon = other.querySelector('[data-dropdown-icon]');
+            if (otherPanel && otherIcon) {
+              otherPanel.classList.add('opacity-0', 'invisible', '-translate-y-2');
+              otherPanel.classList.remove('opacity-100', 'visible', 'translate-y-0');
+              otherIcon.style.transform = 'rotate(0deg)';
+            }
+          }
+        });
+        openDropdown();
+      }
+    });
+    
+    // Close on click outside
+    document.addEventListener('click', (e) => {
+      if (isOpen && !dropdown.contains(e.target)) {
+        closeDropdown();
+      }
+    });
+  });
+
+  // Mobile Accordion Logic
+  const accordions = document.querySelectorAll('[data-accordion]');
+  
+  accordions.forEach((accordion) => {
+    const trigger = accordion.querySelector('[data-accordion-trigger]');
+    const panel = accordion.querySelector('[data-accordion-panel]');
+    const icon = accordion.querySelector('[data-accordion-icon]');
+    const iconWrapper = accordion.querySelector('[data-accordion-icon-wrapper]');
+    
+    if (!trigger || !panel || !icon) return;
+    
+    let isOpen = false;
+    
+    trigger.addEventListener('click', () => {
+      isOpen = !isOpen;
+      
+      if (isOpen) {
+        // Calculate the actual height of the content
+        panel.style.maxHeight = panel.scrollHeight + 'px';
+        icon.style.transform = 'rotate(180deg)';
+      } else {
+        panel.style.maxHeight = '0';
+        icon.style.transform = 'rotate(0deg)';
+      }
+    });
+  });
+</script>
