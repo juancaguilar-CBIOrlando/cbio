@@ -1,158 +1,196 @@
 ---
-import { MenuIcon, XIcon, ChevronDownIcon } from "lucide-react";
+import { MenuIcon, XIcon, Facebook, Instagram, Youtube } from "lucide-react";
 
+// Social links
+const socialLinks = [
+  { name: 'Facebook', url: 'https://www.facebook.com/cbiorlando', icon: 'facebook' },
+  { name: 'Instagram', url: 'https://www.instagram.com/cbiorlando', icon: 'instagram' },
+  { name: 'YouTube', url: 'https://www.youtube.com/channel/UC5xttzojPMWk73I66cI6rhw', icon: 'youtube' },
+];
 
-// Route type definitions
-type Route = {
-  name: string;
-  path?: string;
-  children?: { name: string; path: string }[];
-};
-
-const routes: Route[] = [
-  { name: 'Inicio', path: '/' },
-  { name: 'CBI Kids', path: '/kids' },
+// Primary links - visible on desktop navbar AND in the overlay menu
+const primaryLinks = [
+  { name: 'Visitanos', path: '/visitanos' },
+  { name: 'Conectate', path: '/conectate' },
   { name: 'Devocional', path: '/devocional' },
   { name: 'Nosotros', path: '/nosotros' },
-  { 
-    name: 'Next Steps', 
-    children: [
-      { name: 'Conectate', path: '/conectate' },
-      { name: 'Bautizos', path: '/conectate#bautizos' },
-      { name: 'Clases de Conexión', path: '/conectate#conexion' },
-      { name: 'El Dream Team', path: '/conectate#dream-team' },
-      { name: 'Grupos Pequeños', path: '/conectate#grupos' },
-    ]
-  },
+  { name: 'Eventos', path: '/eventos' },
+];
+
+// Secondary links - only visible in the overlay menu (split into two columns)
+const secondaryLinksColumn1 = [
+  { name: 'Inicio', path: '/' },
+  { name: 'CBI Kids', path: '/kids' },
+  { name: 'Misiones', path: '/misiones' },
+  { name: 'Sedes', path: '/sedes' },
+  { name: 'About Us', path: '/about' },
+];
+
+const secondaryLinksColumn2 = [
+  { name: 'Dream Team', path: '/dream-team' },
+  { name: 'Bautizos', path: '/bautizos' },
 ];
 ---
 
-<nav class="absolute top-0 left-0 w-full z-50 bg-transparent px-4 sm:px-6 lg:px-8 lg:py-10 h-16 flex items-center justify-between">
+<nav class="absolute top-0 left-0 w-full z-50 bg-transparent px-4 sm:px-6 lg:px-8 lg:py-6 h-16 flex items-center justify-between">
   <div class="w-full flex items-center justify-between">
     <!-- Brand / Logo -->
     <a href="/" class="inline-flex items-center h-16 mt-4 lg:mt-0">
       <img src="/mainlogoWhite.png" alt="CBI Orlando" class="h-18 w-auto" />
     </a>
 
-    <!-- Desktop menu (show from large screens and up so tablets use mobile nav) -->
-    <div class="hidden lg:flex lg:items-center lg:space-x-4">
-      {routes.map((route) => (
-        route.children ? (
-          <!-- Desktop Dropdown -->
-          <div class="relative" data-dropdown>
-            <button
-              class="inline-flex items-center gap-1 font-bold px-4 py-2 text-white transition-all duration-300 hover:text-white/80 cursor-pointer"
-              data-dropdown-trigger
-            >
-              {route.name}
-              <ChevronDownIcon 
-                size={18} 
-                color="white"
-                className="transition-transform duration-300" 
-                data-dropdown-icon
-              />
-            </button>
-            <div 
-              class="absolute top-full left-0 mt-2 w-56 bg-primary rounded-lg shadow-xl opacity-0 invisible transform -translate-y-2 transition-all duration-300 overflow-hidden"
-              data-dropdown-panel
-            >
-              <div class="py-2">
-                {route.children.map((child) => (
-                  <a
-                    href={child.path}
-                    class="block px-4 py-3 text-white font-medium hover:bg-white/20 transition-colors duration-200"
-                  >
-                    {child.name}
-                  </a>
-                ))}
-              </div>
-            </div>
-          </div>
-        ) : (
-          <a
-            href={route.path}
-            class="inline-flex items-center font-bold px-4 py-2 text-white transition-all duration-300 hover:text-gray-700"
-          >
-            {route.name}
-          </a>
-        )
+    <!-- Desktop menu links (hidden on mobile/tablet) -->
+    <div class="hidden lg:flex lg:items-center lg:space-x-1">
+      {primaryLinks.map((link) => (
+        <a
+          href={link.path}
+          class="nav-link inline-flex items-center font-semibold px-4 py-2 text-white transition-all duration-300 hover:text-white/70"
+        >
+          {link.name}
+        </a>
       ))}
     </div>
 
-    <!-- Mobile menu button -->
+    <!-- Menu button (always visible) -->
     <button
-      class="lg:hidden p-4 pr-2 rounded-md cursor-pointer"
+      class="flex items-center gap-2 p-2 rounded-md cursor-pointer group"
       aria-label="Toggle menu"
-      id="mobile-menu-button"
+      id="menu-button"
     >
-      <MenuIcon id="mobile-menu-icon" color="white" size={26} />
+      <span class="text-white font-semibold text-sm tracking-wide group-hover:text-white/70 transition-colors duration-300">Menu</span>
+      <MenuIcon id="menu-icon" color="white" size={24} className="group-hover:opacity-70 transition-opacity duration-300" />
     </button>
   </div>
 
-  <!-- Mobile menu OPENED STATE -->
+  <!-- Full-screen overlay menu -->
   <div
-    id="mobile-menu"
-    class="fixed inset-0 z-50 hidden bg-white transform transition-all duration-300 ease-in-out -translate-x-full"
+    id="overlay-menu"
+    class="fixed inset-0 z-50 bg-black transform transition-all duration-500 ease-out opacity-0 invisible overflow-hidden"
   >
-    <div class="flex flex-col h-full">
-      <div class="flex justify-end p-4">
+    <!-- Dove SVG - Holy Spirit symbol -->
+    <svg 
+      xmlns="http://www.w3.org/2000/svg" 
+      viewBox="0 0 201 223" 
+      fill="none" 
+      class="dove-svg absolute right-4 top-18 w-[200px] sm:w-[200px] lg:w-[240px] xl:w-[280px] opacity-0 pointer-events-none select-none"
+      aria-hidden="true"
+    >
+      <path d="M88.629 201.777C88.2498 201.767 87.8615 202.136 87.8525 202.515C87.8626 202.984 88.2318 203.372 88.7001 203.362C96.4134 203.336 111.18 201.171 125.935 196.844C113.777 206.902 98.3276 214.868 78.7202 219.808C74.2763 220.988 66.8221 220.485 62.1369 218.894C60.701 218.367 59.5351 217.78 58.9067 217.073C58.3184 216.545 57.999 215.957 58.2173 215.249C58.3962 214.361 59.3121 213.404 61.1043 212.156C66.2729 208.743 72.229 205.06 78.6834 201.078C103.682 185.707 134.639 166.654 140.203 149.404C143.691 138.456 137.215 128.413 113.29 120.756C86.0069 111.966 58.3452 92.6182 37.6933 78.1104C26.9832 70.6127 18.069 64.4093 12.077 61.6029C7.36169 59.4531 4.22259 59.3064 2.94895 62.0389C2.26253 63.6044 2.01533 65.449 2.09718 67.502C2.35141 73.2836 5.38822 80.9865 9.60006 88.0508C8.91249 87.9216 8.22419 87.7925 7.62658 87.6433C4.44735 87.3166 2.26582 88.0859 1.92952 90.7975C1.65228 92.9306 2.71121 95.9906 4.84751 99.6573C8.56093 106.174 15.5737 114.402 23.5329 121.384L24.6697 122.26C22.6882 123.926 22.072 126.229 23.3307 129.338C26.8961 138.148 47.1956 148.12 69.1855 154.702C90.647 161.025 113.949 164.207 124.987 159.673C125.415 159.483 125.605 159.064 125.415 158.636C125.335 158.277 124.806 158.018 124.467 158.188C113.679 162.573 90.8645 159.471 69.6028 153.197C48.0315 146.804 28.1718 137.11 24.7957 128.73C23.787 126.318 24.3434 124.593 25.8473 123.316C33.2971 129.281 41.3135 133.989 48.2903 134.881C51.6887 135.347 54.7777 134.846 57.5366 133.289C61.2912 131.133 62.0168 128.899 60.779 126.727C59.092 123.808 52.9809 121.311 46.124 120.11C39.3563 118.889 31.8223 118.875 27.2501 120.743C26.8219 120.933 26.3935 121.122 25.9853 121.402L24.5893 120.206C16.76 113.384 9.8565 105.226 6.18378 98.8884C4.30736 95.54 3.21872 92.77 3.48599 91.0154C3.68411 89.3707 5.18816 88.9407 7.41069 89.1982C8.47726 89.3366 9.58328 89.6551 10.8891 90.0227L10.9291 90.2019C15.9286 97.8439 22.1335 104.557 27.6864 107.085C29.2715 107.862 30.9565 108.239 32.4507 108.188C34.6831 108.066 35.6389 107.289 35.5179 105.903C35.4459 103.471 30.7186 99.1583 24.7956 95.3948C20.6969 92.6367 15.9016 90.1285 11.9239 88.7558C7.29293 81.5023 3.88763 73.4109 3.68265 67.4302C3.55156 65.5763 3.7696 64.0208 4.40606 62.6546C5.16165 60.9793 7.67339 61.2667 11.3526 62.9879C17.3245 65.7044 26.1495 71.9277 36.8597 79.4261C57.6008 93.914 85.2832 113.35 112.856 122.171C135.693 129.599 141.9 138.855 138.681 148.896C133.375 165.617 102.578 184.541 77.9184 199.742C71.3949 203.834 65.2596 207.557 60.2695 210.93C58.1181 212.258 57.0133 213.634 56.7151 214.831C56.3478 216.137 56.7871 217.263 57.854 218.249C58.7017 219.096 59.9783 219.753 61.6126 220.33C66.517 222.06 74.4403 222.553 79.1526 221.313C100.354 215.924 116.918 207.049 129.644 195.735C134.028 194.286 138.461 192.638 142.585 190.87C155.435 185.178 165.902 177.664 168.126 168.222C169.873 160.864 172.547 153.864 175.681 148.08C178.646 142.804 181.99 138.385 185.516 135.622C188.971 132.968 192.547 131.699 195.937 132.544C196.823 132.722 197.661 133.1 198.498 133.479C198.938 133.757 199.366 133.568 199.574 133.239C199.624 133.039 199.693 132.93 199.653 132.75C199.653 131.903 199.275 122.194 190.794 121.732C189.407 119.311 181.235 107.574 164.104 119.401C165.701 99.5526 163.708 78.8096 159.405 58.6775C156.713 46.1891 143.557 22.6647 133.311 10.0723C130.826 6.95403 128.392 4.48413 126.448 2.94037C124.194 1.27741 122.31 0.849944 120.946 1.90767C120.15 2.55618 119.722 3.5931 119.524 5.23853C118.822 10.9509 120.772 18.4254 123.838 25.8399C122.94 25.1923 122.153 24.6153 121.385 24.1269C120.638 23.7285 120.019 23.4901 119.461 23.5202C117.857 23.5011 117.06 24.9974 116.843 27.3997C116.656 29.5128 116.917 32.3737 117.459 35.6428C118.03 39.4705 118.991 43.7759 120.101 48.3304C119.623 48.7197 119.116 49.3981 118.737 50.2352C117.982 51.9106 117.405 54.393 117.06 57.4837C115.686 69.4669 117.748 90.9469 124.621 108.246C130.574 123.115 135.642 129.8 141.742 130.981C147.374 132.173 153.728 128.589 162.263 122.542C160.762 137.754 157.028 152.241 150.543 165.365C145.321 176.135 138.184 185.919 128.765 194.33C113.213 199.306 96.922 201.81 88.6305 201.777L88.629 201.777ZM141.972 189.405C138.884 190.753 135.597 192.051 132.359 193.15C140.653 185.179 147.082 176.023 152.016 166.071C158.671 152.439 162.424 137.194 163.895 121.423L164.213 121.164C182.329 108.271 189.606 122.749 189.626 122.839C189.776 123.088 189.996 123.228 190.285 123.258C196.344 123.413 197.675 128.954 198.055 131.506C197.457 131.357 196.929 131.098 196.351 131.038C192.363 130.045 188.339 131.413 184.585 134.417C180.9 137.31 177.397 141.859 174.382 147.334C171.089 153.248 168.435 160.337 166.617 167.804C164.473 176.758 154.414 183.992 141.972 189.405ZM162.469 120.518C153.705 126.805 147.39 130.568 142.068 129.496C136.546 128.374 131.826 121.988 126.083 107.637C119.271 90.6072 117.289 69.4856 118.614 57.7023C118.89 54.7215 119.416 52.4384 120.122 50.963C120.331 50.6337 120.45 50.3245 120.589 50.1053C123.16 60.3606 126.448 70.4557 127.866 74.2827C128.385 75.7673 129.054 76.6542 129.602 77.0026C130.55 77.4502 131.206 77.021 131.704 75.8748C132.012 75.1471 132.24 74.0601 132.299 72.6347C132.543 67.4008 131 57.9523 125.752 50.4603C124.524 48.7567 123.387 47.8805 122.391 47.6321C122.102 47.6022 121.813 47.573 121.543 47.633C120.473 43.2578 119.532 39.0417 119.001 35.394C118.48 32.2148 118.238 29.4432 118.376 27.5294C118.504 25.994 118.862 25.067 119.419 25.0363C119.709 25.0662 120.107 25.1655 120.566 25.5339C121.972 26.3499 123.547 27.5053 125.073 28.8598C126.531 32.0182 128.058 35.0674 129.725 37.8972C131.922 41.8332 134.286 45.26 136.272 47.8307C138.277 50.4906 140.132 52.0542 141.288 52.1727C141.597 52.2919 141.866 52.2318 142.115 52.0827L142.205 52.0626C142.364 51.9327 142.524 51.8033 142.593 51.6934C143.329 50.7756 143.019 48.9617 141.831 46.5902C140.723 44.5772 139.007 41.9474 136.912 39.3074C133.959 35.3521 130.118 31.2185 126.368 27.912C122.803 19.9499 120.274 11.5685 121.056 5.36764C121.175 4.21137 121.483 3.48293 121.871 3.1144C122.599 2.57578 123.834 3.05272 125.5 4.188C127.424 5.64178 129.639 7.97313 132.103 11.0014C142.239 23.5239 155.245 46.7992 157.878 59.0189C162.242 79.4202 164.224 100.542 162.469 120.52L162.469 120.518ZM121.884 49.1561L122.063 49.1161C122.751 49.2453 123.489 50.0221 124.437 51.3175C129.446 58.5802 130.979 67.5609 130.764 72.5049C130.665 73.7512 130.507 74.728 130.269 75.3464C130.199 75.4565 130.439 75.6856 130.329 75.6156C130.109 75.4764 129.7 74.908 129.241 73.6926C127.822 69.8658 124.564 59.4814 121.884 49.1561ZM128.166 31.747C130.819 34.3569 133.463 37.3451 135.708 40.2341C137.714 42.894 139.39 45.3448 140.388 47.2877C141.347 49.0514 141.716 50.2869 141.418 50.6361C140.73 50.5069 139.294 49.1325 137.458 46.811C135.513 44.4203 133.237 40.9728 131.061 37.1269C130.103 35.3632 129.145 33.6 128.166 31.747ZM28.32 105.72C23.4948 103.501 17.8889 97.7829 13.3581 90.9786C16.7775 92.3815 20.5368 94.4619 23.9565 96.7125C29.4411 100.197 33.889 104.101 33.9302 105.975C34.0103 106.334 33.512 106.634 32.3962 106.694C31.0804 106.705 29.6853 106.358 28.3195 105.721L28.32 105.72ZM48.5054 133.326C41.9079 132.444 34.3499 128.104 27.2492 122.438L27.8566 122.208C32.1603 120.4 39.3353 120.494 45.9037 121.665C52.273 122.787 58.0348 124.985 59.4418 127.496C60.2104 128.831 59.524 130.396 56.765 131.953C54.3445 133.341 51.5046 133.692 48.5046 133.326L48.5054 133.326Z" fill="currentColor" class="text-primary"/>
+    </svg>
+
+    <svg 
+      xmlns="http://www.w3.org/2000/svg" 
+      viewBox="0 0 201 223" 
+      fill="none" 
+      class="dove-svg absolute -left-4 -bottom-6 lg:left-0 lg:-bottom-10 w-[120px] sm:w-[160px] lg:w-[240px] xl:w-[280px] opacity-0 pointer-events-none select-none"
+      aria-hidden="true"
+    >
+      <path d="M88.629 201.777C88.2498 201.767 87.8615 202.136 87.8525 202.515C87.8626 202.984 88.2318 203.372 88.7001 203.362C96.4134 203.336 111.18 201.171 125.935 196.844C113.777 206.902 98.3276 214.868 78.7202 219.808C74.2763 220.988 66.8221 220.485 62.1369 218.894C60.701 218.367 59.5351 217.78 58.9067 217.073C58.3184 216.545 57.999 215.957 58.2173 215.249C58.3962 214.361 59.3121 213.404 61.1043 212.156C66.2729 208.743 72.229 205.06 78.6834 201.078C103.682 185.707 134.639 166.654 140.203 149.404C143.691 138.456 137.215 128.413 113.29 120.756C86.0069 111.966 58.3452 92.6182 37.6933 78.1104C26.9832 70.6127 18.069 64.4093 12.077 61.6029C7.36169 59.4531 4.22259 59.3064 2.94895 62.0389C2.26253 63.6044 2.01533 65.449 2.09718 67.502C2.35141 73.2836 5.38822 80.9865 9.60006 88.0508C8.91249 87.9216 8.22419 87.7925 7.62658 87.6433C4.44735 87.3166 2.26582 88.0859 1.92952 90.7975C1.65228 92.9306 2.71121 95.9906 4.84751 99.6573C8.56093 106.174 15.5737 114.402 23.5329 121.384L24.6697 122.26C22.6882 123.926 22.072 126.229 23.3307 129.338C26.8961 138.148 47.1956 148.12 69.1855 154.702C90.647 161.025 113.949 164.207 124.987 159.673C125.415 159.483 125.605 159.064 125.415 158.636C125.335 158.277 124.806 158.018 124.467 158.188C113.679 162.573 90.8645 159.471 69.6028 153.197C48.0315 146.804 28.1718 137.11 24.7957 128.73C23.787 126.318 24.3434 124.593 25.8473 123.316C33.2971 129.281 41.3135 133.989 48.2903 134.881C51.6887 135.347 54.7777 134.846 57.5366 133.289C61.2912 131.133 62.0168 128.899 60.779 126.727C59.092 123.808 52.9809 121.311 46.124 120.11C39.3563 118.889 31.8223 118.875 27.2501 120.743C26.8219 120.933 26.3935 121.122 25.9853 121.402L24.5893 120.206C16.76 113.384 9.8565 105.226 6.18378 98.8884C4.30736 95.54 3.21872 92.77 3.48599 91.0154C3.68411 89.3707 5.18816 88.9407 7.41069 89.1982C8.47726 89.3366 9.58328 89.6551 10.8891 90.0227L10.9291 90.2019C15.9286 97.8439 22.1335 104.557 27.6864 107.085C29.2715 107.862 30.9565 108.239 32.4507 108.188C34.6831 108.066 35.6389 107.289 35.5179 105.903C35.4459 103.471 30.7186 99.1583 24.7956 95.3948C20.6969 92.6367 15.9016 90.1285 11.9239 88.7558C7.29293 81.5023 3.88763 73.4109 3.68265 67.4302C3.55156 65.5763 3.7696 64.0208 4.40606 62.6546C5.16165 60.9793 7.67339 61.2667 11.3526 62.9879C17.3245 65.7044 26.1495 71.9277 36.8597 79.4261C57.6008 93.914 85.2832 113.35 112.856 122.171C135.693 129.599 141.9 138.855 138.681 148.896C133.375 165.617 102.578 184.541 77.9184 199.742C71.3949 203.834 65.2596 207.557 60.2695 210.93C58.1181 212.258 57.0133 213.634 56.7151 214.831C56.3478 216.137 56.7871 217.263 57.854 218.249C58.7017 219.096 59.9783 219.753 61.6126 220.33C66.517 222.06 74.4403 222.553 79.1526 221.313C100.354 215.924 116.918 207.049 129.644 195.735C134.028 194.286 138.461 192.638 142.585 190.87C155.435 185.178 165.902 177.664 168.126 168.222C169.873 160.864 172.547 153.864 175.681 148.08C178.646 142.804 181.99 138.385 185.516 135.622C188.971 132.968 192.547 131.699 195.937 132.544C196.823 132.722 197.661 133.1 198.498 133.479C198.938 133.757 199.366 133.568 199.574 133.239C199.624 133.039 199.693 132.93 199.653 132.75C199.653 131.903 199.275 122.194 190.794 121.732C189.407 119.311 181.235 107.574 164.104 119.401C165.701 99.5526 163.708 78.8096 159.405 58.6775C156.713 46.1891 143.557 22.6647 133.311 10.0723C130.826 6.95403 128.392 4.48413 126.448 2.94037C124.194 1.27741 122.31 0.849944 120.946 1.90767C120.15 2.55618 119.722 3.5931 119.524 5.23853C118.822 10.9509 120.772 18.4254 123.838 25.8399C122.94 25.1923 122.153 24.6153 121.385 24.1269C120.638 23.7285 120.019 23.4901 119.461 23.5202C117.857 23.5011 117.06 24.9974 116.843 27.3997C116.656 29.5128 116.917 32.3737 117.459 35.6428C118.03 39.4705 118.991 43.7759 120.101 48.3304C119.623 48.7197 119.116 49.3981 118.737 50.2352C117.982 51.9106 117.405 54.393 117.06 57.4837C115.686 69.4669 117.748 90.9469 124.621 108.246C130.574 123.115 135.642 129.8 141.742 130.981C147.374 132.173 153.728 128.589 162.263 122.542C160.762 137.754 157.028 152.241 150.543 165.365C145.321 176.135 138.184 185.919 128.765 194.33C113.213 199.306 96.922 201.81 88.6305 201.777L88.629 201.777ZM141.972 189.405C138.884 190.753 135.597 192.051 132.359 193.15C140.653 185.179 147.082 176.023 152.016 166.071C158.671 152.439 162.424 137.194 163.895 121.423L164.213 121.164C182.329 108.271 189.606 122.749 189.626 122.839C189.776 123.088 189.996 123.228 190.285 123.258C196.344 123.413 197.675 128.954 198.055 131.506C197.457 131.357 196.929 131.098 196.351 131.038C192.363 130.045 188.339 131.413 184.585 134.417C180.9 137.31 177.397 141.859 174.382 147.334C171.089 153.248 168.435 160.337 166.617 167.804C164.473 176.758 154.414 183.992 141.972 189.405ZM162.469 120.518C153.705 126.805 147.39 130.568 142.068 129.496C136.546 128.374 131.826 121.988 126.083 107.637C119.271 90.6072 117.289 69.4856 118.614 57.7023C118.89 54.7215 119.416 52.4384 120.122 50.963C120.331 50.6337 120.45 50.3245 120.589 50.1053C123.16 60.3606 126.448 70.4557 127.866 74.2827C128.385 75.7673 129.054 76.6542 129.602 77.0026C130.55 77.4502 131.206 77.021 131.704 75.8748C132.012 75.1471 132.24 74.0601 132.299 72.6347C132.543 67.4008 131 57.9523 125.752 50.4603C124.524 48.7567 123.387 47.8805 122.391 47.6321C122.102 47.6022 121.813 47.573 121.543 47.633C120.473 43.2578 119.532 39.0417 119.001 35.394C118.48 32.2148 118.238 29.4432 118.376 27.5294C118.504 25.994 118.862 25.067 119.419 25.0363C119.709 25.0662 120.107 25.1655 120.566 25.5339C121.972 26.3499 123.547 27.5053 125.073 28.8598C126.531 32.0182 128.058 35.0674 129.725 37.8972C131.922 41.8332 134.286 45.26 136.272 47.8307C138.277 50.4906 140.132 52.0542 141.288 52.1727C141.597 52.2919 141.866 52.2318 142.115 52.0827L142.205 52.0626C142.364 51.9327 142.524 51.8033 142.593 51.6934C143.329 50.7756 143.019 48.9617 141.831 46.5902C140.723 44.5772 139.007 41.9474 136.912 39.3074C133.959 35.3521 130.118 31.2185 126.368 27.912C122.803 19.9499 120.274 11.5685 121.056 5.36764C121.175 4.21137 121.483 3.48293 121.871 3.1144C122.599 2.57578 123.834 3.05272 125.5 4.188C127.424 5.64178 129.639 7.97313 132.103 11.0014C142.239 23.5239 155.245 46.7992 157.878 59.0189C162.242 79.4202 164.224 100.542 162.469 120.52L162.469 120.518ZM121.884 49.1561L122.063 49.1161C122.751 49.2453 123.489 50.0221 124.437 51.3175C129.446 58.5802 130.979 67.5609 130.764 72.5049C130.665 73.7512 130.507 74.728 130.269 75.3464C130.199 75.4565 130.439 75.6856 130.329 75.6156C130.109 75.4764 129.7 74.908 129.241 73.6926C127.822 69.8658 124.564 59.4814 121.884 49.1561ZM128.166 31.747C130.819 34.3569 133.463 37.3451 135.708 40.2341C137.714 42.894 139.39 45.3448 140.388 47.2877C141.347 49.0514 141.716 50.2869 141.418 50.6361C140.73 50.5069 139.294 49.1325 137.458 46.811C135.513 44.4203 133.237 40.9728 131.061 37.1269C130.103 35.3632 129.145 33.6 128.166 31.747ZM28.32 105.72C23.4948 103.501 17.8889 97.7829 13.3581 90.9786C16.7775 92.3815 20.5368 94.4619 23.9565 96.7125C29.4411 100.197 33.889 104.101 33.9302 105.975C34.0103 106.334 33.512 106.634 32.3962 106.694C31.0804 106.705 29.6853 106.358 28.3195 105.721L28.32 105.72ZM48.5054 133.326C41.9079 132.444 34.3499 128.104 27.2492 122.438L27.8566 122.208C32.1603 120.4 39.3353 120.494 45.9037 121.665C52.273 122.787 58.0348 124.985 59.4418 127.496C60.2104 128.831 59.524 130.396 56.765 131.953C54.3445 133.341 51.5046 133.692 48.5046 133.326L48.5054 133.326Z" fill="currentColor" class="text-primary"/>
+    </svg>
+
+    <div class="flex flex-col h-full relative z-10">
+      <!-- Header with close button -->
+      <div class="flex items-center justify-between p-4 sm:p-6 lg:px-8">
+        <!-- Logo in overlay -->
+        <a href="/" class="inline-flex items-center h-12">
+          <img src="/mainlogoWhite.png" alt="CBI Orlando" class="h-12 w-auto" />
+        </a>
+        
         <button
-          class="p-2 rounded-md hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-[#b81516]"
+          class="flex items-center gap-2 p-2 rounded-md cursor-pointer group"
           aria-label="Close menu"
           id="close-menu-button"
         >
-          <XIcon color="black" />
+          <span class="text-white font-semibold text-sm tracking-wide group-hover:text-primary transition-colors duration-300">Cerrar</span>
+          <XIcon color="currentColor" size={24} className="text-white group-hover:text-primary transition-colors duration-300" />
         </button>
       </div>
-      <div class="flex flex-col items-center space-y-4 p-4">
-        {routes.map((route) => (
-          route.children ? (
-            <!-- Mobile Accordion -->
-            <div class="w-full" data-accordion>
-              <button
-                class="w-full flex items-center justify-center font-bold px-4 py-2 transition-all duration-300 hover:text-gray-700 cursor-pointer relative"
-                data-accordion-trigger
-              >
-                <span>{route.name}</span>
-                <div class="absolute right-4 w-8 h-8 rounded-full bg-primary flex items-center justify-center transition-all duration-300" data-accordion-icon-wrapper>
-                  <ChevronDownIcon 
-                    size={20} 
-                    color="white"
-                    className="transition-transform duration-300" 
-                    data-accordion-icon
-                  />
-                </div>
-              </button>
-              <div 
-                class="overflow-hidden transition-all duration-300 ease-in-out"
-                style="max-height: 0;"
-                data-accordion-panel
-              >
-                <div class="pb-2 space-y-1">
-                  {route.children.map((child) => (
-                    <a
-                      href={child.path}
-                      class="block text-center font-semibold text-base py-3 px-2 hover:text-gray-700 transition-colors duration-200"
-                    >
-                      {child.name}
-                    </a>
-                  ))}
-                </div>
-              </div>
-            </div>
-          ) : (
+
+      <!-- Menu content -->
+      <div class="flex-1 flex flex-col lg:flex-row gap-8 lg:gap-32 px-6 sm:px-10 lg:px-16 py-10 lg:py-16 overflow-y-auto">
+        <!-- Primary Links Section - Large prominent links -->
+        <div class="flex flex-col gap-1 lg:gap-2">
+          {primaryLinks.map((link, index) => (
             <a
-              href={route.path}
-              class={`w-full text-center font-bold px-4 py-2 transition-all duration-300 ${
-                route.name === 'Conectate'
-                  ? 'text-[#b81516] border-2 border-[#b81516] rounded-md hover:bg-[#b81516] hover:text-white'
-                  : 'hover:text-gray-700'
-              }`}
+              href={link.path}
+              class="menu-link primary-link text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-white py-1 lg:py-2 transition-all duration-300 hover:text-primary"
+              style={`animation-delay: ${index * 50}ms;`}
             >
-              {route.name}
+              {link.name}
             </a>
-          )
-        ))}
+          ))}
+        </div>
+
+        <!-- Secondary Links Section - Two columns of smaller links -->
+        <div class="flex flex-row gap-10 lg:gap-24 mt-4 lg:mt-auto lg:mb-10">
+          <!-- Column 1 -->
+          <div class="flex flex-col gap-2">
+            {secondaryLinksColumn1.map((link, index) => (
+              <a
+                href={link.path}
+                class="menu-link secondary-link text-base lg:text-lg font-medium text-white/60 transition-all duration-300 hover:text-primary"
+                style={`animation-delay: ${(primaryLinks.length + index) * 50}ms;`}
+              >
+                {link.name}
+              </a>
+            ))}
+          </div>
+          
+          <!-- Column 2 -->
+          <div class="flex flex-col gap-2">
+            {secondaryLinksColumn2.map((link, index) => (
+              <a
+                href={link.path}
+                class="menu-link secondary-link text-base lg:text-lg font-medium text-white/60 transition-all duration-300 hover:text-primary"
+                style={`animation-delay: ${(primaryLinks.length + secondaryLinksColumn1.length + index) * 50}ms;`}
+              >
+                {link.name}
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer in overlay with social links -->
+      <div class="px-6 sm:px-10 lg:px-16 py-6 border-t border-white/10">
+        <div class="flex flex-col lg:flex-row lg:justify-between lg:items-center gap-4">
+          <!-- Síguenos en -->
+          <div class="flex items-center gap-4">
+            <span class="text-xs font-semibold text-white/40 uppercase tracking-widest">Síguenos en:</span>
+            <div class="flex items-center gap-3">
+              <a 
+                href="https://www.facebook.com/cbiorlando" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                class="social-link text-white/40 hover:text-primary transition-colors duration-300"
+                aria-label="Facebook"
+              >
+                <Facebook size={20} />
+              </a>
+              <a 
+                href="https://www.instagram.com/cbiorlando" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                class="social-link text-white/40 hover:text-primary transition-colors duration-300"
+                aria-label="Instagram"
+              >
+                <Instagram size={20} />
+              </a>
+              <a 
+                href="https://www.youtube.com/channel/UC5xttzojPMWk73I66cI6rhw" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                class="social-link text-white/40 hover:text-primary transition-colors duration-300"
+                aria-label="YouTube"
+              >
+                <Youtube size={20} />
+              </a>
+            </div>
+          </div>
+          
+          <!-- Copyright / Info -->
+          <p class="text-sm text-white/40">CBI Orlando &bull; Centro Bíblico Internacional</p>
+        </div>
       </div>
     </div>
   </div>
@@ -160,123 +198,178 @@ const routes: Route[] = [
 
 <script>
   // @ts-nocheck
-  // Mobile menu open/close
-  const mobileMenuButton = document.getElementById('mobile-menu-button');
+  const menuButton = document.getElementById('menu-button');
   const closeMenuButton = document.getElementById('close-menu-button');
-  const mobileMenu = document.getElementById('mobile-menu');
+  const overlayMenu = document.getElementById('overlay-menu');
+  const menuLinks = document.querySelectorAll('.menu-link');
+  const socialLinks = document.querySelectorAll('.social-link');
+  const doveSvg = document.querySelector('.dove-svg');
 
-  mobileMenuButton?.addEventListener('click', () => {
-    mobileMenu?.classList.remove('hidden');
-    mobileMenu?.offsetHeight;
-    mobileMenu?.classList.remove('-translate-x-full');
-  });
+  function openMenu() {
+    // Show overlay
+    overlayMenu?.classList.remove('invisible');
+    // Trigger reflow for animation
+    overlayMenu?.offsetHeight;
+    // Fade in
+    overlayMenu?.classList.remove('opacity-0');
+    overlayMenu?.classList.add('opacity-100');
+    // Prevent body scroll
+    document.body.style.overflow = 'hidden';
+    
+    // Animate links in with stagger
+    menuLinks.forEach((link, index) => {
+      link.classList.add('animate-fade-in-up');
+    });
+    
+    // Animate social links
+    socialLinks.forEach((link, index) => {
+      link.style.animationDelay = `${(menuLinks.length + index) * 50}ms`;
+      link.classList.add('animate-fade-in-up');
+    });
+    
+    // Animate dove SVG
+    doveSvg?.classList.add('animate-dove');
+  }
 
-  closeMenuButton?.addEventListener('click', () => {
-    mobileMenu?.classList.add('-translate-x-full');
+  function closeMenu() {
+    // Fade out
+    overlayMenu?.classList.add('opacity-0');
+    overlayMenu?.classList.remove('opacity-100');
+    // Restore body scroll
+    document.body.style.overflow = '';
+    
+    // Remove animation classes
+    menuLinks.forEach((link) => {
+      link.classList.remove('animate-fade-in-up');
+    });
+    
+    // Remove social link animations
+    socialLinks.forEach((link) => {
+      link.classList.remove('animate-fade-in-up');
+    });
+    
+    // Remove dove animation
+    doveSvg?.classList.remove('animate-dove');
+    
+    // Hide after animation
     setTimeout(() => {
-      mobileMenu?.classList.add('hidden');
-    }, 300);
+      overlayMenu?.classList.add('invisible');
+    }, 500);
+  }
+
+  menuButton?.addEventListener('click', openMenu);
+  closeMenuButton?.addEventListener('click', closeMenu);
+
+  // Close on escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && !overlayMenu?.classList.contains('invisible')) {
+      closeMenu();
+    }
   });
 
-  // Desktop Dropdown Logic (hover-based)
-  const dropdowns = document.querySelectorAll('[data-dropdown]');
-  
-  dropdowns.forEach((dropdown) => {
-    const panel = dropdown.querySelector('[data-dropdown-panel]');
-    const icon = dropdown.querySelector('[data-dropdown-icon]');
-    
-    if (!panel || !icon) return;
-    
-    function openDropdown() {
-      panel.classList.remove('opacity-0', 'invisible', '-translate-y-2');
-      panel.classList.add('opacity-100', 'visible', 'translate-y-0');
-      icon.style.transform = 'rotate(180deg)';
-    }
-    
-    function closeDropdown() {
-      panel.classList.add('opacity-0', 'invisible', '-translate-y-2');
-      panel.classList.remove('opacity-100', 'visible', 'translate-y-0');
-      icon.style.transform = 'rotate(0deg)';
-    }
-    
-    // Open on hover
-    dropdown.addEventListener('mouseenter', () => {
-      openDropdown();
-    });
-    
-    // Close when mouse leaves
-    dropdown.addEventListener('mouseleave', () => {
-      closeDropdown();
-    });
-  });
-
-  // Mobile Accordion Logic
-  const accordions = document.querySelectorAll('[data-accordion]');
-  
-  accordions.forEach((accordion) => {
-    const trigger = accordion.querySelector('[data-accordion-trigger]');
-    const panel = accordion.querySelector('[data-accordion-panel]');
-    const icon = accordion.querySelector('[data-accordion-icon]');
-    const iconWrapper = accordion.querySelector('[data-accordion-icon-wrapper]');
-    
-    if (!trigger || !panel || !icon) return;
-    
-    let isOpen = false;
-    
-    trigger.addEventListener('click', () => {
-      isOpen = !isOpen;
-      
-      if (isOpen) {
-        // Calculate the actual height of the content
-        panel.style.maxHeight = panel.scrollHeight + 'px';
-        icon.style.transform = 'rotate(180deg)';
-      } else {
-        panel.style.maxHeight = '0';
-        icon.style.transform = 'rotate(0deg)';
-      }
+  // Close menu when clicking a link
+  menuLinks.forEach((link) => {
+    link.addEventListener('click', () => {
+      closeMenu();
     });
   });
 </script>
 
 <style>
-  /* CBI Kids animated gradient border */
-  .kids-link-animated {
+  /* Link hover underline effect */
+  .nav-link {
     position: relative;
-    background: white;
-    z-index: 1;
   }
 
-  .kids-link-animated::before {
+  .nav-link::after {
     content: '';
     position: absolute;
-    inset: -2px;
-    border-radius: 9999px;
-    background: linear-gradient(90deg, #FF6B6B, #FFD93D, #6BCB77, #45B7D1, #FF6B6B);
-    background-size: 300% 100%;
-    animation: gradient-flow 3s ease infinite;
-    z-index: -1;
-  }
-
-  /* Mobile version with dark background context */
-  .kids-link-animated-mobile {
-    position: relative;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 2px;
     background: white;
-    z-index: 1;
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
   }
 
-  .kids-link-animated-mobile::before {
+  .nav-link:hover::after {
+    width: 60%;
+  }
+
+  /* Menu link animation */
+  .menu-link {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  .menu-link.animate-fade-in-up {
+    animation: fadeInUp 0.5s ease forwards;
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Menu link hover effect */
+  .menu-link {
+    position: relative;
+    display: inline-block;
+  }
+
+  /* Primary link hover - underline from left */
+  .primary-link::after {
     content: '';
     position: absolute;
-    inset: -3px;
-    border-radius: 9999px;
-    background: linear-gradient(90deg, #FF6B6B, #FFD93D, #6BCB77, #45B7D1, #FF6B6B);
-    background-size: 300% 100%;
-    animation: gradient-flow 3s ease infinite;
-    z-index: -1;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 3px;
+    background: var(--primary);
+    transition: width 0.3s ease;
   }
 
-  @keyframes gradient-flow {
-    0%, 100% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
+  .primary-link:hover::after {
+    width: 100%;
+  }
+
+  /* Secondary link hover - simple underline */
+  .secondary-link {
+    text-decoration: none;
+  }
+
+  .secondary-link:hover {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+
+  /* Dove SVG animation */
+  .dove-svg {
+    opacity: 0;
+    transform: translateY(30px) scale(0.9);
+    transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    transition-delay: 0.2s;
+  }
+
+  .dove-svg.animate-dove {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+
+  /* Social link animation */
+  .social-link {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  .social-link.animate-fade-in-up {
+    animation: fadeInUp 0.5s ease forwards;
   }
 </style>

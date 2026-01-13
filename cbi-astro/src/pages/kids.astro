@@ -1,6 +1,9 @@
 ---
 import Layout from "../layouts/Layout.astro"
+import kidsHeroImg from "../assets/kidsHero.jpg"
+
 import { Shield, Heart, BookOpen, Users, Sparkles, CheckCircle, ArrowRight } from "@lucide/astro"
+import { Image } from "astro:assets"
 ---
 
 <Layout title="CBI Kids - Centro Bíblico Internacional">
@@ -8,10 +11,14 @@ import { Shield, Heart, BookOpen, Users, Sparkles, CheckCircle, ArrowRight } fro
   <section class="relative min-h-[100vh] flex items-center justify-center overflow-hidden">
     <!-- Background Image with Overlay -->
     <div class="absolute inset-0 z-0">
-      <img 
-        src="https://images.unsplash.com/photo-1587654780291-39c9404d746b?q=80&w=2070&auto=format&fit=crop"
+      <Image 
+        src={kidsHeroImg}
         alt="Niños felices en la iglesia"
         class="w-full h-full object-cover blur-sm"
+        width={1920}
+        height={1080}
+        quality={85}
+        loading="eager"
       />
     </div>
     
