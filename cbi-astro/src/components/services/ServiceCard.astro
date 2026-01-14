@@ -1,0 +1,70 @@
+---
+import { Image } from "astro:assets"
+import { Navigation } from "@lucide/astro"
+import type { ImageMetadata } from "astro"
+
+interface Props {
+  day: string
+  image: ImageMetadata
+  name: string
+  times: string | string[]
+  address: string
+  mapsLink: string
+  imageAlt?: string
+}
+
+const { day, image, name, times, address, mapsLink, imageAlt } = Astro.props
+
+// Handle times - can be a string or array of strings
+const timesArray = Array.isArray(times) ? times : [times]
+---
+
+<div class="box border rounded-sm relative">
+  <div class="absolute top-4 right-4 bg-white z-10 p-2 px-4">
+    <h2 class="text-black tracking-widest text-2xl font-bebas">
+      {day}
+    </h2>
+  </div>
+  <Image
+    src={image}
+    alt={imageAlt || `${name} - ${day}`}
+    quality={85}
+    class="w-full h-full object-cover aspect-video rounded-sm rounded-b-none"
+  />
+  <div
+    class="info-box flex justify-between gap-2 bg-black text-white p-4 rounded-b-sm">
+    <div class="flex flex-col gap-1 p-2">
+      <h2 class="text-xl font-bold font-bebas tracking-wider">
+        {name}
+      </h2>
+      <div class="text-3xl font-bebas flex items-center gap-2 flex-wrap">
+        {
+          timesArray.length > 0 && (
+            <>
+              <span class="text-primary">{timesArray[0]}</span>
+              {timesArray.slice(1).map((time) => (
+                <>
+                  <div class="h-1 w-1 bg-primary rounded-full" />
+                  <span class="text-primary">{time}</span>
+                </>
+              ))}
+            </>
+          )
+        }
+      </div>
+      <p class="text-gray-400">
+        {address}
+      </p>
+    </div>
+    <div class="relative">
+      <a
+        href={mapsLink}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="text-white bg-primary rounded-full p-4 inline-block hover:bg-primary/90 transition-colors duration-300"
+        aria-label={`Abrir ${name} en Google Maps`}>
+        <Navigation width={28} height={28} />
+      </a>
+    </div>
+  </div>
+</div>
