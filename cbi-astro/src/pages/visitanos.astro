@@ -2,12 +2,19 @@
 import Layout from "../layouts/Layout.astro"
 import { Image } from "astro:assets"
 import serviciosDominicalImg from "../assets/serviciosDominical.JPG"
+import aboutMyKidsImg from "../assets/aboutMyKids.jpeg"
+import { address, phone, email, serviceTimes } from "../constants.js"
+import ServiceCard from "../components/services/ServiceCard.astro"
+import { BookOpen, Music, Users } from "@lucide/astro"
+import { faqItems } from "../helpers/FAQ.js"
+
+// Google Maps URL
+const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`
 ---
 
-<Layout title="Visítanos - CBI Orlando">
-  <!-- Hero Section -->
-  <section class="relative h-screen w-full overflow-hidden">
-    <!-- Background Image -->
+<Layout title="Visíta CBI Orlando">
+  <!-- Hero Section - Compact style inspired by cbi-theta -->
+  <section class="relative h-[70vh] min-h-[500px] w-full overflow-hidden">
     <Image
       src={serviciosDominicalImg}
       alt="Servicio Dominical CBI Orlando"
@@ -17,148 +24,46 @@ import serviciosDominicalImg from "../assets/serviciosDominical.JPG"
       class="absolute inset-0 w-full h-full object-cover"
       loading="eager"
     />
-    
-    <!-- Dark Overlay -->
-    <div class="absolute inset-0 bg-black/50"></div>
-    
-    <!-- Content -->
-    <div class="relative z-10 h-full flex flex-col items-center justify-center text-center px-6">
-      <span class="text-white/80 text-sm sm:text-base uppercase tracking-[0.3em] font-medium mb-4 animate-fade-in">
-        CBI Orlando
+    <div
+      class="absolute inset-0 bg-linear-to-b from-black/60 via-black/40 to-black/70">
+    </div>
+
+    <div
+      class="relative z-10 h-full flex flex-col items-center justify-center text-center px-6">
+      <span
+        class="text-primary text-sm sm:text-base uppercase tracking-[0.3em] font-semibold mb-2 animate-fade-in">
+        Visítanos
       </span>
-      <h1 class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-white mb-6 max-w-4xl leading-tight animate-fade-in-up">
-        Te esperamos este próximo domingo
+      <h1
+        class="font-bebas text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-white mb-2 max-w-4xl leading-none animate-fade-in-up">
+        Estamos Ansiosos Por <span class="text-primary">Conocerte!</span>
       </h1>
-      <p class="text-white/90 text-lg sm:text-xl md:text-2xl font-light max-w-2xl animate-fade-in-up-delay">
-        Domingos 10:00 AM
-      </p>
-      
-      <!-- Scroll Indicator -->
-      <div class="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce">
-        <svg 
-          xmlns="http://www.w3.org/2000/svg" 
-          width="24" 
-          height="24" 
-          viewBox="0 0 24 24" 
-          fill="none" 
-          stroke="currentColor" 
-          stroke-width="2" 
-          stroke-linecap="round" 
-          stroke-linejoin="round" 
-          class="text-white/70"
-        >
-          <path d="M12 5v14"></path>
-          <path d="m19 12-7 7-7-7"></path>
-        </svg>
-      </div>
     </div>
   </section>
 
   <!-- Main Content -->
   <main class="bg-white">
-    <!-- Location Section -->
-    <section class="py-24 lg:py-32 px-6 lg:px-16">
-      <div class="max-w-6xl mx-auto">
-        <div class="grid lg:grid-cols-2 gap-16 lg:gap-24 items-start">
-          <!-- Left Column - Info -->
-          <div class="space-y-12">
-            <div>
-              <span class="text-xs font-semibold text-gray-400 uppercase tracking-[0.2em] mb-4 block">
-                Ubicación
-              </span>
-              <h2 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight">
-                Cómo Llegar
-              </h2>
-            </div>
-            
-            <div class="space-y-8">
-              <!-- Address -->
-              <div class="group">
-                <h3 class="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-3">
-                  Dirección
-                </h3>
-                <p class="text-xl sm:text-2xl text-gray-900 font-light leading-relaxed">
-                  Orlando, Florida<br />
-                  <span class="text-gray-500 text-lg">Dirección exacta próximamente</span>
-                </p>
-              </div>
-              
-              <!-- Hours -->
-              <div class="group">
-                <h3 class="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-3">
-                  Horarios de Servicio
-                </h3>
-                <div class="space-y-2">
-                  <div class="flex items-baseline gap-4">
-                    <span class="text-xl sm:text-2xl text-gray-900 font-medium">Domingos</span>
-                    <span class="text-xl sm:text-2xl text-gray-500 font-light">10:00 AM</span>
-                  </div>
-                  <a 
-                    href="/servicios" 
-                    class="inline-flex items-center gap-2 text-gray-500 hover:text-gray-900 transition-colors duration-300 group/link"
-                  >
-                    <span class="text-sm font-medium">Ver todos los horarios</span>
-                    <svg 
-                      xmlns="http://www.w3.org/2000/svg" 
-                      width="16" 
-                      height="16" 
-                      viewBox="0 0 24 24" 
-                      fill="none" 
-                      stroke="currentColor" 
-                      stroke-width="2" 
-                      stroke-linecap="round" 
-                      stroke-linejoin="round"
-                      class="transform group-hover/link:translate-x-1 transition-transform duration-300"
-                    >
-                      <path d="M5 12h14"></path>
-                      <path d="m12 5 7 7-7 7"></path>
-                    </svg>
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <!-- Right Column - Map Placeholder -->
-          <div class="relative">
-            <div class="aspect-[4/3] bg-gray-100 rounded-lg overflow-hidden">
-              <!-- Map placeholder with stylish design -->
-              <div class="absolute inset-0 flex flex-col items-center justify-center p-8">
-                <div class="w-16 h-16 rounded-full bg-gray-200 flex items-center justify-center mb-4">
-                  <svg 
-                    xmlns="http://www.w3.org/2000/svg" 
-                    width="28" 
-                    height="28" 
-                    viewBox="0 0 24 24" 
-                    fill="none" 
-                    stroke="currentColor" 
-                    stroke-width="1.5" 
-                    stroke-linecap="round" 
-                    stroke-linejoin="round"
-                    class="text-gray-400"
-                  >
-                    <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path>
-                    <circle cx="12" cy="10" r="3"></circle>
-                  </svg>
-                </div>
-                <p class="text-gray-400 text-sm font-medium text-center">
-                  Mapa interactivo<br />
-                  <span class="text-gray-300">Próximamente</span>
-                </p>
-              </div>
-              
-              <!-- Decorative grid pattern -->
-              <svg class="absolute inset-0 w-full h-full opacity-30" xmlns="http://www.w3.org/2000/svg">
-                <defs>
-                  <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
-                    <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#e5e7eb" stroke-width="1"/>
-                  </pattern>
-                </defs>
-                <rect width="100%" height="100%" fill="url(#grid)" />
-              </svg>
-            </div>
-          </div>
-        </div>
+    <section class="py-12 lg:py-24 px-6 lg:px-16">
+      <h1
+        class="text-4xl sm:text-5xl lg:text-6xl text-primary text-center leading-none">
+        Nuestros Servicios
+      </h1>
+      <h4
+        class="text-center text-gray-700 text-lg font-semibold max-w-xl mx-auto">
+        Te esperamos todos los domingos! No vengas solo, tenemos un <span
+          class="text-primary font-bold">espacio para ti y tu familia.</span
+        >
+      </h4>
+      <div class="max-w-xl mx-auto mt-8">
+        <ServiceCard
+          day="Domingos"
+          image={serviciosDominicalImg}
+          name="CBI Orlando"
+          times={serviceTimes[0].times}
+          address={address}
+          mapsLink={mapsUrl}
+          imageAlt="Servicio Dominical CBI Orlando"
+        />
       </div>
     </section>
 
@@ -171,91 +76,178 @@ import serviciosDominicalImg from "../assets/serviciosDominical.JPG"
     <section class="py-24 lg:py-32 px-6 lg:px-16">
       <div class="max-w-6xl mx-auto">
         <div class="text-center mb-16">
-          <span class="text-xs font-semibold text-gray-400 uppercase tracking-[0.2em] mb-4 block">
-            Primera Visita
-          </span>
-          <h2 class="text-4xl sm:text-5xl font-bold text-gray-900">
-            Qué Esperar
+          <h2 class="font-bebas text-4xl sm:text-5xl lg:text-6xl text-primary">
+            Qué Esperar en nuestros servicios
           </h2>
         </div>
-        
+
         <div class="grid md:grid-cols-3 gap-8 lg:gap-12">
           <!-- Card 1 -->
-          <div class="group text-center p-8">
-            <div class="w-14 h-14 mx-auto mb-6 rounded-full bg-gray-100 flex items-center justify-center group-hover:bg-gray-900 transition-colors duration-300">
-              <svg 
-                xmlns="http://www.w3.org/2000/svg" 
-                width="24" 
-                height="24" 
-                viewBox="0 0 24 24" 
-                fill="none" 
-                stroke="currentColor" 
-                stroke-width="1.5" 
-                stroke-linecap="round" 
-                stroke-linejoin="round"
-                class="text-gray-600 group-hover:text-white transition-colors duration-300"
-              >
-                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
-                <circle cx="9" cy="7" r="4"></circle>
-                <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
-                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-              </svg>
+          <div
+            class="group text-center p-8 rounded-2xl hover:bg-gray-50 transition-all duration-300">
+            <div
+              class="w-16 h-16 mx-auto mb-6 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary transition-colors duration-300">
+              <Users class="w-8 h-8 text-primary" />
             </div>
-            <h3 class="text-xl font-semibold text-gray-900 mb-3">Ambiente Familiar</h3>
+            <h3 class="text-xl font-bold text-gray-900 mb-3">
+              Ambiente Familiar
+            </h3>
             <p class="text-gray-500 leading-relaxed">
-              Somos una comunidad cálida donde todos son bienvenidos. No importa tu trasfondo.
+              Somos una comunidad cálida donde todos son bienvenidos. No importa
+              tu trasfondo.
             </p>
           </div>
-          
+
           <!-- Card 2 -->
-          <div class="group text-center p-8">
-            <div class="w-14 h-14 mx-auto mb-6 rounded-full bg-gray-100 flex items-center justify-center group-hover:bg-gray-900 transition-colors duration-300">
-              <svg 
-                xmlns="http://www.w3.org/2000/svg" 
-                width="24" 
-                height="24" 
-                viewBox="0 0 24 24" 
-                fill="none" 
-                stroke="currentColor" 
-                stroke-width="1.5" 
-                stroke-linecap="round" 
-                stroke-linejoin="round"
-                class="text-gray-600 group-hover:text-white transition-colors duration-300"
-              >
-                <path d="M9 18V5l12-2v13"></path>
-                <circle cx="6" cy="18" r="3"></circle>
-                <circle cx="18" cy="16" r="3"></circle>
-              </svg>
+          <div
+            class="group text-center p-8 rounded-2xl hover:bg-gray-50 transition-all duration-300">
+            <div
+              class="w-16 h-16 mx-auto mb-6 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary transition-colors duration-300">
+              <Music class="w-8 h-8 text-primary" />
             </div>
-            <h3 class="text-xl font-semibold text-gray-900 mb-3">Adoración Vibrante</h3>
+            <h3 class="text-xl font-bold text-gray-900 mb-3">
+              Adoración Vibrante
+            </h3>
             <p class="text-gray-500 leading-relaxed">
-              Experimentarás momentos de adoración genuina que tocarán tu corazón.
+              Experimentarás momentos de adoración genuina que tocarán tu
+              corazón.
             </p>
           </div>
-          
+
           <!-- Card 3 -->
-          <div class="group text-center p-8">
-            <div class="w-14 h-14 mx-auto mb-6 rounded-full bg-gray-100 flex items-center justify-center group-hover:bg-gray-900 transition-colors duration-300">
-              <svg 
-                xmlns="http://www.w3.org/2000/svg" 
-                width="24" 
-                height="24" 
-                viewBox="0 0 24 24" 
-                fill="none" 
-                stroke="currentColor" 
-                stroke-width="1.5" 
-                stroke-linecap="round" 
-                stroke-linejoin="round"
-                class="text-gray-600 group-hover:text-white transition-colors duration-300"
-              >
-                <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
-                <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
-              </svg>
+          <div
+            class="group text-center p-8 rounded-2xl hover:bg-gray-50 transition-all duration-300">
+            <div
+              class="w-16 h-16 mx-auto mb-6 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary transition-colors duration-300">
+              <BookOpen class="w-8 h-8 text-primary" />
             </div>
-            <h3 class="text-xl font-semibold text-gray-900 mb-3">Palabra Relevante</h3>
+            <h3 class="text-xl font-bold text-gray-900 mb-3">
+              Palabra Relevante
+            </h3>
             <p class="text-gray-500 leading-relaxed">
-              Mensajes prácticos y bíblicos que puedes aplicar en tu vida diaria.
+              Mensajes prácticos y bíblicos que puedes aplicar en tu vida
+              diaria.
             </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CBI Kids Section -->
+    <section class="relative overflow-hidden bg-accent">
+      <div class="max-w-7xl mx-auto">
+        <div class="grid lg:grid-cols-2 min-h-[600px]">
+          <!-- Left Column - Content -->
+          <div
+            class="flex flex-col justify-center px-8 lg:px-16 py-16 lg:py-24 order-2 lg:order-1">
+            <span
+              class="text-primary text-sm uppercase tracking-[0.2em] font-semibold mb-4">
+              ¿Qué hay para mis hijos?
+            </span>
+            <h2
+              class="font-bebas text-4xl sm:text-5xl lg:text-6xl text-white leading-none mb-6">
+              Un lugar para<br />
+              <span class="text-primary">tus hijos</span>
+            </h2>
+            <p class="text-white/80 text-lg leading-relaxed mb-8 max-w-lg">
+              No te preocupes, nosotros nos encargamos. Hay mucha diversión en
+              <strong class="text-white">CBI Kids</strong> donde cada semana, nuestros
+              líderes invierten en la próxima generación, criando niños que aman a
+              Dios y Su casa.
+            </p>
+            <a
+              href="/kids"
+              class="inline-flex items-center gap-3 bg-primary text-white px-8 py-4 rounded-full font-semibold text-lg hover:bg-primary/90 transition-all duration-300 group w-fit">
+              <span>Conoce CBI Kids</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="transform group-hover:translate-x-1 transition-transform duration-300">
+                <path d="M5 12h14"></path>
+                <path d="m12 5 7 7-7 7"></path>
+              </svg>
+            </a>
+          </div>
+
+          <!-- Right Column - Image -->
+          <div class="relative order-1 lg:order-2 min-h-[300px] lg:min-h-full">
+            <Image
+              src={aboutMyKidsImg}
+              alt="CBI Kids - Ministerio de niños"
+              width={800}
+              height={600}
+              quality={85}
+              class="absolute inset-0 w-full h-full object-cover"
+            />
+            <!-- Decorative overlay -->
+            <div
+              class="absolute inset-0 bg-linear-to-r from-accent via-accent/30 to-transparent lg:block hidden">
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="py-24 lg:py-32 px-6 lg:px-16 bg-gray-50">
+      <div class="max-w-6xl mx-auto">
+        <div class="grid lg:grid-cols-2 gap-12 lg:gap-16">
+          <!-- Left Column - Title & Description (sticky on desktop) -->
+          <div class="lg:sticky lg:top-32 lg:self-start">
+            <h2
+              class="font-bebas text-4xl sm:text-5xl lg:text-6xl text-gray-900 mb-4 leading-none">
+              Preguntas<br />
+              <span class="text-primary">más frecuentes</span>
+            </h2>
+            <p class="text-gray-500 text-lg max-w-md">
+              Encuentra las preguntas más frecuentes y sus respuestas.
+            </p>
+          </div>
+
+          <!-- Right Column - FAQ Accordion -->
+          <div class="space-y-4" id="faq-accordion">
+            {
+              faqItems.map((item, index) => (
+                <div
+                  class="faq-item bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300"
+                  data-index={index}>
+                  <button
+                    class="faq-trigger w-full flex items-center justify-between p-6 text-left cursor-pointer group"
+                    aria-expanded="false">
+                    <h3 class="text-lg sm:text-xl font-semibold text-gray-900 group-hover:text-primary transition-colors pr-4">
+                      {item.question}
+                    </h3>
+                    <div class="faq-icon w-10 h-10 rounded-full bg-gray-100 group-hover:bg-primary/10 flex items-center justify-center shrink-0 transition-all duration-300">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="20"
+                        height="20"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        class="faq-chevron text-gray-400 group-hover:text-primary transition-all duration-300">
+                        <path d="m6 9 6 6 6-6" />
+                      </svg>
+                    </div>
+                  </button>
+                  <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 ease-out">
+                    <div class="px-6 pb-6">
+                      <p class="text-gray-600 leading-relaxed">{item.answer}</p>
+                    </div>
+                  </div>
+                </div>
+              ))
+            }
           </div>
         </div>
       </div>
@@ -264,29 +256,28 @@ import serviciosDominicalImg from "../assets/serviciosDominical.JPG"
     <!-- CTA Section -->
     <section class="py-24 lg:py-32 px-6 lg:px-16 bg-gray-950">
       <div class="max-w-4xl mx-auto text-center">
-        <h2 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6">
-          ¿Tienes preguntas?
+        <h2 class="font-bebas text-4xl sm:text-5xl lg:text-6xl text-white mb-6">
+          ¿Tienes más preguntas?
         </h2>
         <p class="text-xl text-gray-400 mb-10 max-w-2xl mx-auto">
-          Estamos aquí para ayudarte. No dudes en contactarnos para más información.
+          Estamos aquí para ayudarte. No dudes en contactarnos para más
+          información.
         </p>
-        <a 
-          href="/conectate" 
-          class="inline-flex items-center gap-3 bg-white text-gray-900 px-8 py-4 rounded-full font-semibold text-lg hover:bg-gray-100 transition-colors duration-300 group"
-        >
+        <a
+          href="/conectate"
+          class="inline-flex items-center gap-3 bg-white text-gray-900 px-8 py-4 rounded-full font-semibold text-lg hover:bg-gray-100 transition-colors duration-300 group">
           <span>Contáctanos</span>
-          <svg 
-            xmlns="http://www.w3.org/2000/svg" 
-            width="20" 
-            height="20" 
-            viewBox="0 0 24 24" 
-            fill="none" 
-            stroke="currentColor" 
-            stroke-width="2" 
-            stroke-linecap="round" 
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
             stroke-linejoin="round"
-            class="transform group-hover:translate-x-1 transition-transform duration-300"
-          >
+            class="transform group-hover:translate-x-1 transition-transform duration-300">
             <path d="M5 12h14"></path>
             <path d="m12 5 7 7-7 7"></path>
           </svg>
@@ -294,46 +285,84 @@ import serviciosDominicalImg from "../assets/serviciosDominical.JPG"
       </div>
     </section>
   </main>
+
+  <script>
+    const faqItems = document.querySelectorAll(".faq-item")
+
+    faqItems.forEach((item) => {
+      const trigger = item.querySelector(".faq-trigger")
+      const content = item.querySelector(".faq-content")
+      const chevron = item.querySelector(".faq-chevron")
+
+      trigger?.addEventListener("click", () => {
+        const isOpen = trigger.getAttribute("aria-expanded") === "true"
+
+        // Close all other items
+        faqItems.forEach((otherItem) => {
+          if (otherItem !== item) {
+            const otherTrigger = otherItem.querySelector(".faq-trigger")
+            const otherContent = otherItem.querySelector(
+              ".faq-content",
+            ) as HTMLElement
+            const otherChevron = otherItem.querySelector(".faq-chevron")
+
+            otherTrigger?.setAttribute("aria-expanded", "false")
+            if (otherContent) otherContent.style.maxHeight = "0"
+            otherChevron?.classList.remove("rotate-180")
+          }
+        })
+
+        // Toggle current item
+        trigger.setAttribute("aria-expanded", (!isOpen).toString())
+
+        if (content) {
+          const contentEl = content as HTMLElement
+          if (!isOpen) {
+            contentEl.style.maxHeight = contentEl.scrollHeight + "px"
+          } else {
+            contentEl.style.maxHeight = "0"
+          }
+        }
+
+        chevron?.classList.toggle("rotate-180")
+      })
+    })
+  </script>
+
+  <style>
+    @keyframes fade-in {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes fade-in-up {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .animate-fade-in {
+      animation: fade-in 1s ease-out forwards;
+    }
+
+    .animate-fade-in-up {
+      animation: fade-in-up 1s ease-out 0.2s forwards;
+      opacity: 0;
+    }
+    .faq-chevron {
+      transition: transform 0.3s ease;
+    }
+    .faq-chevron.rotate-180 {
+      transform: rotate(180deg);
+    }
+  </style>
 </Layout>
-
-<style>
-  /* Animations */
-  @keyframes fade-in {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
-
-  @keyframes fade-in-up {
-    from {
-      opacity: 0;
-      transform: translateY(30px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  .animate-fade-in {
-    animation: fade-in 1s ease-out forwards;
-  }
-
-  .animate-fade-in-up {
-    animation: fade-in-up 1s ease-out 0.2s forwards;
-    opacity: 0;
-  }
-
-  .animate-fade-in-up-delay {
-    animation: fade-in-up 1s ease-out 0.4s forwards;
-    opacity: 0;
-  }
-
-  /* Smooth scroll behavior */
-  html {
-    scroll-behavior: smooth;
-  }
-</style>
