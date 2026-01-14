@@ -1,9 +1,10 @@
 ---
 import "swiper/css"
-import "swiper/css/pagination"
+import "swiper/css/navigation"
 import "swiper/css/autoplay"
 import { Image } from "astro:assets"
 import ActionButton from "./common/ActionButton.astro"
+import SliderArrow from "./common/SliderArrow.astro"
 
 // Import optimized images from assets
 import serviciosDominicalImg from "../assets/serviciosDominical.JPG"
@@ -23,7 +24,6 @@ const slides: Slide[] = [
     image: null,
     videoUrl:
       "https://cbistcloud.org/wp-content/uploads/2023/01/CBI-Hero-Video-40black.mp4",
-    // title: "Bienvenido a Casa",
     title: "AMAR A DIOS| AMAR LA FAMILIA | AMAR EL SERVICIO.",
     description: null,
     cta: [
@@ -71,7 +71,7 @@ const slides: Slide[] = [
 ---
 
 <div class="relative w-full" data-hero>
-  <div class="swiper w-full h-screen">
+  <div class="hero-swiper w-full h-screen">
     <div class="swiper-wrapper">
       {
         slides.map((slide) => (
@@ -128,24 +128,31 @@ const slides: Slide[] = [
         ))
       }
     </div>
-    <div class="swiper-pagination"></div>
+    <div
+      class="absolute bottom-4 sm:bottom-8 left-[50%] translate-x-[-50%] flex justify-between gap-4 max-h-4 items-center z-30">
+      <SliderArrow direction="prev" class="hero-swiper-prev" />
+      <SliderArrow
+        direction="next"
+        class="hero-swiper-next w-6 h-6 border-2 border-primary"
+      />
+    </div>
   </div>
 </div>
 
 <script>
   import Swiper from "swiper"
-  import { Autoplay, Pagination } from "swiper/modules"
+  import { Autoplay, Navigation } from "swiper/modules"
 
   document.addEventListener("DOMContentLoaded", () => {
-    new Swiper(".swiper", {
-      modules: [Autoplay, Pagination],
+    new Swiper(".hero-swiper", {
+      modules: [Autoplay, Navigation],
       autoplay: {
         delay: 9000,
         // disableOnInteraction: false,
       },
-      pagination: {
-        el: ".swiper-pagination",
-        clickable: true,
+      navigation: {
+        prevEl: ".hero-swiper-prev",
+        nextEl: ".hero-swiper-next",
       },
     })
   })
