@@ -5,8 +5,8 @@ import serviciosDominicalImg from "../assets/serviciosDominical.JPG"
 import aboutMyKidsImg from "../assets/aboutMyKids.jpeg"
 import { address, phone, email, serviceTimes } from "../constants.js"
 import ServiceCard from "../components/services/ServiceCard.astro"
-import { BookOpen, Music, Users } from "@lucide/astro"
 import { faqItems } from "../helpers/FAQ.js"
+import ExpectSlider from "../components/visitanos/ExpectSlider.astro"
 
 // Google Maps URL
 const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`
@@ -73,65 +73,7 @@ const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComp
     </div>
 
     <!-- What to Expect Section -->
-    <section class="py-24 lg:py-32 px-6 lg:px-16">
-      <div class="max-w-6xl mx-auto">
-        <div class="text-center mb-16">
-          <h2 class="font-bebas text-4xl sm:text-5xl lg:text-6xl text-primary">
-            Qué Esperar en nuestros servicios
-          </h2>
-        </div>
-
-        <div class="grid md:grid-cols-3 gap-8 lg:gap-12">
-          <!-- Card 1 -->
-          <div
-            class="group text-center p-8 rounded-2xl hover:bg-gray-50 transition-all duration-300">
-            <div
-              class="w-16 h-16 mx-auto mb-6 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary transition-colors duration-300">
-              <Users class="w-8 h-8 text-primary" />
-            </div>
-            <h3 class="text-xl font-bold text-gray-900 mb-3">
-              Ambiente Familiar
-            </h3>
-            <p class="text-gray-500 leading-relaxed">
-              Somos una comunidad cálida donde todos son bienvenidos. No importa
-              tu trasfondo.
-            </p>
-          </div>
-
-          <!-- Card 2 -->
-          <div
-            class="group text-center p-8 rounded-2xl hover:bg-gray-50 transition-all duration-300">
-            <div
-              class="w-16 h-16 mx-auto mb-6 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary transition-colors duration-300">
-              <Music class="w-8 h-8 text-primary" />
-            </div>
-            <h3 class="text-xl font-bold text-gray-900 mb-3">
-              Adoración Vibrante
-            </h3>
-            <p class="text-gray-500 leading-relaxed">
-              Experimentarás momentos de adoración genuina que tocarán tu
-              corazón.
-            </p>
-          </div>
-
-          <!-- Card 3 -->
-          <div
-            class="group text-center p-8 rounded-2xl hover:bg-gray-50 transition-all duration-300">
-            <div
-              class="w-16 h-16 mx-auto mb-6 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary transition-colors duration-300">
-              <BookOpen class="w-8 h-8 text-primary" />
-            </div>
-            <h3 class="text-xl font-bold text-gray-900 mb-3">
-              Palabra Relevante
-            </h3>
-            <p class="text-gray-500 leading-relaxed">
-              Mensajes prácticos y bíblicos que puedes aplicar en tu vida
-              diaria.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
+    <ExpectSlider />
 
     <!-- CBI Kids Section -->
     <section class="relative overflow-hidden bg-accent">

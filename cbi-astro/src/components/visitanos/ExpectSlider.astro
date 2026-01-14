@@ -1,0 +1,129 @@
+---
+import { BookOpen, Music, Users } from "@lucide/astro"
+import SliderArrow from "../common/SliderArrow.astro"
+import "swiper/css"
+import "swiper/css/navigation"
+---
+
+<section class="py-24 lg:py-32 px-6 lg:px-16">
+  <div class="max-w-6xl mx-auto">
+    <!-- Header with title and navigation arrows -->
+    <div class="flex items-center justify-between gap-4 mb-12">
+      <h2
+        class="font-bebas text-4xl sm:text-5xl lg:text-6xl text-primary text-center">
+        Qué Esperar en nuestros servicios
+      </h2>
+      <div class="flex gap-3">
+        <SliderArrow direction="prev" class="expect-swiper-prev" />
+        <SliderArrow direction="next" class="expect-swiper-next" />
+      </div>
+    </div>
+
+    <!-- Slider Container -->
+    <div class="expect-swiper-container relative">
+      <div class="swiper expect-swiper">
+        <div class="swiper-wrapper">
+          <!-- Card 1 -->
+          <div class="swiper-slide">
+            <div
+              class="group text-center p-8 rounded-2xl bg-gray-50 hover:bg-gray-100 transition-all duration-300 h-full">
+              <div
+                class="w-16 h-16 mx-auto mb-6 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary transition-colors duration-300">
+                <Users
+                  class="w-8 h-8 text-primary group-hover:text-white transition-colors duration-300"
+                />
+              </div>
+              <h3 class="text-xl font-bold text-gray-900 mb-3">
+                Ambiente Familiar
+              </h3>
+              <p class="text-gray-500 leading-relaxed">
+                Somos una comunidad cálida donde todos son bienvenidos. No
+                importa tu trasfondo.
+              </p>
+            </div>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="swiper-slide">
+            <div
+              class="group text-center p-8 rounded-2xl bg-gray-50 hover:bg-gray-100 transition-all duration-300 h-full">
+              <div
+                class="w-16 h-16 mx-auto mb-6 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary transition-colors duration-300">
+                <Music
+                  class="w-8 h-8 text-primary group-hover:text-white transition-colors duration-300"
+                />
+              </div>
+              <h3 class="text-xl font-bold text-gray-900 mb-3">
+                Adoración Vibrante
+              </h3>
+              <p class="text-gray-500 leading-relaxed">
+                Experimentarás momentos de adoración genuina que tocarán tu
+                corazón.
+              </p>
+            </div>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="swiper-slide">
+            <div
+              class="group text-center p-8 rounded-2xl bg-gray-50 hover:bg-gray-100 transition-all duration-300 h-full">
+              <div
+                class="w-16 h-16 mx-auto mb-6 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary transition-colors duration-300">
+                <BookOpen
+                  class="w-8 h-8 text-primary group-hover:text-white transition-colors duration-300"
+                />
+              </div>
+              <h3 class="text-xl font-bold text-gray-900 mb-3">
+                Palabra Relevante
+              </h3>
+              <p class="text-gray-500 leading-relaxed">
+                Mensajes prácticos y bíblicos que puedes aplicar en tu vida
+                diaria.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import Swiper from "swiper"
+  import { Navigation } from "swiper/modules"
+
+  document.addEventListener("DOMContentLoaded", () => {
+    new Swiper(".expect-swiper", {
+      modules: [Navigation],
+      slidesPerView: 1,
+      spaceBetween: 24,
+      navigation: {
+        prevEl: ".expect-swiper-prev",
+        nextEl: ".expect-swiper-next",
+      },
+      breakpoints: {
+        640: {
+          slidesPerView: 2,
+        },
+        1024: {
+          slidesPerView: 3,
+        },
+      },
+    })
+  })
+</script>
+
+<style>
+  /* Expect Swiper Styles */
+  .expect-swiper-container {
+    position: relative;
+  }
+
+  .expect-swiper {
+    overflow: hidden;
+  }
+
+  .expect-swiper .swiper-slide {
+    height: auto;
+  }
+</style>
