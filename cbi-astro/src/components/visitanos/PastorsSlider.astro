@@ -16,17 +16,24 @@ import "swiper/css/navigation"
             pastors.map((pastor) => (
               <div class="swiper-slide">
                 <div class="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
-                  <div class="relative">
-                    <div class="absolute -top-1 right-2 text-left left-1/2 z-20">
-                      <span class="font-script text-4xl sm:text-5xl lg:text-5xl text-white/80 leading-tight block">
-                        {pastor.name1} +
-                      </span>
-                      <span class="font-script text-4xl sm:text-5xl lg:text-5xl text-white/80 leading-tight block">
-                        {pastor.name2} {pastor.lastName}
-                      </span>
-                    </div>
+                  <div class="relative pt-4 lg:pt-0">
+                    <div class="relative aspect-4/5 max-w-md mx-auto lg:mx-0 rounded-lg overflow-hidden shadow-2xl">
+                      {/* Gradient overlay for name readability */}
+                      <div class="absolute inset-0 bg-linear-to-bl from-black/50 via-transparent to-transparent z-10 pointer-events-none" />
 
-                    <div class="relative aspect-4/5 max-w-md mx-auto lg:mx-0 rounded-lg overflow-hidden shadow-2xl lg:mt-12">
+                      {/* Names overlay - positioned inside the image */}
+                      <div class="pastor-names absolute top-0 right-2 sm:top-2 sm:right-6 z-20 text-right">
+                        <span class="font-script text-3xl sm:text-3xl lg:text-4xl text-white drop-shadow-lg block whitespace-nowrap">
+                          {pastor.name1}
+                          <span class="text-primary italic text-xl sm:text-2xl lg:text-3xl">
+                            &
+                          </span>
+                          {pastor.name2}
+                        </span>
+                        <span class="font-script text-2xl sm:text-3xl lg:text-4xl text-white drop-shadow-lg block">
+                          {pastor.lastName}
+                        </span>
+                      </div>
                       {pastor.image ? (
                         <Image
                           src={pastor.image}
@@ -110,6 +117,13 @@ import "swiper/css/navigation"
 
   .font-script {
     font-family: "Pacifico", cursive;
+  }
+
+  /* Enhanced text shadow for pastor names */
+  .pastor-names span {
+    text-shadow:
+      2px 2px 4px rgba(0, 0, 0, 0.5),
+      0 0 20px rgba(0, 0, 0, 0.3);
   }
 
   /* Pastors Swiper Styles */
