@@ -38,11 +38,11 @@ const { services, image, address, mapsUrl } = Astro.props
     </div>
 
     <!-- Slider Container -->
-    <div class="service-swiper-container relative">
+    <div class="service-swiper-container relative max-w-4xl mx-auto">
       <div class="swiper service-swiper">
         <div class="swiper-wrapper">
           {
-            services.map((service) => (
+            services.slice(1).map((service) => (
               <div class="swiper-slide">
                 <ServiceCard
                   day={service.day}
