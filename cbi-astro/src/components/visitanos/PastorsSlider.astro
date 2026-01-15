@@ -1,0 +1,149 @@
+---
+import SliderArrow from "../common/SliderArrow.astro"
+import { pastors } from "../../helpers/pastorsData.js"
+import "swiper/css"
+import "swiper/css/navigation"
+---
+
+<section class="py-16 lg:py-24 px-6 lg:px-16 bg-black">
+  <div class="max-w-7xl mx-auto">
+    <!-- Slider Container -->
+    <div class="pastors-swiper-container relative">
+      <div class="swiper pastors-swiper">
+        <div class="swiper-wrapper">
+          {
+            pastors.map((pastor) => (
+              <div class="swiper-slide">
+                <div class="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
+                  <!-- Left: Image with Names Overlay -->
+                  <div class="relative">
+                    <!-- Script Names - Positioned above/overlapping the image -->
+                    <div class="pastor-names text-center lg:text-left mb-4 lg:mb-0 lg:absolute lg:-top-8 lg:left-1/2 lg:-translate-x-1/2 z-20">
+                      <span class="font-script text-4xl sm:text-5xl lg:text-6xl text-white leading-tight block">
+                        {pastor.name1} +
+                      </span>
+                      <span class="font-script text-4xl sm:text-5xl lg:text-6xl text-white leading-tight block">
+                        {pastor.name2} {pastor.lastName}
+                      </span>
+                    </div>
+
+                    <!-- Image Container -->
+                    <div class="relative aspect-4/5 max-w-md mx-auto lg:mx-0 rounded-lg overflow-hidden shadow-2xl lg:mt-12">
+                      {pastor.image ? (
+                        <img
+                          src={pastor.image}
+                          alt={`${pastor.name1} y ${pastor.name2} ${pastor.lastName}`}
+                          class="w-full h-full object-cover"
+                          loading="lazy"
+                        />
+                      ) : (
+                        <div class="w-full h-full bg-linear-to-br from-gray-700 to-gray-900 flex items-center justify-center">
+                          <span class="text-gray-500 text-lg">Imagen próximamente</span>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+
+                  <!-- Right: Content -->
+                  <div class="text-white lg:pl-8">
+                    <h2 class="font-bebas text-4xl sm:text-5xl lg:text-6xl text-white mb-6 leading-none">
+                      Nuestros Pastores
+                    </h2>
+                    <p class="text-gray-300 text-lg leading-relaxed whitespace-pre-line mb-8">
+                      {pastor.description}
+                    </p>
+                    <div class="inline-block bg-primary/20 border border-primary/40 rounded-full px-6 py-2">
+                      <span class="text-primary font-semibold text-sm uppercase tracking-wider">
+                        {pastor.role}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+
+      <!-- Navigation Arrows - Fixed Position -->
+      <div class="flex justify-center lg:justify-end gap-4 mt-8">
+        <SliderArrow direction="prev" class="pastors-swiper-prev" />
+        <SliderArrow direction="next" class="pastors-swiper-next" />
+      </div>
+
+      <!-- Pagination Dots -->
+      <div class="pastors-pagination flex justify-center gap-2 mt-6"></div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import Swiper from "swiper"
+  import { Navigation, Pagination } from "swiper/modules"
+
+  document.addEventListener("DOMContentLoaded", () => {
+    new Swiper(".pastors-swiper", {
+      modules: [Navigation, Pagination],
+      slidesPerView: 1,
+      spaceBetween: 48,
+      loop: true,
+      navigation: {
+        prevEl: ".pastors-swiper-prev",
+        nextEl: ".pastors-swiper-next",
+      },
+      pagination: {
+        el: ".pastors-pagination",
+        clickable: true,
+        bulletClass: "pastors-bullet",
+        bulletActiveClass: "pastors-bullet-active",
+      },
+    })
+  })
+</script>
+
+<style>
+  /* Import Google Font for script style */
+  @import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+
+  .font-script {
+    font-family: 'Pacifico', cursive;
+  }
+
+  /* Pastors Swiper Styles */
+  .pastors-swiper-container {
+    position: relative;
+  }
+
+  .pastors-swiper {
+    overflow: hidden;
+  }
+
+  .pastors-swiper .swiper-slide {
+    height: auto;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .pastors-swiper .swiper-slide-active {
+    opacity: 1;
+  }
+
+  /* Pagination Bullets */
+  :global(.pastors-bullet) {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.3);
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  :global(.pastors-bullet:hover) {
+    background-color: rgba(255, 255, 255, 0.5);
+  }
+
+  :global(.pastors-bullet-active) {
+    background-color: var(--color-primary, #f59e0b);
+    transform: scale(1.2);
+  }
+</style>
