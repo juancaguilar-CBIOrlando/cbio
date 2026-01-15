@@ -11,15 +11,17 @@ interface Props {
   address: string
   mapsLink: string
   imageAlt?: string
+  location?: string
 }
 
-const { day, image, name, times, address, mapsLink, imageAlt } = Astro.props
+const { day, image, name, times, address, mapsLink, imageAlt, location } =
+  Astro.props
 
 // Handle times - can be a string or array of strings
 const timesArray = Array.isArray(times) ? times : [times]
 ---
 
-<div class="box border rounded-sm relative">
+<div class="box rounded-sm relative">
   <div class="absolute top-4 right-4 bg-white z-10 p-2 px-4">
     <h2 class="text-black tracking-widest text-2xl font-bebas">
       {day}
@@ -53,7 +55,7 @@ const timesArray = Array.isArray(times) ? times : [times]
         }
       </div>
       <p class="text-gray-400">
-        {address}
+        {location || address}
       </p>
     </div>
     <div class="relative">
