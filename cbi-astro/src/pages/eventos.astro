@@ -1,0 +1,309 @@
+---
+import Layout from "../layouts/Layout.astro"
+import EventCard from "../components/events/EventCard.astro"
+import { events } from "../helpers/eventsData.js"
+import { ArrowRight } from "lucide-react"
+import { ArrowDown } from "@lucide/astro"
+---
+
+<Layout title="Eventos - CBI Orlando" navLogo="white">
+  <!-- Hero Section -->
+  <section
+    class="relative min-h-[60vh] flex items-center justify-center overflow-hidden"
+    data-hero>
+    <!-- Background -->
+    <div class="absolute inset-0 bg-black">
+      <!-- Decorative circles -->
+      <div
+        class="absolute top-10 left-10 w-64 h-64 border border-white/10 rounded-full">
+      </div>
+      <div
+        class="absolute bottom-10 right-10 w-96 h-96 border border-white/10 rounded-full">
+      </div>
+      <div
+        class="absolute top-1/2 left-1/4 w-32 h-32 bg-primary/20 rounded-full blur-3xl">
+      </div>
+      <div
+        class="absolute bottom-1/4 right-1/4 w-48 h-48 bg-primary/10 rounded-full blur-3xl">
+      </div>
+
+      <!-- Grid pattern overlay -->
+      <div class="absolute inset-0 opacity-5">
+        <svg
+          class="w-full h-full"
+          viewBox="0 0 100 100"
+          preserveAspectRatio="none">
+          <pattern
+            id="grid"
+            width="10"
+            height="10"
+            patternUnits="userSpaceOnUse">
+            <path
+              d="M 10 0 L 0 0 0 10"
+              fill="none"
+              stroke="white"
+              stroke-width="0.5"></path>
+          </pattern>
+          <rect width="100" height="100" fill="url(#grid)"></rect>
+        </svg>
+      </div>
+    </div>
+
+    <div class="relative z-10 text-center px-6 pt-20">
+      <h1
+        class="text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 animate-fade-in-up"
+        style="font-family: 'Bebas Neue', sans-serif;">
+        ¡Eventos que <span class="text-primary">inspiran</span> y<br
+          class="hidden sm:block"
+        />
+        fortalecen nuestra <span class="text-primary">fe</span>!
+      </h1>
+      <p
+        class="text-white/70 text-lg md:text-xl max-w-2xl mx-auto animate-fade-in-up"
+        style="animation-delay: 0.2s;">
+        Uniendo corazones en comunidad a través de experiencias transformadoras.
+      </p>
+
+      <!-- Scroll indicator -->
+      <div class="mt-12 animate-fade-in-up" style="animation-delay: 0.4s;">
+        <a
+          href="#eventos"
+          class="inline-flex flex-col items-center justify-center gap-2 text-white/50 hover:text-primary transition-colors duration-300">
+          <span class="text-xs uppercase tracking-widest">Descubre más</span>
+          <ArrowDown class="w-5 h-5 animate-bounce mr-2" />
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Marquee Section -->
+  <section class="bg-primary py-4 overflow-hidden">
+    <div class="marquee-container">
+      <div class="marquee-content">
+        {
+          Array(8)
+            .fill(null)
+            .map(() => (
+              <span class="marquee-item text-white font-bold text-lg uppercase tracking-wider">
+                SUCEDEN COSAS NUEVAS
+                <span class="mx-6 text-white/50">✦</span>
+              </span>
+            ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Events Grid Section -->
+  <section id="eventos" class="py-20 bg-slate-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <span
+          class="inline-block bg-accent/10 text-accent px-4 py-1 rounded-full text-sm font-semibold mb-4">
+          CALENDARIO
+        </span>
+        <h2
+          class="text-4xl md:text-5xl font-bold text-accent mb-4"
+          style="font-family: 'Bebas Neue', sans-serif;">
+          Próximos Eventos
+        </h2>
+        <p class="text-gray-600 max-w-2xl mx-auto text-lg">
+          Descubre las oportunidades que tenemos para crecer juntos en fe,
+          comunidad y propósito.
+        </p>
+      </div>
+
+      <!-- Events Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {
+          events.map((event, index) => (
+            <EventCard
+              id={event.id}
+              title={event.title}
+              category={event.category}
+              tagline={event.tagline}
+              description={event.description}
+              date={event.date}
+              image={event.image}
+              featured={event.featured}
+              index={index}
+            />
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Info Section with Dove -->
+  <section class="py-20 bg-black relative overflow-hidden">
+    <!-- Dove SVG - Holy Spirit symbol (matching Navigation) -->
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 201 223"
+      fill="none"
+      class="absolute right-0 top-1/2 -translate-y-1/2 w-[200px] md:w-[300px] lg:w-[400px] opacity-10 pointer-events-none select-none"
+      aria-hidden="true">
+      <path
+        d="M88.629 201.777C88.2498 201.767 87.8615 202.136 87.8525 202.515C87.8626 202.984 88.2318 203.372 88.7001 203.362C96.4134 203.336 111.18 201.171 125.935 196.844C113.777 206.902 98.3276 214.868 78.7202 219.808C74.2763 220.988 66.8221 220.485 62.1369 218.894C60.701 218.367 59.5351 217.78 58.9067 217.073C58.3184 216.545 57.999 215.957 58.2173 215.249C58.3962 214.361 59.3121 213.404 61.1043 212.156C66.2729 208.743 72.229 205.06 78.6834 201.078C103.682 185.707 134.639 166.654 140.203 149.404C143.691 138.456 137.215 128.413 113.29 120.756C86.0069 111.966 58.3452 92.6182 37.6933 78.1104C26.9832 70.6127 18.069 64.4093 12.077 61.6029C7.36169 59.4531 4.22259 59.3064 2.94895 62.0389C2.26253 63.6044 2.01533 65.449 2.09718 67.502C2.35141 73.2836 5.38822 80.9865 9.60006 88.0508C8.91249 87.9216 8.22419 87.7925 7.62658 87.6433C4.44735 87.3166 2.26582 88.0859 1.92952 90.7975C1.65228 92.9306 2.71121 95.9906 4.84751 99.6573C8.56093 106.174 15.5737 114.402 23.5329 121.384L24.6697 122.26C22.6882 123.926 22.072 126.229 23.3307 129.338C26.8961 138.148 47.1956 148.12 69.1855 154.702C90.647 161.025 113.949 164.207 124.987 159.673C125.415 159.483 125.605 159.064 125.415 158.636C125.335 158.277 124.806 158.018 124.467 158.188C113.679 162.573 90.8645 159.471 69.6028 153.197C48.0315 146.804 28.1718 137.11 24.7957 128.73C23.787 126.318 24.3434 124.593 25.8473 123.316C33.2971 129.281 41.3135 133.989 48.2903 134.881C51.6887 135.347 54.7777 134.846 57.5366 133.289C61.2912 131.133 62.0168 128.899 60.779 126.727C59.092 123.808 52.9809 121.311 46.124 120.11C39.3563 118.889 31.8223 118.875 27.2501 120.743C26.8219 120.933 26.3935 121.122 25.9853 121.402L24.5893 120.206C16.76 113.384 9.8565 105.226 6.18378 98.8884C4.30736 95.54 3.21872 92.77 3.48599 91.0154C3.68411 89.3707 5.18816 88.9407 7.41069 89.1982C8.47726 89.3366 9.58328 89.6551 10.8891 90.0227L10.9291 90.2019C15.9286 97.8439 22.1335 104.557 27.6864 107.085C29.2715 107.862 30.9565 108.239 32.4507 108.188C34.6831 108.066 35.6389 107.289 35.5179 105.903C35.4459 103.471 30.7186 99.1583 24.7956 95.3948C20.6969 92.6367 15.9016 90.1285 11.9239 88.7558C7.29293 81.5023 3.88763 73.4109 3.68265 67.4302C3.55156 65.5763 3.7696 64.0208 4.40606 62.6546C5.16165 60.9793 7.67339 61.2667 11.3526 62.9879C17.3245 65.7044 26.1495 71.9277 36.8597 79.4261C57.6008 93.914 85.2832 113.35 112.856 122.171C135.693 129.599 141.9 138.855 138.681 148.896C133.375 165.617 102.578 184.541 77.9184 199.742C71.3949 203.834 65.2596 207.557 60.2695 210.93C58.1181 212.258 57.0133 213.634 56.7151 214.831C56.3478 216.137 56.7871 217.263 57.854 218.249C58.7017 219.096 59.9783 219.753 61.6126 220.33C66.517 222.06 74.4403 222.553 79.1526 221.313C100.354 215.924 116.918 207.049 129.644 195.735C134.028 194.286 138.461 192.638 142.585 190.87C155.435 185.178 165.902 177.664 168.126 168.222C169.873 160.864 172.547 153.864 175.681 148.08C178.646 142.804 181.99 138.385 185.516 135.622C188.971 132.968 192.547 131.699 195.937 132.544C196.823 132.722 197.661 133.1 198.498 133.479C198.938 133.757 199.366 133.568 199.574 133.239C199.624 133.039 199.693 132.93 199.653 132.75C199.653 131.903 199.275 122.194 190.794 121.732C189.407 119.311 181.235 107.574 164.104 119.401C165.701 99.5526 163.708 78.8096 159.405 58.6775C156.713 46.1891 143.557 22.6647 133.311 10.0723C130.826 6.95403 128.392 4.48413 126.448 2.94037C124.194 1.27741 122.31 0.849944 120.946 1.90767C120.15 2.55618 119.722 3.5931 119.524 5.23853C118.822 10.9509 120.772 18.4254 123.838 25.8399C122.94 25.1923 122.153 24.6153 121.385 24.1269C120.638 23.7285 120.019 23.4901 119.461 23.5202C117.857 23.5011 117.06 24.9974 116.843 27.3997C116.656 29.5128 116.917 32.3737 117.459 35.6428C118.03 39.4705 118.991 43.7759 120.101 48.3304C119.623 48.7197 119.116 49.3981 118.737 50.2352C117.982 51.9106 117.405 54.393 117.06 57.4837C115.686 69.4669 117.748 90.9469 124.621 108.246C130.574 123.115 135.642 129.8 141.742 130.981C147.374 132.173 153.728 128.589 162.263 122.542C160.762 137.754 157.028 152.241 150.543 165.365C145.321 176.135 138.184 185.919 128.765 194.33C113.213 199.306 96.922 201.81 88.6305 201.777L88.629 201.777Z"
+        fill="currentColor"
+        class="text-primary"></path>
+    </svg>
+
+    <div class="relative z-10 max-w-4xl mx-auto px-6 text-center">
+      <h2
+        class="text-4xl md:text-5xl font-bold text-white mb-6"
+        style="font-family: 'Bebas Neue', sans-serif;">
+        ¿No encontraste lo que <span class="text-primary">buscabas</span>?
+      </h2>
+      <p class="text-white/70 text-lg max-w-2xl mx-auto mb-8 leading-relaxed">
+        Tenemos muchas más actividades y oportunidades para conectar.
+        Contáctanos y te ayudaremos a encontrar el lugar perfecto para ti.
+      </p>
+
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a
+          href="/conectate"
+          class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-primary text-white font-semibold rounded-full hover:bg-primary/90 transition-all duration-300 hover:scale-105">
+          Conéctate Con Nosotros
+          <ArrowRight className="w-5 h-5" />
+        </a>
+        <a
+          href="/visitanos"
+          class="inline-flex items-center justify-center px-8 py-4 bg-transparent border-2 border-white text-white font-semibold rounded-full hover:bg-white hover:text-black transition-all duration-300">
+          Planea Tu Visita
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="py-20 bg-accent relative overflow-hidden">
+    <div class="absolute inset-0 opacity-10">
+      <div
+        class="absolute top-10 left-10 w-64 h-64 border border-white/20 rounded-full">
+      </div>
+      <div
+        class="absolute bottom-10 right-10 w-96 h-96 border border-white/20 rounded-full">
+      </div>
+    </div>
+
+    <div class="relative z-10 max-w-3xl mx-auto px-6 text-center text-white">
+      <span
+        class="inline-block bg-primary/20 text-primary px-4 py-1 rounded-full text-sm font-semibold mb-6">
+        MANTENTE INFORMADO
+      </span>
+      <h2
+        class="text-3xl md:text-4xl font-bold mb-4"
+        style="font-family: 'Bebas Neue', sans-serif;">
+        No Te Pierdas Ningún Evento
+      </h2>
+      <p class="text-white/80 text-lg mb-8">
+        Síguenos en nuestras redes sociales para estar al tanto de todas
+        nuestras actividades y eventos especiales.
+      </p>
+
+      <!-- Social Links -->
+      <div class="flex justify-center gap-4">
+        <a
+          href="https://www.facebook.com/cbiorlando"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="w-14 h-14 bg-white/10 hover:bg-primary rounded-full flex items-center justify-center text-white transition-all duration-300 hover:scale-110"
+          aria-label="Facebook">
+          <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+            <path
+              d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"
+            ></path>
+          </svg>
+        </a>
+        <a
+          href="https://www.instagram.com/cbiorlando"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="w-14 h-14 bg-white/10 hover:bg-primary rounded-full flex items-center justify-center text-white transition-all duration-300 hover:scale-110"
+          aria-label="Instagram">
+          <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+            <path
+              d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"
+            ></path>
+          </svg>
+        </a>
+        <a
+          href="https://www.youtube.com/channel/UC5xttzojPMWk73I66cI6rhw"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="w-14 h-14 bg-white/10 hover:bg-primary rounded-full flex items-center justify-center text-white transition-all duration-300 hover:scale-110"
+          aria-label="YouTube">
+          <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+            <path
+              d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"
+            ></path>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  /* Hero Animations */
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes fade-in-up {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-fade-in {
+    opacity: 0;
+    animation: fade-in 0.6s ease-out forwards;
+  }
+
+  .animate-fade-in-up {
+    opacity: 0;
+    animation: fade-in-up 0.8s ease-out forwards;
+  }
+
+  /* Marquee Animation */
+  .marquee-container {
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  .marquee-content {
+    display: inline-flex;
+    animation: marquee 20s linear infinite;
+  }
+
+  .marquee-item {
+    display: inline-flex;
+    align-items: center;
+  }
+
+  @keyframes marquee {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+
+  /* Duplicate content for seamless loop */
+  .marquee-content::after {
+    content: attr(data-content);
+  }
+</style>
