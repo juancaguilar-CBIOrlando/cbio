@@ -1,0 +1,107 @@
+---
+import SliderArrow from "../common/SliderArrow.astro"
+import ServiceCard from "../services/ServiceCard.astro"
+import type { ImageMetadata } from "astro"
+import "swiper/css"
+import "swiper/css/navigation"
+
+interface ServiceTime {
+  name: string
+  times: string | string[]
+  day: string
+  location?: string
+  image?: string
+  link?: string
+}
+
+interface Props {
+  services: ServiceTime[]
+  image: ImageMetadata
+  address: string
+  mapsUrl: string
+}
+
+const { services, image, address, mapsUrl } = Astro.props
+---
+
+<section class="py-12 lg:py-16 px-6 lg:px-16">
+  <div class="max-w-6xl mx-auto">
+    <!-- Header with title and navigation arrows -->
+    <div class="flex items-center justify-between gap-4 mb-8">
+      <h2 class="font-bebas text-4xl text-accent leading-none">
+        Otros Servicios
+      </h2>
+      <div class="flex gap-3">
+        <SliderArrow direction="prev" class="service-swiper-prev" />
+        <SliderArrow direction="next" class="service-swiper-next" />
+      </div>
+    </div>
+
+    <!-- Slider Container -->
+    <div class="service-swiper-container relative">
+      <div class="swiper service-swiper">
+        <div class="swiper-wrapper">
+          {
+            services.map((service) => (
+              <div class="swiper-slide">
+                <ServiceCard
+                  day={service.day}
+                  image={image}
+                  name={service.name}
+                  times={service.times}
+                  location={service.location}
+                  address={address}
+                  mapsLink={service.link || mapsUrl}
+                  imageAlt={`Servicio ${service.name} CBI Orlando`}
+                />
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import Swiper from "swiper"
+  import { Navigation } from "swiper/modules"
+
+  document.addEventListener("DOMContentLoaded", () => {
+    new Swiper(".service-swiper", {
+      modules: [Navigation],
+      slidesPerView: 1,
+      spaceBetween: 24,
+      navigation: {
+        prevEl: ".service-swiper-prev",
+        nextEl: ".service-swiper-next",
+      },
+      breakpoints: {
+        640: {
+          slidesPerView: 1,
+        },
+        768: {
+          slidesPerView: 2,
+        },
+        1024: {
+          slidesPerView: 2,
+        },
+      },
+    })
+  })
+</script>
+
+<style>
+  /* Service Swiper Styles */
+  .service-swiper-container {
+    position: relative;
+  }
+
+  .service-swiper {
+    overflow: hidden;
+  }
+
+  .service-swiper .swiper-slide {
+    height: auto;
+  }
+</style>

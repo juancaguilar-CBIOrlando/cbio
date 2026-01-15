@@ -1,9 +1,42 @@
 ---
 import Layout from "../layouts/Layout.astro"
 import kidsHeroImg from "../assets/kidsHero.jpg"
+import "swiper/css"
+import "swiper/css/navigation"
 
 import { Shield, Heart, BookOpen, Users, Sparkles, CheckCircle, ArrowRight } from "@lucide/astro"
 import { Image } from "astro:assets"
+
+const visitSteps = [
+  {
+    id: 1,
+    number: "1",
+    title: "Llega al Área de Check-In",
+    description: "Al llegar, dirígete al área de CBI Kids donde nuestro equipo te dará la bienvenida. Te ayudaremos con el proceso de registro si es tu primera vez.",
+    bgColor: "bg-primary",
+  },
+  {
+    id: 2,
+    number: "2",
+    title: "Registra a Tu Hijo",
+    description: "Completarás un breve formulario con información importante como alergias, contactos de emergencia y necesidades especiales. Recibirás un código único.",
+    bgColor: "bg-accent",
+  },
+  {
+    id: 3,
+    number: "3",
+    title: "Disfruta del Servicio",
+    description: "Mientras tu hijo disfruta de una experiencia increíble en CBI Kids, tú puedes concentrarte en el servicio principal. Si te necesitamos, te enviaremos un mensaje de texto.",
+    bgColor: "bg-yellow-500",
+  },
+  {
+    id: 4,
+    number: "4",
+    title: "Recoge a Tu Hijo",
+    description: "Al terminar el servicio, presenta tu código de seguridad en el área de check-out. Solo los adultos con el código pueden recoger al niño.",
+    bgColor: "bg-primary",
+  },
+]
 ---
 
 <Layout title="CBI Kids - Centro Bíblico Internacional">
@@ -355,7 +388,7 @@ import { Image } from "astro:assets"
   <!-- First Visit Section -->
   <section id="primera-visita" class="py-20 bg-white">
     <div class="container mx-auto px-4">
-      <div class="max-w-4xl mx-auto">
+      <div class="max-w-6xl mx-auto">
         <div class="text-center mb-12">
           <span class="inline-block bg-yellow-100 text-yellow-700 px-4 py-1 rounded-full text-sm font-semibold mb-4">
             TU PRIMERA VISITA
@@ -368,57 +401,39 @@ import { Image } from "astro:assets"
           </p>
         </div>
         
-        <div class="grid gap-8">
-          <!-- Step 1 -->
-          <div class="visit-step flex gap-6 items-start bg-slate-50 rounded-2xl p-6 md:p-8 border border-slate-100">
-            <div class="shrink-0 w-12 h-12 bg-primary text-white rounded-full flex items-center justify-center font-bold text-xl">
-              1
-            </div>
-            <div>
-              <h3 class="text-xl font-bold text-accent mb-2">Llega al Área de Check-In</h3>
-              <p class="text-gray-600 leading-relaxed">
-                Al llegar, dirígete al área de CBI Kids donde nuestro equipo te dará la bienvenida. Te ayudaremos con el proceso de registro si es tu primera vez.
-              </p>
-            </div>
-          </div>
-          
-          <!-- Step 2 -->
-          <div class="visit-step flex gap-6 items-start bg-slate-50 rounded-2xl p-6 md:p-8 border border-slate-100">
-            <div class="shrink-0 w-12 h-12 bg-accent text-white rounded-full flex items-center justify-center font-bold text-xl">
-              2
-            </div>
-            <div>
-              <h3 class="text-xl font-bold text-accent mb-2">Registra a Tu Hijo</h3>
-              <p class="text-gray-600 leading-relaxed">
-                Completarás un breve formulario con información importante como alergias, contactos de emergencia y necesidades especiales. Recibirás un código único.
-              </p>
+        <div class="visit-swiper-container relative">
+          <div class="swiper visit-swiper px-4">
+            <div class="swiper-wrapper">
+              {visitSteps.map((step) => (
+                <div class="swiper-slide">
+                  <div class="rounded-2xl p-6 h-full flex flex-col relative bg-slate-50 border border-slate-100">
+                    <div class={`shrink-0 w-16 h-16 ${step.bgColor} text-white rounded-full flex items-center justify-center font-bold text-2xl absolute top-4 right-4`}>
+                      {step.number}
+                    </div>
+                    <div class="flex-1 mt-16">
+                      <span class="text-7xl font-bold text-primary/20 leading-none" style="-webkit-text-stroke: 1px #009C3F; -webkit-text-fill-color: transparent;">
+                        0{step.number}
+                      </span>
+                      <h3 class="text-xl font-bold text-accent mt-2 mb-3">{step.title}</h3>
+                      <p class="text-gray-600 leading-relaxed">{step.description}</p>
+                    </div>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
           
-          <!-- Step 3 -->
-          <div class="visit-step flex gap-6 items-start bg-slate-50 rounded-2xl p-6 md:p-8 border border-slate-100">
-            <div class="shrink-0 w-12 h-12 bg-yellow-500 text-white rounded-full flex items-center justify-center font-bold text-xl">
-              3
-            </div>
-            <div>
-              <h3 class="text-xl font-bold text-accent mb-2">Disfruta del Servicio</h3>
-              <p class="text-gray-600 leading-relaxed">
-                Mientras tu hijo disfruta de una experiencia increíble en CBI Kids, tú puedes concentrarte en el servicio principal. Si te necesitamos, te enviaremos un mensaje de texto.
-              </p>
-            </div>
-          </div>
-          
-          <!-- Step 4 -->
-          <div class="visit-step flex gap-6 items-start bg-slate-50 rounded-2xl p-6 md:p-8 border border-slate-100">
-            <div class="shrink-0 w-12 h-12 bg-primary text-white rounded-full flex items-center justify-center font-bold text-xl">
-              4
-            </div>
-            <div>
-              <h3 class="text-xl font-bold text-accent mb-2">Recoge a Tu Hijo</h3>
-              <p class="text-gray-600 leading-relaxed">
-                Al terminar el servicio, presenta tu código de seguridad en el área de check-out. Solo los adultos con el código pueden recoger al niño.
-              </p>
-            </div>
+          <div class="flex justify-center gap-4 mt-8">
+            <button class="visit-swiper-prev w-12 h-12 rounded-full bg-primary text-white flex items-center justify-center hover:bg-primary/90 transition-colors">
+              <svg xmlns="http://www.w3.org/2000/svg" width="8" height="14" viewBox="0 0 8 14" fill="none">
+                <path d="M7 13L1 7L7 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+              </svg>
+            </button>
+            <button class="visit-swiper-next w-12 h-12 rounded-full bg-primary text-white flex items-center justify-center hover:bg-primary/90 transition-colors">
+              <svg xmlns="http://www.w3.org/2000/svg" width="8" height="14" viewBox="0 0 8 14" fill="none">
+                <path d="M1 13L7 7L1 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+              </svg>
+            </button>
           </div>
         </div>
       </div>
@@ -553,13 +568,48 @@ import { Image } from "astro:assets"
   .gallery-item:nth-child(5) { animation-delay: 0.25s; }
   .gallery-item:nth-child(6) { animation-delay: 0.3s; }
   
-  .visit-step {
-    opacity: 0;
-    animation: fade-in-up 0.6s ease-out forwards;
+  /* Visit Swiper Styles */
+  .visit-swiper-container {
+    position: relative;
   }
-  
-  .visit-step:nth-child(1) { animation-delay: 0.1s; }
-  .visit-step:nth-child(2) { animation-delay: 0.2s; }
-  .visit-step:nth-child(3) { animation-delay: 0.3s; }
-  .visit-step:nth-child(4) { animation-delay: 0.4s; }
+
+  .visit-swiper {
+    overflow: hidden;
+  }
+
+  .visit-swiper .swiper-slide {
+    height: auto;
+  }
+
+  .visit-swiper-prev:disabled,
+  .visit-swiper-next:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+  }
 </style>
+
+<script>
+  import Swiper from "swiper"
+  import { Navigation } from "swiper/modules"
+
+  document.addEventListener("DOMContentLoaded", () => {
+    new Swiper(".visit-swiper", {
+      modules: [Navigation],
+      slidesPerView: 1,
+      spaceBetween: 24,
+      autoplay: false,
+      navigation: {
+        prevEl: ".visit-swiper-prev",
+        nextEl: ".visit-swiper-next",
+      },
+      breakpoints: {
+        640: {
+          slidesPerView: 2,
+        },
+        1024: {
+          slidesPerView: 3,
+        },
+      },
+    })
+  })
+</script>

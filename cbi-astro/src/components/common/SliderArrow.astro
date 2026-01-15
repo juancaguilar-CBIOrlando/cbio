@@ -1,0 +1,52 @@
+---
+interface Props {
+  direction: "prev" | "next"
+  class?: string
+  ariaLabel?: string
+}
+
+const { direction, class: className = "", ariaLabel } = Astro.props
+
+const defaultLabel = direction === "prev" ? "Previous slide" : "Next slide"
+---
+
+<button
+  class:list={[
+    "w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-primary/40 text-white flex items-center justify-center hover:bg-primary/80 transition-colors disabled:opacity-55 disabled:bg-accent disabled:cursor-not-allowed",
+    className,
+  ]}
+  aria-label={ariaLabel || defaultLabel}>
+  {
+    direction === "prev" ? (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="8"
+        height="14"
+        viewBox="0 0 8 14"
+        fill="none">
+        <path
+          d="M7 13L1 7L7 1"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+    ) : (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="8"
+        height="14"
+        viewBox="0 0 8 14"
+        fill="none">
+        <path
+          d="M1 13L7 7L1 1"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+    )
+  }
+</button>
