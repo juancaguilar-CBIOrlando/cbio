@@ -1,6 +1,7 @@
 ---
 import SliderArrow from "../common/SliderArrow.astro"
 import { pastors } from "../../helpers/pastorsData.js"
+import { Image } from "astro:assets"
 import "swiper/css"
 import "swiper/css/navigation"
 ---
@@ -15,41 +16,43 @@ import "swiper/css/navigation"
             pastors.map((pastor) => (
               <div class="swiper-slide">
                 <div class="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
-                  <!-- Left: Image with Names Overlay -->
                   <div class="relative">
-                    <!-- Script Names - Positioned above/overlapping the image -->
-                    <div class="pastor-names text-center lg:text-left mb-4 lg:mb-0 lg:absolute lg:-top-8 lg:left-1/2 lg:-translate-x-1/2 z-20">
-                      <span class="font-script text-4xl sm:text-5xl lg:text-6xl text-white leading-tight block">
+                    <div class="absolute -top-1 right-2 text-left left-1/2 z-20">
+                      <span class="font-script text-4xl sm:text-5xl lg:text-5xl text-white/80 leading-tight block">
                         {pastor.name1} +
                       </span>
-                      <span class="font-script text-4xl sm:text-5xl lg:text-6xl text-white leading-tight block">
+                      <span class="font-script text-4xl sm:text-5xl lg:text-5xl text-white/80 leading-tight block">
                         {pastor.name2} {pastor.lastName}
                       </span>
                     </div>
 
-                    <!-- Image Container -->
                     <div class="relative aspect-4/5 max-w-md mx-auto lg:mx-0 rounded-lg overflow-hidden shadow-2xl lg:mt-12">
                       {pastor.image ? (
-                        <img
+                        <Image
                           src={pastor.image}
                           alt={`${pastor.name1} y ${pastor.name2} ${pastor.lastName}`}
+                          width={500}
+                          height={625}
+                          quality={90}
+                          format="webp"
                           class="w-full h-full object-cover"
                           loading="lazy"
                         />
                       ) : (
                         <div class="w-full h-full bg-linear-to-br from-gray-700 to-gray-900 flex items-center justify-center">
-                          <span class="text-gray-500 text-lg">Imagen próximamente</span>
+                          <span class="text-gray-500 text-lg">
+                            Imagen próximamente
+                          </span>
                         </div>
                       )}
                     </div>
                   </div>
 
-                  <!-- Right: Content -->
                   <div class="text-white lg:pl-8">
-                    <h2 class="font-bebas text-4xl sm:text-5xl lg:text-6xl text-white mb-6 leading-none">
+                    <h2 class="font-bebas text-6xl mb-6 text-center leading-none text-primary">
                       Nuestros Pastores
                     </h2>
-                    <p class="text-gray-300 text-lg leading-relaxed whitespace-pre-line mb-8">
+                    <p class="text-gray-300 text-center text-lg leading-relaxed whitespace-pre-line mb-8">
                       {pastor.description}
                     </p>
                     <div class="inline-block bg-primary/20 border border-primary/40 rounded-full px-6 py-2">
@@ -103,10 +106,10 @@ import "swiper/css/navigation"
 
 <style>
   /* Import Google Font for script style */
-  @import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+  @import url("https://fonts.googleapis.com/css2?family=Pacifico&display=swap");
 
   .font-script {
-    font-family: 'Pacifico', cursive;
+    font-family: "Pacifico", cursive;
   }
 
   /* Pastors Swiper Styles */

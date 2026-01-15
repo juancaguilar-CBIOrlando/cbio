@@ -1,5 +1,6 @@
-// Pastors data for CBI Orlando
-// Each pastor couple has their names, role, description, and image
+import marulandaImg from "../assets/marulanda.jpeg"
+import smitsImg from "../assets/smits.jpeg"
+import riverasImg from "../assets/riveras.jpg"
 
 export const pastors = [
   {
@@ -7,21 +8,18 @@ export const pastors = [
     name2: "Julieta",
     lastName: "Smit",
     role: "Pastores Principales",
-    description: `¡Qué alegría tenerte aquí!
-Somos Roy y Julieta Smit, pastores de Centro Bíblico Internacional Orlando, una iglesia que ama a Dios y ama la gente; apasionados por establecer Su Reino y extender el evangelio.
-
-Creemos que la iglesia no es un lugar, sino una familia, donde cada persona puede conocer a Jesús, crecer en Su Palabra y ser guiado por el Espíritu Santo.
-
-En CBI encontrarás una comunidad llena de fe, esperanza y amor, donde suceden cosas nuevas y podrás experimentar el poder de Dios transformando tu vida.
-Te invitamos a ser parte de esta gran familia, no caminarás solo, te acompañaremos a descubrir el propósito que Dios tiene contigo.
-
-¡Bienvenido a casa!`,
+    description: `Somos los pastores Roy y Julieta Smit, apasionados por conectar a las personas con Dios. 
+    
+    Respondimos al llamado de plantar CBI Orlando tras años de servicio en el ministerio. Con perseverancia y visión, lideramos el proceso que culminó con la fundación de la iglesia en 2011.
+    
+    Como iglesia, existimos para formar discípulos con una relación íntima con Dios y establecer el Reino fortaleciendo familias sólidas, saludables y alineadas al diseño de Dios, guiando a cada persona a descubrir su propósito y servir con impacto en la iglesia y la comunidad.`,
     // FIXME: Add actual image path when available
-    image: null,
+    image: smitsImg,
   },
+
   {
     name1: "Julian",
-    name2: "Diana",
+    name2: "Patricia",
     lastName: "Marulanda",
     role: "Pastores Asociados",
     description: `Somos Julian y Diana Marulanda, pastores asociados de CBI Orlando.
@@ -31,13 +29,13 @@ Estamos comprometidos con servir a nuestra comunidad y ayudar a cada persona a c
 Creemos en el poder de la comunidad y en el amor que transforma vidas. Nuestro corazón es ver familias restauradas y personas encontrando su propósito en Cristo.
 
 ¡Estamos aquí para caminar contigo!`,
-    // FIXME: Add actual image path when available
-    image: null,
+    image: marulandaImg,
   },
+
   {
     name1: "Rolando",
     name2: "Wendy",
-    lastName: "Apellido",
+    lastName: "Paiz",
     role: "Pastores de Jóvenes",
     description: `Somos Rolando y Wendy, pastores de jóvenes de CBI Orlando.
 
@@ -52,7 +50,7 @@ Creemos que los jóvenes tienen un llamado único y poderoso, y estamos aquí pa
   {
     name1: "Emanuel",
     name2: "Giselle",
-    lastName: "Apellido",
+    lastName: "Rivera",
     role: "Pastores de Jóvenes",
     description: `Somos Emanuel y Giselle, pastores de jóvenes de CBI Orlando.
 
@@ -62,6 +60,6 @@ Creemos que cada joven tiene un potencial increíble y estamos comprometidos a a
 
 ¡Te esperamos para crecer juntos en esta aventura de fe!`,
     // FIXME: Add actual image path when available
-    image: null,
+    image: riverasImg,
   },
 ]
