@@ -8,6 +8,7 @@ import ServiceCard from "../components/services/ServiceCard.astro"
 import { faqItems } from "../helpers/FAQ.js"
 import ExpectSlider from "../components/visitanos/ExpectSlider.astro"
 import ServiceSlider from "../components/visitanos/ServiceSlider.astro"
+import PastorsSlider from "../components/visitanos/PastorsSlider.astro"
 import { ArrowRight, ChevronDown } from "@lucide/astro"
 
 // Google Maps URL
@@ -45,7 +46,7 @@ const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComp
 
   <!-- Main Content -->
   <main class="bg-white">
-    <section class="py-12 lg:py-24 px-6 lg:px-16">
+    <section class="py-12 px-6 lg:px-16">
       <h1
         class="text-4xl sm:text-5xl lg:text-6xl text-primary text-center leading-none">
         Nuestros Servicios
@@ -56,7 +57,7 @@ const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComp
           class="text-primary font-bold">espacio para ti y tu familia.</span
         >
       </h4>
-      <div class="max-w-xl mx-auto mt-8">
+      <div class="max-w-7xl mx-auto mt-4">
         <ServiceCard
           day="Domingos"
           image={serviciosDominicalImg}
@@ -78,6 +79,7 @@ const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComp
 
     <ExpectSlider />
 
+    <PastorsSlider />
     <!-- CBI Kids Section -->
     <section class="relative overflow-hidden bg-accent">
       <div class="max-w-7xl mx-auto">
