@@ -7,7 +7,8 @@ import { address, serviceTimes } from "../constants.js"
 import ServiceCard from "../components/services/ServiceCard.astro"
 import { faqItems } from "../helpers/FAQ.js"
 import ExpectSlider from "../components/visitanos/ExpectSlider.astro"
-import { ArrowRight } from "@lucide/astro"
+import ServiceSlider from "../components/visitanos/ServiceSlider.astro"
+import { ArrowRight, ChevronDown } from "@lucide/astro"
 
 // Google Maps URL
 const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`
@@ -68,10 +69,12 @@ const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComp
       </div>
     </section>
 
-    <!-- Divider -->
-    <div class="max-w-6xl mx-auto px-6 lg:px-16">
-      <div class="h-px bg-gray-200"></div>
-    </div>
+    <ServiceSlider
+      services={serviceTimes}
+      image={serviciosDominicalImg}
+      address={address}
+      mapsUrl={mapsUrl}
+    />
 
     <ExpectSlider />
 
@@ -166,19 +169,10 @@ const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComp
                       {item.question}
                     </h3>
                     <div class="faq-icon w-10 h-10 rounded-full bg-gray-100 group-hover:bg-primary/10 flex items-center justify-center shrink-0 transition-all duration-300">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="20"
-                        height="20"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        class="faq-chevron text-gray-400 group-hover:text-primary transition-all duration-300">
-                        <path d="m6 9 6 6 6-6" />
-                      </svg>
+                      <ChevronDown
+                        size={22}
+                        class="faq-chevron text-gray-700 group-hover:text-primary transition-all duration-300"
+                      />
                     </div>
                   </button>
                   <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 ease-out">
@@ -298,12 +292,6 @@ const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComp
     .animate-fade-in-up {
       animation: fade-in-up 1s ease-out 0.2s forwards;
       opacity: 0;
-    }
-    .faq-chevron {
-      transition: transform 0.3s ease;
-    }
-    .faq-chevron.rotate-180 {
-      transform: rotate(180deg);
     }
   </style>
 </Layout>
