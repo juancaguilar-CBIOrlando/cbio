@@ -3,7 +3,7 @@ export const iglesias = [
   {
     name: "CBI Barranquilla",
     location: "Colombia",
-    pastors: "Prs. Rafael y ESPOSA ",
+    pastors: "Prs. Rafael & Adriana Gómez ",
     address: "Sede Villa Country | Kra 59A # 77 - 35 Barranquilla",
     phone: "+57 301 285 8302",
     website: "https://www.cbint.org",
@@ -46,7 +46,7 @@ export const iglesias = [
   {
     name: "CBI Juan de Acosta",
     location: "Colombia",
-    pastors: "Pr. Carlos y Leyda Rudas",
+    pastors: "Pr. Carlos & Leyda Rudas",
     address: "Calle 6 No. 4-46",
     phone: "+57 304 3539143",
   },
@@ -77,7 +77,7 @@ export const iglesias = [
   {
     name: "CBI New Jersey",
     location: "USA",
-    pastors: "Pres. Ricardo y Jackeline Rudd",
+    pastors: "Pres. Ricardo & Jackeline Rudd",
     facebook: "https://www.facebook.com/CbintNJ",
     instagram: "https://www.instagram.com/cbinj/",
   },
@@ -138,7 +138,7 @@ export const iglesias = [
   {
     name: "CBI St. Cloud",
     location: "USA",
-    pastors: "Prs. Paul y Jennifer Smit",
+    pastors: "Prs. Paul & Jennifer Smit",
     phone: "+1 407 731 0206",
     facebook: "https://www.facebook.com/cbistcloud",
     instagram: "https://www.instagram.com/cbistcloud/",
