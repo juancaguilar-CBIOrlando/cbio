@@ -17,13 +17,9 @@ interface Props {
 }
 
 const { name, slides, ariaLabel } = Astro.props
-
-const swiperSelector = `.${name}-swiper`
-const prevSelector = `.${name}-swiper-prev`
-const nextSelector = `.${name}-swiper-next`
 ---
 
-<div class="w-full">
+<div class="missions-slider w-full">
   <div class="flex items-center justify-end gap-3 mb-4">
     <SliderArrow
       direction="prev"
@@ -38,12 +34,15 @@ const nextSelector = `.${name}-swiper-next`
   </div>
 
   <div class={`${name}-swiper-container relative`}>
-    <div class={`swiper ${name}-swiper`}>
+    <div
+      class={`swiper ${name}-swiper`}
+      data-prev-btn={`.${name}-swiper-prev`}
+      data-next-btn={`.${name}-swiper-next`}>
       <div class="swiper-wrapper">
         {
           slides.map((slide) => (
             <div class="swiper-slide">
-              <article class="rounded-3xl overflow-hidden bg-black/5">
+              <article class="slide-card rounded-3xl overflow-hidden bg-black/5">
                 <div class="relative aspect-4/5">
                   <Image
                     src={slide.image}
@@ -68,35 +67,63 @@ const nextSelector = `.${name}-swiper-next`
   </div>
 </div>
 
-<script define:vars={{ swiperSelector, prevSelector, nextSelector }}>
+<script>
+  // @ts-nocheck
   import Swiper from "swiper"
   import { Navigation } from "swiper/modules"
 
-  document.addEventListener("DOMContentLoaded", () => {
-    new Swiper(swiperSelector, {
-      modules: [Navigation],
-      slidesPerView: 1.15,
-      spaceBetween: 18,
-      navigation: {
-        prevEl: prevSelector,
-        nextEl: nextSelector,
-      },
-      breakpoints: {
-        640: { slidesPerView: 1.6, spaceBetween: 20 },
-        768: { slidesPerView: 2.1, spaceBetween: 22 },
-        1024: { slidesPerView: 2.6, spaceBetween: 24 },
-      },
+  function initMissionsSwipers() {
+    // Find all swiper containers within .missions-slider
+    const swiperElements = /** @type {NodeListOf<HTMLElement>} */ (
+      document.querySelectorAll(".missions-slider .swiper")
+    )
+
+    swiperElements.forEach((swiperEl) => {
+      const prevBtn = swiperEl.getAttribute("data-prev-btn")
+      const nextBtn = swiperEl.getAttribute("data-next-btn")
+
+      if (prevBtn && nextBtn) {
+        new Swiper(/** @type {HTMLElement} */ (swiperEl), {
+          modules: [Navigation],
+          slidesPerView: 1.15,
+          spaceBetween: 18,
+          navigation: {
+            prevEl: prevBtn,
+            nextEl: nextBtn,
+          },
+          breakpoints: {
+            640: { slidesPerView: 1.6, spaceBetween: 20 },
+            768: { slidesPerView: 2.1, spaceBetween: 22 },
+            1024: { slidesPerView: 2.6, spaceBetween: 24 },
+          },
+        })
+      }
     })
-  })
+  }
+
+  // Initialize on DOM ready
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initMissionsSwipers)
+  } else {
+    initMissionsSwipers()
+  }
 </script>
 
 <style>
-  .swiper {
-    overflow: hidden;
+  .missions-slider {
+    width: 100%;
   }
 
-  .swiper-slide {
+  .missions-slider .swiper {
+    overflow: hidden;
+    width: 100%;
+  }
+
+  .missions-slider .swiper-slide {
     height: auto;
   }
-</style>
 
+  .missions-slider .slide-card {
+    width: 100%;
+  }
+</style>
