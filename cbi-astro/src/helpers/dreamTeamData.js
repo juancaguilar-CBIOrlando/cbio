@@ -2,6 +2,10 @@ import dreamTeam1Img from "../assets/dreamTeam-1.JPG"
 import dreamTeam2Img from "../assets/dreamTeam2.jpg"
 import dreamTeamHeroImg from "../assets/dreamTeam-hero.jpg"
 import dreamTeamWelcomeImg from "../assets/dreamTeam-welcome.jpg"
+import dreamTeamFunnyImg from "../assets/dreamTeam-funny.jpg"
+import alabanzaImg from "../assets/alabanza.JPG"
+import danzaImg from "../assets/alabanza-danza.JPG"
+import danzaImg2 from "../assets/alabanza-danza5.JPG"
 
 /**
  * Dream Team page content data
@@ -41,7 +45,7 @@ export const ourTeamSlides = [
     title: "Familia de Servidores",
     description:
       "Somos más que voluntarios, somos una familia unida por el amor de Cristo y el deseo de servir.",
-    image: dreamTeamWelcomeImg,
+    image: dreamTeamFunnyImg,
   },
   {
     id: "team-2",
@@ -66,7 +70,7 @@ export const valuesSlides = [
     title: "Excelencia",
     description:
       "Todo lo que hacemos, lo hacemos como para el Señor. Buscamos la excelencia en cada detalle porque servimos a un Dios excelente.",
-    image: dreamTeam1Img,
+    image: alabanzaImg,
     icon: "star",
   },
   {
@@ -74,7 +78,7 @@ export const valuesSlides = [
     title: "Comunidad",
     description:
       "No servimos solos. Creamos lazos de amistad y apoyo mutuo que van más allá del domingo.",
-    image: dreamTeamWelcomeImg,
+    image: danzaImg,
     icon: "users",
   },
   {
@@ -90,7 +94,7 @@ export const valuesSlides = [
     title: "Alegría",
     description:
       "Servimos con gozo porque sabemos que estamos haciendo la obra del Señor. La alegría es contagiosa.",
-    image: dreamTeam1Img,
+    image: danzaImg2,
     icon: "heart",
   },
 ]
