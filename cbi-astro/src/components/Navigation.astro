@@ -35,7 +35,11 @@ const secondaryLinksColumn1 = [
   { name: "CBI Kids", path: "/kids" },
   { name: "Misiones", path: "/missions/all" },
   { name: "Sedes", path: "/iglesias" },
-  { name: "About Us", path: "/about" },
+  {
+    name: "Predicas",
+    path: "https://www.youtube.com/@CBIOrlando",
+    target: "_blank",
+  },
 ]
 
 const secondaryLinksColumn2 = [
@@ -161,6 +165,7 @@ const secondaryLinksColumn2 = [
               secondaryLinksColumn1.map((link, index) => (
                 <a
                   href={link.path}
+                  target={link.target || "_self"}
                   class="menu-link secondary-link text-base lg:text-lg font-medium text-white/60 transition-all duration-300 hover:text-primary"
                   style={`animation-delay: ${(primaryLinks.length + index) * 50}ms;`}>
                   {link.name}
