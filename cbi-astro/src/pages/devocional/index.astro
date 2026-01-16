@@ -121,39 +121,40 @@ const devotionals = await getDevotionals()
           </div>
 
           {devotionals.length > 0 ? (
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+            <div id="devotionals-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
               {devotionals.map((devotional: any) => (
                 <a
                   href={`/devocional/${devotional.id}`}
-                  class="group relative bg-white rounded-2xl overflow-hidden transition-all duration-300 border border-gray-100 ring-1 ring-primary/15 hover:shadow-xl hover:-translate-y-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                  data-date={devotional.date}
+                  class="devotional-card group relative bg-white rounded-2xl overflow-hidden transition-all duration-300 border border-gray-100 ring-1 ring-primary/15 hover:shadow-xl hover:-translate-y-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
                 >
                   <!-- Color accent bar (like iglesias cards) -->
-                  <div class="h-1.5 bg-linear-to-r from-primary to-accent group-hover:h-2 transition-all duration-300"></div>
+                  <div class="accent-bar h-1.5 bg-linear-to-r from-primary to-accent group-hover:h-2 transition-all duration-300"></div>
 
                   <div class="p-5 md:p-6 flex flex-col h-full">
                     <!-- Date badge -->
                     <div class="flex items-center justify-between gap-2 mb-3">
-                      <span class="inline-flex items-center gap-1.5 px-1 py-1 rounded-full text-accent capitalize text-sm font-medium">
-                        {new Date(devotional.date).toLocaleDateString("es-ES", {
+                      <span class="date-badge inline-flex items-center gap-1.5 px-1 py-1 rounded-full text-accent capitalize text-sm font-medium">
+                        {new Date(devotional.date + "T00:00:00").toLocaleDateString("es-ES", {
                           month: "long",
                           day: "numeric",
                         })}
                       </span>
-                      <span class="inline-flex shrink-0 w-9 h-9 rounded-full bg-primary/10 text-primary items-center justify-center ring-1 ring-primary/20 group-hover:bg-primary group-hover:text-white group-hover:ring-primary transition-all duration-300">
+                      <span class="arrow-icon inline-flex shrink-0 w-9 h-9 rounded-full bg-primary/10 text-primary items-center justify-center ring-1 ring-primary/20 group-hover:bg-primary group-hover:text-white group-hover:ring-primary transition-all duration-300">
                         <ArrowRight class="w-4 h-4" />
                       </span>
                     </div>
 
                     <!-- Title -->
                     <h3
-                      class="text-2xl font-bold text-accent group-hover:text-primary transition-colors line-clamp-2 font-bebas tracking-wide"
+                      class="card-title text-2xl font-bold text-accent group-hover:text-primary transition-colors line-clamp-2 font-bebas tracking-wide"
                       set:html={devotional.title}
                     />
 
                     <!-- Verse preview -->
                     {devotional.verse && (
                       <p
-                        class="mt-3 text-gray-600 italic line-clamp-3 text-sm font-semibold leading-relaxed"
+                        class="card-verse mt-3 text-gray-600 italic line-clamp-3 text-sm font-semibold leading-relaxed"
                         set:html={devotional.verse}
                       />
                     )}
@@ -161,10 +162,10 @@ const devotionals = await getDevotionals()
                     <!-- Footer -->
                     <div class="mt-auto pt-4">
                       <div class="flex items-center gap-2">
-                        <span class="text-sm font-semibold text-primary">
+                        <span class="footer-text text-sm font-semibold text-primary">
                           Leer devocional
                         </span>
-                        <span class="text-gray-400 group-hover:text-primary transition-colors">
+                        <span class="footer-arrow text-gray-400 group-hover:text-primary transition-colors">
                           <ArrowRight class="w-5 h-5" />
                         </span>
                       </div>
@@ -188,6 +189,26 @@ const devotionals = await getDevotionals()
     </main>
   </div>
 </Layout>
+
+<script>
+  // Detect today's devotional - compare raw date strings (Notion as source of truth)
+  document.addEventListener('DOMContentLoaded', () => {
+    const cards = document.querySelectorAll('.devotional-card');
+    const today = new Date();
+    // Build today's date string in YYYY-MM-DD format (matching Notion's format)
+    const todayStr = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
+
+    cards.forEach((card) => {
+      const cardDateStr = card.getAttribute('data-date');
+      if (!cardDateStr) return;
+
+      // Direct string comparison - Notion date is the source of truth
+      if (cardDateStr === todayStr) {
+        card.classList.add('is-today');
+      }
+    });
+  });
+</script>
 
 <style>
   @keyframes fade-in {
@@ -217,5 +238,65 @@ const devotionals = await getDevotionals()
   .animate-fade-in-up {
     opacity: 0;
     animation: fade-in-up 0.9s ease-out forwards;
+  }
+
+  /* ===== Today's Devotional - Accent themed ===== */
+  .devotional-card.is-today {
+    background: var(--accent);
+    border-color: var(--accent);
+    ring-color: var(--accent);
+    box-shadow: 0 10px 25px -5px color-mix(in srgb, var(--accent) 30%, transparent),
+                0 8px 10px -6px color-mix(in srgb, var(--accent) 20%, transparent);
+  }
+
+  .devotional-card.is-today .accent-bar {
+    background: linear-gradient(to right, var(--primary), white);
+  }
+
+  .devotional-card.is-today .date-badge {
+    background: white/15;
+    color: var(--primary);
+    font-weight: 700;
+  }
+
+  .devotional-card.is-today .date-badge::before {
+    content: "Hoy · ";
+    color: white;
+  }
+
+  .devotional-card.is-today .arrow-icon {
+    background: white;
+    color: var(--accent);
+    ring-color: white;
+  }
+
+  .devotional-card.is-today:hover .arrow-icon {
+    background: var(--primary);
+    color: white;
+    ring-color: var(--primary);
+  }
+
+  .devotional-card.is-today .card-title {
+    color: white;
+  }
+
+  .devotional-card.is-today:hover .card-title {
+    color: var(--primary);
+  }
+
+  .devotional-card.is-today .card-verse {
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  .devotional-card.is-today .footer-text {
+    color: var(--primary);
+  }
+
+  .devotional-card.is-today .footer-arrow {
+    color: rgba(255, 255, 255, 0.6);
+  }
+
+  .devotional-card.is-today:hover .footer-arrow {
+    color: var(--primary);
   }
 </style>
