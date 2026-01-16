@@ -1,0 +1,162 @@
+---
+import { Image } from "astro:assets"
+import SliderArrow from "../common/SliderArrow.astro"
+import { Star, Users, TrendingUp, Heart } from "@lucide/astro"
+import "swiper/css"
+import "swiper/css/navigation"
+
+type ValueSlide = {
+  id: string
+  title: string
+  description: string
+  image: ImageMetadata
+  icon: string
+}
+
+interface Props {
+  name: string
+  slides: ValueSlide[]
+  ariaLabel?: string
+}
+
+const { name, slides, ariaLabel } = Astro.props
+
+const iconMap: Record<string, any> = {
+  star: Star,
+  users: Users,
+  "trending-up": TrendingUp,
+  heart: Heart,
+}
+---
+
+<section class="py-16 lg:py-24 px-6 lg:px-16 bg-slate-50">
+  <div class="max-w-6xl mx-auto">
+    <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-10">
+      <div>
+        <span
+          class="inline-block bg-accent/10 text-accent px-4 py-1 rounded-full text-sm font-semibold uppercase tracking-wide mb-4">
+          {ariaLabel || "Nuestros Valores"}
+        </span>
+        <h2
+          class="font-bebas text-4xl sm:text-5xl lg:text-6xl leading-[0.95] text-accent">
+          Lo Que Nos Mueve
+        </h2>
+        <p class="mt-4 text-gray-600 text-lg leading-relaxed max-w-2xl">
+          Estos son los valores que definen cómo servimos y por qué lo hacemos con
+          todo el corazón.
+        </p>
+      </div>
+      <div class="flex items-center gap-3">
+        <SliderArrow
+          direction="prev"
+          class={`${name}-swiper-prev`}
+          ariaLabel="Anterior"
+        />
+        <SliderArrow
+          direction="next"
+          class={`${name}-swiper-next`}
+          ariaLabel="Siguiente"
+        />
+      </div>
+    </div>
+
+    <div class="values-slider w-full">
+      <div class={`${name}-swiper-container relative`}>
+        <div
+          class={`swiper ${name}-swiper`}
+          data-prev-btn={`.${name}-swiper-prev`}
+          data-next-btn={`.${name}-swiper-next`}>
+          <div class="swiper-wrapper">
+            {
+              slides.map((slide) => {
+                const IconComponent = iconMap[slide.icon] || Heart
+                return (
+                  <div class="swiper-slide">
+                    <article class="rounded-3xl overflow-hidden bg-white h-full shadow-lg shadow-gray-200/50 hover:shadow-xl transition-shadow duration-300 border border-gray-100">
+                      <div class="relative aspect-16/10">
+                        <Image
+                          src={slide.image}
+                          alt={slide.title}
+                          width={1200}
+                          height={750}
+                          quality={80}
+                          class="w-full h-full object-cover"
+                          loading="lazy"
+                        />
+                        <div class="absolute inset-0 bg-linear-to-t from-accent/90 via-accent/50 to-transparent" />
+                        
+                        {/* Icon badge */}
+                        <div class="absolute top-4 right-4 w-14 h-14 bg-primary rounded-2xl flex items-center justify-center shadow-lg">
+                          <IconComponent class="w-7 h-7 text-white" />
+                        </div>
+                        
+                        <div class="absolute inset-x-0 bottom-0 p-6 sm:p-8">
+                          <h3 class="text-white text-2xl sm:text-3xl font-bold font-bebas tracking-wide">
+                            {slide.title}
+                          </h3>
+                          <p class="text-white/85 mt-3 leading-relaxed text-base">
+                            {slide.description}
+                          </p>
+                        </div>
+                      </div>
+                    </article>
+                  </div>
+                )
+              })
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  // @ts-nocheck
+  import Swiper from "swiper"
+  import { Navigation } from "swiper/modules"
+
+  function initValuesSwipers() {
+    const swiperElements = /** @type {NodeListOf<HTMLElement>} */ (
+      document.querySelectorAll(".values-slider .swiper")
+    )
+
+    swiperElements.forEach((swiperEl) => {
+      const prevBtn = swiperEl.getAttribute("data-prev-btn")
+      const nextBtn = swiperEl.getAttribute("data-next-btn")
+
+      if (!prevBtn || !nextBtn) return
+
+      new Swiper(/** @type {HTMLElement} */ (swiperEl), {
+        modules: [Navigation],
+        slidesPerView: 1,
+        spaceBetween: 20,
+        navigation: {
+          prevEl: prevBtn,
+          nextEl: nextBtn,
+        },
+        breakpoints: {
+          640: { slidesPerView: 1.15, spaceBetween: 24 },
+          1024: { slidesPerView: 1.5, spaceBetween: 28 },
+        },
+      })
+    })
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initValuesSwipers)
+  } else {
+    initValuesSwipers()
+  }
+</script>
+
+<style>
+  .values-slider .swiper {
+    overflow: hidden;
+    width: 100%;
+  }
+
+  .values-slider .swiper-slide {
+    height: auto;
+  }
+</style>

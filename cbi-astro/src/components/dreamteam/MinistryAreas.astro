@@ -1,0 +1,175 @@
+---
+import {
+  Music,
+  HeartHandshake,
+  Baby,
+  Video,
+  Link,
+} from "@lucide/astro"
+import SliderArrow from "../common/SliderArrow.astro"
+import "swiper/css"
+import "swiper/css/navigation"
+
+type MinistryArea = {
+  id: string
+  name: string
+  description: string
+  icon: string
+  color: string
+}
+
+interface Props {
+  areas: MinistryArea[]
+}
+
+const { areas } = Astro.props
+
+const iconMap: Record<string, any> = {
+  music: Music,
+  "heart-handshake": HeartHandshake,
+  baby: Baby,
+  video: Video,
+  "hands-praying": HeartHandshake,
+  link: Link,
+}
+---
+
+<section class="py-16 lg:py-24 px-6 lg:px-16 bg-white">
+  <div class="max-w-6xl mx-auto">
+    <div class="text-center mb-12">
+      <span
+        class="inline-block bg-primary/10 text-primary px-4 py-1 rounded-full text-sm font-semibold uppercase tracking-wide mb-4">
+        Áreas de Servicio
+      </span>
+      <h2
+        class="font-bebas text-4xl sm:text-5xl lg:text-6xl leading-[0.95] text-accent mb-4">
+        Encuentra Tu Lugar
+      </h2>
+      <p class="text-gray-600 text-lg max-w-2xl mx-auto">
+        Hay un lugar perfecto para ti. Descubre dónde puedes usar tus dones para
+        servir al Señor y bendecir a otros.
+      </p>
+    </div>
+
+    <!-- Swiper for mobile, Grid for desktop -->
+    <div class="ministry-slider lg:hidden">
+      <div class="flex items-center justify-center gap-3 mb-6">
+        <SliderArrow
+          direction="prev"
+          class="ministry-swiper-prev"
+          ariaLabel="Anterior"
+        />
+        <SliderArrow
+          direction="next"
+          class="ministry-swiper-next"
+          ariaLabel="Siguiente"
+        />
+      </div>
+
+      <div class="swiper ministry-swiper">
+        <div class="swiper-wrapper">
+          {
+            areas.map((area) => {
+              const IconComponent = iconMap[area.icon] || HeartHandshake
+              return (
+                <div class="swiper-slide">
+                  <div class="group relative bg-white rounded-2xl p-6 h-full shadow-lg shadow-gray-200/50 hover:shadow-xl transition-all duration-300 border border-gray-100 overflow-hidden">
+                    {/* Gradient background on hover */}
+                    <div
+                      class={`absolute inset-0 bg-linear-to-br ${area.color} opacity-0 group-hover:opacity-100 transition-opacity duration-300`}
+                    />
+
+                    <div class="relative z-10">
+                      <div
+                        class={`w-14 h-14 bg-linear-to-br ${area.color} rounded-2xl flex items-center justify-center mb-5 group-hover:bg-white/20 transition-colors duration-300`}>
+                        <IconComponent class="w-7 h-7 text-white" />
+                      </div>
+                      <h3 class="text-xl font-bold text-accent group-hover:text-white transition-colors duration-300 mb-2">
+                        {area.name}
+                      </h3>
+                      <p class="text-gray-600 group-hover:text-white/90 transition-colors duration-300 leading-relaxed">
+                        {area.description}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              )
+            })
+          }
+        </div>
+      </div>
+    </div>
+
+    <!-- Desktop Grid -->
+    <div class="hidden lg:grid lg:grid-cols-3 gap-6">
+      {
+        areas.map((area) => {
+          const IconComponent = iconMap[area.icon] || HeartHandshake
+          return (
+            <div class="group relative bg-white rounded-2xl p-6 h-full shadow-lg shadow-gray-200/50 hover:shadow-xl transition-all duration-300 border border-gray-100 overflow-hidden hover:-translate-y-1">
+              {/* Gradient background on hover */}
+              <div
+                class={`absolute inset-0 bg-linear-to-br ${area.color} opacity-0 group-hover:opacity-100 transition-opacity duration-300`}
+              />
+
+              <div class="relative z-10">
+                <div
+                  class={`w-14 h-14 bg-linear-to-br ${area.color} rounded-2xl flex items-center justify-center mb-5 group-hover:bg-white/20 transition-colors duration-300`}>
+                  <IconComponent class="w-7 h-7 text-white" />
+                </div>
+                <h3 class="text-xl font-bold text-accent group-hover:text-white transition-colors duration-300 mb-2">
+                  {area.name}
+                </h3>
+                <p class="text-gray-600 group-hover:text-white/90 transition-colors duration-300 leading-relaxed">
+                  {area.description}
+                </p>
+              </div>
+            </div>
+          )
+        })
+      }
+    </div>
+  </div>
+</section>
+
+<script>
+  // @ts-nocheck
+  import Swiper from "swiper"
+  import { Navigation } from "swiper/modules"
+
+  function initMinistrySwiper() {
+    const swiperEl = document.querySelector(".ministry-swiper")
+    if (!swiperEl) return
+
+    new Swiper(".ministry-swiper", {
+      modules: [Navigation],
+      slidesPerView: 1.15,
+      spaceBetween: 16,
+      navigation: {
+        prevEl: ".ministry-swiper-prev",
+        nextEl: ".ministry-swiper-next",
+      },
+      breakpoints: {
+        480: { slidesPerView: 1.5, spaceBetween: 18 },
+        640: { slidesPerView: 2.2, spaceBetween: 20 },
+      },
+    })
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initMinistrySwiper)
+  } else {
+    initMinistrySwiper()
+  }
+</script>
+
+<style>
+  .ministry-slider .swiper {
+    overflow: hidden;
+    width: 100%;
+  }
+
+  .ministry-slider .swiper-slide {
+    height: auto;
+  }
+</style>
