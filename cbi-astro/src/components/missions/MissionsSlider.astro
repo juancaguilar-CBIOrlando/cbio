@@ -1,0 +1,102 @@
+---
+import { Image } from "astro:assets"
+import SliderArrow from "../common/SliderArrow.astro"
+import "swiper/css"
+import "swiper/css/navigation"
+
+type Slide = {
+  id: string
+  title: string
+  image: ImageMetadata
+}
+
+interface Props {
+  name: string
+  slides: Slide[]
+  ariaLabel?: string
+}
+
+const { name, slides, ariaLabel } = Astro.props
+
+const swiperSelector = `.${name}-swiper`
+const prevSelector = `.${name}-swiper-prev`
+const nextSelector = `.${name}-swiper-next`
+---
+
+<div class="w-full">
+  <div class="flex items-center justify-end gap-3 mb-4">
+    <SliderArrow
+      direction="prev"
+      class={`${name}-swiper-prev`}
+      ariaLabel={ariaLabel ? `${ariaLabel}: anterior` : "Anterior"}
+    />
+    <SliderArrow
+      direction="next"
+      class={`${name}-swiper-next`}
+      ariaLabel={ariaLabel ? `${ariaLabel}: siguiente` : "Siguiente"}
+    />
+  </div>
+
+  <div class={`${name}-swiper-container relative`}>
+    <div class={`swiper ${name}-swiper`}>
+      <div class="swiper-wrapper">
+        {
+          slides.map((slide) => (
+            <div class="swiper-slide">
+              <article class="rounded-3xl overflow-hidden bg-black/5">
+                <div class="relative aspect-4/5">
+                  <Image
+                    src={slide.image}
+                    alt={slide.title}
+                    width={900}
+                    height={1100}
+                    quality={75}
+                    class="w-full h-full object-cover"
+                    loading="lazy"
+                  />
+                  <div class="absolute inset-0 bg-linear-to-t from-black/70 via-black/20 to-transparent" />
+                  <div class="absolute bottom-0 left-0 right-0 p-5">
+                    <h3 class="text-white font-bold text-lg">{slide.title}</h3>
+                  </div>
+                </div>
+              </article>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</div>
+
+<script define:vars={{ swiperSelector, prevSelector, nextSelector }}>
+  import Swiper from "swiper"
+  import { Navigation } from "swiper/modules"
+
+  document.addEventListener("DOMContentLoaded", () => {
+    new Swiper(swiperSelector, {
+      modules: [Navigation],
+      slidesPerView: 1.15,
+      spaceBetween: 18,
+      navigation: {
+        prevEl: prevSelector,
+        nextEl: nextSelector,
+      },
+      breakpoints: {
+        640: { slidesPerView: 1.6, spaceBetween: 20 },
+        768: { slidesPerView: 2.1, spaceBetween: 22 },
+        1024: { slidesPerView: 2.6, spaceBetween: 24 },
+      },
+    })
+  })
+</script>
+
+<style>
+  .swiper {
+    overflow: hidden;
+  }
+
+  .swiper-slide {
+    height: auto;
+  }
+</style>
+
