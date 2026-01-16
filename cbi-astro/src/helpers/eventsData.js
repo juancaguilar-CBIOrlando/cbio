@@ -13,6 +13,7 @@ import encuentros from "../assets/encuentros.jpeg"
 import mujeresImg from "../assets/mujeres.jpg"
 import parejasImg from "../assets/parejas.jpeg"
 import bautizosImg from "../assets/bautizos3.jpeg"
+import misionesImg from "../assets/misiones-events.jpeg"
 
 export const events = [
   {
@@ -53,7 +54,7 @@ export const events = [
     tagline: "Llevando esperanza a las naciones",
     description: "Únete a nuestro equipo misionero para llevar el amor de Cristo a Guatemala. Una oportunidad de servir, impactar vidas y experimentar el corazón de Dios por las naciones.",
     date: "Próximamente", // TODO: Update with actual date
-    image: "https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=2070&auto=format&fit=crop",
+    image: misionesImg,
     featured: true,
   },
   {
