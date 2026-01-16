@@ -1,8 +1,11 @@
 ---
 // src/pages/devocional/index.astro
 import Layout from "../../layouts/Layout.astro"
-import OpenBookIcon from "../../components/icons/OpenBookIcon.astro"
 import { getDevotionals } from "../../helpers/notion"
+import { Image } from "astro:assets"
+import bibleImg from "../../assets/bible.jpeg"
+import OpenBookIcon from "../../components/icons/OpenBookIcon.astro"
+import { ArrowRight, ArrowDown } from "@lucide/astro"
 
 // Disable prerender so this route fetches fresh data on each request
 export const prerender = false;
@@ -11,63 +14,194 @@ export const prerender = false;
 const devotionals = await getDevotionals()
 ---
 
-<Layout title="Devocionales - CBI Orlando">
-  <div class="container mx-auto px-4 py-16 mt-16">
-    <div class="max-w-4xl mx-auto">
-      <!-- Header -->
-      <header class="mb-12 text-center">
-        <div class="flex items-center justify-center gap-4 mb-4">
-          <div class="bg-primary rounded-full p-4">
-            <OpenBookIcon size={32} color="white" />
-          </div>
-          <h1 class="text-4xl md:text-5xl font-bold text-gray-900">Devocionales</h1>
-        </div>
-        <p class="text-xl text-gray-600">
-          Reflexiones diarias para fortalecer tu fe
-        </p>
-      </header>
+<Layout title="Devocionales - CBI Orlando" navLogo="white">
+  <div class="relative overflow-hidden">
+    <!-- Hero Section -->
+    <section class="relative h-[70vh] min-h-[520px] w-full overflow-hidden">
+      <Image
+        src={bibleImg}
+        alt="Devocionales - Biblia"
+        width={1920}
+        height={1080}
+        quality={90}
+        class="absolute inset-0 w-full h-full object-cover"
+        loading="eager"
+      />
+      <div class="absolute inset-0 bg-linear-to-b from-black/65 via-black/40 to-black/75"></div>
 
-      <!-- Devotionals List -->
-      {devotionals.length > 0 ? (
-        <div class="space-y-6">
-          {devotionals.map((devotional:any) => (
-            <a
-              href={`/devocional/${devotional.id}`}
-              class="block bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 p-6 border border-gray-200 hover:border-primary"
-            >
-              <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-                <div class="flex-1">
-                  <h2 
-                    class="text-2xl font-bold text-gray-900 mb-2 hover:text-primary transition-colors"
-                    set:html={devotional.title}
-                  />
-                  <p class="text-gray-500 mb-3">
-                    {new Date(devotional.date).toLocaleDateString('es-ES', {
-                      weekday: 'long',
-                      year: 'numeric',
-                      month: 'long',
-                      day: 'numeric'
-                    })}
-                  </p>
-                  {devotional.verse && (
-                    <p class="text-gray-700 italic line-clamp-2" set:html={devotional.verse} />
-                  )}
-                </div>
-              </div>
-            </a>
-          ))}
+      <div class="relative z-10 h-full flex flex-col items-center justify-center text-center px-6 pt-16">
+        <span class="text-primary text-sm sm:text-base uppercase tracking-[0.3em] font-semibold mb-3 animate-fade-in">
+          Devocional
+        </span>
+        <h1 class="font-bebas text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-white mb-3 max-w-4xl leading-none animate-fade-in-up">
+          Reflexiones que fortalecen tu <span class="text-primary">fe</span>
+        </h1>
+        <p class="text-white/75 text-lg md:text-xl max-w-2xl mx-auto animate-fade-in-up" style="animation-delay: 0.2s;">
+          Lecturas diarias para caminar con Dios, con esperanza y propósito.
+        </p>
+
+        <!-- Scroll indicator -->
+        <div class="mt-10 animate-fade-in-up" style="animation-delay: 0.35s;">
+          <a
+            href="#devocionales"
+            class="inline-flex flex-col items-center justify-center gap-2 text-white/60 hover:text-primary transition-colors duration-300"
+          >
+            <span class="text-xs uppercase tracking-widest">Ver lista</span>
+            <ArrowDown class="w-5 h-5 animate-bounce" />
+          </a>
         </div>
-      ) : (
-        <div class="text-center py-12">
-          <p class="text-gray-600 text-lg mb-4">
-            No hay devocionales disponibles en este momento.
-          </p>
-          <p class="text-gray-500">
-            Vuelve pronto para nuevas reflexiones.
-          </p>
+      </div>
+    </section>
+
+    <!-- Content -->
+    <main id="devocionales" class="bg-slate-50 relative">
+      <!-- Background SVG accents (dove + cross + bible) -->
+      <div class="pointer-events-none select-none absolute inset-0 overflow-hidden" aria-hidden="true">
+        <!-- Dove (from Navigation) -->
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 201 223"
+          fill="none"
+          class="absolute -right-10 top-24 w-[220px] sm:w-[260px] lg:w-[320px] opacity-[0.09] text-primary rotate-6">
+          <path
+            d="M88.629 201.777C88.2498 201.767 87.8615 202.136 87.8525 202.515C87.8626 202.984 88.2318 203.372 88.7001 203.362C96.4134 203.336 111.18 201.171 125.935 196.844C113.777 206.902 98.3276 214.868 78.7202 219.808C74.2763 220.988 66.8221 220.485 62.1369 218.894C60.701 218.367 59.5351 217.78 58.9067 217.073C58.3184 216.545 57.999 215.957 58.2173 215.249C58.3962 214.361 59.3121 213.404 61.1043 212.156C66.2729 208.743 72.229 205.06 78.6834 201.078C103.682 185.707 134.639 166.654 140.203 149.404C143.691 138.456 137.215 128.413 113.29 120.756C86.0069 111.966 58.3452 92.6182 37.6933 78.1104C26.9832 70.6127 18.069 64.4093 12.077 61.6029C7.36169 59.4531 4.22259 59.3064 2.94895 62.0389C2.26253 63.6044 2.01533 65.449 2.09718 67.502C2.35141 73.2836 5.38822 80.9865 9.60006 88.0508C8.91249 87.9216 8.22419 87.7925 7.62658 87.6433C4.44735 87.3166 2.26582 88.0859 1.92952 90.7975C1.65228 92.9306 2.71121 95.9906 4.84751 99.6573C8.56093 106.174 15.5737 114.402 23.5329 121.384L24.6697 122.26C22.6882 123.926 22.072 126.229 23.3307 129.338C26.8961 138.148 47.1956 148.12 69.1855 154.702C90.647 161.025 113.949 164.207 124.987 159.673C125.415 159.483 125.605 159.064 125.415 158.636C125.335 158.277 124.806 158.018 124.467 158.188C113.679 162.573 90.8645 159.471 69.6028 153.197C48.0315 146.804 28.1718 137.11 24.7957 128.73C23.787 126.318 24.3434 124.593 25.8473 123.316C33.2971 129.281 41.3135 133.989 48.2903 134.881C51.6887 135.347 54.7777 134.846 57.5366 133.289C61.2912 131.133 62.0168 128.899 60.779 126.727C59.092 123.808 52.9809 121.311 46.124 120.11C39.3563 118.889 31.8223 118.875 27.2501 120.743C26.8219 120.933 26.3935 121.122 25.9853 121.402L24.5893 120.206C16.76 113.384 9.8565 105.226 6.18378 98.8884C4.30736 95.54 3.21872 92.77 3.48599 91.0154C3.68411 89.3707 5.18816 88.9407 7.41069 89.1982C8.47726 89.3366 9.58328 89.6551 10.8891 90.0227L10.9291 90.2019C15.9286 97.8439 22.1335 104.557 27.6864 107.085C29.2715 107.862 30.9565 108.239 32.4507 108.188C34.6831 108.066 35.6389 107.289 35.5179 105.903C35.4459 103.471 30.7186 99.1583 24.7956 95.3948C20.6969 92.6367 15.9016 90.1285 11.9239 88.7558C7.29293 81.5023 3.88763 73.4109 3.68265 67.4302C3.55156 65.5763 3.7696 64.0208 4.40606 62.6546C5.16165 60.9793 7.67339 61.2667 11.3526 62.9879C17.3245 65.7044 26.1495 71.9277 36.8597 79.4261C57.6008 93.914 85.2832 113.35 112.856 122.171C135.693 129.599 141.9 138.855 138.681 148.896C133.375 165.617 102.578 184.541 77.9184 199.742C71.3949 203.834 65.2596 207.557 60.2695 210.93C58.1181 212.258 57.0133 213.634 56.7151 214.831C56.3478 216.137 56.7871 217.263 57.854 218.249C58.7017 219.096 59.9783 219.753 61.6126 220.33C66.517 222.06 74.4403 222.553 79.1526 221.313C100.354 215.924 116.918 207.049 129.644 195.735C134.028 194.286 138.461 192.638 142.585 190.87C155.435 185.178 165.902 177.664 168.126 168.222C169.873 160.864 172.547 153.864 175.681 148.08C178.646 142.804 181.99 138.385 185.516 135.622C188.971 132.968 192.547 131.699 195.937 132.544C196.823 132.722 197.661 133.1 198.498 133.479C198.938 133.757 199.366 133.568 199.574 133.239C199.624 133.039 199.693 132.93 199.653 132.75C199.653 131.903 199.275 122.194 190.794 121.732C189.407 119.311 181.235 107.574 164.104 119.401C165.701 99.5526 163.708 78.8096 159.405 58.6775C156.713 46.1891 143.557 22.6647 133.311 10.0723C130.826 6.95403 128.392 4.48413 126.448 2.94037C124.194 1.27741 122.31 0.849944 120.946 1.90767C120.15 2.55618 119.722 3.5931 119.524 5.23853C118.822 10.9509 120.772 18.4254 123.838 25.8399C122.94 25.1923 122.153 24.6153 121.385 24.1269C120.638 23.7285 120.019 23.4901 119.461 23.5202C117.857 23.5011 117.06 24.9974 116.843 27.3997C116.656 29.5128 116.917 32.3737 117.459 35.6428C118.03 39.4705 118.991 43.7759 120.101 48.3304C119.623 48.7197 119.116 49.3981 118.737 50.2352C117.982 51.9106 117.405 54.393 117.06 57.4837C115.686 69.4669 117.748 90.9469 124.621 108.246C130.574 123.115 135.642 129.8 141.742 130.981C147.374 132.173 153.728 128.589 162.263 122.542C160.762 137.754 157.028 152.241 150.543 165.365C145.321 176.135 138.184 185.919 128.765 194.33C113.213 199.306 96.922 201.81 88.6305 201.777L88.629 201.777ZM141.972 189.405C138.884 190.753 135.597 192.051 132.359 193.15C140.653 185.179 147.082 176.023 152.016 166.071C158.671 152.439 162.424 137.194 163.895 121.423L164.213 121.164C182.329 108.271 189.606 122.749 189.626 122.839C189.776 123.088 189.996 123.228 190.285 123.258C196.344 123.413 197.675 128.954 198.055 131.506C197.457 131.357 196.929 131.098 196.351 131.038C192.363 130.045 188.339 131.413 184.585 134.417C180.9 137.31 177.397 141.859 174.382 147.334C171.089 153.248 168.435 160.337 166.617 167.804C164.473 176.758 154.414 183.992 141.972 189.405ZM162.469 120.518C153.705 126.805 147.39 130.568 142.068 129.496C136.546 128.374 131.826 121.988 126.083 107.637C119.271 90.6072 117.289 69.4856 118.614 57.7023C118.89 54.7215 119.416 52.4384 120.122 50.963C120.331 50.6337 120.45 50.3245 120.589 50.1053C123.16 60.3606 126.448 70.4557 127.866 74.2827C128.385 75.7673 129.054 76.6542 129.602 77.0026C130.55 77.4502 131.206 77.021 131.704 75.8748C132.012 75.1471 132.24 74.0601 132.299 72.6347C132.543 67.4008 131 57.9523 125.752 50.4603C124.524 48.7567 123.387 47.8805 122.391 47.6321C122.102 47.6022 121.813 47.573 121.543 47.633C120.473 43.2578 119.532 39.0417 119.001 35.394C118.48 32.2148 118.238 29.4432 118.376 27.5294C118.504 25.994 118.862 25.067 119.419 25.0363C119.709 25.0662 120.107 25.1655 120.566 25.5339C121.972 26.3499 123.547 27.5053 125.073 28.8598C126.531 32.0182 128.058 35.0674 129.725 37.8972C131.922 41.8332 134.286 45.26 136.272 47.8307C138.277 50.4906 140.132 52.0542 141.288 52.1727C141.597 52.2919 141.866 52.2318 142.115 52.0827L142.205 52.0626C142.364 51.9327 142.524 51.8033 142.593 51.6934C143.329 50.7756 143.019 48.9617 141.831 46.5902C140.723 44.5772 139.007 41.9474 136.912 39.3074C133.959 35.3521 130.118 31.2185 126.368 27.912C122.803 19.9499 120.274 11.5685 121.056 5.36764C121.175 4.21137 121.483 3.48293 121.871 3.1144C122.599 2.57578 123.834 3.05272 125.5 4.188C127.424 5.64178 129.639 7.97313 132.103 11.0014C142.239 23.5239 155.245 46.7992 157.878 59.0189C162.242 79.4202 164.224 100.542 162.469 120.52L162.469 120.518ZM121.884 49.1561L122.063 49.1161C122.751 49.2453 123.489 50.0221 124.437 51.3175C129.446 58.5802 130.979 67.5609 130.764 72.5049C130.665 73.7512 130.507 74.728 130.269 75.3464C130.199 75.4565 130.439 75.6856 130.329 75.6156C130.109 75.4764 129.7 74.908 129.241 73.6926C127.822 69.8658 124.564 59.4814 121.884 49.1561ZM128.166 31.747C130.819 34.3569 133.463 37.3451 135.708 40.2341C137.714 42.894 139.39 45.3448 140.388 47.2877C141.347 49.0514 141.716 50.2869 141.418 50.6361C140.73 50.5069 139.294 49.1325 137.458 46.811C135.513 44.4203 133.237 40.9728 131.061 37.1269C130.103 35.3632 129.145 33.6 128.166 31.747ZM28.32 105.72C23.4948 103.501 17.8889 97.7829 13.3581 90.9786C16.7775 92.3815 20.5368 94.4619 23.9565 96.7125C29.4411 100.197 33.889 104.101 33.9302 105.975C34.0103 106.334 33.512 106.634 32.3962 106.694C31.0804 106.705 29.6853 106.358 28.3195 105.721L28.32 105.72ZM48.5054 133.326C41.9079 132.444 34.3499 128.104 27.2492 122.438L27.8566 122.208C32.1603 120.4 39.3353 120.494 45.9037 121.665C52.273 122.787 58.0348 124.985 59.4418 127.496C60.2104 128.831 59.524 130.396 56.765 131.953C54.3445 133.341 51.5046 133.692 48.5046 133.326L48.5054 133.326Z"
+            fill="currentColor"
+          ></path>
+        </svg>
+
+        <!-- Cross -->
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 64 64"
+          fill="none"
+          class="absolute -left-10 top-[520px] w-[180px] sm:w-[220px] lg:w-[280px] opacity-[0.08] text-accent -rotate-12">
+          <path
+            d="M28 8c0-2.2 1.8-4 4-4s4 1.8 4 4v12h12c2.2 0 4 1.8 4 4s-1.8 4-4 4H36v28c0 2.2-1.8 4-4 4s-4-1.8-4-4V32H16c-2.2 0-4-1.8-4-4s1.8-4 4-4h12V8z"
+            fill="currentColor"
+          ></path>
+        </svg>
+
+        <!-- Bible -->
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 64 64"
+          fill="none"
+          class="absolute right-6 bottom-28 w-[200px] sm:w-[240px] lg:w-[300px] opacity-[0.07] text-primary rotate-3">
+          <path
+            d="M18 10c-3.3 0-6 2.7-6 6v32c0 3.3 2.7 6 6 6h28c3.3 0 6-2.7 6-6V16c0-3.3-2.7-6-6-6H18z"
+            fill="currentColor"
+          ></path>
+          <path
+            d="M20 18h18c1.1 0 2 .9 2 2s-.9 2-2 2H20c-1.1 0-2-.9-2-2s.9-2 2-2zm0 10h22c1.1 0 2 .9 2 2s-.9 2-2 2H20c-1.1 0-2-.9-2-2s.9-2 2-2zm0 10h22c1.1 0 2 .9 2 2s-.9 2-2 2H20c-1.1 0-2-.9-2-2s.9-2 2-2z"
+            fill="white"
+            fill-opacity="0.45"
+          ></path>
+          <path
+            d="M46 10v44"
+            stroke="white"
+            stroke-opacity="0.35"
+            stroke-width="3"
+          ></path>
+        </svg>
+      </div>
+
+      <section class="py-16 lg:py-20 px-6">
+        <div class="max-w-5xl mx-auto">
+          <div class="text-center mb-12">
+            <span class="inline-flex items-center gap-2 bg-accent/10 text-accent px-4 py-1 rounded-full text-sm font-semibold mb-4">
+              <OpenBookIcon size={18} color="currentColor" />
+              DEVOCIONALES
+            </span>
+            <h2 class="text-4xl md:text-5xl font-bold text-accent mb-3 font-bebas">
+              Lecturas Recientes
+            </h2>
+            <p class="text-gray-600 max-w-2xl mx-auto text-lg">
+              Encuentra una reflexión para hoy y compártela con alguien.
+            </p>
+          </div>
+
+          {devotionals.length > 0 ? (
+            <div class="space-y-5">
+              {devotionals.map((devotional: any) => (
+                <a
+                  href={`/devocional/${devotional.id}`}
+                  class="group block rounded-2xl border border-gray-200/80 bg-white/90 backdrop-blur-sm shadow-sm hover:shadow-md transition-all duration-300 p-6 hover:-translate-y-px"
+                >
+                  <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-5">
+                    <div class="flex-1 min-w-0">
+                      <div class="flex items-start justify-between gap-4">
+                        <h3
+                          class="text-2xl md:text-3xl font-bold text-gray-900 mb-2 group-hover:text-primary transition-colors line-clamp-2"
+                          set:html={devotional.title}
+                        />
+                        <span class="hidden md:inline-flex shrink-0 w-11 h-11 rounded-full bg-primary/10 text-primary items-center justify-center ring-1 ring-primary/20 group-hover:bg-primary group-hover:text-white group-hover:ring-primary transition-all duration-300">
+                          <ArrowRight class="w-5 h-5" />
+                        </span>
+                      </div>
+
+                      <p class="inline-flex items-center text-gray-600 bg-gray-100/70 px-3 py-1 rounded-full text-sm font-medium mb-3">
+                        {new Date(devotional.date).toLocaleDateString("es-ES", {
+                          weekday: "long",
+                          year: "numeric",
+                          month: "long",
+                          day: "numeric",
+                        })}
+                      </p>
+
+                      {devotional.verse && (
+                        <p
+                          class="text-gray-700 italic line-clamp-2"
+                          set:html={devotional.verse}
+                        />
+                      )}
+                    </div>
+                  </div>
+                </a>
+              ))}
+            </div>
+          ) : (
+            <div class="text-center py-16">
+              <p class="text-gray-700 text-lg mb-2">
+                No hay devocionales disponibles en este momento.
+              </p>
+              <p class="text-gray-500">
+                Vuelve pronto para nuevas reflexiones.
+              </p>
+            </div>
+          )}
         </div>
-      )}
-    </div>
+      </section>
+    </main>
   </div>
 </Layout>
 
+<style>
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes fade-in-up {
+    from {
+      opacity: 0;
+      transform: translateY(24px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-fade-in {
+    animation: fade-in 0.9s ease-out forwards;
+  }
+
+  .animate-fade-in-up {
+    opacity: 0;
+    animation: fade-in-up 0.9s ease-out forwards;
+  }
+</style>
