@@ -73,7 +73,8 @@ function toYouTubeEmbedUrl(rawUrl: string): string | null {
 
 const youTubeEmbedUrl = assetUrl ? toYouTubeEmbedUrl(assetUrl) : null
 
-const formattedDate = new Date(date).toLocaleDateString("es-ES", {
+// Append T00:00:00 to parse as local time, not UTC (Notion date is source of truth)
+const formattedDate = new Date(date + "T00:00:00").toLocaleDateString("es-ES", {
   weekday: "long",
   year: "numeric",
   month: "long",
@@ -81,7 +82,8 @@ const formattedDate = new Date(date).toLocaleDateString("es-ES", {
 })
 
 function formatCardDate(dateStr: string): string {
-  const d = new Date(dateStr)
+  // Append T00:00:00 to parse as local time, not UTC (Notion date is source of truth)
+  const d = new Date(dateStr + "T00:00:00")
   const parts = new Intl.DateTimeFormat("es-ES", {
     month: "long",
     day: "2-digit",
