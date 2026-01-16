@@ -4,7 +4,7 @@ import dreamTeamHeroImg from "../assets/dreamTeam-hero.jpg"
 import dreamTeamWelcomeImg from "../assets/dreamTeam-welcome.jpg"
 import dreamTeamFunnyImg from "../assets/dreamTeam-funny.JPG"
 import alabanzaImg from "../assets/alabanza.JPG"
-import danzaImg from "../assets/alabanza-danza.JPG"
+import danzaImg from "../assets/alabanza-danza.jpg"
 import danzaImg2 from "../assets/alabanza-danza5.JPG"
 
 /**
