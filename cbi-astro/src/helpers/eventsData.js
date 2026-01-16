@@ -38,7 +38,7 @@ export const events = [
     featured: true,
   },
   {
-    sid: 4,
+    id: 4,
     title: "Encuentros CBI",
     category: "Crecimiento Espiritual",
     tagline: "Un tiempo para conocer a Dios",
