@@ -2,6 +2,14 @@
 const NOTION_API_KEY = import.meta.env.NOTION_API_KEY;
 const NOTION_DATABASE_ID = import.meta.env.NOTION_DATABASE_ID;
 
+// Helper to format a Date as YYYY-MM-DD in local timezone (avoids UTC shift bug)
+function toLocalDateString(date) {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+}
+
 // Helper function to parse Notion page into devotional object
 function parseDevotional(notionPage) {
   const page = notionPage.properties;
@@ -30,7 +38,7 @@ function parseDevotional(notionPage) {
 }
 
 export async function getTodaysDevotional() {
-  const today = new Date().toISOString().split("T")[0]; // YYYY-MM-DD
+  const today = toLocalDateString(new Date()); // YYYY-MM-DD in local timezone
   const response = await fetch(`https://api.notion.com/v1/databases/${NOTION_DATABASE_ID}/query`, {
     method: "POST",
     headers: {
@@ -58,14 +66,15 @@ export async function getTodaysDevotional() {
   }
 }
 
-// Get all devotionals from the last 2 weeks
+// Get all devotionals from the last 7 days
 export async function getDevotionals() {
   const today = new Date();
   const sevenDaysAgo = new Date(today);
   sevenDaysAgo.setDate(today.getDate() - 7);
   
-  const todayISO = today.toISOString().split("T")[0];
-  const sevenDaysAgoISO = sevenDaysAgo.toISOString().split("T")[0];
+  // Use local timezone to avoid UTC shift bug (e.g., 7 PM EST becoming next day in UTC)
+  const todayStr = toLocalDateString(today);
+  const sevenDaysAgoStr = toLocalDateString(sevenDaysAgo);
 
   const response = await fetch(`https://api.notion.com/v1/databases/${NOTION_DATABASE_ID}/query`, {
     method: "POST",
@@ -79,11 +88,11 @@ export async function getDevotionals() {
         and: [
           {
             property: "Date",
-            date: { on_or_after: sevenDaysAgoISO }
+            date: { on_or_after: sevenDaysAgoStr }
           },
           {
             property: "Date",
-            date: { on_or_before: todayISO }
+            date: { on_or_before: todayStr }
           }
         ]
       },

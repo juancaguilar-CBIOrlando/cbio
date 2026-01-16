@@ -1,0 +1,145 @@
+---
+import { Image } from "astro:assets"
+import SliderArrow from "../common/SliderArrow.astro"
+import "swiper/css"
+import "swiper/css/navigation"
+
+type ImpactAction = {
+  text: string
+  href: string
+  target?: string
+}
+
+type ImpactSlide = {
+  id: string
+  title: string
+  description: string
+  image: ImageMetadata
+  actions: ImpactAction[]
+}
+
+interface Props {
+  name: string
+  slides: ImpactSlide[]
+  ariaLabel?: string
+}
+
+const { name, slides, ariaLabel } = Astro.props
+---
+
+<div class="impact-slider w-full">
+  <div class="flex items-center justify-between gap-4 mb-6">
+    <div>
+      {ariaLabel && (
+        <p class="text-sm font-semibold tracking-widest uppercase text-black/60">
+          {ariaLabel}
+        </p>
+      )}
+    </div>
+    <div class="flex items-center gap-3">
+      <SliderArrow direction="prev" class={`${name}-swiper-prev`} ariaLabel="Anterior" />
+      <SliderArrow direction="next" class={`${name}-swiper-next`} ariaLabel="Siguiente" />
+    </div>
+  </div>
+
+  <div class={`${name}-swiper-container relative`}>
+    <div
+      class={`swiper ${name}-swiper`}
+      data-prev-btn={`.${name}-swiper-prev`}
+      data-next-btn={`.${name}-swiper-next`}
+    >
+      <div class="swiper-wrapper">
+        {
+          slides.map((slide) => (
+            <div class="swiper-slide">
+              <article class="rounded-3xl overflow-hidden bg-black/5 h-full">
+                <div class="relative aspect-16/10 sm:aspect-video">
+                  <Image
+                    src={slide.image}
+                    alt={slide.title}
+                    width={1400}
+                    height={900}
+                    quality={75}
+                    class="w-full h-full object-cover"
+                    loading="lazy"
+                  />
+                  <div class="absolute inset-0 bg-linear-to-t from-black/80 via-black/30 to-transparent" />
+                  <div class="absolute inset-x-0 bottom-0 p-6 sm:p-7">
+                    <h3 class="text-white text-2xl font-bold">{slide.title}</h3>
+                    <p class="text-white/80 mt-2 leading-relaxed max-w-prose">
+                      {slide.description}
+                    </p>
+
+                    <div class="flex flex-col sm:flex-row gap-3 mt-5">
+                      {slide.actions.map((action) => (
+                        <a
+                          href={action.href}
+                          target={action.target || "_self"}
+                          rel={action.target === "_blank" ? "noopener noreferrer" : undefined}
+                          class="inline-flex items-center justify-center rounded-full px-6 py-2.5 text-sm font-semibold tracking-widest uppercase border border-white/80 text-white hover:bg-white hover:text-black transition-colors w-full sm:w-auto"
+                        >
+                          {action.text}
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </article>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // @ts-nocheck
+  import Swiper from "swiper"
+  import { Navigation } from "swiper/modules"
+
+  function initImpactSwipers() {
+    const swiperElements = /** @type {NodeListOf<HTMLElement>} */ (
+      document.querySelectorAll(".impact-slider .swiper")
+    )
+
+    swiperElements.forEach((swiperEl) => {
+      const prevBtn = swiperEl.getAttribute("data-prev-btn")
+      const nextBtn = swiperEl.getAttribute("data-next-btn")
+
+      if (!prevBtn || !nextBtn) return
+
+      new Swiper(/** @type {HTMLElement} */ (swiperEl), {
+        modules: [Navigation],
+        slidesPerView: 1,
+        spaceBetween: 18,
+        navigation: {
+          prevEl: prevBtn,
+          nextEl: nextBtn,
+        },
+        breakpoints: {
+          640: { slidesPerView: 1.05, spaceBetween: 20 },
+          1024: { slidesPerView: 1.15, spaceBetween: 24 },
+        },
+      })
+    })
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initImpactSwipers)
+  } else {
+    initImpactSwipers()
+  }
+</script>
+
+<style>
+  .impact-slider .swiper {
+    overflow: hidden;
+    width: 100%;
+  }
+
+  .impact-slider .swiper-slide {
+    height: auto;
+  }
+</style>
+
