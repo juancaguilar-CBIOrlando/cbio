@@ -1,8 +1,27 @@
 ---
-import '../styles/global.css'
-import Navigation from '../components/Navigation.astro'
-import Footer from '../components/Footer.astro'
-const { navLogo = 'black' } = Astro.props;
+import "../styles/global.css"
+import Navigation from "../components/Navigation.astro"
+import Footer from "../components/Footer.astro"
+import ogImage from "../assets/serviciosDominical.jpeg"
+
+interface Props {
+	title?: string
+	description?: string
+	navLogo?: "black" | "white"
+}
+
+const {
+	title = "CBI Orlando",
+	description = "Centro Bíblico Internacional Orlando - Una iglesia comprometida con transformar vidas a través del amor de Cristo. Amar a Dios. Amar la Familia. Amar el Servicio.",
+	navLogo = "black",
+} = Astro.props
+
+// Build canonical URL and image URL
+const canonicalURL = new URL(
+	Astro.url.pathname,
+	Astro.site ?? "https://cbiorlando.net",
+)
+const imageURL = new URL(ogImage.src, Astro.site ?? "https://cbiorlando.net")
 ---
 
 <!doctype html>
@@ -12,10 +31,34 @@ const { navLogo = 'black' } = Astro.props;
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="icon" type="image/svg+xml" href="/icon.png" />
 		<meta name="generator" content={Astro.generator} />
+		<meta name="description" content={description} />
+
+		<!-- Open Graph / Facebook -->
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content={canonicalURL} />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:image" content={imageURL} />
+		<meta property="og:site_name" content="CBI Orlando" />
+		<meta property="og:locale" content="es_ES" />
+
+		<!-- Twitter -->
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:url" content={canonicalURL} />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image" content={imageURL} />
+
+		<!-- Canonical URL -->
+		<link rel="canonical" href={canonicalURL} />
+
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-		<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet" />
-		<title>CBI Orlando</title>
+		<link
+			href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap"
+			rel="stylesheet"
+		/>
+		<title>{title}</title>
 	</head>
 	<body>
 		<Navigation logo={navLogo} />
