@@ -1,65 +1,28 @@
 ---
 import SermonCard from "./sermons/SermonCard.astro"
 import ArrowRightIcon from "./icons/ArrowRightIcon.astro"
+import { getLatestSermons, getChannelUrl } from "../helpers/youtubeData"
 
-type Sermon = {
-  id: number
-  title: string
-  speaker: string
-  date: string
-  image: string
-  duration: string
-}
-
-const sermons: Sermon[] = [
-  {
-    id: 1,
-    title: "Hijos del Reino",
-    speaker: "Pastor Roy Smit",
-    date: "May 15, 2025",
-    image:
-      "https://images.unsplash.com/photo-1601026909629-bad5e1122e5e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-    duration: "45 min",
-  },
-  {
-    id: 2,
-    title: "Hijos del Reino",
-    speaker: "Pastor Roy Smit",
-    date: "May 8, 2025",
-    image:
-      "https://images.unsplash.com/photo-1511619203225-2fbea8357fc8?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-    duration: "38 min",
-  },
-  {
-    id: 3,
-    title: "Hijos del Reino",
-    speaker: "Pastor Roy Smit",
-    date: "May 1, 2025",
-    image:
-      "https://images.unsplash.com/photo-1536486223505-6d8b5ec2f444?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-    duration: "42 min",
-  },
-]
+// Fetch latest 3 sermons from YouTube
+const sermons = await getLatestSermons(3)
+const channelUrl = getChannelUrl()
 ---
 
 <section id="sermons" class="py-10 bg-gray-50">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="text-center mb-12">
-      <h2 class="text-3xl font-bold text-gray-900 font-bebas">Ultimos Mensajes</h2>
-      <!-- <p class="mt-4 text-lg text-gray-600">
-       Como llegar a nuestro proximo servicio
-      </p> -->
+      <h2 class="text-3xl font-bold text-gray-900 font-bebas">
+        Ultimos Mensajes
+      </h2>
     </div>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-      {
-        sermons.map((sermon: Sermon) => (
-          <SermonCard sermon={sermon} />
-        ))
-      }
+      {sermons.slice(0, 2).map((sermon) => <SermonCard sermon={sermon} />)}
     </div>
     <div id="all-sermons-btn" class="mt-10 text-center">
       <a
-        href="#"
+        href={channelUrl}
+        target="_blank"
+        rel="noopener noreferrer"
         class="inline-flex items-center text-primary font-medium hover:text-primary/90 hover:underline-offset-4 hover:underline">
         Ver todos los sermones
         <ArrowRightIcon size={16} class="ml-2" />

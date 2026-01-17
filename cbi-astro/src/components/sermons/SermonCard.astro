@@ -3,41 +3,69 @@ import { Play } from "lucide-react"
 
 interface Props {
   sermon: {
-    id: number
+    id: string
     title: string
     speaker: string
     date: string
     image: string
-    duration: string
+    imageFallback?: string
+    videoUrl: string
+    duration?: string
   }
 }
 
 const { sermon } = Astro.props
 ---
 
-<div class="bg-white rounded-lg shadow-md overflow-hidden">
+<a
+  href={sermon.videoUrl}
+  target="_blank"
+  rel="noopener noreferrer"
+  class="block bg-white rounded-lg shadow-md overflow-hidden group hover:shadow-xl transition-shadow duration-300">
   <div class="relative">
     <img
       src={sermon.image}
       alt={sermon.title}
-      class="w-full h-56 object-cover"
+      class="w-full h-56 object-cover group-hover:scale-105 transition-transform duration-300"
+      loading="lazy"
+      onerror={sermon.imageFallback
+        ? `this.onerror=null;this.src='${sermon.imageFallback}'`
+        : undefined}
     />
     <div
-      class="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center">
-      <button class="bg-accent/95 text-white p-3 rounded-full hover:bg-accent/90">
+      class="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center group-hover:bg-opacity-40 transition-all duration-300">
+      <div
+        class="bg-primary/80 text-white p-3 rounded-full group-hover:bg-primary group-hover:scale-110 transition-all duration-300">
         <Play size={24} />
-      </button>
-    </div>
-  </div>
-  <div class="p-6">
-    <div class="flex items-center justify-between gap-2"> 
-      <h3 class="font-bold text-xl text-gray-900 font-bebas tracking-wide">{sermon.title}</h3>
-      <p class="text-gray-600 text-xs uppercase font-semibold tracking-wide">{sermon.speaker}</p>
-    </div>
-    <div class="flex justify-between items-center mt-4 text-sm text-gray-500">
-      <span>{sermon.date}</span>
-        <span>{sermon.duration}</span>
       </div>
     </div>
+    {
+      sermon.duration && (
+        <span class="absolute bottom-2 right-2 bg-black/80 text-white text-xs px-2 py-1 rounded">
+          {sermon.duration}
+        </span>
+      )
+    }
   </div>
-</div>
+  <div class="p-6">
+    <h3
+      class="font-bold text-xl text-gray-900 font-bebas tracking-wide line-clamp-2 group-hover:text-primary transition-colors">
+      {sermon.title}
+    </h3>
+    <div class="flex justify-between items-center mt-4 text-sm text-gray-500">
+      <span class="text-gray-600 text-xs uppercase font-semibold tracking-wide">
+        {sermon.speaker}
+      </span>
+      <span>{sermon.date}</span>
+    </div>
+  </div>
+</a>
+
+<style>
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+</style>
