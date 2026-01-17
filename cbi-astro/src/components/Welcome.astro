@@ -1,13 +1,51 @@
 ---
+import CrossIcon from "./common/CrossIcon.astro"
+import CrownIcon from "./common/CrownIcon.astro"
 import SermonsPreview from "./SermonsPreview.astro"
 import TasdContainer from "./tasd/TasdContainer.astro"
 import ValuesContent from "./values/ValuesContent.astro"
+import DoveIcon from "./common/DoveIcon.astro"
+import UpcomingEventsSlider from "./events/UpcomingEventsSlider.astro"
 ---
 
-<div
-	class="relative min-h-56 font-['Inter',_'Roboto',_'Helvetica_Neue',_'Arial_Nova',_'Nimbus_Sans',_'Arial',_sans-serif] text-[#2c3e50]">
+<div class="relative min-h-56 text-[#2c3e50]">
 	<SermonsPreview />
+	<section
+		class="w-full h-screen sm:h-[80vh] flex items-center justify-center mx-auto bg-linear-to-tr from-[#04040C] via-[#241933] to-[#2d174b] text-white">
+		<div
+			class="relative py-18 px-2 sm:px-22 flex flex-col items-center justify-center gap-y-8">
+			<h2
+				class="text-xl sm:text-3xl font-bold text-center bg-linear-to-r from-[#69757C] to-[#C0D6E2] text-transparent bg-clip-text uppercase tracking-[7px]">
+				Propósito
+			</h2>
+			<p
+				class="text-[44px] sm:text-6xl leading-10 sm:leading-14 max-w-8xl px-4 mx-auto text-center font-bold text-title">
+				Establecer el reino de <span class="text-primary/80">Dios</span> sobre
+				la tierra, bajo la dirección del <span class="text-primary/80"
+					>Espíritu Santo</span
+				>, con el poder del <span class="text-primary/80"
+					>amor de Jesús</span
+				>.
+			</p>
+			<CrossIcon
+				class="w-[100px] lg:w-[140px] absolute -bottom-20 right-4 lg:-bottom-32 lg:right-20"
+				color="#009c3e81"
+			/>
+			<CrownIcon
+				class="w-[100px] lg:w-[144px] absolute -top-8 right-6 lg:-top-14 lg:right-20"
+				color="#009c3e81"
+			/>
+			<DoveIcon
+				class="w-[120px] lg:w-[144px] absolute -bottom-16 left-6 lg:-top-14 lg:right-20"
+				color="text-primary/70"
+			/>
+		</div>
+	</section>
+
+	<UpcomingEventsSlider />
+
 	<ValuesContent />
+
 	<!-- <TasdContainer /> -->
 
 	<!-- <div class="max-w-[300px] p-6 bg-white/95 rounded-2xl shadow-md transition-all duration-200 hover:-translate-y-1 hover:shadow-lg">
