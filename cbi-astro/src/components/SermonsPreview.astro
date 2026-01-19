@@ -4,7 +4,7 @@ import ArrowRightIcon from "./icons/ArrowRightIcon.astro"
 import { getLatestSermons, getChannelUrl } from "../helpers/youtubeData"
 
 // Fetch latest 3 sermons from YouTube
-const sermons = await getLatestSermons(3)
+const sermons = await getLatestSermons(1)
 const channelUrl = getChannelUrl()
 ---
 
@@ -15,8 +15,8 @@ const channelUrl = getChannelUrl()
         Ultimos Mensajes
       </h2>
     </div>
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-      {sermons.slice(0, 2).map((sermon) => <SermonCard sermon={sermon} />)}
+    <div class="grid grid-cols-1 gap-8">
+      {sermons.map((sermon) => <SermonCard sermon={sermon} />)}
     </div>
     <div id="all-sermons-btn" class="mt-10 text-center">
       <a

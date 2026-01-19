@@ -26,14 +26,14 @@ const { sermon } = Astro.props
     <img
       src={sermon.image}
       alt={sermon.title}
-      class="w-full h-56 object-cover group-hover:scale-105 transition-transform duration-300"
+      class="w-full h-60 sm:h-72 md:h-96 object-cover group-hover:scale-105 transition-transform duration-300"
       loading="lazy"
       onerror={sermon.imageFallback
         ? `this.onerror=null;this.src='${sermon.imageFallback}'`
         : undefined}
     />
     <div
-      class="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center group-hover:bg-opacity-40 transition-all duration-300">
+      class="absolute inset-0 bg-transparent bg-opacity-30 flex items-center justify-center group-hover:bg-opacity-40 transition-all duration-300">
       <div
         class="bg-primary/80 text-white p-3 rounded-full group-hover:bg-primary group-hover:scale-110 transition-all duration-300">
         <Play size={24} />
