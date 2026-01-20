@@ -50,10 +50,10 @@ const secondaryLinksColumn2 = [
 ---
 
 <nav
-  class="fixed top-0 left-0 w-full z-50 bg-black/80 backdrop-blur-sm py-2 px-4 sm:px-6 lg:px-8 flex items-center justify-between">
+  class="absolute top-0 left-0 w-full z-50 bg-transparent px-4 sm:px-6 lg:px-8 lg:py-6 h-16 flex items-center justify-between">
   <div class="w-full flex items-center justify-between">
     <!-- Brand / Logo -->
-    <a href="/" class="inline-flex items-center h-16 mt-0">
+    <a href="/" class="inline-flex items-center h-16 mt-6">
       <img src="/icon.png" alt="CBI Orlando" class="h-14 w-auto" />
     </a>
 
@@ -368,7 +368,8 @@ const secondaryLinksColumn2 = [
   }
 
   /* Primary link hover - underline from left */
-  .primary-link::after {
+  .primary-link::after,
+  .secondary-link::after {
     content: "";
     position: absolute;
     bottom: 0;
@@ -379,19 +380,20 @@ const secondaryLinksColumn2 = [
     transition: width 0.3s ease;
   }
 
-  .primary-link:hover::after {
+  .primary-link:hover::after,
+  .secondary-link:hover::after {
     width: 100%;
   }
 
   /* Secondary link hover - simple underline */
-  .secondary-link {
+  /* .secondary-link {
     text-decoration: none;
   }
 
   .secondary-link:hover {
     text-decoration: underline;
     text-underline-offset: 4px;
-  }
+  } */
 
   /* Dove SVG animation */
   .dove-svg {
