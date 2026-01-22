@@ -10,13 +10,13 @@ import {
   MapPin,
   Users,
   Heart,
-  Sparkles,
   Calendar,
   Youtube,
   Facebook,
   Instagram,
-  Clock,
   ChevronRight,
+  BookText,
+  Sprout,
 } from "@lucide/astro"
 
 // Import images
@@ -24,7 +24,6 @@ import dreamTeamWelcomeImg from "../assets/dreamTeam-welcome.jpg"
 import alabanzaImg from "../assets/alabanza-danza.jpg"
 import encuentrosImg from "../assets/encuentros.jpeg"
 import parejasImg from "../assets/parejas.jpeg"
-import mujeresImg from "../assets/mujeres.jpg"
 import bautizosImg from "../assets/bautizos3.jpeg"
 
 // Google Maps URL
@@ -58,31 +57,6 @@ const connectWays = [
     cta: "Quiero Servir",
     link: "/dream-team",
     color: "primary",
-  },
-]
-
-// Community groups
-const communityGroups = [
-  {
-    name: "Parejas",
-    image: parejasImg,
-    description: "Fortalece tu matrimonio junto a otras parejas",
-    day: "Viernes",
-    time: "7:30 PM",
-  },
-  {
-    name: "Mujeres",
-    image: mujeresImg,
-    description: "Un espacio para crecer y conectar entre mujeres",
-    day: "Sábados",
-    time: "10:00 AM",
-  },
-  {
-    name: "Encuentros",
-    image: encuentrosImg,
-    description: "Retiros transformadores para una vida plena",
-    day: "Mensual",
-    time: "Consultar",
   },
 ]
 
@@ -172,7 +146,7 @@ const socialLinks = [
         </div>
         <div
           class="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full">
-          <Sparkles class="w-5 h-5 text-primary" />
+          <Sprout class="w-5 h-5 text-primary" />
           <span class="text-white text-sm">Crece en tu Fe</span>
         </div>
       </div>
@@ -396,79 +370,130 @@ const socialLinks = [
       </div>
     </section>
 
-    <!-- Community Groups Section -->
-
-    <!-- TODO: CHANGE TO SHOWCASE WHAT HAPPENS IN OUR CONNECTION GROUPS INSTEAD...USE THE PICTURE OF THE MAP WITH ALL THE GROUPS TO SHOW ALL OUR GROUPS EASILY. -->
+    <!-- Connection Groups Experience Section -->
     <section
       id="grupos"
       class="py-24 lg:py-32 px-6 lg:px-16 bg-accent relative overflow-hidden">
-      <div class="absolute inset-0 opacity-10">
-        <div
-          class="absolute top-10 left-10 w-64 h-64 border border-white/20 rounded-full">
-        </div>
-        <div
-          class="absolute bottom-10 right-10 w-96 h-96 border border-white/20 rounded-full">
-        </div>
-      </div>
-
       <div class="max-w-7xl mx-auto relative z-10">
-        <div class="text-center mb-16">
+        <!-- Header -->
+        <div class="text-center mb-16 lg:mb-20">
           <span
             class="inline-block bg-primary/20 text-primary px-4 py-1 rounded-full text-sm font-semibold mb-4">
             GRUPOS DE CONEXIÓN
           </span>
           <h2
-            class="font-bebas text-4xl sm:text-5xl lg:text-6xl text-white mb-4">
-            Encuentra Tu <span class="text-primary">Comunidad</span>
+            class="font-bebas text-4xl sm:text-5xl lg:text-6xl text-white mb-6">
+            Más Que Un Grupo, <span class="text-primary">Una Familia</span>
           </h2>
-          <p class="text-white/70 text-lg max-w-2xl mx-auto">
-            Grupos diseñados para diferentes etapas y necesidades de la vida.
+          <p class="text-white/70 text-lg max-w-3xl mx-auto leading-relaxed">
+            En nuestros grupos de conexión no solo estudiamos la Biblia,
+            construimos relaciones genuinas, nos apoyamos mutuamente y crecemos
+            juntos en un ambiente de amor y confianza.
           </p>
         </div>
 
-        <div class="grid md:grid-cols-3 gap-8">
-          {
-            communityGroups.map((group, index) => (
-              <div
-                class="group-card bg-white/5 backdrop-blur-sm rounded-3xl overflow-hidden border border-white/10 hover:border-primary/50 transition-all duration-500 group"
-                style={`animation-delay: ${index * 0.15}s;`}>
-                <div class="relative h-56 overflow-hidden">
-                  <Image
-                    src={group.image}
-                    alt={group.name}
-                    width={500}
-                    height={300}
-                    quality={85}
-                    class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                  />
-                  <div class="absolute inset-0 bg-linear-to-t from-accent via-transparent to-transparent" />
-                </div>
-                <div class="p-6">
-                  <h3 class="text-2xl font-bold text-white mb-2 font-bebas">
-                    {group.name}
-                  </h3>
-                  <p class="text-white/70 mb-4">{group.description}</p>
-                  <div class="flex items-center gap-4 text-sm">
-                    <div class="flex items-center gap-2 text-primary">
-                      <Calendar class="w-4 h-4" />
-                      <span>{group.day}</span>
-                    </div>
-                    <div class="flex items-center gap-2 text-white/60">
-                      <Clock class="w-4 h-4" />
-                      <span>{group.time}</span>
-                    </div>
-                  </div>
-                </div>
+        <!-- Three Pillars Grid -->
+        <div class="grid md:grid-cols-3 gap-6 lg:gap-8 mb-16">
+          <!-- Discipulado -->
+          <div
+            class="experience-card group relative bg-linear-to-br from-white/10 to-white/5 backdrop-blur-sm rounded-3xl p-8 lg:p-10 border border-white/10 hover:border-primary/40 transition-all duration-500"
+            style="animation-delay: 0s;">
+            <div
+              class="absolute top-0 right-0 w-32 h-32 bg-primary/10 rounded-full -translate-y-1/2 translate-x-1/2 blur-2xl group-hover:bg-primary/20 transition-all duration-500">
+            </div>
+            <div class="relative z-10">
+              <div class="flex items-center gap-4 mb-6">
+                <BookText class="w-10 h-10 text-primary" />
+                <h3
+                  class="text-3xl font-bold text-white font-bebas tracking-wide">
+                  Discipulado
+                </h3>
               </div>
-            ))
-          }
+
+              <p class="text-white/70 leading-relaxed text-lg">
+                Crecimiento constante en un ambiente familiar. Estudia la
+                Palabra, haz preguntas difíciles y profundiza tu fe rodeado de
+                personas que caminan contigo.
+              </p>
+            </div>
+          </div>
+
+          <!-- Comunidad -->
+          <div
+            class="experience-card group relative bg-linear-to-br from-white/10 to-white/5 backdrop-blur-sm rounded-3xl p-8 lg:p-10 border border-white/10 hover:border-primary/40 transition-all duration-500"
+            style="animation-delay: 0.15s;">
+            <div
+              class="absolute top-0 right-0 w-32 h-32 bg-primary/10 rounded-full -translate-y-1/2 translate-x-1/2 blur-2xl group-hover:bg-primary/20 transition-all duration-500">
+            </div>
+            <div class="relative z-10">
+              <div class="flex items-center gap-4 mb-6">
+                <Heart class="w-10 h-10 text-primary" />
+                <h3
+                  class="text-3xl font-bold text-white font-bebas tracking-wide">
+                  Comunidad
+                </h3>
+              </div>
+              <p class="text-white/70 leading-relaxed text-lg">
+                Relaciones auténticas que trascienden el domingo. Encuentra
+                amigos que celebran tus victorias, te sostienen en las pruebas y
+                se convierten en familia.
+              </p>
+            </div>
+          </div>
+
+          <!-- Crecimiento -->
+          <div
+            class="experience-card group relative bg-linear-to-br from-white/10 to-white/5 backdrop-blur-sm rounded-3xl p-8 lg:p-10 border border-white/10 hover:border-primary/40 transition-all duration-500"
+            style="animation-delay: 0.3s;">
+            <div
+              class="absolute top-0 right-0 w-32 h-32 bg-primary/10 rounded-full -translate-y-1/2 translate-x-1/2 blur-2xl group-hover:bg-primary/20 transition-all duration-500">
+            </div>
+            <div class="relative z-10">
+              <div class="flex items-center gap-4 mb-6">
+                <Sprout class="w-10 h-10 text-primary" />
+                <h3
+                  class="text-3xl font-bold text-white font-bebas tracking-wide">
+                  Crecimiento
+                </h3>
+              </div>
+              <p class="text-white/70 leading-relaxed text-lg">
+                Transformación real en cada área de tu vida. Descubre tus dones,
+                desarrolla tu propósito y conviértete en la mejor versión de ti
+                mismo en Cristo.
+              </p>
+            </div>
+          </div>
         </div>
 
-        <div class="text-center mt-12">
+        <div
+          class="flex flex-wrap justify-center gap-8 lg:gap-16 mb-16 py-8 border-y border-white/10">
+          <div class="text-center">
+            <div class="text-4xl lg:text-5xl font-bebas text-primary mb-1">
+              20+
+            </div>
+            <div class="text-white/60 text-sm uppercase tracking-wider">
+              Grupos Activos
+            </div>
+          </div>
+          <div class="text-center">
+            <div class="text-4xl lg:text-5xl font-bebas text-primary mb-1">
+              100<span class="text-2xl uppercase">s</span>
+            </div>
+            <div class="text-white/60 text-sm uppercase tracking-wider">
+              Vidas Transformadas
+            </div>
+          </div>
+        </div>
+
+        <!-- CTA -->
+        <div class="text-center">
+          <p class="text-white/70 text-lg mb-6 max-w-xl mx-auto">
+            Hay un lugar perfecto esperándote.
+          </p>
           <a
             href="#contacto"
             class="inline-flex items-center gap-2 bg-primary text-white px-8 py-4 rounded-full font-semibold text-lg hover:bg-primary/90 transition-all duration-300 hover:scale-105 group">
-            Inscríbete en un Grupo
+            Encuentra Tu Grupo
             <ArrowRight
               class="w-5 h-5 transform group-hover:translate-x-1 transition-transform"
             />
@@ -640,10 +665,6 @@ const socialLinks = [
                 class="absolute top-0 right-0 w-40 h-40 bg-primary/5 rounded-full -translate-y-1/2 translate-x-1/2">
               </div>
               <div class="relative z-10">
-                <div
-                  class="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mb-6">
-                  <Sparkles class="w-8 h-8 text-primary" />
-                </div>
                 <h3 class="font-bebas text-3xl lg:text-4xl text-accent mb-4">
                   ¿Es Tu Primera Vez?
                 </h3>
@@ -803,7 +824,8 @@ const socialLinks = [
   /* Card Animations */
   .connect-card,
   .group-card,
-  .service-card {
+  .service-card,
+  .experience-card {
     opacity: 0;
     animation: fade-in-up 0.6s ease-out forwards;
   }
