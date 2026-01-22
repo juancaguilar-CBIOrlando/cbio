@@ -8,7 +8,7 @@ import vercel from '@astrojs/vercel';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://cbiorlando.net',
+  site: 'https://cbiorlando.org',
   integrations: [react()],
 
   vite: {

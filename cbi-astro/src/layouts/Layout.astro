@@ -19,9 +19,9 @@ const {
 // Build canonical URL and image URL
 const canonicalURL = new URL(
 	Astro.url.pathname,
-	Astro.site ?? "https://cbiorlando.net",
+	Astro.site ?? "https://cbiorlando.org",
 )
-const imageURL = new URL(ogImage.src, Astro.site ?? "https://cbiorlando.net")
+const imageURL = new URL(ogImage.src, Astro.site ?? "https://cbiorlando.org")
 ---
 
 <!doctype html>
