@@ -1,7 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro"
 import { Image } from "astro:assets"
-import { address, phone, email, serviceTimes } from "../constants"
+import { address, phone, email } from "../constants"
 import {
   ArrowRight,
   ArrowDown,
@@ -502,62 +502,77 @@ const socialLinks = [
       </div>
     </section>
 
-    <!-- Services Section -->
-    <section class="py-24 lg:py-32 px-6 lg:px-16">
+    <!-- Visit Us CTA Section -->
+    <section class="relative overflow-hidden">
       <div class="max-w-7xl mx-auto">
-        <div class="text-center mb-16">
-          <span
-            class="inline-block bg-primary/10 text-primary px-4 py-1 rounded-full text-sm font-semibold mb-4">
-            NUESTROS SERVICIOS
-          </span>
-          <h2
-            class="font-bebas text-4xl sm:text-5xl lg:text-6xl text-accent mb-4">
-            Te Esperamos <span class="text-primary">Cada Semana</span>
-          </h2>
-          <p class="text-gray-600 text-lg max-w-2xl mx-auto">
-            Tenemos un espacio para ti y tu familia en cada uno de nuestros
-            servicios.
-          </p>
-        </div>
-
-        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {
-            serviceTimes.map((service, index) => (
-              <div
-                class="service-card bg-white rounded-2xl p-6 shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-primary/30 group"
-                style={`animation-delay: ${index * 0.1}s;`}>
-                <div class="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary group-hover:scale-110 transition-all duration-300">
-                  <Calendar class="w-6 h-6 text-primary group-hover:text-white transition-colors" />
-                </div>
-                <h3 class="text-xl font-bold text-accent mb-2">
-                  {service.name}
-                </h3>
-                <p class="text-primary font-semibold mb-1">{service.day}</p>
-                <p class="text-gray-600 text-sm">{service.times.join(" & ")}</p>
-                {service.link && (
-                  <a
-                    href={service.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="inline-flex items-center gap-1 text-sm text-primary mt-3 hover:underline">
-                    Ver en línea
-                    <ArrowRight class="w-3 h-3" />
-                  </a>
-                )}
-              </div>
-            ))
-          }
-        </div>
-
-        <div class="text-center mt-12">
-          <a
-            href="/visitanos"
-            class="inline-flex items-center gap-2 bg-accent text-white px-8 py-4 rounded-full font-semibold text-lg hover:bg-accent/90 transition-all duration-300 hover:scale-105 group">
-            Planea tu Primera Visita
-            <ArrowRight
-              class="w-5 h-5 transform group-hover:translate-x-1 transition-transform"
+        <div class="grid lg:grid-cols-2 min-h-[500px] lg:min-h-[550px]">
+          <!-- Image Side -->
+          <div class="relative h-64 lg:h-auto lg:order-2">
+            <Image
+              src={alabanzaImg}
+              alt="Servicio de adoración en CBI Orlando"
+              width={900}
+              height={700}
+              quality={90}
+              class="absolute inset-0 w-full h-full object-cover"
             />
-          </a>
+            <div
+              class="absolute inset-0 bg-linear-to-t from-accent/90 via-accent/40 to-transparent lg:bg-linear-to-r lg:from-accent lg:via-accent/30 lg:to-transparent">
+            </div>
+          </div>
+
+          <!-- Content Side -->
+          <div
+            class="relative z-10 flex flex-col justify-center bg-accent px-8 lg:px-16 py-16 lg:py-20">
+            <span
+              class="text-primary text-sm uppercase tracking-[0.2em] font-semibold mb-4">
+              Visítanos Este Domingo
+            </span>
+            <h2
+              class="font-bebas text-4xl sm:text-5xl lg:text-6xl text-white leading-none mb-6">
+              Tu Silla Está<br />
+              <span class="text-primary">Reservada</span>
+            </h2>
+            <p class="text-white/80 text-lg leading-relaxed mb-8 max-w-lg">
+              Cada domingo es una oportunidad para experimentar la presencia de
+              Dios, adorar en comunidad y recibir una palabra que transformará
+              tu semana. Te esperamos con los brazos abiertos.
+            </p>
+
+            <!-- Quick Info Pills -->
+            <div class="flex flex-wrap gap-3 mb-8">
+              <div
+                class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full">
+                <Calendar class="w-4 h-4 text-primary" />
+                <span class="text-white text-sm font-medium">Domingos</span>
+              </div>
+              <div
+                class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full">
+                <span class="text-white text-sm font-medium"
+                  >9:30 AM & 11:30 AM</span
+                >
+              </div>
+            </div>
+
+            <div class="flex flex-col sm:flex-row gap-4">
+              <a
+                href="/visitanos"
+                class="inline-flex items-center justify-center gap-2 bg-primary text-white px-8 py-4 rounded-full font-semibold text-lg hover:bg-primary/90 transition-all duration-300 hover:scale-105 group">
+                Planea Tu Visita
+                <ArrowRight
+                  class="w-5 h-5 transform group-hover:translate-x-1 transition-transform"
+                />
+              </a>
+              <a
+                href={mapsUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center justify-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 text-white px-6 py-4 rounded-full font-semibold hover:bg-white/20 transition-all duration-300">
+                <MapPin class="w-5 h-5" />
+                <span>Cómo Llegar</span>
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -824,7 +839,6 @@ const socialLinks = [
   /* Card Animations */
   .connect-card,
   .group-card,
-  .service-card,
   .experience-card {
     opacity: 0;
     animation: fade-in-up 0.6s ease-out forwards;
