@@ -72,19 +72,31 @@ const secondaryLinksColumn2 = [
 
     <!-- Menu button (always visible) -->
     <button
-      class="flex items-center gap-2 p-2 rounded-md cursor-pointer group"
+      class="flex items-center gap-4 p-2 rounded-md cursor-pointer group"
       aria-label="Toggle menu"
       id="menu-button">
       <span
         class="text-white font-semibold text-sm tracking-wide group-hover:text-white/70 transition-colors duration-300"
         >Menu</span
       >
-      <MenuIcon
+      <!-- <MenuIcon
         id="menu-icon"
         color="white"
         size={24}
         className="group-hover:opacity-70 transition-opacity duration-300"
-      />
+      /> -->
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="group-hover:opacity-70 transition-opacity duration-300"
+        width="26"
+        height="19"
+        viewBox="0 0 26 19"
+        fill="none"
+        id="menu-icon">
+        <path
+          d="M1.85714 0H11.1429C11.6354 0 12.1078 0.200178 12.4561 0.556497C12.8043 0.912816 13 1.39609 13 1.9C13 2.40391 12.8043 2.88718 12.4561 3.2435C12.1078 3.59982 11.6354 3.8 11.1429 3.8H1.85714C1.3646 3.8 0.892226 3.59982 0.543945 3.2435C0.195663 2.88718 0 2.40391 0 1.9C0 1.39609 0.195663 0.912816 0.543945 0.556497C0.892226 0.200178 1.3646 0 1.85714 0ZM14.8571 15.2H24.1429C24.6354 15.2 25.1078 15.4002 25.4561 15.7565C25.8043 16.1128 26 16.5961 26 17.1C26 17.6039 25.8043 18.0872 25.4561 18.4435C25.1078 18.7998 24.6354 19 24.1429 19H14.8571C14.3646 19 13.8922 18.7998 13.5439 18.4435C13.1957 18.0872 13 17.6039 13 17.1C13 16.5961 13.1957 16.1128 13.5439 15.7565C13.8922 15.4002 14.3646 15.2 14.8571 15.2ZM1.85714 7.6H24.1429C24.6354 7.6 25.1078 7.80018 25.4561 8.1565C25.8043 8.51282 26 8.99609 26 9.5C26 10.0039 25.8043 10.4872 25.4561 10.8435C25.1078 11.1998 24.6354 11.4 24.1429 11.4H1.85714C1.3646 11.4 0.892226 11.1998 0.543945 10.8435C0.195663 10.4872 0 10.0039 0 9.5C0 8.99609 0.195663 8.51282 0.543945 8.1565C0.892226 7.80018 1.3646 7.6 1.85714 7.6Z"
+          fill="white"></path>
+      </svg>
     </button>
   </div>
 
