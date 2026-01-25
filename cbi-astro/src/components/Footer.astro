@@ -7,6 +7,22 @@ const routes = [
   { name: "Conectate", path: "/conectate" },
   { name: "Donation", path: "/donation" },
 ]
+
+const nextSteps = [
+  { name: "Clases de Conexión", path: "/conectate#clases" },
+  { name: "Grupos de Conexión", path: "/servicios#grupos" },
+  { name: "Devocionales", path: "/devocional" },
+  { name: "Dream Team", path: "/dream-team" },
+  { name: "Peticiones de Oración", path: "/peticiones-de-oracion" },
+  { name: "Dar", path: "/dar" },
+]
+
+const sedes = [
+  { name: "Barranquilla", path: "https://www.cbint.org" },
+  { name: "Barcelona", path: "https://www.facebook.com/CBIBCN" },
+  { name: "New Jersey", path: "https://www.facebook.com/CbintNJ" },
+  { name: "St. Cloud", path: "https://www.facebook.com/cbistcloud" },
+]
 const currentYear = new Date().getFullYear()
 ---
 
@@ -95,51 +111,22 @@ const currentYear = new Date().getFullYear()
         <!-- Next Steps -->
         <Text variant="title" as="h3" class="mt-2 text-center">Next Steps</Text>
         <ul class="space-y-1 mx-auto">
-          <li>
-            <a
-              href="/servicios"
-              class="text-gray-700 hover:text-[#3498db] transition-colors">
-              <Text as="p" variant="subtitle" class="max-w-[200px] text-center"
-                >Grupos de Conexión</Text
-              >
-            </a>
-          </li>
-          <li>
-            <a
-              href="/conectate"
-              class="text-gray-700 hover:text-[#3498db] transition-colors">
-              <Text as="p" variant="subtitle" class="max-w-[200px] text-center"
-                >Clases de Conexión</Text
-              >
-            </a>
-          </li>
-          <li>
-            <a
-              href="/dream-team"
-              class="text-gray-700 hover:text-[#3498db] transition-colors">
-              <Text as="p" variant="subtitle" class="max-w-[200px] text-center"
-                >El Dream Team</Text
-              >
-            </a>
-          </li>
-          <li>
-            <a
-              href="/dar"
-              class="text-gray-700 hover:text-[#3498db] transition-colors">
-              <Text as="p" variant="subtitle" class="max-w-[200px] text-center"
-                >Dar</Text
-              >
-            </a>
-          </li>
-          <li>
-            <a
-              href="/devocional"
-              class="text-gray-700 hover:text-[#3498db] transition-colors">
-              <Text as="p" variant="subtitle" class="max-w-[200px] text-center"
-                >Devocional</Text
-              >
-            </a>
-          </li>
+          {
+            nextSteps.map((step) => (
+              <li>
+                <a
+                  href={step.path}
+                  class="text-gray-700 hover:text-[#3498db] transition-colors">
+                  <Text
+                    as="p"
+                    variant="subtitle"
+                    class="max-w-[200px] text-center">
+                    {step.name}
+                  </Text>
+                </a>
+              </li>
+            ))
+          }
         </ul>
       </div>
 
@@ -147,66 +134,24 @@ const currentYear = new Date().getFullYear()
       <div class="flex flex-col">
         <Text variant="title" as="h4" class="text-center">Sedes CBI</Text>
         <ul class="space-y-1 mx-auto">
-          <li>
-            <a
-              href="https://www.cbint.org"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="text-gray-700 hover:text-primary transition-colors inline-flex items-center gap-1 group">
-              <Text
-                as="span"
-                variant="subtitle"
-                class="max-w-[200px] text-center group-hover:text-primary"
-                >Barranquilla</Text
-              >
-            </a>
-          </li>
-
-          <li>
-            <a
-              href="https://www.facebook.com/CBIBCN"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="text-gray-700 hover:text-primary transition-colors inline-flex items-center gap-1 group">
-              <Text
-                as="span"
-                variant="subtitle"
-                class="max-w-[200px] text-center group-hover:text-primary"
-                >Barcelona</Text
-              >
-            </a>
-          </li>
-
-          <li>
-            <a
-              href="https://www.facebook.com/CbintNJ"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="text-gray-700 hover:text-primary transition-colors inline-flex items-center gap-1 group">
-              <Text
-                as="span"
-                variant="subtitle"
-                class="max-w-[200px] text-center group-hover:text-primary"
-                >New Jersey</Text
-              >
-            </a>
-          </li>
-
-          <li>
-            <a
-              href="https://www.facebook.com/cbistcloud"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="text-gray-700 hover:text-primary transition-colors inline-flex items-center gap-1 group">
-              <Text
-                as="span"
-                variant="subtitle"
-                class="max-w-[200px] text-center group-hover:text-primary"
-                >St. Cloud</Text
-              >
-            </a>
-          </li>
-
+          {
+            sedes.map((sede) => (
+              <li>
+                <a
+                  href={sede.path}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-gray-700 hover:text-primary transition-colors inline-flex items-center gap-1 group">
+                  <Text
+                    as="span"
+                    variant="subtitle"
+                    class="max-w-[200px] text-center group-hover:text-primary">
+                    {sede.name}
+                  </Text>
+                </a>
+              </li>
+            ))
+          }
           <li>
             <a
               href="/iglesias"
@@ -222,12 +167,12 @@ const currentYear = new Date().getFullYear()
         </ul>
       </div>
     </div>
+  </div>
 
-    <!-- Copyright Section -->
-    <div class="border-t border-gray-300 pt-6 mt-8">
-      <Text variant="subtitle" class="text-center">
-        ©{currentYear} CBI Orlando | All rights reserved
-      </Text>
-    </div>
+  <!-- Copyright Section -->
+  <div class="border-t border-gray-300 pt-6 mt-8">
+    <Text variant="subtitle" class="text-center">
+      ©{currentYear} CBI Orlando | All rights reserved
+    </Text>
   </div>
 </footer>
