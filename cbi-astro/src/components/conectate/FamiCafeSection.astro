@@ -2,15 +2,13 @@
 import {
     ArrowRight,
     Users,
-    Heart,
     Coffee,
     Compass,
-    Target,
     HandHeart,
     Lightbulb,
-    Footprints,
 } from "@lucide/astro"
 import SliderArrow from "../common/SliderArrow.astro"
+import FeatureCardsSlider from "./FeatureCardsSlider.astro"
 import "swiper/css"
 import "swiper/css/navigation"
 
@@ -75,35 +73,6 @@ const benefits = [
     "3 sesiones que transformarán tu perspectiva",
     "Ambiente cálido con café y refrigerios",
     "Conexión directa con líderes de la iglesia",
-]
-
-// Feature cards data
-const featureCards = [
-    {
-        icon: Footprints,
-        title: "Tu Primer Paso",
-        description: "Ideal para nuevos visitantes",
-        highlighted: false,
-    },
-    {
-        icon: Target,
-        title: "Encuentra Propósito",
-        description: "Descubre tu llamado único",
-        highlighted: false,
-    },
-    {
-        icon: Heart,
-        title: "Conoce Nuestros Valores",
-        description: "Lo que nos define como familia",
-        highlighted: false,
-    },
-    {
-        icon: Coffee,
-        title: "Próxima Sesión",
-        description: "Todos los Domingos",
-        subDescription: "Después del 2do servicio",
-        highlighted: true,
-    },
 ]
 ---
 
@@ -306,51 +275,8 @@ const featureCards = [
             </div>
 
             <!-- Right Content - Feature Cards -->
-            <div class="grid grid-cols-2 gap-3 sm:gap-4">
-                <div class="space-y-3 sm:space-y-4">
-                    {
-                        featureCards.slice(0, 2).map((card) => (
-                            <div
-                                class={`${card.highlighted ? "bg-primary/20 border-primary/30" : "bg-white/10 border-white/10"} backdrop-blur-sm rounded-2xl p-4 sm:p-6 border`}>
-                                <card.icon class="w-6 h-6 sm:w-8 sm:h-8 text-primary mb-2 sm:mb-3" />
-                                <h4 class="font-bebas text-lg sm:text-xl text-white mb-1">
-                                    {card.title}
-                                </h4>
-                                <p
-                                    class={`text-xs sm:text-sm ${card.highlighted ? "text-white/90 font-medium" : "text-white/60"}`}>
-                                    {card.description}
-                                </p>
-                                {card.subDescription && (
-                                    <p class="text-white/60 text-xs">
-                                        {card.subDescription}
-                                    </p>
-                                )}
-                            </div>
-                        ))
-                    }
-                </div>
-                <div class="space-y-3 sm:space-y-4 pt-6 sm:pt-8">
-                    {
-                        featureCards.slice(2, 4).map((card) => (
-                            <div
-                                class={`${card.highlighted ? "bg-primary/20 border-primary/30" : "bg-white/10 border-white/10"} backdrop-blur-sm rounded-2xl p-4 sm:p-6 border`}>
-                                <card.icon class="w-6 h-6 sm:w-8 sm:h-8 text-primary mb-2 sm:mb-3" />
-                                <h4 class="font-bebas text-lg sm:text-xl text-white mb-1">
-                                    {card.title}
-                                </h4>
-                                <p
-                                    class={`text-xs sm:text-sm ${card.highlighted ? "text-white/90 font-medium" : "text-white/60"}`}>
-                                    {card.description}
-                                </p>
-                                {card.subDescription && (
-                                    <p class="text-white/60 text-xs">
-                                        {card.subDescription}
-                                    </p>
-                                )}
-                            </div>
-                        ))
-                    }
-                </div>
+            <div class="min-w-0 overflow-hidden">
+                <FeatureCardsSlider />
             </div>
         </div>
     </div>
