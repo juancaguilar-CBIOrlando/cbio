@@ -44,8 +44,12 @@ const secondaryLinksColumn1 = [
 
 const secondaryLinksColumn2 = [
   { name: "Dream Team", path: "/dream-team" },
-  { name: "Bautizos", path: "/bautizos" },
   { name: "Sedes", path: "/iglesias" },
+  {
+    name: "Peticiones de Oración",
+    path: "https://cbichurch.churchcenter.com/people/forms/1116906",
+    target: "_blank",
+  },
 ]
 ---
 
@@ -193,6 +197,8 @@ const secondaryLinksColumn2 = [
               secondaryLinksColumn2.map((link, index) => (
                 <a
                   href={link.path}
+                  target={link.target || "_self"}
+                  rel={link.target ? "noopener noreferrer" : ""}
                   class="menu-link secondary-link text-base lg:text-lg font-medium text-white/60 transition-all duration-300 hover:text-primary"
                   style={`animation-delay: ${(primaryLinks.length + secondaryLinksColumn1.length + index) * 50}ms;`}>
                   {link.name}

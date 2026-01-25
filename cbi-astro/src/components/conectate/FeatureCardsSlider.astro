@@ -1,0 +1,192 @@
+---
+import {
+    Coffee,
+    Target,
+    Heart,
+    Footprints,
+} from "@lucide/astro"
+import SliderArrow from "../common/SliderArrow.astro"
+import "swiper/css"
+import "swiper/css/navigation"
+
+// Feature cards data
+const featureCards = [
+    {
+        icon: Footprints,
+        title: "Tu Primer Paso",
+        description: "Ideal para nuevos visitantes",
+        highlighted: false,
+    },
+    {
+        icon: Target,
+        title: "Encuentra Propósito",
+        description: "Descubre tu llamado único",
+        highlighted: false,
+    },
+    {
+        icon: Heart,
+        title: "Conoce Nuestros Valores",
+        description: "Lo que nos define como familia",
+        highlighted: false,
+    },
+    {
+        icon: Coffee,
+        title: "Próxima Sesión",
+        description: "Todos los Domingos",
+        subDescription: "Después del 2do servicio",
+        highlighted: true,
+    },
+]
+---
+
+<!-- Mobile Slider -->
+<div class="feature-cards-slider-mobile sm:hidden min-w-0 w-full overflow-hidden">
+    <div class="flex items-center justify-end gap-3 mb-4">
+        <SliderArrow
+            direction="prev"
+            class="feature-swiper-prev"
+            ariaLabel="Tarjeta anterior"
+        />
+        <SliderArrow
+            direction="next"
+            class="feature-swiper-next"
+            ariaLabel="Siguiente tarjeta"
+        />
+    </div>
+    <div class="feature-swiper-container relative w-full overflow-hidden">
+        <div
+            class="swiper feature-swiper w-full"
+            data-prev-btn=".feature-swiper-prev"
+            data-next-btn=".feature-swiper-next">
+            <div class="swiper-wrapper">
+                {
+                    featureCards.map((card) => (
+                        <div class="swiper-slide">
+                            <div
+                                class={`${card.highlighted ? "bg-primary/20 border-primary/30" : "bg-white/10 border-white/10"} backdrop-blur-sm rounded-2xl p-6 border h-full`}>
+                                <card.icon class="w-8 h-8 text-primary mb-3" />
+                                <h4 class="font-bebas text-xl text-white mb-1">
+                                    {card.title}
+                                </h4>
+                                <p
+                                    class={`text-sm ${card.highlighted ? "text-white/90 font-medium" : "text-white/60"}`}>
+                                    {card.description}
+                                </p>
+                                {card.subDescription && (
+                                    <p class="text-white/60 text-xs mt-1">
+                                        {card.subDescription}
+                                    </p>
+                                )}
+                            </div>
+                        </div>
+                    ))
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Desktop Grid -->
+<div class="hidden sm:grid grid-cols-2 gap-4">
+    <div class="space-y-4">
+        {
+            featureCards.slice(0, 2).map((card) => (
+                <div
+                    class={`${card.highlighted ? "bg-primary/20 border-primary/30" : "bg-white/10 border-white/10"} backdrop-blur-sm rounded-2xl p-6 border`}>
+                    <card.icon class="w-8 h-8 text-primary mb-3" />
+                    <h4 class="font-bebas text-xl text-white mb-1">
+                        {card.title}
+                    </h4>
+                    <p
+                        class={`text-sm ${card.highlighted ? "text-white/90 font-medium" : "text-white/60"}`}>
+                        {card.description}
+                    </p>
+                    {card.subDescription && (
+                        <p class="text-white/60 text-xs mt-1">
+                            {card.subDescription}
+                        </p>
+                    )}
+                </div>
+            ))
+        }
+    </div>
+    <div class="space-y-4 pt-8">
+        {
+            featureCards.slice(2, 4).map((card) => (
+                <div
+                    class={`${card.highlighted ? "bg-primary/20 border-primary/30" : "bg-white/10 border-white/10"} backdrop-blur-sm rounded-2xl p-6 border`}>
+                    <card.icon class="w-8 h-8 text-primary mb-3" />
+                    <h4 class="font-bebas text-xl text-white mb-1">
+                        {card.title}
+                    </h4>
+                    <p
+                        class={`text-sm ${card.highlighted ? "text-white/90 font-medium" : "text-white/60"}`}>
+                        {card.description}
+                    </p>
+                    {card.subDescription && (
+                        <p class="text-white/60 text-xs mt-1">
+                            {card.subDescription}
+                        </p>
+                    )}
+                </div>
+            ))
+        }
+    </div>
+</div>
+
+<script>
+    // @ts-nocheck
+    import Swiper from "swiper"
+    import { Navigation } from "swiper/modules"
+
+    function initFeatureSwiper() {
+        const swiperEl = document.querySelector(".feature-swiper")
+        if (!swiperEl) return
+
+        const prevBtn = swiperEl.getAttribute("data-prev-btn")
+        const nextBtn = swiperEl.getAttribute("data-next-btn")
+
+        if (prevBtn && nextBtn) {
+            new Swiper(swiperEl, {
+                modules: [Navigation],
+                slidesPerView: 1.2,
+                spaceBetween: 12,
+                navigation: {
+                    prevEl: prevBtn,
+                    nextEl: nextBtn,
+                },
+            })
+        }
+    }
+
+    // Initialize on DOM ready
+    if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", initFeatureSwiper)
+    } else {
+        initFeatureSwiper()
+    }
+</script>
+
+<style>
+    /* Feature Cards Slider Mobile Styles */
+    .feature-cards-slider-mobile {
+        width: 100%;
+        min-width: 0;
+        max-width: 100%;
+    }
+
+    .feature-swiper-container {
+        width: 100%;
+        min-width: 0;
+        max-width: 100%;
+    }
+
+    .feature-cards-slider-mobile .swiper {
+        overflow: hidden;
+        width: 100%;
+    }
+
+    .feature-cards-slider-mobile .swiper-slide {
+        height: auto;
+    }
+</style>

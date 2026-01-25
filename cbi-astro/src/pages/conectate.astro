@@ -1,7 +1,8 @@
 ---
 import Layout from "../layouts/Layout.astro"
 import { Image } from "astro:assets"
-import { address, phone, email } from "../constants"
+import { address, phone, email, connectGroupsLink } from "../constants"
+import FamiCafeSection from "../components/conectate/FamiCafeSection.astro"
 import {
   ArrowRight,
   ArrowDown,
@@ -17,6 +18,7 @@ import {
   ChevronRight,
   BookText,
   Sprout,
+  Coffee,
 } from "@lucide/astro"
 
 // Import images
@@ -32,12 +34,21 @@ const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComp
 // Ways to connect
 const connectWays = [
   {
+    icon: Coffee,
+    title: "FamiCafé",
+    description:
+      "Nuestras clases de conexión donde descubres nuestros valores, encuentras tu propósito y te preparas para servir.",
+    cta: "Conocer Más",
+    link: "#famicafe",
+    color: "amber",
+  },
+  {
     icon: Users,
     title: "Grupos de Conexión",
     description:
       "Encuentra comunidad en grupos pequeños donde puedes crecer espiritualmente y formar amistades genuinas.",
     cta: "Unirse a un Grupo",
-    link: "#grupos",
+    link: connectGroupsLink,
     color: "primary",
   },
   {
@@ -59,6 +70,28 @@ const connectWays = [
     color: "primary",
   },
 ]
+
+// Color classes for connect ways
+const colorClasses: Record<
+  string,
+  { bg: string; text: string; hover: string }
+> = {
+  primary: {
+    bg: "bg-primary/10",
+    text: "text-primary",
+    hover: "text-primary hover:text-primary/80",
+  },
+  accent: {
+    bg: "bg-accent/10",
+    text: "text-accent",
+    hover: "text-accent hover:text-accent/80",
+  },
+  amber: {
+    bg: "bg-amber-100",
+    text: "text-amber-700",
+    hover: "text-amber-700 hover:text-amber-600",
+  },
+}
 
 // Social links
 const socialLinks = [
@@ -85,7 +118,7 @@ const socialLinks = [
 
 <Layout title="Conéctate - CBI Orlando" navLogo="white">
   <!-- Hero Section -->
-  <section class="relative h-[85vh] min-h-[600px] w-full overflow-hidden">
+  <section class="relative h-[86vh] min-h-[600px] w-full overflow-hidden">
     <Image
       src={dreamTeamWelcomeImg}
       alt="Comunidad CBI Orlando"
@@ -115,19 +148,21 @@ const socialLinks = [
     <div
       class="relative z-10 h-full flex flex-col items-center justify-center text-center px-6 pt-16">
       <span
-        class="text-primary text-lg sm:text-lg uppercase tracking-[0.3em] font-semibold mb-2 sm:mb-4 animate-fade-in">
+        class="text-primary text-md sm:text-lg uppercase tracking-[0.2em] font-semibold mb-1 sm:mb-4 animate-fade-in">
         Eres Bienvenido
       </span>
       <h1
-        class="font-bebas text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-white mb-4 max-w-5xl leading-none animate-fade-in-up">
+        class="font-bebas text-4xl sm:text-6xl md:text-7xl lg:text-8xl text-white mb-4 max-w-6xl leading-none animate-fade-in-up">
         Conectate con Nuestra <span class="text-primary">Iglesia</span>
       </h1>
 
       <p
         class="text-white/80 text-lg md:text-xl max-w-2xl mx-auto mb-8 animate-fade-in-up"
         style="animation-delay: 0.2s;">
-        No fuiste creado para caminar solo. Conéctate con una comunidad que te
-        acompaña, te inspira y crezca contigo.
+        No fuiste creado para caminar solo. <span class="hidden sm:inline">
+          Conéctate con una comunidad que te acompaña, te inspira y crezca
+          contigo.
+        </span>
       </p>
 
       <!-- Trust Badges -->
@@ -336,35 +371,38 @@ const socialLinks = [
           </p>
         </div>
 
-        <div class="grid md:grid-cols-3 gap-8">
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
           {
-            connectWays.map((way, index) => (
-              <div
-                class="connect-card bg-white rounded-3xl p-8 shadow-sm hover:shadow-xl transition-all duration-500 group relative overflow-hidden"
-                style={`animation-delay: ${index * 0.1}s;`}>
-                <div class="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full -translate-y-1/2 translate-x-1/2 group-hover:scale-150 transition-transform duration-500" />
-                <div class="relative z-10">
+            connectWays.map((way, index) => {
+              const colors = colorClasses[way.color] || colorClasses.primary
+              return (
+                <div
+                  class="connect-card bg-white rounded-3xl p-8 shadow-sm hover:shadow-xl transition-all duration-500 group relative overflow-hidden"
+                  style={`animation-delay: ${index * 0.1}s;`}>
                   <div
-                    class={`w-16 h-16 rounded-2xl flex items-center justify-center mb-6 ${way.color === "primary" ? "bg-primary/10" : "bg-accent/10"}`}>
-                    <way.icon
-                      class={`w-8 h-8 ${way.color === "primary" ? "text-primary" : "text-accent"}`}
-                    />
+                    class={`absolute top-0 right-0 w-32 h-32 ${colors.bg} rounded-full -translate-y-1/2 translate-x-1/2 group-hover:scale-150 transition-transform duration-500`}
+                  />
+                  <div class="relative z-10">
+                    <div
+                      class={`w-16 h-16 rounded-2xl flex items-center justify-center mb-6 ${colors.bg}`}>
+                      <way.icon class={`w-8 h-8 ${colors.text}`} />
+                    </div>
+                    <h3 class="text-2xl font-bold text-accent mb-3 font-bebas">
+                      {way.title}
+                    </h3>
+                    <p class="text-gray-600 mb-6 leading-relaxed text-sm">
+                      {way.description}
+                    </p>
+                    <a
+                      href={way.link}
+                      class={`inline-flex items-center gap-2 font-semibold transition-all duration-300 group/link ${colors.hover}`}>
+                      {way.cta}
+                      <ArrowRight class="w-4 h-4 transform group-hover/link:translate-x-1 transition-transform" />
+                    </a>
                   </div>
-                  <h3 class="text-2xl font-bold text-accent mb-3 font-bebas">
-                    {way.title}
-                  </h3>
-                  <p class="text-gray-600 mb-6 leading-relaxed">
-                    {way.description}
-                  </p>
-                  <a
-                    href={way.link}
-                    class={`inline-flex items-center gap-2 font-semibold transition-all duration-300 group/link ${way.color === "primary" ? "text-primary hover:text-primary/80" : "text-accent hover:text-accent/80"}`}>
-                    {way.cta}
-                    <ArrowRight class="w-4 h-4 transform group-hover/link:translate-x-1 transition-transform" />
-                  </a>
                 </div>
-              </div>
-            ))
+              )
+            })
           }
         </div>
       </div>
@@ -373,7 +411,7 @@ const socialLinks = [
     <!-- Connection Groups Experience Section -->
     <section
       id="grupos"
-      class="py-24 lg:py-32 px-6 lg:px-16 bg-accent relative overflow-hidden">
+      class="py-12 lg:py-16 px-6 lg:px-16 bg-accent relative overflow-hidden">
       <div class="max-w-7xl mx-auto relative z-10">
         <!-- Header -->
         <div class="text-center mb-16 lg:mb-20">
@@ -501,6 +539,9 @@ const socialLinks = [
         </div>
       </div>
     </section>
+
+    <!-- FamiCafe Section -->
+    <FamiCafeSection />
 
     <!-- Visit Us CTA Section -->
     <section class="relative overflow-hidden">
