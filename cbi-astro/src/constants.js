@@ -4,6 +4,7 @@ const email = "contacto@cbiorlando.org"
 
 const missionsRegistrationLink = "https://cbichurch.churchcenter.com/registrations/events/3326186"
 const connectGroupsLink = "https://cbichurch.churchcenter.com/people/forms/1070757"
+const famicafeRegistrationLink = "https://cbichurch.churchcenter.com/people/forms/1123610"
 
 const serviceTimes = [
   // FIXME: add the image for each service
@@ -46,4 +47,4 @@ const serviceTimes = [
   }
 ]
 
-export { address, phone, email, serviceTimes, missionsRegistrationLink, connectGroupsLink };
+export { address, phone, email, serviceTimes, missionsRegistrationLink, connectGroupsLink, famicafeRegistrationLink };
