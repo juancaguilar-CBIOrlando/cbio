@@ -10,6 +10,9 @@ import {
     Lightbulb,
     Footprints,
 } from "@lucide/astro"
+import SliderArrow from "../common/SliderArrow.astro"
+import "swiper/css"
+import "swiper/css/navigation"
 
 // Journey steps data
 const journeySteps = [
@@ -156,8 +159,63 @@ const featureCards = [
             </p>
         </div>
 
-        <!-- Journey Steps -->
-        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 mb-16">
+        <!-- Journey Steps - Mobile Slider -->
+        <div class="journey-slider-mobile sm:hidden mb-16">
+            <div class="flex items-center justify-end gap-3 mb-4">
+                <SliderArrow
+                    direction="prev"
+                    class="journey-swiper-prev"
+                    ariaLabel="Paso anterior"
+                />
+                <SliderArrow
+                    direction="next"
+                    class="journey-swiper-next"
+                    ariaLabel="Siguiente paso"
+                />
+            </div>
+            <div class="journey-swiper-container relative">
+                <div
+                    class="swiper journey-swiper"
+                    data-prev-btn=".journey-swiper-prev"
+                    data-next-btn=".journey-swiper-next">
+                    <div class="swiper-wrapper">
+                        {
+                            journeySteps.map((step) => (
+                                <div class="swiper-slide">
+                                    <div
+                                        class={`famicafe-card group relative bg-linear-to-br from-slate-50 to-white rounded-3xl p-8 border border-slate-100 ${step.colors.hoverBorder} hover:shadow-xl transition-all duration-500 h-full`}>
+                                        <div class="absolute top-4 right-4">
+                                            <span
+                                                class={`text-6xl font-bebas text-slate-100 ${step.colors.hoverNumber} transition-colors`}>
+                                                {step.number}
+                                            </span>
+                                        </div>
+                                        <div class="relative z-10">
+                                            <div
+                                                class={`w-14 h-14 rounded-2xl ${step.colors.bg} flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300`}>
+                                                <step.icon
+                                                    class={`w-7 h-7 ${step.colors.text}`}
+                                                />
+                                            </div>
+                                            <h3 class="text-2xl font-bold text-accent mb-3 font-bebas tracking-wide">
+                                                {step.title}
+                                            </h3>
+                                            <p class="text-gray-600 leading-relaxed text-sm">
+                                                {step.description}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Journey Steps - Desktop Grid -->
+        <div
+            class="hidden sm:grid sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 mb-16">
             {
                 journeySteps.map((step, index) => (
                     <div
@@ -300,6 +358,39 @@ const featureCards = [
     </div>
 </section>
 
+<script>
+    // @ts-nocheck
+    import Swiper from "swiper"
+    import { Navigation } from "swiper/modules"
+
+    function initJourneySwiper() {
+        const swiperEl = document.querySelector(".journey-swiper")
+        if (!swiperEl) return
+
+        const prevBtn = swiperEl.getAttribute("data-prev-btn")
+        const nextBtn = swiperEl.getAttribute("data-next-btn")
+
+        if (prevBtn && nextBtn) {
+            new Swiper(swiperEl, {
+                modules: [Navigation],
+                slidesPerView: 1.15,
+                spaceBetween: 16,
+                navigation: {
+                    prevEl: prevBtn,
+                    nextEl: nextBtn,
+                },
+            })
+        }
+    }
+
+    // Initialize on DOM ready
+    if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", initJourneySwiper)
+    } else {
+        initJourneySwiper()
+    }
+</script>
+
 <style>
     /* Card Animations */
     .famicafe-card {
@@ -330,5 +421,25 @@ const featureCards = [
             background: linear-gradient(90deg, #e2e8f0 0%, transparent 100%);
             opacity: 0.5;
         }
+    }
+
+    /* Journey Slider Mobile Styles */
+    .journey-slider-mobile {
+        width: 100%;
+    }
+
+    .journey-slider-mobile .swiper {
+        overflow: hidden;
+        width: 100%;
+    }
+
+    .journey-slider-mobile .swiper-slide {
+        height: auto;
+    }
+
+    /* Ensure cards in slider don't animate (already visible) */
+    .journey-slider-mobile .famicafe-card {
+        opacity: 1;
+        animation: none;
     }
 </style>
