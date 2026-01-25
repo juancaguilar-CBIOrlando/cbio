@@ -1,0 +1,334 @@
+---
+import {
+    ArrowRight,
+    Users,
+    Heart,
+    Coffee,
+    Compass,
+    Target,
+    HandHeart,
+    Lightbulb,
+    Footprints,
+} from "@lucide/astro"
+
+// Journey steps data
+const journeySteps = [
+    {
+        number: "01",
+        title: "Descubre",
+        description:
+            "Conoce nuestra visión, valores y lo que nos impulsa como iglesia. Entiende hacia dónde vamos juntos.",
+        icon: Compass,
+        colors: {
+            bg: "bg-amber-100",
+            text: "text-amber-700",
+            hoverBorder: "hover:border-amber-200",
+            hoverNumber: "group-hover:text-amber-100",
+        },
+    },
+    {
+        number: "02",
+        title: "Conecta",
+        description:
+            "Forma parte de nuestra comunidad. Encuentra relaciones genuinas y un lugar donde pertenecer.",
+        icon: Users,
+        colors: {
+            bg: "bg-primary/10",
+            text: "text-primary",
+            hoverBorder: "hover:border-primary/30",
+            hoverNumber: "group-hover:text-primary/20",
+        },
+    },
+    {
+        number: "03",
+        title: "Crece",
+        description:
+            "Descubre tu diseño único. Identifica tus dones, talentos y pasiones para alcanzar tu potencial.",
+        icon: Lightbulb,
+        colors: {
+            bg: "bg-emerald-100",
+            text: "text-emerald-700",
+            hoverBorder: "hover:border-emerald-200",
+            hoverNumber: "group-hover:text-emerald-100",
+        },
+    },
+    {
+        number: "04",
+        title: "Sirve",
+        description:
+            "Usa tus dones para hacer la diferencia. Encuentra tu lugar en el Dream Team y marca vidas.",
+        icon: HandHeart,
+        colors: {
+            bg: "bg-accent/10",
+            text: "text-accent",
+            hoverBorder: "hover:border-accent/20",
+            hoverNumber: "group-hover:text-accent/20",
+        },
+    },
+]
+
+// Benefits list
+const benefits = [
+    "3 sesiones que transformarán tu perspectiva",
+    "Ambiente cálido con café y refrigerios",
+    "Conexión directa con líderes de la iglesia",
+]
+
+// Feature cards data
+const featureCards = [
+    {
+        icon: Footprints,
+        title: "Tu Primer Paso",
+        description: "Ideal para nuevos visitantes",
+        highlighted: false,
+    },
+    {
+        icon: Target,
+        title: "Encuentra Propósito",
+        description: "Descubre tu llamado único",
+        highlighted: false,
+    },
+    {
+        icon: Heart,
+        title: "Conoce Nuestros Valores",
+        description: "Lo que nos define como familia",
+        highlighted: false,
+    },
+    {
+        icon: Coffee,
+        title: "Próxima Sesión",
+        description: "Todos los Domingos",
+        subDescription: "Después del 2do servicio",
+        highlighted: true,
+    },
+]
+---
+
+<section
+    id="famicafe"
+    class="py-12 lg:py-16 px-6 lg:px-16 bg-white relative overflow-hidden">
+    <!-- Background Pattern -->
+    <div class="absolute inset-0 opacity-[0.03]">
+        <svg
+            class="w-full h-full"
+            viewBox="0 0 100 100"
+            preserveAspectRatio="none">
+            <pattern
+                id="coffee-pattern"
+                width="20"
+                height="20"
+                patternUnits="userSpaceOnUse">
+                <circle
+                    cx="10"
+                    cy="10"
+                    r="2"
+                    fill="currentColor"
+                    class="text-accent"></circle>
+            </pattern>
+            <rect width="100" height="100" fill="url(#coffee-pattern)"></rect>
+        </svg>
+    </div>
+
+    <!-- Decorative coffee icons -->
+    <Coffee class="w-10 h-10 text-amber-700/20 absolute top-10 left-10" />
+    <Coffee class="w-10 h-10 text-amber-700/20 absolute top-10 right-10" />
+
+    <div class="max-w-7xl mx-auto relative z-10">
+        <!-- Header -->
+        <div class="text-center mb-12 lg:mb-16">
+            <div
+                class="inline-flex items-center gap-2 bg-amber-100 text-amber-800 px-4 py-2 rounded-full text-sm font-semibold mb-4">
+                <Coffee class="w-4 h-4" />
+                <span>CLASES DE CONEXIÓN</span>
+            </div>
+            <h2
+                class="font-bebas text-4xl sm:text-5xl lg:text-7xl text-accent mb-3 leading-none">
+                Bienvenido a <span class="text-primary">FamiCafé</span>
+            </h2>
+            <p
+                class="text-gray-600 text-lg lg:text-xl max-w-3xl mx-auto leading-relaxed">
+                En un ambiente cálido con un buen café, descubre quiénes somos,
+                encuentra tu propósito y conecta con un grupo que te ayudará a
+                crecer.
+                <span class="text-accent font-medium"
+                    >Tu viaje comienza aquí.</span
+                >
+            </p>
+        </div>
+
+        <!-- Journey Steps -->
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 mb-16">
+            {
+                journeySteps.map((step, index) => (
+                    <div
+                        class={`famicafe-card group relative bg-linear-to-br from-slate-50 to-white rounded-3xl p-8 border border-slate-100 ${step.colors.hoverBorder} hover:shadow-xl transition-all duration-500`}
+                        style={`animation-delay: ${index * 0.1}s;`}>
+                        <div class="absolute top-4 right-4">
+                            <span
+                                class={`text-6xl font-bebas text-slate-100 ${step.colors.hoverNumber} transition-colors`}>
+                                {step.number}
+                            </span>
+                        </div>
+                        <div class="relative z-10">
+                            <div
+                                class={`w-14 h-14 rounded-2xl ${step.colors.bg} flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300`}>
+                                <step.icon
+                                    class={`w-7 h-7 ${step.colors.text}`}
+                                />
+                            </div>
+                            <h3 class="text-2xl font-bold text-accent mb-3 font-bebas tracking-wide">
+                                {step.title}
+                            </h3>
+                            <p class="text-gray-600 leading-relaxed text-sm">
+                                {step.description}
+                            </p>
+                        </div>
+                    </div>
+                ))
+            }
+        </div>
+
+        <!-- Feature Highlights -->
+        <div
+            class="bg-linear-to-r from-accent via-accent to-accent/95 rounded-3xl p-8 lg:p-12 relative overflow-hidden">
+            <div
+                class="absolute top-0 right-0 w-64 h-64 bg-primary/20 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl">
+            </div>
+            <div
+                class="absolute bottom-0 left-0 w-48 h-48 bg-white/5 rounded-full translate-y-1/2 -translate-x-1/2 blur-2xl">
+            </div>
+
+            <div
+                class="relative z-10 grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+                <!-- Left Content -->
+                <div>
+                    <div class="flex items-center gap-3 mb-4">
+                        <Coffee class="w-8 h-8 text-amber-700" />
+                        <span
+                            class="text-white font-semibold uppercase underline underline-offset-4 py-2 decoration-amber-700 tracking-wider text-md">
+                            La Experiencia FamiCafé
+                        </span>
+                    </div>
+                    <h3 class="font-bebas text-3xl lg:text-4xl text-white mb-4">
+                        Más Que Una Clase, <span class="text-primary"
+                            >Una Experiencia</span
+                        >
+                    </h3>
+                    <p class="text-white/80 leading-relaxed mb-6">
+                        FamiCafé es el primer paso para profundizar tu conexión
+                        con la iglesia. Es un ambiente cálido y acogedor.
+                        Compartimos café, conversaciones significativas y
+                        descubrimos juntos el propósito que Dios tiene para cada
+                        uno.
+                    </p>
+
+                    <!-- Benefits List -->
+                    <ul class="space-y-3 mb-8">
+                        {
+                            benefits.map((benefit) => (
+                                <li class="flex items-center gap-3 text-white/90">
+                                    <div class="w-5 h-5 rounded-full bg-primary/30 flex items-center justify-center shrink-0">
+                                        <span class="text-primary text-xs">
+                                            ✓
+                                        </span>
+                                    </div>
+                                    {benefit}
+                                </li>
+                            ))
+                        }
+                    </ul>
+
+                    <a
+                        href="#contacto"
+                        class="inline-flex items-center gap-2 bg-primary text-white px-8 py-4 rounded-full font-semibold text-lg hover:bg-primary/90 transition-all duration-300 hover:scale-105 group">
+                        Inscríbete al Próximo FamiCafé
+                        <ArrowRight
+                            class="w-5 h-5 transform group-hover:translate-x-1 transition-transform"
+                        />
+                    </a>
+                </div>
+
+                <!-- Right Content - Feature Cards -->
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="space-y-4">
+                        {
+                            featureCards.slice(0, 2).map((card) => (
+                                <div
+                                    class={`${card.highlighted ? "bg-primary/20 border-primary/30" : "bg-white/10 border-white/10"} backdrop-blur-sm rounded-2xl p-6 border`}>
+                                    <card.icon class="w-8 h-8 text-primary mb-3" />
+                                    <h4 class="font-bebas text-xl text-white mb-1">
+                                        {card.title}
+                                    </h4>
+                                    <p
+                                        class={`text-sm ${card.highlighted ? "text-white/90 font-medium" : "text-white/60"}`}>
+                                        {card.description}
+                                    </p>
+                                    {card.subDescription && (
+                                        <p class="text-white/60 text-xs">
+                                            {card.subDescription}
+                                        </p>
+                                    )}
+                                </div>
+                            ))
+                        }
+                    </div>
+                    <div class="space-y-4 pt-8">
+                        {
+                            featureCards.slice(2, 4).map((card) => (
+                                <div
+                                    class={`${card.highlighted ? "bg-primary/20 border-primary/30" : "bg-white/10 border-white/10"} backdrop-blur-sm rounded-2xl p-6 border`}>
+                                    <card.icon class="w-8 h-8 text-primary mb-3" />
+                                    <h4 class="font-bebas text-xl text-white mb-1">
+                                        {card.title}
+                                    </h4>
+                                    <p
+                                        class={`text-sm ${card.highlighted ? "text-white/90 font-medium" : "text-white/60"}`}>
+                                        {card.description}
+                                    </p>
+                                    {card.subDescription && (
+                                        <p class="text-white/60 text-xs">
+                                            {card.subDescription}
+                                        </p>
+                                    )}
+                                </div>
+                            ))
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    /* Card Animations */
+    .famicafe-card {
+        opacity: 0;
+        animation: fade-in-up 0.6s ease-out forwards;
+    }
+
+    @keyframes fade-in-up {
+        from {
+            opacity: 0;
+            transform: translateY(24px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* FamiCafe Step Connection Line (desktop) */
+    @media (min-width: 1024px) {
+        .famicafe-card:not(:last-child)::after {
+            content: "";
+            position: absolute;
+            top: 2rem;
+            right: -1rem;
+            width: 2rem;
+            height: 2px;
+            background: linear-gradient(90deg, #e2e8f0 0%, transparent 100%);
+            opacity: 0.5;
+        }
+    }
+</style>
