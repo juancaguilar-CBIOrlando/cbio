@@ -3,6 +3,7 @@ import misiones1Img from "../assets/misiones-love.jpeg"
 import misionesHeroImg from "../assets/misiones-hero.jpeg"
 import misionesEventsImg from "../assets/misiones-events.jpeg"
 import misionesGroupImg from "../assets/misiones-group.jpeg"
+import { missionsRegistrationLink } from "../constants.js"
 
 
 /**
@@ -56,7 +57,12 @@ export const impactSlides = [
     image: misionesEventsImg,
     actions: [
       {
-        text: "Servir",
+        text: "Registrarme",
+        href: missionsRegistrationLink,
+        target: "_blank",
+      },
+      {
+        text: "Ver Más",
         href: "/conectate",
       },
     ],

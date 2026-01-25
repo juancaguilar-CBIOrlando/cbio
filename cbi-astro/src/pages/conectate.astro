@@ -1,7 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro"
 import { Image } from "astro:assets"
-import { address, phone, email } from "../constants"
+import { address, phone, email, connectGroupsLink } from "../constants"
 import FamiCafeSection from "../components/conectate/FamiCafeSection.astro"
 import {
   ArrowRight,
@@ -48,7 +48,7 @@ const connectWays = [
     description:
       "Encuentra comunidad en grupos pequeños donde puedes crecer espiritualmente y formar amistades genuinas.",
     cta: "Unirse a un Grupo",
-    link: "#grupos",
+    link: connectGroupsLink,
     color: "primary",
   },
   {

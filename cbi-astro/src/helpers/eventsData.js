@@ -14,6 +14,7 @@ import mujeresImg from "../assets/mujeres.jpg"
 import parejasImg from "../assets/parejas.jpeg"
 import bautizosImg from "../assets/bautizos3.jpeg"
 import misionesImg from "../assets/misiones-events.jpeg"
+import { missionsRegistrationLink } from "../constants.js"
 
 export const events = [
   {
@@ -56,6 +57,7 @@ export const events = [
     date: "Próximamente", // TODO: Update with actual date
     image: misionesImg,
     featured: true,
+    registrationLink: missionsRegistrationLink,
   },
   {
     id: 2,
