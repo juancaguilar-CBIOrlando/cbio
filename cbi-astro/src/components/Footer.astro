@@ -13,7 +13,11 @@ const nextSteps = [
   { name: "Grupos de Conexión", path: "/servicios#grupos" },
   { name: "Devocionales", path: "/devocional" },
   { name: "Dream Team", path: "/dream-team" },
-  { name: "Peticiones de Oración", path: "/peticiones-de-oracion" },
+  {
+    name: "Peticiones de Oración",
+    path: "https://cbichurch.churchcenter.com/people/forms/1116906",
+    target: "_blank",
+  },
   { name: "Dar", path: "/dar" },
 ]
 
@@ -116,6 +120,8 @@ const currentYear = new Date().getFullYear()
               <li>
                 <a
                   href={step.path}
+                  target={step.target || "_self"}
+                  rel={step.target ? "noopener noreferrer" : ""}
                   class="text-gray-700 hover:text-[#3498db] transition-colors">
                   <Text
                     as="p"
