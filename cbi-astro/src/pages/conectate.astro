@@ -3,11 +3,11 @@ import Layout from "../layouts/Layout.astro"
 import { Image } from "astro:assets"
 import { address, phone, email, connectGroupsLink } from "../constants"
 import FamiCafeSection from "../components/conectate/FamiCafeSection.astro"
+import ConnectWays from "../components/conectate/ConnectWays.astro"
+import ContactSection from "../components/conectate/ContactSection.astro"
 import {
   ArrowRight,
   ArrowDown,
-  Mail,
-  Phone,
   MapPin,
   Users,
   Heart,
@@ -18,11 +18,13 @@ import {
   ChevronRight,
   BookText,
   Sprout,
-  Coffee,
 } from "@lucide/astro"
+import Marquee from "../components/Marquee.astro"
 
 // Import images
 import dreamTeamWelcomeImg from "../assets/dreamTeam-welcome.jpg"
+import welcomeImg from "../assets/welcome.jpeg"
+import visitanosImg from "../assets/visitanos.jpeg"
 import alabanzaImg from "../assets/alabanza-danza.jpg"
 import encuentrosImg from "../assets/encuentros.jpeg"
 import parejasImg from "../assets/parejas.jpeg"
@@ -30,68 +32,6 @@ import bautizosImg from "../assets/bautizos3.jpeg"
 
 // Google Maps URL
 const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`
-
-// Ways to connect
-const connectWays = [
-  {
-    icon: Coffee,
-    title: "FamiCafé",
-    description:
-      "Nuestras clases de conexión donde descubres nuestros valores, encuentras tu propósito y te preparas para servir.",
-    cta: "Conocer Más",
-    link: "#famicafe",
-    color: "amber",
-  },
-  {
-    icon: Users,
-    title: "Grupos de Conexión",
-    description:
-      "Encuentra comunidad en grupos pequeños donde puedes crecer espiritualmente y formar amistades genuinas.",
-    cta: "Unirse a un Grupo",
-    link: connectGroupsLink,
-    color: "primary",
-  },
-  {
-    icon: Calendar,
-    title: "Eventos Especiales",
-    description:
-      "Participa en nuestros eventos, retiros y actividades enfocadas para toda la familia.",
-    cta: "Ver Eventos",
-    link: "/eventos",
-    color: "accent",
-  },
-  {
-    icon: Heart,
-    title: "Dream Team",
-    description:
-      "Sirve con tus dones y talentos únicos. Hay un lugar especial para ti en nuestro equipo.",
-    cta: "Quiero Servir",
-    link: "/dream-team",
-    color: "primary",
-  },
-]
-
-// Color classes for connect ways
-const colorClasses: Record<
-  string,
-  { bg: string; text: string; hover: string }
-> = {
-  primary: {
-    bg: "bg-primary/10",
-    text: "text-primary",
-    hover: "text-primary hover:text-primary/80",
-  },
-  accent: {
-    bg: "bg-accent/10",
-    text: "text-accent",
-    hover: "text-accent hover:text-accent/80",
-  },
-  amber: {
-    bg: "bg-amber-100",
-    text: "text-amber-700",
-    hover: "text-amber-700 hover:text-amber-600",
-  },
-}
 
 // Social links
 const socialLinks = [
@@ -125,7 +65,7 @@ const socialLinks = [
       width={1920}
       height={1080}
       quality={90}
-      class="absolute inset-0 w-full h-full object-cover"
+      class="absolute inset-0 w-full h-full object-cover sm:object-[center_35%]"
       loading="eager"
     />
     <div
@@ -220,22 +160,7 @@ const socialLinks = [
   </section>
 
   <!-- Marquee Section -->
-  <section class="bg-primary py-4 overflow-hidden">
-    <div class="marquee-container">
-      <div class="marquee-content">
-        {
-          Array(8)
-            .fill(null)
-            .map(() => (
-              <span class="marquee-item text-white font-bold text-lg uppercase tracking-wider">
-                SE PARTE DE NUESTRA COMUNIDAD
-                <span class="mx-6 text-white/50">✦</span>
-              </span>
-            ))
-        }
-      </div>
-    </div>
-  </section>
+  <Marquee text="SE PARTE DE NUESTRA COMUNIDAD" />
 
   <main class="bg-white">
     <!-- Why Connect Section -->
@@ -304,12 +229,12 @@ const socialLinks = [
             <div class="grid grid-cols-2 gap-4">
               <div class="space-y-4">
                 <Image
-                  src={alabanzaImg}
+                  src={welcomeImg}
                   alt="Alabanza en CBI Orlando"
                   width={400}
                   height={500}
                   quality={85}
-                  class="rounded-2xl w-full h-48 object-cover shadow-lg"
+                  class="rounded-2xl w-full h-48 object-cover object-[center_20%] shadow-lg"
                 />
                 <Image
                   src={bautizosImg}
@@ -352,61 +277,7 @@ const socialLinks = [
     </section>
 
     <!-- Ways to Connect Section -->
-    <section
-      id="formas-de-conectar"
-      class="py-24 lg:py-32 px-6 lg:px-16 bg-slate-50">
-      <div class="max-w-7xl mx-auto">
-        <div class="text-center mb-16">
-          <span
-            class="inline-block bg-accent/10 text-accent px-4 py-1 rounded-full text-sm font-semibold mb-4">
-            FORMAS DE CONECTAR
-          </span>
-          <h2
-            class="font-bebas text-4xl sm:text-5xl lg:text-6xl text-accent mb-4">
-            Hay Un Lugar Para <span class="text-primary">Ti</span>
-          </h2>
-          <p class="text-gray-600 text-lg max-w-2xl mx-auto">
-            No importa en qué etapa de la vida te encuentres, tenemos
-            oportunidades para que te conectes y crezcas.
-          </p>
-        </div>
-
-        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {
-            connectWays.map((way, index) => {
-              const colors = colorClasses[way.color] || colorClasses.primary
-              return (
-                <div
-                  class="connect-card bg-white rounded-3xl p-8 shadow-sm hover:shadow-xl transition-all duration-500 group relative overflow-hidden"
-                  style={`animation-delay: ${index * 0.1}s;`}>
-                  <div
-                    class={`absolute top-0 right-0 w-32 h-32 ${colors.bg} rounded-full -translate-y-1/2 translate-x-1/2 group-hover:scale-150 transition-transform duration-500`}
-                  />
-                  <div class="relative z-10">
-                    <div
-                      class={`w-16 h-16 rounded-2xl flex items-center justify-center mb-6 ${colors.bg}`}>
-                      <way.icon class={`w-8 h-8 ${colors.text}`} />
-                    </div>
-                    <h3 class="text-2xl font-bold text-accent mb-3 font-bebas">
-                      {way.title}
-                    </h3>
-                    <p class="text-gray-600 mb-6 leading-relaxed text-sm">
-                      {way.description}
-                    </p>
-                    <a
-                      href={way.link}
-                      class={`inline-flex items-center gap-2 font-semibold transition-all duration-300 group/link ${colors.hover}`}>
-                      {way.cta}
-                      <ArrowRight class="w-4 h-4 transform group-hover/link:translate-x-1 transition-transform" />
-                    </a>
-                  </div>
-                </div>
-              )
-            })
-          }
-        </div>
-      </div>
-    </section>
+    <ConnectWays connectGroupsLink={connectGroupsLink} />
 
     <!-- Connection Groups Experience Section -->
     <section
@@ -550,12 +421,12 @@ const socialLinks = [
           <!-- Image Side -->
           <div class="relative h-64 lg:h-auto lg:order-2">
             <Image
-              src={alabanzaImg}
+              src={visitanosImg}
               alt="Servicio de adoración en CBI Orlando"
               width={900}
               height={700}
               quality={90}
-              class="absolute inset-0 w-full h-full object-cover lg:rounded-r-3xl"
+              class="absolute inset-0 w-full h-full object-cover object-[center_40%] lg:rounded-r-3xl"
             />
             <div
               class="absolute inset-0 bg-linear-to-t from-accent/90 via-accent/40 to-transparent lg:bg-linear-to-r lg:from-accent lg:via-accent/30 lg:to-transparent">
@@ -619,154 +490,13 @@ const socialLinks = [
     </section>
 
     <!-- Contact Section -->
-    <section id="contacto" class="py-24 lg:py-32 px-6 lg:px-16 bg-slate-50">
-      <div class="max-w-7xl mx-auto">
-        <div class="grid lg:grid-cols-2 gap-12 lg:gap-20">
-          <!-- Contact Info -->
-          <div>
-            <span
-              class="inline-block bg-accent/10 text-accent px-4 py-1 rounded-full text-sm font-semibold mb-6">
-              CONTÁCTANOS
-            </span>
-            <h2
-              class="font-bebas text-4xl sm:text-5xl lg:text-6xl text-accent mb-6 leading-none">
-              Estamos Aquí <span class="text-primary">Para Ti</span>
-            </h2>
-            <p class="text-gray-600 text-lg leading-relaxed mb-8">
-              ¿Tienes preguntas? ¿Quieres saber más sobre nuestros grupos o
-              servicios? No dudes en contactarnos. Nos encantaría conocerte.
-            </p>
-
-            <div class="space-y-6">
-              <a
-                href={mapsUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="flex items-start gap-4 group">
-                <div
-                  class="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center shrink-0 group-hover:bg-primary transition-colors duration-300">
-                  <MapPin
-                    class="w-6 h-6 text-primary group-hover:text-white transition-colors"
-                  />
-                </div>
-                <div>
-                  <h4 class="font-semibold text-accent mb-1">Dirección</h4>
-                  <p
-                    class="text-gray-600 group-hover:text-primary transition-colors">
-                    {address}
-                  </p>
-                </div>
-              </a>
-
-              <a
-                href={`tel:${phone.replace(/[^0-9]/g, "")}`}
-                class="flex items-start gap-4 group">
-                <div
-                  class="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center shrink-0 group-hover:bg-primary transition-colors duration-300">
-                  <Phone
-                    class="w-6 h-6 text-primary group-hover:text-white transition-colors"
-                  />
-                </div>
-                <div>
-                  <h4 class="font-semibold text-accent mb-1">Teléfono</h4>
-                  <p
-                    class="text-gray-600 group-hover:text-primary transition-colors">
-                    {phone}
-                  </p>
-                </div>
-              </a>
-
-              <a href={`mailto:${email}`} class="flex items-start gap-4 group">
-                <div
-                  class="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center shrink-0 group-hover:bg-primary transition-colors duration-300">
-                  <Mail
-                    class="w-6 h-6 text-primary group-hover:text-white transition-colors"
-                  />
-                </div>
-                <div>
-                  <h4 class="font-semibold text-accent mb-1">Email</h4>
-                  <p
-                    class="text-gray-600 group-hover:text-primary transition-colors">
-                    {email}
-                  </p>
-                </div>
-              </a>
-            </div>
-
-            <!-- Social Links -->
-            <div class="mt-10">
-              <h4 class="font-semibold text-accent mb-4">Síguenos en Redes</h4>
-              <div class="flex gap-3">
-                {
-                  socialLinks.map((social) => (
-                    <a
-                      href={social.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      class={`w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center text-accent transition-all duration-300 ${social.color} hover:text-white hover:scale-110`}
-                      aria-label={social.name}>
-                      <social.icon class="w-5 h-5" />
-                    </a>
-                  ))
-                }
-              </div>
-            </div>
-          </div>
-
-          <!-- New Visitor Card -->
-          <div class="relative">
-            <div
-              class="bg-white rounded-3xl p-8 lg:p-10 shadow-xl border border-gray-100 relative overflow-hidden">
-              <div
-                class="absolute top-0 right-0 w-40 h-40 bg-primary/5 rounded-full -translate-y-1/2 translate-x-1/2">
-              </div>
-              <div class="relative z-10">
-                <h3 class="font-bebas text-3xl lg:text-4xl text-accent mb-4">
-                  ¿Es Tu Primera Visita?
-                </h3>
-                <p class="text-gray-600 mb-6 leading-relaxed">
-                  Si nunca has visitado CBI Orlando, queremos darte la
-                  bienvenida de una manera especial. Tenemos un regalo
-                  esperándote y personas listas para ayudarte a sentirte en
-                  casa.
-                </p>
-                <ul class="space-y-3 mb-8">
-                  <li class="flex items-center gap-3 text-gray-700">
-                    <div
-                      class="w-5 h-5 rounded-full bg-primary/20 flex items-center justify-center">
-                      <span class="text-primary text-xs">✓</span>
-                    </div>
-                    Ambiente familiar y acogedor
-                  </li>
-                  <li class="flex items-center gap-3 text-gray-700">
-                    <div
-                      class="w-5 h-5 rounded-full bg-primary/20 flex items-center justify-center">
-                      <span class="text-primary text-xs">✓</span>
-                    </div>
-                    Ministerio de niños disponible
-                  </li>
-                  <li class="flex items-center gap-3 text-gray-700">
-                    <div
-                      class="w-5 h-5 rounded-full bg-primary/20 flex items-center justify-center">
-                      <span class="text-primary text-xs">✓</span>
-                    </div>
-                    Estacionamiento amplio y seguro
-                  </li>
-                </ul>
-                <a
-                  href="/visitanos"
-                  class="inline-flex items-center gap-2 bg-primary text-white px-8 py-4 rounded-full font-semibold text-lg hover:bg-primary/90 transition-all duration-300 hover:scale-105 w-full justify-center group">
-                  Planea Tu Visita
-                  <ArrowRight
-                    class="w-5 h-5 transform group-hover:translate-x-1 transition-transform"
-                  />
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+    <ContactSection
+      address={address}
+      phone={phone}
+      email={email}
+      mapsUrl={mapsUrl}
+      socialLinks={socialLinks}
+    />
 
     <!-- CTA Section -->
     <section
@@ -850,31 +580,6 @@ const socialLinks = [
   .animate-fade-in-up {
     opacity: 0;
     animation: fade-in-up 0.9s ease-out forwards;
-  }
-
-  /* Marquee Animation */
-  .marquee-container {
-    overflow: hidden;
-    white-space: nowrap;
-  }
-
-  .marquee-content {
-    display: inline-flex;
-    animation: marquee 25s linear infinite;
-  }
-
-  .marquee-item {
-    display: inline-flex;
-    align-items: center;
-  }
-
-  @keyframes marquee {
-    0% {
-      transform: translateX(0);
-    }
-    100% {
-      transform: translateX(-50%);
-    }
   }
 
   /* Card Animations */
