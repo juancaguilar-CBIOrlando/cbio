@@ -1,0 +1,119 @@
+---
+import { Coffee, Users, Calendar, Heart, ArrowRight } from "@lucide/astro"
+
+const { connectGroupsLink } = Astro.props
+
+const connectWays = [
+    {
+        icon: Coffee,
+        title: "FamiCafé",
+        description:
+            "Nuestras clases de conexión donde descubres nuestros valores, encuentras tu propósito y te preparas para servir.",
+        cta: "Conocer Más",
+        link: "#famicafe",
+        color: "amber",
+    },
+    {
+        icon: Users,
+        title: "Grupos de Conexión",
+        description:
+            "Encuentra comunidad en grupos pequeños donde puedes crecer espiritualmente y formar amistades genuinas.",
+        cta: "Unirse a un Grupo",
+        link: connectGroupsLink,
+        color: "primary",
+    },
+    {
+        icon: Calendar,
+        title: "Eventos Especiales",
+        description:
+            "Participa en nuestros eventos, retiros y actividades enfocadas para toda la familia.",
+        cta: "Ver Eventos",
+        link: "/eventos",
+        color: "accent",
+    },
+    {
+        icon: Heart,
+        title: "Dream Team",
+        description:
+            "Sirve con tus dones y talentos únicos. Hay un lugar especial para ti en nuestro equipo.",
+        cta: "Quiero Servir",
+        link: "/dream-team",
+        color: "primary",
+    },
+]
+
+const colorClasses = {
+    primary: {
+        bg: "bg-primary/10",
+        text: "text-primary",
+        hover: "text-primary hover:text-primary/80",
+    },
+    amber: {
+        bg: "bg-amber-500/10",
+        text: "text-amber-600",
+        hover: "text-amber-600 hover:text-amber-700",
+    },
+    accent: {
+        bg: "bg-accent/10",
+        text: "text-accent",
+        hover: "text-accent hover:text-accent/80",
+    },
+}
+---
+
+<section class="py-24 lg:py-32 px-6 lg:px-16 bg-gray-50">
+    <div class="max-w-7xl mx-auto">
+        <div class="text-center mb-16">
+            <span
+                class="text-primary text-sm uppercase tracking-[0.2em] font-semibold mb-4 block">
+                Formas de Conectarte
+            </span>
+            <h2
+                class="font-bebas text-4xl sm:text-5xl lg:text-6xl text-accent mb-6 leading-none">
+                Encuentra tu lugar
+            </h2>
+            <p class="text-gray-600 text-lg max-w-2xl mx-auto">
+                Hay muchas formas de conectarte y crecer con nosotros. Encuentra
+                la que mejor se adapte a ti.
+            </p>
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {
+                connectWays.map((way, index) => {
+                    const colors =
+                        colorClasses[way.color] || colorClasses.primary
+                    return (
+                        <div
+                            class="connect-card bg-white rounded-3xl p-8 shadow-sm hover:shadow-xl transition-all duration-500 group relative overflow-hidden"
+                            style={`animation-delay: ${index * 0.1}s;`}>
+                            <div
+                                class={`absolute top-0 right-0 w-32 h-32 ${colors.bg} rounded-full -translate-y-1/2 translate-x-1/2 group-hover:scale-150 transition-transform duration-500`}
+                            />
+                            <div class="relative z-10">
+                                <div
+                                    class={`w-16 h-16 rounded-2xl flex items-center justify-center mb-6 ${colors.bg}`}>
+                                    <way.icon
+                                        class={`w-8 h-8 ${colors.text}`}
+                                    />
+                                </div>
+                                <h3 class="text-2xl font-bold text-accent mb-3 font-bebas">
+                                    {way.title}
+                                </h3>
+                                <p class="text-gray-600 mb-6 leading-relaxed text-sm">
+                                    {way.description}
+                                </p>
+                                <a
+                                    href={way.link}
+                                    class={`inline-flex items-center gap-2 font-semibold transition-all duration-300 group/link ${colors.hover}`}>
+                                    {way.cta}
+                                    <ArrowRight class="w-4 h-4 transform group-hover/link:translate-x-1 transition-transform" />
+                                </a>
+                            </div>
+                        </div>
+                    )
+                })
+            }
+        </div>
+    </div>
+</section>

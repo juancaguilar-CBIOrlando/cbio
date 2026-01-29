@@ -17,12 +17,12 @@ import "swiper/css/navigation"
               <div class="swiper-slide">
                 <div class="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
                   <div class="relative pt-4 lg:pt-0">
-                    <div class="relative aspect-4/5 max-w-md mx-auto lg:mx-0 rounded-lg overflow-hidden shadow-2xl">
+                    <div class="relative aspect-5/5 max-w-lg mx-auto lg:mx-0 rounded-lg overflow-hidden shadow-2xl">
                       {/* Gradient overlay for name readability */}
                       <div class="absolute inset-0 bg-linear-to-bl from-black/50 via-transparent to-transparent z-10 pointer-events-none" />
 
                       {/* Names overlay - positioned inside the image */}
-                      <div class="pastor-names absolute top-0 right-2 sm:top-2 sm:right-6 z-20 text-right">
+                      <div class="pastor-names absolute top-0 right-2 sm:top-2 sm:right-2 z-20 text-right">
                         <span class="font-script text-3xl sm:text-3xl lg:text-4xl text-white drop-shadow-lg block whitespace-nowrap">
                           {pastor.name1}
                           <span class="text-primary italic text-xl sm:text-2xl lg:text-3xl">
@@ -42,7 +42,7 @@ import "swiper/css/navigation"
                           height={625}
                           quality={90}
                           format="webp"
-                          class="w-full h-full object-cover"
+                          class="w-full h-full object-cover object-top"
                           loading="lazy"
                         />
                       ) : (
@@ -62,7 +62,7 @@ import "swiper/css/navigation"
                     <p class="text-gray-300 text-center text-lg leading-relaxed whitespace-pre-line mb-8">
                       {pastor.description}
                     </p>
-                    <div class="inline-block bg-primary/20 border border-primary/40 rounded-full px-6 py-2">
+                    <div class="inline-block px-6 py-2 text-center w-full mx-auto">
                       <span class="text-primary font-semibold text-sm uppercase tracking-wider">
                         {pastor.role}
                       </span>
@@ -89,14 +89,18 @@ import "swiper/css/navigation"
 
 <script>
   import Swiper from "swiper"
-  import { Navigation, Pagination } from "swiper/modules"
+  import { Navigation, Pagination, Autoplay } from "swiper/modules"
 
   document.addEventListener("DOMContentLoaded", () => {
     new Swiper(".pastors-swiper", {
-      modules: [Navigation, Pagination],
+      modules: [Navigation, Pagination, Autoplay],
       slidesPerView: 1,
       spaceBetween: 48,
       loop: true,
+      autoplay: {
+        delay: 6500,
+        disableOnInteraction: false,
+      },
       navigation: {
         prevEl: ".pastors-swiper-prev",
         nextEl: ".pastors-swiper-next",

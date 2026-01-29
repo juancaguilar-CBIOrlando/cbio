@@ -2,6 +2,7 @@
 import Layout from "../layouts/Layout.astro"
 import { Image } from "astro:assets"
 import { ArrowRight, ArrowDown, Heart, Users, Sparkles } from "@lucide/astro"
+import Marquee from "../components/Marquee.astro"
 import DreamTeamSection from "../components/dreamteam/DreamTeamSection.astro"
 import ValuesSlider from "../components/dreamteam/ValuesSlider.astro"
 import MinistryAreas from "../components/dreamteam/MinistryAreas.astro"
@@ -113,22 +114,7 @@ import {
         </section>
 
         <!-- Marquee Section -->
-        <section class="bg-primary py-4 overflow-hidden">
-            <div class="marquee-container">
-                <div class="marquee-content">
-                    {
-                        Array(8)
-                            .fill(null)
-                            .map(() => (
-                                <span class="marquee-item text-white font-bold text-lg uppercase tracking-wider">
-                                    CADA UNO TIENE UN DON PARA SERVIR
-                                    <span class="mx-6 text-white/50">✦</span>
-                                </span>
-                            ))
-                    }
-                </div>
-            </div>
-        </section>
+        <Marquee text="CADA UNO TIENE UN DON PARA SERVIR" />
 
         <!-- Main Content -->
         <main class="bg-white">
@@ -303,28 +289,4 @@ import {
         animation: fade-in-up 0.9s ease-out forwards;
     }
 
-    /* Marquee Animation */
-    .marquee-container {
-        overflow: hidden;
-        white-space: nowrap;
-    }
-
-    .marquee-content {
-        display: inline-flex;
-        animation: marquee 25s linear infinite;
-    }
-
-    .marquee-item {
-        display: inline-flex;
-        align-items: center;
-    }
-
-    @keyframes marquee {
-        0% {
-            transform: translateX(0);
-        }
-        100% {
-            transform: translateX(-50%);
-        }
-    }
 </style>

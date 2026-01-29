@@ -5,7 +5,7 @@ import "swiper/css/autoplay"
 import { Image } from "astro:assets"
 import ActionButton from "./common/ActionButton.astro"
 import SliderArrow from "./common/SliderArrow.astro"
-
+import { address } from "../constants"
 // Import optimized images from assets
 import heroVideoUrl from "../assets/heroVideo.mov"
 import serviciosDominicalImg from "../assets/serviciosDominical.jpeg"
@@ -33,8 +33,8 @@ const slides: Slide[] = [
         color: "#3498db",
       },
       {
-        text: "Ver En Linea",
-        link: "https://www.youtube.com/channel/UC5xttzojPMWk73I66cI6rhw",
+        text: "Como Llegar",
+        link: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`,
         color: "#3498db",
         isExternal: true,
       },
@@ -58,7 +58,7 @@ const slides: Slide[] = [
     id: 3,
     image: serviciosDominicalImg,
     title: "Servicios Dominicales",
-    description: "Todos los domingos a las 10:00 AM",
+    description: "Todos los domingos a las 9:30 AM y 11:30 AM",
     cta: [
       {
         text: "Ver horarios",
