@@ -19,23 +19,43 @@ import { missionsRegistrationLink } from "../constants.js"
 export const events = [
   {
     id: 1,
-    title: "Bautizos",
-    category: "Crecimiento Espiritual",
-    tagline: "Un paso de obediencia, un acto de fe",
-    description: "Al sumergirte en las aguas, renuevas tu compromiso de seguir a Jesús y ser transformado por su amor. En el bautismo, somos lavados y renovados por el poder del Espíritu Santo.",
-    date: "Próximamente", // TODO: Update with actual date
-    image: bautizosImg,
-    // image: "https://images.unsplash.com/photo-1519491050282-cf00c82424ca?q=80&w=2070&auto=format&fit=crop",
-    featured: true,
-  },
-  {
-    id: 3,
     title: "Noche de Parejas",
     category: "Matrimonios",
     tagline: "Fortaleciendo tu relación",
     description: "Una noche especial diseñada para matrimonios y parejas. Comparte tiempo de calidad mientras aprendes principios que fortalecerán tu relación.",
-    date: "Próximamente", // TODO: Update with actual date
+    date: "Febrero 14, 2026",
     image: parejasImg,
+    featured: true,
+  },
+  {
+    id: 2,
+    title: "Brunch de Mujeres",
+    category: "Mujeres",
+    tagline: "Conectando corazones",
+    description: "Un espacio especial para mujeres donde podrás conectar, ser inspirada y fortalecida. Comparte con otras mujeres en un ambiente de amor y comunidad.",
+    date: "Marzo 7, 2026",
+    image: mujeresImg,
+    featured: true,
+  },
+  {
+    id: 3,
+    title: "Viaje Misionero Guatemala",
+    category: "Misiones",
+    tagline: "Llevando esperanza a las naciones",
+    description: "Únete a nuestro equipo misionero para llevar el amor de Cristo a Guatemala. Una oportunidad de servir, impactar vidas y experimentar el corazón de Dios por las naciones.",
+    date: "Marzo 23 al 30, 2026",
+    image: misionesImg,
+    featured: true,
+    registrationLink: missionsRegistrationLink,
+  },
+  {
+    id: 5,
+    title: "Bautizos",
+    category: "Crecimiento Espiritual",
+    tagline: "Un paso de obediencia, un acto de fe",
+    description: "Al sumergirte en las aguas, renuevas tu compromiso de seguir a Jesús y ser transformado por su amor. En el bautismo, somos lavados y renovados por el poder del Espíritu Santo.",
+    date: "Abril 12, 2026",
+    image: bautizosImg,
     featured: true,
   },
   {
@@ -44,39 +64,28 @@ export const events = [
     category: "Crecimiento Espiritual",
     tagline: "Un tiempo para conocer a Dios",
     description: "Es una experiencia de sanidad interior, rompimiento de cadenas emocionales y espirituales que nos permitirán perdonar, ser libres para amar y ser felices.",
-    date: "Próximamente", // TODO: Update with actual date
+    date: null, // TODO: Update with actual date
     image: encuentros,
-    featured: true,
-  },
-  {
-    id: 5,
-    title: "Viaje Misionero Guatemala",
-    category: "Misiones",
-    tagline: "Llevando esperanza a las naciones",
-    description: "Únete a nuestro equipo misionero para llevar el amor de Cristo a Guatemala. Una oportunidad de servir, impactar vidas y experimentar el corazón de Dios por las naciones.",
-    date: "Próximamente", // TODO: Update with actual date
-    image: misionesImg,
-    featured: true,
-    registrationLink: missionsRegistrationLink,
-  },
-  {
-    id: 2,
-    title: "Entrenamiento de Líderes",
-    category: "Formación",
-    tagline: "Equipados para servir",
-    description: "Desarrolla tu potencial de liderazgo con herramientas prácticas y principios bíblicos. Un espacio para crecer, aprender y prepararte para impactar tu generación.",
-    date: "Próximamente", // TODO: Update with actual date
-    image: "https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2070&auto=format&fit=crop",
     featured: false,
   },
   {
     id: 6,
-    title: "Brunch de Mujeres",
-    category: "Mujeres",
-    tagline: "Conectando corazones",
-    description: "Un espacio especial para mujeres donde podrás conectar, ser inspirada y fortalecida. Comparte con otras mujeres en un ambiente de amor y comunidad.",
-    date: "Próximamente", // TODO: Update with actual date
-    image: mujeresImg,
+    title: "Encuentros de Hombres",
+    category: "Hombres",
+    tagline: "Un tiempo para conocer a Dios",
+    description: "Es una experiencia de sanidad interior, rompimiento de cadenas emocionales y espirituales que nos permitirán perdonar, ser libres para amar y ser felices.",
+    date: null, // TODO: Update with actual date
+    image: encuentros,
+    featured: false,
+  },
+  {
+    id: 7,
+    title: "Vijilia",
+    category: "Crecimiento Espiritual",
+    tagline: "Un tiempo para acercarnos",
+    description: "Es una experiencia de sanidad interior, rompimiento de cadenas emocionales y espirituales que nos permitirán perdonar, crecer en comunidad y ser felices.",
+    date: null, // TODO: Update with actual date
+    image: encuentros,
     featured: false,
   },
 ];
@@ -87,12 +96,16 @@ export const getFeaturedEvents = () => events.filter(event => event.featured);
 // Helper to get events by category
 export const getEventsByCategory = (category) => events.filter(event => event.category === category);
 
+// Helper to get upcoming events without a confirmed date
+export const getUpcomingUnscheduledEvents = () => events.filter(event => event.date === null);
+
 // Available categories for filtering
 export const eventCategories = [
-  "Sacramento",
   "Crecimiento Espiritual", 
   "Formación",
   "Matrimonios",
   "Misiones",
   "Mujeres",
+  "Hombres",
+  "Adoración",  
 ];
