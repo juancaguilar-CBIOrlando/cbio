@@ -2,16 +2,28 @@
 import CrossIcon from "./common/CrossIcon.astro"
 import CrownIcon from "./common/CrownIcon.astro"
 import SermonsPreview from "./SermonsPreview.astro"
-import TasdContainer from "./tasd/TasdContainer.astro"
 import ValuesContent from "./values/ValuesContent.astro"
 import DoveIcon from "./common/DoveIcon.astro"
-import UpcomingEventsSlider from "./events/UpcomingEventsSlider.astro"
+import FeaturedCarousel from "./common/FeaturedCarousel.astro"
+import { events } from "../helpers/eventsData.js"
+import { ArrowRight } from "@lucide/astro"
+
+// Get scheduled events (events with a date) for the carousel
+const scheduledEvents = events
+	.filter((event) => event.date !== null)
+	.map((event) => ({
+		image: event.image,
+		title: event.title,
+		tagline: event.tagline,
+		date: event.date,
+		link: event.registrationLink,
+	}))
 ---
 
 <div class="relative min-h-56 text-[#2c3e50]">
 	<SermonsPreview />
 	<section
-		class="w-full h-screen sm:h-[80vh] flex items-center justify-center mx-auto bg-linear-to-tr from-[#08040c] via-[#1f162c] to-[#271441] text-white">
+		class="w-full h-screen sm:h-[80vh] sm:py-12 flex items-center justify-center mx-auto bg-linear-to-tr from-[#08040c] via-[#1f162c] to-[#271441] text-white">
 		<div
 			class="relative py-18 px-2 sm:px-22 flex flex-col items-center justify-center gap-y-8">
 			<h2
@@ -19,7 +31,7 @@ import UpcomingEventsSlider from "./events/UpcomingEventsSlider.astro"
 				Misión
 			</h2>
 			<p
-				class="text-[44px] sm:text-6xl leading-10 sm:leading-14 max-w-8xl px-4 mx-auto text-center font-bold text-title">
+				class="text-[44px] sm:text-7xl leading-10 sm:leading-16 max-w-8xl px-4 sm:px-12 mx-auto text-center font-bold text-title">
 				Establecer el reino de <span class="text-primary/80">Dios</span> sobre
 				la tierra, bajo la dirección del <span class="text-primary/80"
 					>Espíritu Santo</span
@@ -28,21 +40,50 @@ import UpcomingEventsSlider from "./events/UpcomingEventsSlider.astro"
 				>.
 			</p>
 			<CrossIcon
-				class="w-[100px] lg:w-[140px] absolute -bottom-20 right-4 lg:-bottom-32 lg:right-20"
+				class="w-[100px] lg:w-[160px] absolute -bottom-20 right-4 lg:-bottom-24 lg:right-20"
 				color="#009c3e81"
 			/>
 			<CrownIcon
-				class="w-[100px] lg:w-[144px] absolute -top-8 right-6 lg:-top-14 lg:right-20"
+				class="w-[100px] lg:w-[144px] absolute -top-10 right-14 lg:-top-14 lg:right-20"
 				color="#009c3e81"
 			/>
 			<DoveIcon
-				class="w-[120px] lg:w-[144px] absolute -bottom-16 left-6 lg:-top-14 lg:right-20"
+				class="w-[120px] lg:w-[184px] absolute -bottom-16 left-6 lg:-top-14 lg:right-20"
 				color="text-primary/70"
 			/>
 		</div>
 	</section>
 
-	<UpcomingEventsSlider />
+	<!-- Upcoming Events Carousel -->
+	{
+		scheduledEvents.length > 0 && (
+			<section class="py-12 sm:py-16 bg-accent relative overflow-hidden">
+				<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+					<div class="text-center mb-6">
+						<h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-primary mb-2 font-bebas">
+							Próximos Eventos
+						</h2>
+						<p class="text-white/60 max-w-xl mx-auto text-base sm:text-lg">
+							No te pierdas lo que viene en nuestra comunidad
+						</p>
+					</div>
+					<FeaturedCarousel
+						items={scheduledEvents}
+						id="home-events"
+						autoSwitchInterval={5000}
+					/>
+					<div class="mt-8 text-center">
+						<a
+							href="/eventos"
+							class="inline-flex items-center gap-3 bg-primary hover:bg-primary/90 text-white font-semibold px-8 py-4 rounded-full transition-all duration-300 hover:shadow-xl hover:-translate-y-0.5 group">
+							Ver todos los eventos
+							<ArrowRight class="w-4 h-4" />
+						</a>
+					</div>
+				</div>
+			</section>
+		)
+	}
 
 	<ValuesContent />
 
