@@ -1,12 +1,13 @@
 ---
 import Layout from "../layouts/Layout.astro"
 import EventCard from "../components/events/EventCard.astro"
+import FeaturedCarousel from "../components/common/FeaturedCarousel.astro"
 import { events, getUpcomingUnscheduledEvents } from "../helpers/eventsData.js"
 import { ArrowRight } from "lucide-react"
 import { ArrowDown } from "@lucide/astro"
 import Marquee from "../components/Marquee.astro"
 
-const scheduledEvents = events.filter(event => event.date !== null)
+const scheduledEvents = events.filter((event) => event.date !== null)
 const upcomingEvents = getUpcomingUnscheduledEvents()
 ---
 
@@ -123,82 +124,24 @@ const upcomingEvents = getUpcomingUnscheduledEvents()
   </section>
 
   <!-- Upcoming Events Carousel Section -->
-  {upcomingEvents.length > 0 && (
-    <section class="py-16 sm:py-8 bg-accent relative overflow-hidden">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-4">
-          <h2
-            class="text-3xl md:text-5xl font-bold text-primary mb-2 font-bebas">
-            Lo Que Viene
-          </h2>
-          <p class="text-white/60 max-w-xl mx-auto text-base sm:text-lg lg:text-xl">
-            Nuestros siguientes eventos que no te quieres perder.
-          </p>
-        </div>
-
-        <!-- Carousel Container -->
-        <div class="flex items-stretch gap-6 md:gap-10">
-          <!-- Vertical Indicator -->
-          <div class="flex flex-col gap-2 shrink-0 justify-center" id="carousel-indicators">
-            {upcomingEvents.map((_, index) => (
-              <button
-                class={`carousel-dot w-1.5 h-8 rounded-full transition-all duration-300 ${index === 0 ? 'bg-primary' : 'bg-white/20'}`}
-                data-index={index}
-                aria-label={`Ir al evento ${index + 1}`}
-              />
-            ))}
+  {
+    upcomingEvents.length > 0 && (
+      <section class="py-16 sm:py-8 bg-accent relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="text-center mb-4">
+            <h2 class="text-3xl md:text-5xl font-bold text-primary mb-2 font-bebas">
+              Lo Que Viene
+            </h2>
+            <p class="text-white/60 max-w-xl mx-auto text-base sm:text-lg lg:text-xl">
+              Nuestros siguientes eventos que no te quieres perder.
+            </p>
           </div>
 
-          <!-- Slides -->
-          <div class="relative flex-1 overflow-hidden min-h-[240px] md:min-h-[360px] lg:min-h-[420px]" id="carousel-slides">
-            {upcomingEvents.map((event, index) => (
-              <div
-                class={`carousel-slide absolute inset-0 flex items-center transition-all duration-500 ${index === 0 ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-8'}`}
-                data-index={index}>
-                <!-- Mobile: Image with text overlay | Desktop: Side by side -->
-                <div class="w-full md:flex md:items-center md:gap-10 lg:gap-14">
-                  <!-- Image Container -->
-                  <div class="relative w-full md:w-1/2 lg:w-[55%] shrink-0">
-                    <div class="relative aspect-video md:aspect-4/3 lg:aspect-video rounded-xl overflow-hidden">
-                      <img 
-                        src={event.image.src} 
-                        alt={event.title}
-                        class="w-full h-full object-cover"
-                      />
-                      <!-- Gradient overlay - stronger on mobile for text readability -->
-                      <div class="absolute inset-0 bg-linear-to-t from-black/80 via-black/40 to-transparent md:from-black/30 md:via-transparent md:to-transparent"></div>
-                      
-                      <!-- Text overlay for mobile -->
-                      <div class="absolute inset-0 flex flex-col justify-end p-4 md:hidden">
-                        <h3 
-                          class="text-2xl font-bold text-primary font-bebas">
-                          {event.title}
-                        </h3>
-                        <p class="text-white/80 text-sm italic line-clamp-2">
-                          {event.tagline}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <!-- Text Content - visible only on md+ screens -->
-                  <div class="hidden md:flex flex-1 flex-col justify-center">
-                    <h3 
-                      class="text-4xl lg:text-5xl xl:text-6xl font-bold text-primary mb-3 font-bebas">
-                      {event.title}
-                    </h3>
-                    <p class="text-white/70 text-lg lg:text-xl xl:text-2xl italic max-w-lg">
-                      {event.tagline}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
+          <FeaturedCarousel items={upcomingEvents} id="upcoming-events" />
         </div>
-      </div>
-    </section>
-  )}
+      </section>
+    )
+  }
 
   <div class="relative">
     <section class="py-12 px-6 bg-black">
@@ -327,92 +270,4 @@ const upcomingEvents = getUpcomingUnscheduledEvents()
     opacity: 0;
     animation: fade-in-up 0.8s ease-out forwards;
   }
-
-  /* Carousel Styles */
-  .carousel-slide {
-    will-change: opacity, transform;
-  }
-
-  .carousel-dot {
-    cursor: pointer;
-  }
-
-  .carousel-dot:hover {
-    background-color: rgba(255, 255, 255, 0.4);
-  }
-
-  .carousel-dot.active {
-    background-color: var(--color-primary, #f97316);
-  }
 </style>
-
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const slides = document.querySelectorAll('.carousel-slide');
-    const dots = document.querySelectorAll('.carousel-dot');
-    
-    if (slides.length === 0) return;
-    
-    let currentIndex = 0;
-    const totalSlides = slides.length;
-    const autoSwitchInterval = 3500; // 3.5 seconds
-    
-    /**
-     * @param {number} index
-     */
-    function goToSlide(index: number) {
-      // Update slides
-      slides.forEach((slide, i) => {
-        if (i === index) {
-          slide.classList.remove('opacity-0', 'translate-x-8');
-          slide.classList.add('opacity-100', 'translate-x-0');
-        } else {
-          slide.classList.remove('opacity-100', 'translate-x-0');
-          slide.classList.add('opacity-0', 'translate-x-8');
-        }
-      });
-      
-      // Update dots
-      dots.forEach((dot, i) => {
-        if (i === index) {
-          dot.classList.remove('bg-white/20');
-          dot.classList.add('bg-primary');
-        } else {
-          dot.classList.remove('bg-primary');
-          dot.classList.add('bg-white/20');
-        }
-      });
-      
-      currentIndex = index;
-    }
-    
-    function nextSlide() {
-      const nextIndex = (currentIndex + 1) % totalSlides;
-      goToSlide(nextIndex);
-    }
-    
-    // Auto-switch
-    let autoSwitch = setInterval(nextSlide, autoSwitchInterval);
-    
-    // Click handlers for dots
-    dots.forEach((dot, index) => {
-      dot.addEventListener('click', () => {
-        clearInterval(autoSwitch);
-        goToSlide(index);
-        autoSwitch = setInterval(nextSlide, autoSwitchInterval);
-      });
-    });
-    
-    // Pause on hover
-    const carouselContainer = document.getElementById('carousel-slides');
-    if (carouselContainer) {
-      carouselContainer.addEventListener('mouseenter', () => {
-        clearInterval(autoSwitch);
-      });
-      
-      carouselContainer.addEventListener('mouseleave', () => {
-        autoSwitch = setInterval(nextSlide, autoSwitchInterval);
-      });
-    }
-  });
-</script>
