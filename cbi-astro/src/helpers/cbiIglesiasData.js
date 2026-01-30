@@ -12,6 +12,17 @@ export const iglesias = [
     featured: true,
   },
   {
+    name: "CBI St. Cloud",
+    location: "USA",
+    pastors: "Prs. Paul & Jennifer Smit",
+    phone: "+1 407 731 0206",
+    facebook: "https://www.facebook.com/cbistcloud",
+    instagram: "https://www.instagram.com/cbistcloud/",
+    sisterChurch: true,
+    website: "https://www.cbistcloud.org/",
+    address:"1717 13th St, St Cloud, FL 34769"
+  },
+  {
     name: "CBI Barcelona",
     location: "España",
     pastors: "Prs. Clemente y Betty González",
@@ -134,14 +145,6 @@ export const iglesias = [
     pastors: "Pr. Armando R. Roca Nieto",
     phone: "+57 300 300 0577",
     facebook: "https://www.facebook.com/CBINacidosdeNuevo/",
-  },
-  {
-    name: "CBI St. Cloud",
-    location: "USA",
-    pastors: "Prs. Paul & Jennifer Smit",
-    phone: "+1 407 731 0206",
-    facebook: "https://www.facebook.com/cbistcloud",
-    instagram: "https://www.instagram.com/cbistcloud/",
   },
   {
     name: "CBI Wayuu La Paz",
