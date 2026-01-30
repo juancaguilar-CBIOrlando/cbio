@@ -1,10 +1,14 @@
 ---
 import Layout from "../layouts/Layout.astro"
 import EventCard from "../components/events/EventCard.astro"
-import { events } from "../helpers/eventsData.js"
+import FeaturedCarousel from "../components/common/FeaturedCarousel.astro"
+import { events, getUpcomingUnscheduledEvents } from "../helpers/eventsData.js"
 import { ArrowRight } from "lucide-react"
 import { ArrowDown } from "@lucide/astro"
 import Marquee from "../components/Marquee.astro"
+
+const scheduledEvents = events.filter((event) => event.date !== null)
+const upcomingEvents = getUpcomingUnscheduledEvents()
 ---
 
 <Layout title="Eventos - CBI Orlando" navLogo="white">
@@ -101,7 +105,7 @@ import Marquee from "../components/Marquee.astro"
       <!-- Events Grid -->
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {
-          events.map((event, index) => (
+          scheduledEvents.map((event, index) => (
             <EventCard
               id={event.id}
               title={event.title}
@@ -118,6 +122,26 @@ import Marquee from "../components/Marquee.astro"
       </div>
     </div>
   </section>
+
+  <!-- Upcoming Events Carousel Section -->
+  {
+    upcomingEvents.length > 0 && (
+      <section class="py-16 sm:py-8 bg-accent relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="text-center mb-4">
+            <h2 class="text-3xl md:text-5xl font-bold text-primary mb-2 font-bebas">
+              Lo Que Viene
+            </h2>
+            <p class="text-white/60 max-w-xl mx-auto text-base sm:text-lg lg:text-xl">
+              Nuestros siguientes eventos que no te quieres perder.
+            </p>
+          </div>
+
+          <FeaturedCarousel items={upcomingEvents} id="upcoming-events" />
+        </div>
+      </section>
+    )
+  }
 
   <div class="relative">
     <section class="py-12 px-6 bg-black">
@@ -246,5 +270,4 @@ import Marquee from "../components/Marquee.astro"
     opacity: 0;
     animation: fade-in-up 0.8s ease-out forwards;
   }
-
 </style>

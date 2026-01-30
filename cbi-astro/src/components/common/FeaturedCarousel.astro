@@ -1,0 +1,207 @@
+---
+import { Calendar } from "@lucide/astro";
+
+interface CarouselItem {
+  image: ImageMetadata | { src: string };
+  title: string;
+  tagline: string;
+  date?: string | null;
+  link?: string;
+}
+
+interface Props {
+  items: CarouselItem[];
+  id?: string;
+  autoSwitchInterval?: number;
+}
+
+const { items, id = 'carousel', autoSwitchInterval = 3500 } = Astro.props;
+
+const indicatorsId = `${id}-indicators`;
+const slidesId = `${id}-slides`;
+---
+
+<div class="featured-carousel" data-carousel data-interval={autoSwitchInterval}>
+  <!-- Carousel Container -->
+  <div class="flex items-stretch gap-6 md:gap-10">
+    <!-- Vertical Indicator -->
+    <div class="flex flex-col gap-2 shrink-0 justify-center" id={indicatorsId}>
+      {items.map((_, index) => (
+        <button
+          class={`carousel-dot w-1.5 h-8 rounded-full transition-all duration-300 ${index === 0 ? 'bg-primary' : 'bg-white/20'}`}
+          data-index={index}
+          aria-label={`Ir al item ${index + 1}`}
+        />
+      ))}
+    </div>
+
+    <!-- Slides -->
+    <div class="relative flex-1 overflow-hidden min-h-[240px] md:min-h-[360px] lg:min-h-[420px]" id={slidesId}>
+      {items.map((item, index) => {
+        const hasLink = !!item.link;
+        const WrapperTag = hasLink ? 'a' : 'div';
+        
+        return (
+          <div
+            class={`carousel-slide absolute inset-0 flex items-center transition-all duration-500 ${index === 0 ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-8'}`}
+            data-index={index}>
+            <!-- Mobile: Image with text overlay | Desktop: Side by side -->
+            <WrapperTag 
+              href={hasLink ? item.link : undefined}
+              target={hasLink ? "_blank" : undefined}
+              rel={hasLink ? "noopener noreferrer" : undefined}
+              class={`w-full md:flex md:items-center md:gap-10 lg:gap-14 ${hasLink ? 'cursor-pointer group' : ''}`}>
+              <!-- Image Container -->
+              <div class="relative w-full md:w-1/2 lg:w-[55%] shrink-0">
+                <div class={`relative aspect-video md:aspect-4/3 lg:aspect-video rounded-xl overflow-hidden ${hasLink ? 'group-hover:ring-2 group-hover:ring-primary/50 transition-all duration-300' : ''}`}>
+                  <img 
+                    src={'src' in item.image ? item.image.src : item.image} 
+                    alt={item.title}
+                    class={`w-full h-full object-cover ${hasLink ? 'group-hover:scale-105 transition-transform duration-500' : ''}`}
+                  />
+                  <!-- Gradient overlay - stronger on mobile for text readability -->
+                  <div class="absolute inset-0 bg-linear-to-t from-black/80 via-black/40 to-transparent md:from-black/30 md:via-transparent md:to-transparent"></div>
+                  
+                  <!-- Text overlay for mobile -->
+                  <div class="absolute inset-0 flex flex-col justify-end p-4 md:hidden">
+                    {item.date && (
+                      <div class="flex items-center gap-1.5 text-white/90 mb-1">
+                        <Calendar class="w-3.5 h-3.5 text-primary" />
+                        <span class="text-xs font-medium">{item.date}</span>
+                      </div>
+                    )}
+                    <h3 class="text-2xl font-bold text-primary font-bebas">
+                      {item.title}
+                    </h3>
+                    <p class="text-white/80 text-sm italic line-clamp-2">
+                      {item.tagline}
+                    </p>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Text Content - visible only on md+ screens -->
+              <div class="hidden md:flex flex-1 flex-col justify-center">
+                {item.date && (
+                  <div class="flex items-center gap-2 text-white/80 mb-2">
+                    <Calendar class="w-5 h-5 text-primary" />
+                    <span class="text-base lg:text-lg font-medium">{item.date}</span>
+                  </div>
+                )}
+                <h3 class={`text-4xl lg:text-5xl xl:text-6xl font-bold text-primary mb-3 font-bebas ${hasLink ? 'group-hover:text-primary/80 transition-colors duration-300' : ''}`}>
+                  {item.title}
+                </h3>
+                <p class="text-white/70 text-lg lg:text-xl xl:text-2xl italic max-w-lg">
+                  {item.tagline}
+                </p>
+                {hasLink && (
+                  <span class="inline-flex items-center gap-2 mt-4 text-primary font-semibold text-sm group-hover:gap-3 transition-all duration-300">
+                    Ver más
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                    </svg>
+                  </span>
+                )}
+              </div>
+            </WrapperTag>
+          </div>
+        );
+      })}
+    </div>
+  </div>
+</div>
+
+<style>
+  /* Carousel Styles */
+  .carousel-slide {
+    will-change: opacity, transform;
+  }
+
+  .carousel-dot {
+    cursor: pointer;
+  }
+
+  .carousel-dot:hover {
+    background-color: rgba(255, 255, 255, 0.4);
+  }
+
+  .carousel-dot.active {
+    background-color: var(--color-primary, #f97316);
+  }
+</style>
+
+<script>
+  function initCarousels() {
+    const carousels = document.querySelectorAll('[data-carousel]');
+    
+    carousels.forEach((carousel) => {
+      const slides = carousel.querySelectorAll('.carousel-slide');
+      const dots = carousel.querySelectorAll('.carousel-dot');
+      const slidesContainer = carousel.querySelector('[id$="-slides"]');
+      
+      if (slides.length === 0) return;
+      
+      let currentIndex = 0;
+      const totalSlides = slides.length;
+      const interval = parseInt(carousel.getAttribute('data-interval') || '3500');
+      
+      function goToSlide(index: number) {
+        slides.forEach((slide, i) => {
+          if (i === index) {
+            slide.classList.remove('opacity-0', 'translate-x-8');
+            slide.classList.add('opacity-100', 'translate-x-0');
+          } else {
+            slide.classList.remove('opacity-100', 'translate-x-0');
+            slide.classList.add('opacity-0', 'translate-x-8');
+          }
+        });
+        
+        dots.forEach((dot, i) => {
+          if (i === index) {
+            dot.classList.remove('bg-white/20');
+            dot.classList.add('bg-primary');
+          } else {
+            dot.classList.remove('bg-primary');
+            dot.classList.add('bg-white/20');
+          }
+        });
+        
+        currentIndex = index;
+      }
+      
+      function nextSlide() {
+        const nextIndex = (currentIndex + 1) % totalSlides;
+        goToSlide(nextIndex);
+      }
+      
+      // Auto-switch
+      let autoSwitch = setInterval(nextSlide, interval);
+      
+      // Click handlers for dots
+      dots.forEach((dot, index) => {
+        dot.addEventListener('click', () => {
+          clearInterval(autoSwitch);
+          goToSlide(index);
+          autoSwitch = setInterval(nextSlide, interval);
+        });
+      });
+      
+      // Pause on hover
+      if (slidesContainer) {
+        slidesContainer.addEventListener('mouseenter', () => {
+          clearInterval(autoSwitch);
+        });
+        
+        slidesContainer.addEventListener('mouseleave', () => {
+          autoSwitch = setInterval(nextSlide, interval);
+        });
+      }
+    });
+  }
+
+  // Initialize on page load
+  document.addEventListener('DOMContentLoaded', initCarousels);
+  
+  // Re-initialize on Astro page transitions
+  document.addEventListener('astro:page-load', initCarousels);
+</script>
