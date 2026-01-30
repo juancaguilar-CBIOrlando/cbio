@@ -82,7 +82,7 @@ export const events = [
     id: 7,
     title: "Vijilia",
     category: "Crecimiento Espiritual",
-    tagline: "Un tiempo para acercarnos",
+    tagline: "Un tiempo para acercarnos a Dios",
     description: "Es una experiencia de sanidad interior, rompimiento de cadenas emocionales y espirituales que nos permitirán perdonar, crecer en comunidad y ser felices.",
     date: null, // TODO: Update with actual date
     image: encuentros,
