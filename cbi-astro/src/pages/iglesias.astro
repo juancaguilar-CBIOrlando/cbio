@@ -28,19 +28,21 @@ import {
 
   <main class="pb-16 min-h-screen bg-slate-50">
     <div class="container mx-auto px-4 py-12 md:py-16">
-      <!-- Toggle for view mode (mobile) -->
-      <div class="flex justify-center mb-8 md:hidden">
-        <div class="inline-flex rounded-lg bg-gray-100 p-1">
-          <button
-            id="grid-view"
-            class="view-toggle px-4 py-2 text-sm font-medium rounded-md bg-white text-accent shadow-sm transition-all">
-            Cuadrícula
-          </button>
-          <button
-            id="list-view"
-            class="view-toggle px-4 py-2 text-sm font-medium rounded-md text-gray-600 hover:text-gray-900 transition-all">
-            Lista
-          </button>
+      <!-- Filter and View Controls -->
+      <div
+        class="flex flex-col md:flex-row items-center justify-between gap-4 mb-8">
+        <!-- Location Filter -->
+        <div class="w-full md:w-auto">
+          <label
+            for="location-filter"
+            class="block text-sm font-medium text-gray-700 mb-2">
+            Filtrar por ubicación
+          </label>
+          <select
+            id="location-filter"
+            class="w-full md:w-64 px-4 py-2.5 rounded-lg border border-gray-300 bg-white text-gray-700 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all shadow-sm">
+            <option value="">Todas las ubicaciones</option>
+          </select>
         </div>
       </div>
 
@@ -82,20 +84,17 @@ import {
                   )}
                 </div>
 
-                {/* Church name */}
                 <h2
                   class="text-xl md:text-2xl font-bold text-accent mb-2 group-hover:text-primary transition-colors"
                   style="font-family: 'Bebas Neue', sans-serif; letter-spacing: 0.02em;">
                   {iglesia.name}
                 </h2>
 
-                {/* Pastors */}
                 <p class="text-gray-600 text-sm mb-4 flex items-center gap-2">
                   <User class="w-4 h-4 text-primary shrink-0" />
                   {iglesia.pastors}
                 </p>
 
-                {/* Address if available */}
                 {iglesia?.address && (
                   <p class="text-gray-500 text-xs mb-3 flex items-start gap-2">
                     <Building class="w-4 h-4 text-gray-400 shrink-0 mt-0.5" />
@@ -103,7 +102,6 @@ import {
                   </p>
                 )}
 
-                {/* Phone */}
                 {iglesia.phone && (
                   <a
                     href={`tel:${iglesia.phone.replace(/\s/g, "")}`}
@@ -113,7 +111,6 @@ import {
                   </a>
                 )}
 
-                {/* Divider */}
                 <div class="border-t border-gray-100 pt-4 mt-4">
                   {/* Social links */}
                   <div class="flex items-center justify-between flex-wrap gap-2">
@@ -137,7 +134,7 @@ import {
                           href={iglesia.instagram}
                           target="_blank"
                           rel="noopener noreferrer"
-                          class="w-9 h-9 rounded-full bg-gray-100 flex items-center justify-center text-gray-500 hover:bg-gradient-to-br hover:from-purple-600 hover:to-pink-500 hover:text-white transition-all duration-200"
+                          class="w-9 h-9 rounded-full bg-gray-100 flex items-center justify-center text-gray-500 hover:bg-linear-to-br hover:from-purple-600 hover:to-pink-500 hover:text-white transition-all duration-200"
                           aria-label={`Instagram de ${iglesia.name}`}>
                           <svg
                             class="w-4 h-4"
@@ -231,25 +228,49 @@ import {
   }
 </style>
 
-<script>
-  // Mobile view toggle functionality
-  const gridBtn = document.getElementById("grid-view")
-  const listBtn = document.getElementById("list-view")
-  const container = document.getElementById("churches-container")
+<script define:vars={{ iglesias }}>
+  function extractCountry(location) {
+    // If location contains a comma, take the part after the comma (country)
+    const parts = location.split(",").map((part) => part.trim())
+    return parts.length > 1 ? parts[parts.length - 1] : location
+  }
 
-  gridBtn?.addEventListener("click", () => {
-    container?.classList.remove("list-mode")
-    gridBtn.classList.add("bg-white", "text-accent", "shadow-sm")
-    gridBtn.classList.remove("text-gray-600")
-    listBtn?.classList.remove("bg-white", "text-accent", "shadow-sm")
-    listBtn?.classList.add("text-gray-600")
-  })
+  const countries = [
+    ...new Set(iglesias.map((iglesia) => extractCountry(iglesia.location))),
+  ].sort()
 
-  listBtn?.addEventListener("click", () => {
-    container?.classList.add("list-mode")
-    listBtn?.classList.add("bg-white", "text-accent", "shadow-sm")
-    listBtn?.classList.remove("text-gray-600")
-    gridBtn?.classList.remove("bg-white", "text-accent", "shadow-sm")
-    gridBtn?.classList.add("text-gray-600")
+  // Populate the location filter dropdown
+  const locationFilter = document.getElementById("location-filter")
+  if (locationFilter) {
+    countries.forEach((country) => {
+      const option = document.createElement("option")
+      option.value = country
+      option.textContent = country
+      locationFilter.appendChild(option)
+    })
+  }
+
+  // Get all church cards
+  const churchCards = document.querySelectorAll(".church-card")
+
+  // Filter functionality
+  locationFilter?.addEventListener("change", (e) => {
+    const selectedCountry = e.target.value
+
+    churchCards.forEach((card, index) => {
+      const iglesia = iglesias[index]
+      const churchCountry = extractCountry(iglesia.location)
+
+      if (selectedCountry === "" || churchCountry === selectedCountry) {
+        card.style.display = ""
+        // Re-trigger animation
+        card.style.animation = "none"
+        setTimeout(() => {
+          card.style.animation = ""
+        }, 10)
+      } else {
+        card.style.display = "none"
+      }
+    })
   })
 </script>
