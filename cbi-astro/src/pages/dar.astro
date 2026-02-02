@@ -1,35 +1,334 @@
 ---
 import Layout from "../layouts/Layout.astro"
+import { Image } from "astro:assets"
+import SliderArrow from "../components/common/SliderArrow.astro"
+import { Heart, ArrowRight, HandHeart, Globe, Users } from "@lucide/astro"
+import "swiper/css"
+import "swiper/css/navigation"
 
+// Import images for the impact carousel
+import misionesLoveImg from "../assets/misiones-love.jpeg"
+import misionesHeroImg from "../assets/misiones-hero.jpeg"
+import misionesEventsImg from "../assets/misiones-events.jpeg"
+import misionesGroupImg from "../assets/misiones-group.jpeg"
+import bautizosImg from "../assets/bautizos3.jpeg"
+import dreamTeamImg from "../assets/dreamTeam-welcome.jpg"
+
+// PushPay link - update this with your actual link
+const pushPayLink = "https://pushpay.com/g/cbiorlando"
+
+// Impact slides showing what giving enables
+const impactSlides = [
+  {
+    id: "impact-1",
+    image: misionesLoveImg,
+    caption: "Misiones La Guajira",
+  },
+  {
+    id: "impact-2",
+    image: misionesGroupImg,
+    caption: "Alcanzando comunidades",
+  },
+  {
+    id: "impact-3",
+    image: misionesEventsImg,
+    caption: "Sirviendo con amor",
+  },
+  {
+    id: "impact-4",
+    image: bautizosImg,
+    caption: "Vidas transformadas",
+  },
+  {
+    id: "impact-5",
+    image: dreamTeamImg,
+    caption: "Nuestra comunidad",
+  },
+]
+
+// Values of giving
+const givingValues = [
+  {
+    icon: Globe,
+    title: "Misiones",
+    description:
+      "Llevamos esperanza a comunidades vulnerables en Colombia y más allá.",
+  },
+  {
+    icon: Users,
+    title: "Comunidad",
+    description:
+      "Apoyamos a familias locales con recursos, consejería y amor práctico.",
+  },
+  {
+    icon: HandHeart,
+    title: "Ministerios",
+    description:
+      "Cada generación tiene un lugar para crecer y servir en nuestra iglesia.",
+  },
+]
 ---
-<Layout title="Dar - CBI Orlando">
-  <div class="container mx-auto px-4 py-16 mt-16">
-    <div class="max-w-3xl mx-auto text-center">
-      <h1 class="text-4xl md:text-5xl font-bold mb-6 text-gray-900">
-        Apoya Nuestra Misión
-      </h1>
-      <p class="text-xl text-gray-700 mb-8">
-        Tu generosidad hace la diferencia en nuestra comunidad y en la vida de muchas personas.
-      </p>
-      
-      <div class="bg-gray-50 rounded-lg p-8 mb-8">
-        <h2 class="text-2xl font-semibold mb-4 text-gray-900">Formas de Dar</h2>
-        <div class="space-y-4 text-left">
-          <div class="border-l-4 border-[#b81516] pl-4">
-            <h3 class="font-semibold text-lg mb-2">En Persona</h3>
-            <p class="text-gray-700">Puedes dar durante nuestros servicios dominicales o en la oficina de la iglesia.</p>
+
+<Layout title="Dar - CBI Orlando" navLogo="white">
+  <section
+    class="relative sm:min-h-screen min-h-[90vh] flex items-center overflow-hidden">
+    <Image
+      src={misionesHeroImg}
+      alt="Misiones CBI Orlando"
+      width={1920}
+      height={1080}
+      quality={85}
+      class="absolute inset-0 w-full h-full object-cover"
+      loading="eager"
+    />
+    <div
+      class="absolute inset-0 bg-linear-to-b from-black/60 via-black/50 to-black/80">
+    </div>
+
+    <div class="relative z-10 w-full lg:px-16 pt-32 pb-20">
+      <div class="max-w-full sm:max-w-5xl mx-auto text-center mt-32">
+        <h1
+          class="font-bebas text-5xl sm:text-6xl md:text-7xl text-white leading-[0.9] mb-6 animate-fade-in-up">
+          “Dar es una forma de adorar.”
+        </h1>
+
+        <div class="animate-fade-in-up" style="animation-delay: 0.3s;">
+          <a
+            href="#impacto"
+            class="inline-flex items-center gap-2 text-white/70 hover:text-primary transition-colors text-sm uppercase tracking-widest">
+            Descubre el impacto
+            <ArrowRight class="w-4 h-4" />
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <main class="bg-white">
+    <!-- Scripture Quote Section -->
+    <section class="py-16 px-6 lg:px-16 bg-gray-50">
+      <div class="max-w-3xl mx-auto text-center">
+        <blockquote
+          class="text-2xl md:text-3xl text-accent/80 italic leading-relaxed">
+          "Cada uno dé como propuso en su corazón: no con tristeza, ni por
+          necesidad, porque Dios ama al dador alegre."
+        </blockquote>
+        <cite class="block mt-4 text-primary font-semibold not-italic text-lg">
+          — 2 Corintios 9:7
+        </cite>
+      </div>
+    </section>
+
+    <!-- Impact Carousel Section -->
+    <section id="impacto" class="py-8 lg:py-12 px-6 lg:px-16">
+      <div class="max-w-6xl mx-auto">
+        <div class="text-center mb-8">
+          <h2
+            class="font-bebas text-4xl sm:text-5xl lg:text-6xl text-accent leading-none mb-4">
+            Mira Lo Que <span class="text-primary">Dios Hace</span>
+          </h2>
+          <p class="text-gray-600 text-lg max-w-2xl mx-auto">
+            Cada ofrenda se convierte en comida para el hambriento, esperanza
+            para el necesitado, y el evangelio para quien aún no lo conoce.
+          </p>
+        </div>
+
+        <!-- Carousel -->
+        <div class="impact-carousel">
+          <div class="flex items-center justify-end gap-3 mb-6">
+            <SliderArrow
+              direction="prev"
+              class="dar-swiper-prev"
+              ariaLabel="Anterior"
+            />
+            <SliderArrow
+              direction="next"
+              class="dar-swiper-next"
+              ariaLabel="Siguiente"
+            />
           </div>
-          <div class="border-l-4 border-[#b81516] pl-4">
-            <h3 class="font-semibold text-lg mb-2">En Línea</h3>
-            <p class="text-gray-700">Próximamente estará disponible la opción de dar en línea de forma segura.</p>
+
+          <div
+            class="swiper dar-swiper"
+            data-prev-btn=".dar-swiper-prev"
+            data-next-btn=".dar-swiper-next">
+            <div class="swiper-wrapper">
+              {
+                impactSlides.map((slide) => (
+                  <div class="swiper-slide">
+                    <div class="relative aspect-16/10 rounded-2xl overflow-hidden group">
+                      <Image
+                        src={slide.image}
+                        alt={slide.caption}
+                        width={1200}
+                        height={750}
+                        quality={80}
+                        class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                        loading="lazy"
+                      />
+                      <div class="absolute inset-0 bg-linear-to-t from-black/70 via-transparent to-transparent" />
+                      <div class="absolute bottom-0 left-0 right-0 p-6">
+                        <p class="text-white text-xl font-semibold">
+                          {slide.caption}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                ))
+              }
+            </div>
           </div>
         </div>
       </div>
+    </section>
 
-      <div class="text-gray-600">
-        <p>Si tienes preguntas sobre cómo dar, contáctanos a través de nuestra página de <a href="/conectate" class="text-[#b81516] hover:underline">Conectate</a>.</p>
+    <!-- Values Section -->
+    <section class="py-12 lg:py-24 px-6 lg:px-16 bg-accent">
+      <div class="max-w-6xl mx-auto">
+        <div class="text-center mb-4">
+          <h2
+            class="font-bebas text-4xl sm:text-5xl lg:text-6xl text-white leading-none mb-2">
+            Tu Ofrenda <span class="text-primary">Hace Posible</span>
+          </h2>
+          <p class="text-white/70 text-lg max-w-xl mx-auto">
+            Juntos estamos impactando vidas, familias y comunidades.
+          </p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-4 lg:gap-8">
+          {
+            givingValues.map((value, index) => (
+              <div
+                class="value-card group text-center p-8 py-4 bg-white/5 border border-white/10 rounded-2xl hover:border-primary/40 transition-all duration-300"
+                style={`animation-delay: ${index * 0.1}s;`}>
+                <div class="inline-flex items-center justify-center w-28 h-28 bg-primary/20 rounded-full mb-2 group-hover:bg-primary/30 transition-colors">
+                  {/* <value.icon class="w-8 h-8 text-primary" /> */}
+                  <h3 class="text-2xl font-bold text-white font-bebas tracking-wide">
+                    {value.title}
+                  </h3>
+                </div>
+
+                <p class="text-white/70 leading-relaxed">{value.description}</p>
+              </div>
+            ))
+          }
+        </div>
       </div>
-    </div>
-  </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-8 lg:py-20 px-6 lg:px-16">
+      <div class="max-w-3xl mx-auto text-center">
+        <Heart class="w-12 h-12 text-primary mx-auto mb-6" />
+
+        <h2
+          class="font-bebas text-4xl sm:text-5xl lg:text-6xl text-accent leading-none mb-6">
+          Gracias Por Tu <span class="text-primary">Corazón</span>
+        </h2>
+
+        <p class="text-gray-600 text-lg mb-10 leading-relaxed max-w-xl mx-auto">
+          Tu generosidad es un acto de adoración que glorifica a Dios y bendice
+          a otros. Juntos, seguimos llevando el amor de Cristo a cada rincón.
+        </p>
+
+        <a
+          href={pushPayLink}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center justify-center gap-3 bg-primary text-white px-10 py-5 rounded-full font-semibold text-lg hover:bg-primary/90 transition-all duration-300 hover:scale-105 group shadow-lg shadow-primary/20">
+          Dar Ahora
+          <ArrowRight
+            class="w-5 h-5 transform group-hover:translate-x-1 transition-transform"
+          />
+        </a>
+
+        <p class="text-gray-500 text-sm mt-6">
+          Serás redirigido a nuestra plataforma segura de donaciones.
+        </p>
+      </div>
+    </section>
+  </main>
 </Layout>
 
+<script>
+  import Swiper from "swiper"
+  import { Navigation } from "swiper/modules"
+
+  function initDarSwiper() {
+    const swiperEl = document.querySelector(".dar-swiper")
+    if (!swiperEl) return
+
+    const prevBtn = swiperEl.getAttribute("data-prev-btn")
+    const nextBtn = swiperEl.getAttribute("data-next-btn")
+
+    if (!prevBtn || !nextBtn) return
+
+    new Swiper(".dar-swiper", {
+      modules: [Navigation],
+      slidesPerView: 1,
+      spaceBetween: 16,
+      navigation: {
+        prevEl: prevBtn,
+        nextEl: nextBtn,
+      },
+      breakpoints: {
+        640: { slidesPerView: 1.5, spaceBetween: 20 },
+        1024: { slidesPerView: 2.2, spaceBetween: 24 },
+      },
+    })
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initDarSwiper)
+  } else {
+    initDarSwiper()
+  }
+</script>
+
+<style>
+  /* Animations */
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes fade-in-up {
+    from {
+      opacity: 0;
+      transform: translateY(24px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-fade-in {
+    animation: fade-in 0.9s ease-out forwards;
+  }
+
+  .animate-fade-in-up {
+    opacity: 0;
+    animation: fade-in-up 0.9s ease-out forwards;
+  }
+
+  /* Value cards animation */
+  .value-card {
+    opacity: 0;
+    animation: fade-in-up 0.6s ease-out forwards;
+  }
+
+  /* Swiper styles */
+  .impact-carousel .swiper {
+    overflow: hidden;
+    width: 100%;
+  }
+
+  .impact-carousel .swiper-slide {
+    height: auto;
+  }
+</style>
