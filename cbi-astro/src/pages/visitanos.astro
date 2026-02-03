@@ -10,6 +10,7 @@ import ExpectSlider from "../components/visitanos/ExpectSlider.astro"
 import ServiceSlider from "../components/visitanos/ServiceSlider.astro"
 import PastorsSlider from "../components/visitanos/PastorsSlider.astro"
 import { ArrowRight, ChevronDown } from "@lucide/astro"
+import Marquee from "../components/Marquee.astro"
 
 // Google Maps URL
 const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`
@@ -17,14 +18,15 @@ const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComp
 
 <Layout title="Visíta CBI Orlando">
   <!-- Hero Section - Compact style inspired by cbi-theta -->
-  <section class="relative h-screen min-h-[500px] w-full overflow-hidden">
+  <section
+    class="relative sm:h-[95vh] h-[92vh] min-h-[500px] w-full overflow-hidden">
     <Image
       src={serviciosDominicalImg}
       alt="Servicio Dominical CBI Orlando"
       width={1920}
       height={1080}
       quality={85}
-      class="absolute inset-0 w-full h-full object-cover"
+      class="absolute inset-0 w-full h-full object-cover blur-xs"
       loading="eager"
     />
     <div
@@ -32,17 +34,22 @@ const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComp
     </div>
 
     <div
-      class="relative z-10 h-full flex flex-col items-center justify-center text-center px-6">
-      <h1
-        class="font-bebas text-4xl sm:text-5xl md:text-6xl text-white mb-2 leading-none animate-fade-in">
-        Amar a Dios | Amar la Familia | Amar el Servicio
-      </h1>
+      class="relative z-10 mt-32 sm:mt-18 h-full flex flex-col items-center justify-center text-center px-6">
       <span
-        class="text-primary text-md sm:text-lg uppercase tracking-[0.3em] font-semibold mb-2 animate-fade-in-up">
+        class="text-white text-base sm:text-2xl uppercase sm:tracking-[0.3em] tracking-widest font-semibold mb-2 animate-fade-in-up">
         Estamos Emocionados Por Conocerte!
       </span>
+      <h1
+        class="font-bebas text-3xl sm:text-5xl md:text-6xl text-white mb-2 animate-fade-in">
+        Amar a <span class="text-primary text-enhanced-shadow">Dios</span> | Amar
+        la <span class="text-primary text-enhanced-shadow">Familia</span> | Amar el
+        <span class="text-primary text-enhanced-shadow">Servicio</span>
+      </h1>
     </div>
   </section>
+
+  <!-- Marquee Section -->
+  <Marquee text="TE ESPERAMOS CON LOS BRAZOS ABIERTOS" speed="20s" />
 
   <!-- Main Content -->
   <main class="bg-white">
@@ -294,6 +301,21 @@ const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComp
     .animate-fade-in-up {
       animation: fade-in-up 1s ease-out 0.2s forwards;
       opacity: 0;
+    }
+
+    .text-enhanced-shadow {
+      text-shadow:
+        0 0 10px rgba(0, 0, 0, 0.8),
+        0 0 20px rgba(0, 0, 0, 0.6),
+        0 2px 4px rgba(0, 0, 0, 0.9),
+        0 4px 8px rgba(0, 0, 0, 0.7),
+        0 0 2px rgba(0, 0, 0, 1),
+        -1px -1px 2px rgba(193, 193, 193, 0.9),
+        1px -1px 2px rgba(255, 255, 255, 0.9),
+        -1px 1px 2px rgba(223, 223, 223, 0.9),
+        1px 1px 2px rgb(253, 251, 251);
+      -webkit-text-stroke: 0.5px rgb(255, 255, 255);
+      paint-order: stroke fill;
     }
   </style>
 </Layout>
