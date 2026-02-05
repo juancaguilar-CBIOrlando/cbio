@@ -1,232 +1,504 @@
 ---
 import Layout from "../layouts/Layout.astro"
+import { ChevronDown, BookOpen, Cross, Flame, Church, Crown, ArrowRight } from "@lucide/astro"
 
-type Belief = {
+type FundamentalTruth = {
   id: number
   title: string
   description: string
-  scripture: string
+  scriptures: string
+  category: "doctrinas-esenciales" | "salvacion" | "espiritu-santo" | "iglesia" | "eventos-finales"
 }
 
-const beliefs: Belief[] = [
+type Category = {
+  id: string
+  name: string
+  icon: any
+  color: string
+}
+
+const categories: Category[] = [
+  { id: "doctrinas-esenciales", name: "Doctrinas Esenciales", icon: BookOpen, color: "bg-blue-500" },
+  { id: "salvacion", name: "Salvación", icon: Cross, color: "bg-red-500" },
+  { id: "espiritu-santo", name: "El Espíritu Santo", icon: Flame, color: "bg-orange-500" },
+  { id: "iglesia", name: "La Iglesia", icon: Church, color: "bg-green-500" },
+  { id: "eventos-finales", name: "Eventos Finales", icon: Crown, color: "bg-purple-500" },
+]
+
+const fundamentalTruths: FundamentalTruth[] = [
   {
     id: 1,
-    title: "Dios el Padre",
-    description:
-      "Dios es el Creador y Gobernante soberano del universo. Él ha existido eternamente en tres personas: el Padre, el Hijo y el Espíritu Santo. Estos tres son partes co-iguales de un solo Dios.",
-    scripture:
-      "Génesis 1:1, 26, 27; Salmo 90:2; Mateo 28:19; 2 Corintios 13:14",
+    title: "Las Escrituras Inspiradas",
+    description: "La Biblia es la Palabra de Dios inspirada verbalmente, la revelación de Dios al hombre, la regla infalible y autoritativa de fe y conducta. Toda la Escritura es dada por inspiración de Dios, quien inspiró a hombres santos de la antigüedad para que hablaran y escribieran según el Espíritu Santo los dirigía. La Palabra de Dios es la fuente suprema y final de autoridad para la fe cristiana y la vida práctica.",
+    scriptures: "2 Timoteo 3:15-17; 2 Pedro 1:21; Hebreos 4:12",
+    category: "doctrinas-esenciales"
   },
   {
     id: 2,
-    title: "Dios el Hijo",
-    description:
-      "Jesucristo es el Hijo de Dios. Es co-igual con el Padre. Jesús vivió una vida humana sin pecado y se ofreció a sí mismo como el sacrificio perfecto por los pecados de todos los hombres al morir en una cruz. Resucitó de entre los muertos después de tres días para demostrar su poder sobre el pecado y la muerte. Ascendió al cielo y volverá de nuevo para reinar como Rey de Reyes y Señor de Señores.",
-    scripture:
-      "Mateo 1:22-23; Isaías 9:6; Juan 1:1-5; Hebreos 4:14-15; 1 Corintios 15:3-4; Hechos 1:9-11",
+    title: "El Único Dios Verdadero",
+    description: "El único Dios verdadero se ha revelado como el eterno y existente por sí mismo 'YO SOY', el Creador del cielo y de la tierra, y el Redentor de la humanidad. Se ha revelado además como incorporando los principios de relación y asociación como Padre, Hijo, y Espíritu Santo. Estos tres son coiguales y coetternos, distintos en personalidad pero uno en esencia, poder y eternidad.",
+    scriptures: "Deuteronomio 6:4; Isaías 43:10-11; Mateo 28:19; Lucas 3:22",
+    category: "doctrinas-esenciales"
   },
   {
     id: 3,
-    title: "Dios el Espíritu Santo",
-    description:
-      "El Espíritu Santo es igual al Padre y al Hijo como Dios. Está presente en el mundo para hacer que los hombres sean conscientes de su necesidad de Jesucristo. También vive en cada creyente desde el momento de la salvación. Provee al cristiano poder para vivir, entendimiento de la verdad espiritual y guía para hacer lo correcto. El cristiano busca vivir bajo Su control diariamente.",
-    scripture:
-      "2 Corintios 3:17; Juan 16:7-13; Hechos 1:8; 1 Corintios 2:12, 3:16; Gálatas 5:25; Efesios 5:18",
+    title: "La Deidad del Señor Jesucristo",
+    description: "El Señor Jesucristo es el eterno Hijo de Dios. Las Escrituras declaran Su nacimiento virginal, Su vida sin pecado, Sus milagros, Su obra vicaria en la cruz, Su resurrección corporal de entre los muertos, y Su exaltación a la diestra del Padre. Él es verdadero Dios y verdadero hombre.",
+    scriptures: "Mateo 1:23; Lucas 1:31-35; Hebreos 7:26; 1 Pedro 2:22; Hechos 2:22; 10:38; 1 Corintios 15:3-4; Hebreos 1:3",
+    category: "doctrinas-esenciales"
   },
   {
     id: 4,
-    title: "La Biblia",
-    description:
-      "La Biblia es la Palabra de Dios para todos los hombres. Fue escrita por autores humanos bajo la guía sobrenatural del Espíritu Santo. Es la fuente definitiva de verdad para las creencias cristianas y la vida diaria.",
-    scripture:
-      "2 Timoteo 3:16-17; 2 Pedro 1:20-21; Salmo 119:105, 160; Proverbios 30:5",
+    title: "La Caída del Hombre",
+    description: "El hombre fue creado bueno y recto, porque Dios dijo: 'Hagamos al hombre a nuestra imagen, conforme a nuestra semejanza.' Sin embargo, el hombre por transgresión voluntaria cayó, y por ello incurrió no solo en la muerte física, sino también en la muerte espiritual, que es la separación de Dios. Toda la humanidad nace con una naturaleza pecaminosa.",
+    scriptures: "Génesis 1:26-27; 2:17; 3:6; Romanos 5:12-19",
+    category: "salvacion"
   },
   {
     id: 5,
-    title: "El Hombre",
-    description:
-      "El hombre fue creado a imagen de Dios como el objeto supremo de Su creación. Dios diseñó al hombre para tener comunión con Él, pero el hombre se alejó de Dios a través de la desobediencia. Todos nacemos con una naturaleza pecaminosa y elegimos pecar contra Dios. Somos incapaces de recuperar una relación correcta con Dios a través de nuestros propios esfuerzos.",
-    scripture:
-      "Génesis 1:27; Salmo 8:3-6; Isaías 53:6; Romanos 3:23; Colosenses 1:21; Isaías 59:1-2",
+    title: "La Salvación del Hombre",
+    description: "La única esperanza de redención del hombre es a través de la sangre derramada de Jesucristo, el Hijo de Dios. La salvación se recibe por gracia, mediante la fe en Jesucristo. El hombre es justificado por la fe aparte de las obras de la ley. La evidencia interna de la salvación es el testimonio directo del Espíritu. La evidencia externa es una vida de justicia y verdadera santidad.",
+    scriptures: "Efesios 2:8-9; Juan 3:16; Romanos 10:9-10; Tito 2:11-12; Romanos 8:16",
+    category: "salvacion"
   },
   {
     id: 6,
-    title: "La Eternidad",
-    description:
-      "Fuiste creado para tener vida eterna con Dios en el Cielo. Creemos que la eternidad se pasa en uno de dos lugares: eternamente separados de Dios debido al pecado o en unión con Dios debido a Su perdón y salvación. Cuando mueras, pasarás la eternidad en el cielo o en el infierno.",
-    scripture:
-      "Juan 3:16; 1 Juan 2:25, 5:11-13; Romanos 6:23; Apocalipsis 20:15",
+    title: "Las Ordenanzas de la Iglesia",
+    description: "El Bautismo en Agua: Las Escrituras establecen el rito del bautismo por inmersión. Todos los que se arrepienten y creen en Cristo como Salvador y Señor deben ser bautizados. Es una declaración al mundo de que el creyente ha muerto con Cristo y ha sido resucitado con Él para andar en novedad de vida. La Santa Cena: La Cena del Señor, consistiendo en los elementos del pan y el fruto de la vid, es el símbolo que expresa nuestra participación en la naturaleza divina de nuestro Señor Jesucristo.",
+    scriptures: "Mateo 28:19; Marcos 16:16; Hechos 8:36-39; Romanos 6:4; 1 Corintios 11:23-26",
+    category: "iglesia"
   },
   {
     id: 7,
-    title: "La Salvación",
-    description:
-      "La salvación es el regalo de Dios para ti si lo aceptas. Nunca podemos compensar nuestro pecado con auto-mejora o buenas obras. Es solo confiando en Jesucristo como la oferta de perdón de Dios que puedes ser salvado de la pena del pecado. La vida eterna comienza en el momento en que recibes a Jesucristo en tu vida por fe.",
-    scripture:
-      "Romanos 6:23; Efesios 2:8-9; Juan 14:6, 1:12; Tito 3:5; Gálatas 3:26; Romanos 5:1",
+    title: "El Bautismo en el Espíritu Santo",
+    description: "Todos los creyentes tienen el derecho de recibir y deben buscar fervientemente la promesa del Padre, el bautismo en el Espíritu Santo y fuego, según el mandato de nuestro Señor Jesucristo. Esta fue la experiencia normal de todos los creyentes en la iglesia cristiana primitiva. Con el bautismo viene una investidura de poder para la vida y el servicio, y el otorgamiento de los dones espirituales y su uso en el ministerio.",
+    scriptures: "Lucas 24:49; Hechos 1:4-8; 2:4; 10:44-46; 1 Corintios 12:1-31",
+    category: "espiritu-santo"
   },
   {
     id: 8,
-    title: "El Bautismo en Agua",
-    description:
-      "Creemos que el Bautismo en Agua es una parte importante de nuestro caminar con Cristo. El bautismo es una expresión externa de un cambio interno que ocurre cuando recibimos a Jesús como nuestro Señor y Salvador y Jesús nos limpia de todos nuestros pecados. También simboliza cómo tenemos una nueva vida en Cristo Jesús.",
-    scripture: "Mateo 28:19; Hechos 2:38; Romanos 6:4; Colosenses 2:12",
+    title: "La Evidencia Física Inicial del Bautismo",
+    description: "El bautismo de los creyentes en el Espíritu Santo es evidenciado por la señal física inicial de hablar en otras lenguas como el Espíritu les dé que hablen. El hablar en lenguas en este caso es esencialmente lo mismo que el don de lenguas, pero diferente en propósito y uso. Esta experiencia es distinta y subsiguiente a la experiencia del nuevo nacimiento.",
+    scriptures: "Hechos 2:4; 10:44-46; 19:6; 1 Corintios 12:4-10, 28",
+    category: "espiritu-santo"
   },
   {
     id: 9,
-    title: "La Sanidad",
-    description:
-      "Debido al sacrificio que Jesús hizo en la cruz, la humanidad puede experimentar el poder sanador de Dios.",
-    scripture: "Isaías 53:5; 1 Pedro 2:24-25",
+    title: "La Santificación",
+    description: "La santificación es un acto de separación de todo lo malo, y de dedicación a Dios. Las Escrituras enseñan una vida de santidad sin la cual nadie verá al Señor. Por el poder del Espíritu Santo somos capaces de obedecer el mandato: 'Sed santos, porque yo soy santo.' La santificación se efectúa en el creyente al reconocer su identificación con Cristo en Su muerte y resurrección, y por fe entregarse continuamente a Él, considerando los miembros del cuerpo como vivos para Dios.",
+    scriptures: "Romanos 12:1-2; 1 Tesalonicenses 5:23; Hebreos 12:14; 1 Pedro 1:15-16",
+    category: "espiritu-santo"
   },
+  {
+    id: 10,
+    title: "La Iglesia y Su Misión",
+    description: "La Iglesia es el cuerpo de Cristo, la habitación de Dios por medio del Espíritu, con citas divinas para el cumplimiento de su gran comisión. Cada creyente, nacido del Espíritu, es parte integral de la Asamblea General e Iglesia de los Primogénitos, que están inscritos en los cielos. La misión de la Iglesia es buscar y salvar a los perdidos, ser adoradores de Dios, edificar un cuerpo de santos siendo perfeccionados a la imagen de Su Hijo, y ser una fuerza de santa influencia en el mundo.",
+    scriptures: "Efesios 1:22-23; 2:22; Hebreos 12:23; Mateo 28:19-20; Marcos 16:15-18",
+    category: "iglesia"
+  },
+  {
+    id: 11,
+    title: "El Ministerio",
+    description: "Un ministerio divinamente llamado y ordenado según las Escrituras ha sido provisto por nuestro Señor para la triple misión de evangelizar al mundo, adorar a Dios, y edificar el cuerpo de Cristo. Dios ha establecido en la Iglesia apóstoles, profetas, evangelistas, pastores y maestros para equipar a los santos para la obra del ministerio.",
+    scriptures: "Marcos 16:15-20; Efesios 4:11-16; 1 Corintios 12:28",
+    category: "iglesia"
+  },
+  {
+    id: 12,
+    title: "La Sanidad Divina",
+    description: "La sanidad divina es una parte integral del evangelio. La liberación de la enfermedad está provista en la expiación, y es el privilegio de todos los creyentes. Jesús mismo tomó nuestras enfermedades y llevó nuestras dolencias. Con Sus llagas fuimos sanados. La oración de fe salvará al enfermo, y el Señor lo levantará.",
+    scriptures: "Isaías 53:4-5; Mateo 8:16-17; Santiago 5:14-16; 1 Pedro 2:24",
+    category: "iglesia"
+  },
+  {
+    id: 13,
+    title: "La Esperanza Bienaventurada",
+    description: "La resurrección de los que han dormido en Cristo, y su traslación juntamente con los que vivimos y hayamos quedado hasta la venida del Señor, es la inminente y bienaventurada esperanza de la Iglesia. Esta esperanza nos motiva a vivir vidas santas y piadosas mientras esperamos Su regreso glorioso.",
+    scriptures: "1 Tesalonicenses 4:16-17; Romanos 8:23; Tito 2:13; 1 Corintios 15:51-52",
+    category: "eventos-finales"
+  },
+  {
+    id: 14,
+    title: "El Reino Milenial de Cristo",
+    description: "La segunda venida de Cristo incluye el rapto de los santos, que es nuestra esperanza bienaventurada, seguido por el regreso visible de Cristo con Sus santos para reinar en la tierra por mil años. Este reino milenial traerá la salvación de Israel como nación, y el establecimiento de paz universal sobre toda la tierra.",
+    scriptures: "Zacarías 14:5; Mateo 24:27-30; Apocalipsis 1:7; 19:11-14; 20:1-6",
+    category: "eventos-finales"
+  },
+  {
+    id: 15,
+    title: "El Juicio Final",
+    description: "Habrá un juicio final en el cual los muertos impíos serán resucitados y juzgados según sus obras. Todo aquel cuyo nombre no se encuentre escrito en el Libro de la Vida, junto con el diablo y sus ángeles, la bestia y el falso profeta, será destinado al castigo eterno en el lago que arde con fuego y azufre, que es la muerte segunda.",
+    scriptures: "Mateo 25:46; Marcos 9:43-48; Apocalipsis 19:20; 20:11-15; 21:8",
+    category: "eventos-finales"
+  },
+  {
+    id: 16,
+    title: "Los Cielos Nuevos y la Tierra Nueva",
+    description: "Nosotros, según sus promesas, esperamos cielos nuevos y tierra nueva, en los cuales mora la justicia. Dios morará con Su pueblo, y ellos serán Su pueblo. Ya no habrá muerte, ni llanto, ni clamor, ni dolor. Dios hará nuevas todas las cosas para Su gloria eterna.",
+    scriptures: "2 Pedro 3:13; Apocalipsis 21:1-4, 22-27; 22:1-5",
+    category: "eventos-finales"
+  }
 ]
+
+// Group truths by category
+const truthsByCategory = categories.map(category => ({
+  ...category,
+  truths: fundamentalTruths.filter(truth => truth.category === category.id)
+}))
 ---
 
 <Layout title="Lo Que Creemos - CBI Orlando" navLogo="white">
   <!-- Hero Section -->
-  <section
-    class="relative min-h-[50vh] flex items-center justify-center overflow-hidden"
-    data-hero>
+  <section class="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
     <!-- Background -->
-    <div class="absolute inset-0 bg-accent">
-      <!-- Decorative circles -->
-      <div
-        class="absolute top-10 left-10 w-64 h-64 border border-white/10 rounded-full">
-      </div>
-      <div
-        class="absolute bottom-10 right-10 w-96 h-96 border border-white/10 rounded-full">
-      </div>
-      <div
-        class="absolute top-1/2 left-1/4 w-32 h-32 bg-primary/10 rounded-full blur-2xl">
+    <div class="absolute inset-0 bg-accent">  
+      <!-- Grid pattern -->
+      <div class="absolute inset-0 opacity-5">
+        <svg class="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+          <pattern id="grid-hero" width="10" height="10" patternUnits="userSpaceOnUse">
+            <path d="M 10 0 L 0 0 0 10" fill="none" stroke="white" stroke-width="0.3"></path>
+          </pattern>
+          <rect width="100" height="100" fill="url(#grid-hero)"></rect>
+        </svg>
       </div>
     </div>
 
-    <div class="relative z-10 text-center px-6 pt-20">
-      <span
-        class="inline-block bg-primary/20 text-primary px-4 py-1 rounded-full text-sm font-semibold mb-6">
-        NUESTRA FE
-      </span>
-      <h1
-        class="text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6"
-        style="font-family: 'Bebas Neue', sans-serif;">
+    <div class="relative z-10 text-center px-6 pt-24 pb-12">
+      <h1 class="font-bebas text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-white mb-6 leading-[0.9] animate-fade-in-up">
         Lo Que <span class="text-primary">Creemos</span>
       </h1>
-      <p class="text-white/80 text-lg md:text-xl max-w-2xl mx-auto">
-        Las verdades fundamentales que guían nuestra fe y definen quiénes somos
-        como iglesia.
+      <p class="text-white/80 text-lg md:text-xl max-w-2xl mx-auto mb-8 animate-fade-in-up" style="animation-delay: 0.15s;">
+        Las 16 Verdades Fundamentales que guían nuestra fe basadas en la Palabra de Dios.
       </p>
+      
+      <!-- Stats badges -->
+      <div class="flex flex-wrap justify-center gap-4 animate-fade-in-up" style="animation-delay: 0.3s;">
+        <div class="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full">
+          <BookOpen class="w-5 h-5 text-primary" />
+          <span class="text-white text-sm">16 Verdades Fundamentales</span>
+        </div>
+        <div class="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full">
+          <Church class="w-5 h-5 text-primary" />
+          <span class="text-white text-sm">Asambleas de Dios</span>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- Beliefs Section -->
-  <section class="py-20 bg-white">
-    <div class="max-w-4xl mx-auto px-6">
-      <div class="text-center mb-16">
-        <span
-          class="inline-block bg-accent/10 text-accent px-4 py-1 rounded-full text-sm font-semibold mb-4">
-          FUNDAMENTOS
-        </span>
-        <h2
-          class="text-3xl md:text-4xl font-bold text-accent"
-          style="font-family: 'Bebas Neue', sans-serif;">
-          Nuestras Creencias
-        </h2>
+  <!-- Category Navigation -->
+  <section class="sticky top-0 z-40 bg-white/95 backdrop-blur-md shadow-lg border-b border-gray-100">
+    <div class="w-full px-4 lg:px-8">
+      <div class="flex justify-start lg:justify-center overflow-x-auto py-3 lg:py-4 gap-2 lg:gap-3 scrollbar-hide" id="category-nav">
+        {categories.map((category, index) => (
+          <a
+            href={`#${category.id}`}
+            class="category-nav-btn flex items-center gap-2 lg:gap-3 px-4 lg:px-6 py-2.5 lg:py-3 rounded-full whitespace-nowrap text-sm lg:text-base font-semibold transition-all duration-300 bg-gray-100 text-gray-700 hover:bg-primary hover:text-white shrink-0"
+            data-category={category.id}
+          >
+            <category.icon class="w-4 h-4 lg:w-5 lg:h-5" />
+            <span>{category.name}</span>
+          </a>
+        ))}
       </div>
+    </div>
+  </section>
 
-      <div class="space-y-0">
-        {
-          beliefs.map((belief, index) => (
-            <article class="belief-item py-10 border-b border-gray-200 last:border-b-0">
-              <div class="flex items-start gap-6">
-                <div class="hidden sm:flex shrink-0 w-12 h-12 bg-primary text-white rounded-full items-center justify-center font-bold text-lg">
-                  {index + 1}
-                </div>
-                <div class="flex-1">
-                  <h3
-                    class="text-2xl md:text-3xl font-bold text-accent mb-4 uppercase tracking-wide"
-                    style="font-family: 'Bebas Neue', sans-serif;">
-                    {belief.title}
-                  </h3>
-                  <p class="text-gray-700 text-lg leading-relaxed mb-4">
-                    {belief.description}
-                  </p>
-                  <p class="text-primary text-sm font-medium">
-                    {belief.scripture}
-                  </p>
+  <!-- Main Content -->
+  <main class="bg-gray-50">
+    <!-- Introduction Section -->
+    <section class="py-16 lg:py-20 px-6 lg:px-16 bg-white">
+      <div class="max-w-4xl mx-auto text-center">
+        <h2 class="font-bebas text-3xl sm:text-4xl lg:text-5xl text-accent mb-6 leading-none">
+          Declaración de <span class="text-primary">Verdades Fundamentales</span>
+        </h2>
+        <p class="text-gray-600 text-lg leading-relaxed mb-8">
+          Como parte de las Asambleas de Dios, afirmamos estas verdades bíblicas que constituyen
+          el fundamento de nuestra fe y práctica. Estas doctrinas nos unen como iglesia y nos
+          guían en nuestra misión de compartir el amor de Cristo.
+        </p>
+        <blockquote class="border-l-4 border-primary pl-6 text-left italic text-gray-700 text-lg">
+          "Edificados sobre el fundamento de los apóstoles y profetas, siendo la principal piedra del ángulo Jesucristo mismo."
+          <cite class="block text-primary font-semibold not-italic mt-2">— Efesios 2:20</cite>
+        </blockquote>
+      </div>
+    </section>
+
+    <!-- Truths by Category -->
+    {truthsByCategory.map((category, categoryIndex) => (
+      <section
+        id={category.id}
+        class={`py-16 lg:py-20 px-6 lg:px-16 scroll-mt-20 ${categoryIndex % 2 === 0 ? 'bg-gray-50' : 'bg-white'}`}
+      >
+        <div class="max-w-5xl mx-auto">
+          <!-- Category Header -->
+          <div class="flex items-center gap-4 mb-10">
+            <div class={`w-14 h-14 ${category.color} rounded-2xl flex items-center justify-center shadow-lg`}>
+              <category.icon class="w-7 h-7 text-white" />
+            </div>
+            <div>
+              <span class="text-sm font-semibold text-primary uppercase tracking-wider">
+                {category.truths.length} {category.truths.length === 1 ? 'Verdad' : 'Verdades'}
+              </span>
+              <h2 class="font-bebas text-3xl sm:text-4xl text-accent leading-none">
+                {category.name}
+              </h2>
+            </div>
+          </div>
+
+          <!-- Accordion -->
+          <div class="space-y-4 truth-accordion" data-category={category.id}>
+            {category.truths.map((truth, index) => (
+              <div
+                class="truth-item bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 border border-gray-100"
+                data-index={truth.id}
+                style={`animation-delay: ${index * 0.1}s;`}
+              >
+                <button
+                  class="truth-trigger w-full flex items-start sm:items-center justify-between p-6 text-left cursor-pointer group"
+                  aria-expanded="false"
+                >
+                  <div class="flex items-start sm:items-center gap-4 pr-4">
+                    <span class="shrink-0 w-10 h-10 bg-primary/10 text-primary rounded-xl flex items-center justify-center font-bold text-lg group-hover:bg-primary group-hover:text-white transition-colors">
+                      {truth.id}
+                    </span>
+                    <h3 class="text-lg sm:text-xl font-bold text-accent group-hover:text-primary transition-colors">
+                      {truth.title}
+                    </h3>
+                  </div>
+                  <div class="truth-icon w-10 h-10 rounded-full bg-gray-100 group-hover:bg-primary/10 flex items-center justify-center shrink-0 transition-all duration-300 mt-1 sm:mt-0">
+                    <ChevronDown class="truth-chevron w-5 h-5 text-gray-500 group-hover:text-primary transition-all duration-300" />
+                  </div>
+                </button>
+                <div class="truth-content max-h-0 overflow-hidden transition-all duration-500 ease-out">
+                  <div class="px-6 pb-6 pl-20">
+                    <p class="text-gray-600 text-base leading-relaxed mb-4">
+                      {truth.description}
+                    </p>
+                    <div class="flex items-start gap-2 bg-primary/5 rounded-xl p-4">
+                      <BookOpen class="w-5 h-5 text-primary shrink-0 mt-0.5" />
+                      <div>
+                        <span class="text-xs font-semibold text-primary uppercase tracking-wider">Escrituras</span>
+                        <p class="text-gray-700 text-sm font-medium mt-1">{truth.scriptures}</p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </article>
-          ))
-        }
-      </div>
-    </div>
-  </section>
+            ))}
+          </div>
+        </div>
+      </section>
+    ))}
 
-  <!-- Mission Section -->
-  <section class="py-20 bg-slate-50 relative overflow-hidden">
-    <div
-      class="absolute top-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2">
-    </div>
-
-    <div class="relative z-10 max-w-4xl mx-auto px-6 text-center">
-      <span
-        class="inline-block bg-primary/10 text-primary px-4 py-1 rounded-full text-sm font-semibold mb-6">
-        NUESTRA MISIÓN
-      </span>
-      <h2
-        class="text-3xl md:text-5xl font-bold text-accent mb-6"
-        style="font-family: 'Bebas Neue', sans-serif;">
-        Amar a Dios. Amar la Familia. Amar el Servicio.
-      </h2>
-      <p class="text-gray-600 text-lg max-w-2xl mx-auto leading-relaxed">
-        Somos una iglesia comprometida con transformar vidas a través del amor
-        de Cristo. Creemos que cada persona tiene un propósito divino y
-        trabajamos juntos para descubrirlo y cumplirlo.
-      </p>
-    </div>
-  </section>
-
-  <!-- CTA Section -->
-  <section class="py-20 bg-accent relative overflow-hidden">
-    <div class="absolute inset-0 opacity-10">
-      <div
-        class="absolute top-10 left-10 w-64 h-64 border border-white/20 rounded-full">
+    <!-- Mission Section -->
+    <section class="py-20 lg:py-24 px-6 lg:px-16 bg-accent relative overflow-hidden">
+      <!-- Decorative elements -->
+      <div class="absolute inset-0 opacity-10">
+        <div class="absolute top-10 left-10 w-64 h-64 border border-white/20 rounded-full"></div>
+        <div class="absolute bottom-10 right-10 w-96 h-96 border border-white/20 rounded-full"></div>
       </div>
-      <div
-        class="absolute bottom-10 right-10 w-96 h-96 border border-white/20 rounded-full">
+      <div class="absolute top-0 right-0 w-1/2 h-full bg-[radial-gradient(ellipse_at_top_right,var(--tw-gradient-stops))] from-primary/20 via-transparent to-transparent"></div>
+      
+      <div class="relative z-10 max-w-4xl mx-auto text-center text-white">
+        <span class="inline-block bg-primary/20 text-primary px-4 py-1 rounded-full text-sm font-semibold mb-6">
+          NUESTRA MISIÓN
+        </span>
+        <h2 class="font-bebas text-4xl sm:text-5xl lg:text-6xl mb-6 leading-[0.9]">
+          Amar a Dios. Amar la Familia. <span class="text-primary">Amar el Servicio.</span>
+        </h2>
+        <p class="text-white/80 text-lg max-w-2xl mx-auto leading-relaxed mb-10">
+          Somos una iglesia comprometida con transformar vidas a través del amor de Cristo.
+          Creemos que cada persona tiene un propósito divino y trabajamos juntos para 
+          descubrirlo y cumplirlo.
+        </p>
+        
+        <!-- Values -->
+        <div class="grid sm:grid-cols-3 gap-6 mb-12">
+          <div class="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10">
+            <div class="w-12 h-12 bg-primary/20 rounded-xl flex items-center justify-center mx-auto mb-4">
+              <BookOpen class="w-6 h-6 text-primary" />
+            </div>
+            <h3 class="font-bebas text-2xl text-white mb-2">Palabra</h3>
+            <p class="text-white/70 text-sm">Enseñanza bíblica sólida para tu crecimiento espiritual.</p>
+          </div>
+          <div class="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10">
+            <div class="w-12 h-12 bg-primary/20 rounded-xl flex items-center justify-center mx-auto mb-4">
+              <Flame class="w-6 h-6 text-primary" />
+            </div>
+            <h3 class="font-bebas text-2xl text-white mb-2">Espíritu</h3>
+            <p class="text-white/70 text-sm">Una experiencia genuina con el poder del Espíritu Santo.</p>
+          </div>
+          <div class="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10">
+            <div class="w-12 h-12 bg-primary/20 rounded-xl flex items-center justify-center mx-auto mb-4">
+              <Church class="w-6 h-6 text-primary" />
+            </div>
+            <h3 class="font-bebas text-2xl text-white mb-2">Comunidad</h3>
+            <p class="text-white/70 text-sm">Una familia que te acompaña en cada paso de tu jornada.</p>
+          </div>
+        </div>
       </div>
-    </div>
+    </section>
 
-    <div class="relative z-10 max-w-3xl mx-auto px-6 text-center text-white">
-      <h2
-        class="text-3xl md:text-4xl font-bold mb-4"
-        style="font-family: 'Bebas Neue', sans-serif;">
-        ¿Quieres Conocer Más?
-      </h2>
-      <p class="text-white/80 text-lg mb-8">
-        Te invitamos a visitarnos y ser parte de nuestra familia.
-      </p>
-      <div class="flex flex-col sm:flex-row gap-4 justify-center">
-        <a
-          href="/conectate"
-          class="inline-flex items-center justify-center px-8 py-4 bg-primary text-white font-semibold rounded-full hover:bg-primary/90 transition-all duration-300 hover:scale-105">
-          Conéctate Con Nosotros
-        </a>
-        <a
-          href="/visitanos"
-          class="inline-flex items-center justify-center px-8 py-4 bg-transparent border-2 border-white text-white font-semibold rounded-full hover:bg-white hover:text-accent transition-all duration-300">
-          Planea Tu Visita
-        </a>
+    <!-- CTA Section -->
+    <section class="py-20 lg:py-24 px-6 lg:px-16 bg-white">
+      <div class="max-w-3xl mx-auto text-center">
+        <h2 class="font-bebas text-4xl sm:text-5xl text-accent mb-4 leading-none">
+          ¿Quieres Conocer <span class="text-primary">Más</span>?
+        </h2>
+        <p class="text-gray-600 text-lg mb-10">
+          Te invitamos a visitarnos y ser parte de nuestra familia. Hay un lugar para ti.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a
+            href="/conectate"
+            class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-primary text-white font-semibold rounded-full hover:bg-primary/90 transition-all duration-300 hover:scale-105 group"
+          >
+            Conéctate Con Nosotros
+            <ArrowRight class="w-5 h-5 transform group-hover:translate-x-1 transition-transform" />
+          </a>
+          <a
+            href="/visitanos"
+            class="inline-flex items-center justify-center px-8 py-4 bg-accent text-white font-semibold rounded-full hover:bg-accent/90 transition-all duration-300"
+          >
+            Planea Tu Visita
+          </a>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
+  </main>
 </Layout>
 
+<script>
+  // Accordion functionality
+  function initAccordions() {
+    const truthItems = document.querySelectorAll('.truth-item')
+
+    truthItems.forEach((item) => {
+      const trigger = item.querySelector('.truth-trigger')
+      const content = item.querySelector('.truth-content') as HTMLElement
+      const chevron = item.querySelector('.truth-chevron')
+
+      trigger?.addEventListener('click', () => {
+        const isOpen = trigger.getAttribute('aria-expanded') === 'true'
+
+        // Close all other items in the same accordion
+        const parentAccordion = item.closest('.truth-accordion')
+        const siblingItems = parentAccordion?.querySelectorAll('.truth-item')
+        
+        siblingItems?.forEach((otherItem) => {
+          if (otherItem !== item) {
+            const otherTrigger = otherItem.querySelector('.truth-trigger')
+            const otherContent = otherItem.querySelector('.truth-content') as HTMLElement
+            const otherChevron = otherItem.querySelector('.truth-chevron')
+
+            otherTrigger?.setAttribute('aria-expanded', 'false')
+            if (otherContent) otherContent.style.maxHeight = '0'
+            otherChevron?.classList.remove('rotate-180')
+            otherItem.classList.remove('ring-2', 'ring-primary/30')
+          }
+        })
+
+        // Toggle current item
+        trigger.setAttribute('aria-expanded', (!isOpen).toString())
+
+        if (content) {
+          if (!isOpen) {
+            content.style.maxHeight = content.scrollHeight + 'px'
+            item.classList.add('ring-2', 'ring-primary/30')
+          } else {
+            content.style.maxHeight = '0'
+            item.classList.remove('ring-2', 'ring-primary/30')
+          }
+        }
+
+        chevron?.classList.toggle('rotate-180')
+      })
+    })
+  }
+
+  // Active category highlighting on scroll
+  function initCategoryHighlighting() {
+    const sections = document.querySelectorAll('section[id]')
+    const navButtons = document.querySelectorAll('.category-nav-btn')
+
+    const observerOptions = {
+      rootMargin: '-20% 0px -80% 0px',
+      threshold: 0
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const id = entry.target.getAttribute('id')
+          
+          navButtons.forEach((btn) => {
+            const btnCategory = btn.getAttribute('data-category')
+            if (btnCategory === id) {
+              btn.classList.add('bg-primary', 'text-white')
+              btn.classList.remove('bg-gray-100', 'text-gray-700')
+            } else {
+              btn.classList.remove('bg-primary', 'text-white')
+              btn.classList.add('bg-gray-100', 'text-gray-700')
+            }
+          })
+        }
+      })
+    }, observerOptions)
+
+    sections.forEach((section) => {
+      if (section.id) {
+        observer.observe(section)
+      }
+    })
+  }
+
+  // Smooth scroll for category navigation
+  function initSmoothScroll() {
+    const navButtons = document.querySelectorAll('.category-nav-btn')
+    
+    navButtons.forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault()
+        const href = btn.getAttribute('href')
+        if (href) {
+          const target = document.querySelector(href)
+          if (target) {
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' })
+          }
+        }
+      })
+    })
+  }
+
+  // Initialize all scripts
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+      initAccordions()
+      initCategoryHighlighting()
+      initSmoothScroll()
+    })
+  } else {
+    initAccordions()
+    initCategoryHighlighting()
+    initSmoothScroll()
+  }
+</script>
+
 <style>
+  /* Hero Animations */
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
   @keyframes fade-in-up {
     from {
       opacity: 0;
-      transform: translateY(20px);
+      transform: translateY(24px);
     }
     to {
       opacity: 1;
@@ -234,36 +506,56 @@ const beliefs: Belief[] = [
     }
   }
 
-  .belief-item {
+  @keyframes pulse-slow {
+    0%, 100% {
+      opacity: 0.3;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.5;
+      transform: scale(1.05);
+    }
+  }
+
+  .animate-fade-in {
+    animation: fade-in 0.9s ease-out forwards;
+  }
+
+  .animate-fade-in-up {
+    opacity: 0;
+    animation: fade-in-up 0.9s ease-out forwards;
+  }
+
+  .animate-pulse-slow {
+    animation: pulse-slow 4s ease-in-out infinite;
+  }
+
+  /* Truth items animation */
+  .truth-item {
     opacity: 0;
     animation: fade-in-up 0.6s ease-out forwards;
   }
 
-  .belief-item:nth-child(1) {
-    animation-delay: 0.1s;
+  /* Scrollbar hide for category nav */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
   }
-  .belief-item:nth-child(2) {
-    animation-delay: 0.15s;
+  
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
   }
-  .belief-item:nth-child(3) {
-    animation-delay: 0.2s;
+
+  /* Smooth transitions */
+  .truth-content {
+    transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   }
-  .belief-item:nth-child(4) {
-    animation-delay: 0.25s;
+
+  .truth-chevron {
+    transition: transform 0.3s ease;
   }
-  .belief-item:nth-child(5) {
-    animation-delay: 0.3s;
-  }
-  .belief-item:nth-child(6) {
-    animation-delay: 0.35s;
-  }
-  .belief-item:nth-child(7) {
-    animation-delay: 0.4s;
-  }
-  .belief-item:nth-child(8) {
-    animation-delay: 0.45s;
-  }
-  .belief-item:nth-child(9) {
-    animation-delay: 0.5s;
+
+  .truth-chevron.rotate-180 {
+    transform: rotate(180deg);
   }
 </style>
