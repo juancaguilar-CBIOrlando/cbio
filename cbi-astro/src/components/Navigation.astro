@@ -67,7 +67,7 @@ const secondaryLinksColumn2 = [
         primaryLinks.map((link) => (
           <a
             href={link.path}
-            class="nav-link inline-flex items-center font-semibold px-4 py-2 text-white transition-all duration-300 hover:text-white/70">
+            class={`nav-link inline-flex items-center font-semibold px-4 py-2 transition-all duration-300 hover:text-white/70 ${link.path === "/uncorazon" ? "text-[#fcd22a]" : "text-white"}`}>
             {link.name}
           </a>
         ))
