@@ -1,0 +1,130 @@
+---
+interface Props {
+    targetDate?: string
+}
+
+const { targetDate = "2026-03-29T00:00:00" } = Astro.props
+---
+
+<div class="countdown-container" data-target={targetDate}>
+    <div class="grid auto-cols-max grid-flow-col gap-4 md:gap-6 text-center">
+        <div class="flex flex-col items-center">
+            <span
+                class="countdown font-bebas text-5xl md:text-7xl lg:text-8xl text-[#fcd22a]
+                tabular-nums">
+                <span id="days" style="--value:0;">0</span>
+            </span>
+            <span
+                class="text-[#fcd22a]/80 text-sm md:text-base uppercase tracking-wider mt-2"
+                >Días</span
+            >
+        </div>
+        <div
+            class="text-[#fcd22a]/60 text-4xl md:text-6xl lg:text-7xl font-light self-start mt-1">
+            :
+        </div>
+        <div class="flex flex-col items-center">
+            <span
+                class="countdown font-bebas text-5xl md:text-7xl lg:text-8xl text-[#fcd22a] tabular-nums">
+                <span id="hours" style="--value:0;">0</span>
+            </span>
+            <span
+                class="text-[#fcd22a]/80 text-sm md:text-base uppercase tracking-wider mt-2"
+                >Horas</span
+            >
+        </div>
+        <div
+            class="text-[#fcd22a]/60 text-4xl md:text-6xl lg:text-7xl font-light self-start mt-1">
+            :
+        </div>
+        <div class="flex flex-col items-center">
+            <span
+                class="countdown font-bebas text-5xl md:text-7xl lg:text-8xl text-[#fcd22a] tabular-nums">
+                <span id="minutes" style="--value:0;">0</span>
+            </span>
+            <span
+                class="text-[#fcd22a]/80 text-sm md:text-base uppercase tracking-wider mt-2"
+                >Minutos</span
+            >
+        </div>
+        <div
+            class="text-[#fcd22a]/60 text-4xl md:text-6xl lg:text-7xl font-light self-start mt-1">
+            :
+        </div>
+        <div class="flex flex-col items-center">
+            <span
+                class="countdown font-bebas text-5xl md:text-7xl lg:text-8xl text-[#fcd22a] tabular-nums">
+                <span id="seconds" style="--value:0;">0</span>
+            </span>
+            <span
+                class="text-[#fcd22a]/80 text-sm md:text-base uppercase tracking-wider mt-2"
+                >Segundos</span
+            >
+        </div>
+    </div>
+</div>
+
+<script>
+    function initCountdown() {
+        const container = document.querySelector(".countdown-container")
+        if (!container) return
+
+        const targetDate = new Date(
+            container.getAttribute("data-target") || "2026-03-29T00:00:00",
+        )
+
+        const daysEl = document.getElementById("days")
+        const hoursEl = document.getElementById("hours")
+        const minutesEl = document.getElementById("minutes")
+        const secondsEl = document.getElementById("seconds")
+
+        function updateCountdown() {
+            const now = new Date()
+            const diff = targetDate.getTime() - now.getTime()
+
+            if (diff <= 0) {
+                if (daysEl) daysEl.style.setProperty("--value", "0")
+                if (hoursEl) hoursEl.style.setProperty("--value", "0")
+                if (minutesEl) minutesEl.style.setProperty("--value", "0")
+                if (secondsEl) secondsEl.style.setProperty("--value", "0")
+                return
+            }
+
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24))
+            const hours = Math.floor(
+                (diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60),
+            )
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000)
+
+            if (daysEl) {
+                daysEl.style.setProperty("--value", String(days))
+                daysEl.textContent = String(days)
+            }
+            if (hoursEl) {
+                hoursEl.style.setProperty("--value", String(hours))
+                hoursEl.textContent = String(hours)
+            }
+            if (minutesEl) {
+                minutesEl.style.setProperty("--value", String(minutes))
+                minutesEl.textContent = String(minutes)
+            }
+            if (secondsEl) {
+                secondsEl.style.setProperty("--value", String(seconds))
+                secondsEl.textContent = String(seconds)
+            }
+        }
+
+        // Initial update
+        updateCountdown()
+
+        // Update every second
+        setInterval(updateCountdown, 1000)
+    }
+
+    // Run on page load
+    initCountdown()
+
+    // Also run on view transitions (Astro)
+    document.addEventListener("astro:page-load", initCountdown)
+</script>
