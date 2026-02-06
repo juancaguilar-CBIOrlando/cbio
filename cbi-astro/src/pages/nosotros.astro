@@ -188,17 +188,26 @@ const truthsByCategory = categories.map(category => ({
   <!-- Category Navigation -->
   <section class="sticky top-0 z-40 bg-white/95 backdrop-blur-md shadow-lg border-b border-gray-100">
     <div class="w-full px-4 lg:px-8">
-      <div class="flex justify-start lg:justify-center overflow-x-auto py-3 lg:py-4 gap-2 lg:gap-3 scrollbar-hide" id="category-nav">
-        {categories.map((category, index) => (
-          <a
-            href={`#${category.id}`}
-            class="category-nav-btn flex items-center gap-2 lg:gap-3 px-4 lg:px-6 py-2.5 lg:py-3 rounded-full whitespace-nowrap text-sm lg:text-base font-semibold transition-all duration-300 bg-gray-100 text-gray-700 hover:bg-primary hover:text-white shrink-0"
-            data-category={category.id}
-          >
-            <category.icon class="w-4 h-4 lg:w-5 lg:h-5" />
-            <span>{category.name}</span>
-          </a>
-        ))}
+      <div class="relative">
+        <!-- Left fade gradient -->
+        <div class="scroll-fade-left absolute left-0 top-0 bottom-0 w-12 bg-linear-to-r from-white/95 via-white/80 to-transparent z-10 pointer-events-none opacity-0 transition-opacity duration-300 lg:hidden"></div>
+        
+        <!-- Scrollable container -->
+        <div class="flex justify-start lg:justify-center overflow-x-auto py-3 lg:py-4 gap-2 lg:gap-3 scrollbar-hide" id="category-nav">
+          {categories.map((category, index) => (
+            <a
+              href={`#${category.id}`}
+              class="category-nav-btn flex items-center gap-2 lg:gap-3 px-4 lg:px-6 py-2.5 lg:py-3 rounded-full whitespace-nowrap text-sm lg:text-base font-semibold transition-all duration-300 bg-gray-100 text-gray-700 hover:bg-primary hover:text-white shrink-0"
+              data-category={category.id}
+            >
+              <category.icon class="w-4 h-4 lg:w-5 lg:h-5" />
+              <span>{category.name}</span>
+            </a>
+          ))}
+        </div>
+        
+        <!-- Right fade gradient -->
+        <div class="scroll-fade-right absolute right-0 top-0 bottom-0 w-12 bg-linear-to-l from-white/95 via-white/80 to-transparent z-10 pointer-events-none transition-opacity duration-300 lg:hidden"></div>
       </div>
     </div>
   </section>
@@ -470,17 +479,57 @@ const truthsByCategory = categories.map(category => ({
     })
   }
 
+  // Scroll fade indicators for category navigation
+  function initScrollFades() {
+    const container = document.getElementById('category-nav') as HTMLElement | null
+    const leftFade = document.querySelector('.scroll-fade-left') as HTMLElement | null
+    const rightFade = document.querySelector('.scroll-fade-right') as HTMLElement | null
+    
+    if (!container || !leftFade || !rightFade) return
+    
+    const updateFades = () => {
+      const { scrollLeft, scrollWidth, clientWidth } = container
+      const maxScroll = scrollWidth - clientWidth
+      
+      // Show left fade when scrolled past threshold
+      if (scrollLeft > 10) {
+        leftFade.classList.add('opacity-100')
+        leftFade.classList.remove('opacity-0')
+      } else {
+        leftFade.classList.remove('opacity-100')
+        leftFade.classList.add('opacity-0')
+      }
+      
+      // Show right fade when more content exists to the right
+      if (scrollLeft < maxScroll - 10) {
+        rightFade.classList.add('opacity-100')
+        rightFade.classList.remove('opacity-0')
+      } else {
+        rightFade.classList.remove('opacity-100')
+        rightFade.classList.add('opacity-0')
+      }
+    }
+    
+    container.addEventListener('scroll', updateFades, { passive: true })
+    window.addEventListener('resize', updateFades)
+    
+    // Initial check
+    updateFades()
+  }
+
   // Initialize all scripts
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => {
       initAccordions()
       initCategoryHighlighting()
       initSmoothScroll()
+      initScrollFades()
     })
   } else {
     initAccordions()
     initCategoryHighlighting()
     initSmoothScroll()
+    initScrollFades()
   }
 </script>
 
