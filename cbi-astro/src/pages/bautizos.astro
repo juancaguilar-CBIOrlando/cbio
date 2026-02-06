@@ -8,15 +8,13 @@ import {
   MapPin, 
   ArrowRight,
   ChevronRight,
-  Users,
-  Plane,
-  ExternalLink
+  Users
 } from "@lucide/astro"
 import { events, getFeaturedEvents } from "../helpers/eventsData.js"
-import { address, missionsRegistrationLink } from "../constants.js"
+import { address } from "../constants.js"
 
-// Get the Misiones event data for dynamic info (date, image, etc.)
-const event = events.find(e => e.title === "Viaje Misionero Guatemala")
+// Get the Bautizos event data for dynamic info (date, image, etc.)
+const event = events.find(e => e.title === "Bautizos")
 
 // Get other featured events for recommendations
 const otherEvents = getFeaturedEvents()
@@ -26,13 +24,13 @@ const otherEvents = getFeaturedEvents()
 const isLocalImage = event && typeof event.image !== "string"
 ---
 
-<Layout title="Viaje Misionero Guatemala - CBI Orlando" navLogo="white">
+<Layout title="Bautizos - CBI Orlando" navLogo="white">
   <!-- Hero Section -->
   <section class="relative min-h-[70vh] flex items-end overflow-hidden">
     {isLocalImage ? (
       <Image
         src={event.image as ImageMetadata}
-        alt="Viaje Misionero Guatemala"
+        alt="Bautizos"
         width={1920}
         height={1080}
         quality={85}
@@ -42,7 +40,7 @@ const isLocalImage = event && typeof event.image !== "string"
     ) : (
       <img
         src={event?.image as string}
-        alt="Viaje Misionero Guatemala"
+        alt="Bautizos"
         class="absolute inset-0 w-full h-full object-cover"
         loading="eager"
       />
@@ -69,11 +67,11 @@ const isLocalImage = event && typeof event.image !== "string"
         </span>
         
         <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-4 font-bebas">
-          Viaje Misionero Guatemala
+          Bautizos
         </h1>
         
         <p class="text-primary text-lg md:text-xl font-medium mb-6">
-          Llevando esperanza a las naciones
+          Un paso de obediencia, un acto de fe
         </p>
 
         <!-- Event meta -->
@@ -86,7 +84,7 @@ const isLocalImage = event && typeof event.image !== "string"
           )}
           <div class="flex items-center gap-2">
             <MapPin class="w-5 h-5 text-primary" />
-            <span class="text-lg">Guatemala</span>
+            <span class="text-lg">CBI Orlando</span>
           </div>
         </div>
       </div>
@@ -100,11 +98,11 @@ const isLocalImage = event && typeof event.image !== "string"
         <!-- Main Content -->
         <div class="lg:col-span-2">
           <h2 class="text-3xl font-bold text-accent mb-6 font-bebas">
-            Acerca del Viaje Misionero
+            Acerca del Bautismo
           </h2>
           
           <p class="text-gray-600 text-lg leading-relaxed mb-8">
-            Únete a nuestro equipo misionero para llevar el amor de Cristo a Guatemala. Una oportunidad de servir, impactar vidas y experimentar el corazón de Dios por las naciones.
+            Al sumergirte en las aguas, renuevas tu compromiso de seguir a Jesús y ser transformado por su amor. En el bautismo, somos lavados y renovados por el poder del Espíritu Santo.
           </p>
 
           <div class="prose prose-lg max-w-none text-gray-700 
@@ -115,22 +113,20 @@ const isLocalImage = event && typeof event.image !== "string"
             prose-strong:text-accent
             prose-ul:space-y-2">
             
-            <p>Prepárate para una experiencia que cambiará tu vida. Nuestro viaje misionero a Guatemala es una oportunidad única de servir, amar y llevar esperanza a comunidades que lo necesitan.</p>
+            <p>El bautismo es un paso de obediencia que simboliza tu muerte al pecado y tu resurrección a una nueva vida en Cristo. Es una declaración pública de tu fe y tu decisión de seguir a Jesús.</p>
             
-            <h3>¿Qué haremos?</h3>
+            <h3>¿Por qué bautizarse?</h3>
             <ul>
-              <li>Construcción y proyectos comunitarios</li>
-              <li>Ministerio a niños y familias</li>
-              <li>Evangelismo y discipulado</li>
-              <li>Distribución de alimentos y provisiones</li>
+              <li><strong>Es un mandamiento de Jesús:</strong> "Vayan y hagan discípulos de todas las naciones, bautizándolos en el nombre del Padre, del Hijo y del Espíritu Santo." - Mateo 28:19</li>
+              <li><strong>Es un símbolo de tu nueva vida:</strong> Representa tu muerte al pecado y tu resurrección a una nueva vida en Cristo.</li>
+              <li><strong>Es una declaración pública:</strong> Compartes con tu familia, amigos y la iglesia tu decisión de seguir a Jesús.</li>
             </ul>
             
-            <h3>Incluye</h3>
+            <h3>¿Qué necesito para bautizarme?</h3>
             <ul>
-              <li>Vuelo ida y vuelta</li>
-              <li>Hospedaje y alimentación</li>
-              <li>Transporte local</li>
-              <li>Materiales para proyectos</li>
+              <li>Haber aceptado a Jesús como tu Señor y Salvador</li>
+              <li>Completar la clase de bautismo</li>
+              <li>Traer ropa cómoda para el día del bautizo</li>
             </ul>
           </div>
         </div>
@@ -140,7 +136,7 @@ const isLocalImage = event && typeof event.image !== "string"
           <!-- Registration Card -->
           <div class="sticky top-24 bg-slate-50 rounded-2xl p-6 border border-gray-100 shadow-sm">
             <h3 class="text-xl font-bold text-accent mb-4 font-bebas">
-              Información del Viaje
+              Información del Evento
             </h3>
             
             <div class="space-y-4 mb-6">
@@ -165,24 +161,15 @@ const isLocalImage = event && typeof event.image !== "string"
                   </div>
                 </div>
               )}
-
-              <div class="flex items-start gap-3">
-                <div class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center shrink-0">
-                  <Plane class="w-5 h-5 text-primary" />
-                </div>
-                <div>
-                  <p class="text-sm text-gray-500 font-medium">Destino</p>
-                  <p class="text-gray-800 font-semibold">Guatemala</p>
-                </div>
-              </div>
               
               <div class="flex items-start gap-3">
                 <div class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center shrink-0">
                   <MapPin class="w-5 h-5 text-primary" />
                 </div>
                 <div>
-                  <p class="text-sm text-gray-500 font-medium">Sale desde</p>
-                  <p class="text-gray-800 font-semibold">Orlando, FL</p>
+                  <p class="text-sm text-gray-500 font-medium">Ubicación</p>
+                  <p class="text-gray-800 font-semibold">CBI Orlando</p>
+                  <p class="text-gray-500 text-sm">{address}</p>
                 </div>
               </div>
 
@@ -198,25 +185,13 @@ const isLocalImage = event && typeof event.image !== "string"
             </div>
 
             <!-- CTA Button -->
-            {event?.registrationLink ? (
-              <a
-                href={event.registrationLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="w-full inline-flex items-center justify-center gap-2 bg-primary text-white font-semibold py-4 px-6 rounded-full hover:bg-primary/90 transition-all duration-300 hover:scale-[1.02] group"
-              >
-                Inscríbete Ahora
-                <ExternalLink class="w-5 h-5 transition-transform group-hover:translate-x-1" />
-              </a>
-            ) : (
-              <a
-                href="/conectate"
-                class="w-full inline-flex items-center justify-center gap-2 bg-primary text-white font-semibold py-4 px-6 rounded-full hover:bg-primary/90 transition-all duration-300 hover:scale-[1.02] group"
-              >
-                Más Información
-                <ArrowRight class="w-5 h-5 transition-transform group-hover:translate-x-1" />
-              </a>
-            )}
+            <a
+              href="/conectate"
+              class="w-full inline-flex items-center justify-center gap-2 bg-primary text-white font-semibold py-4 px-6 rounded-full hover:bg-primary/90 transition-all duration-300 hover:scale-[1.02] group"
+            >
+              Quiero Bautizarme
+              <ArrowRight class="w-5 h-5 transition-transform group-hover:translate-x-1" />
+            </a>
 
             <!-- Secondary action -->
             <a
@@ -326,36 +301,24 @@ const isLocalImage = event && typeof event.image !== "string"
     
     <div class="relative z-10 max-w-3xl mx-auto px-6 text-center">
       <h2 class="text-4xl md:text-5xl font-bold text-white mb-4 font-bebas">
-        ¿Listo para <span class="text-primary">impactar</span> vidas?
+        ¿Listo para dar el <span class="text-primary">siguiente paso</span>?
       </h2>
       <p class="text-white/70 text-lg mb-8">
-        Únete a nosotros en esta aventura de fe. Juntos podemos llevar esperanza y el amor de Cristo a quienes más lo necesitan.
+        El bautismo es una celebración de tu nueva vida en Cristo. Estamos emocionados de acompañarte en este paso de fe.
       </p>
       <div class="flex flex-col sm:flex-row gap-4 justify-center">
-        {event?.registrationLink ? (
-          <a
-            href={event.registrationLink}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-primary text-white font-semibold rounded-full hover:bg-primary/90 transition-all duration-300 hover:scale-105"
-          >
-            Inscríbete Ahora
-            <ExternalLink class="w-5 h-5" />
-          </a>
-        ) : (
-          <a
-            href="/conectate"
-            class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-primary text-white font-semibold rounded-full hover:bg-primary/90 transition-all duration-300 hover:scale-105"
-          >
-            Contáctanos
-            <ArrowRight class="w-5 h-5" />
-          </a>
-        )}
         <a
           href="/conectate"
+          class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-primary text-white font-semibold rounded-full hover:bg-primary/90 transition-all duration-300 hover:scale-105"
+        >
+          Contáctanos
+          <ArrowRight class="w-5 h-5" />
+        </a>
+        <a
+          href="/visitanos"
           class="inline-flex items-center justify-center px-8 py-4 bg-transparent border-2 border-white text-white font-semibold rounded-full hover:bg-white hover:text-accent transition-all duration-300"
         >
-          ¿Tienes Preguntas?
+          Planea Tu Visita
         </a>
       </div>
     </div>

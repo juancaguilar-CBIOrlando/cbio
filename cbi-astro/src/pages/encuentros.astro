@@ -1,60 +1,37 @@
 ---
-import Layout from "../../layouts/Layout.astro"
+import Layout from "../layouts/Layout.astro"
 import { Image } from "astro:assets"
 import type { ImageMetadata } from "astro"
 import { 
   ArrowLeft, 
   Calendar, 
   MapPin, 
-  Clock, 
   ArrowRight,
   ChevronRight,
-  Users
+  Users,
+  Clock
 } from "@lucide/astro"
-import { 
-  events, 
-  getEventById, 
-  getEventsWithDetailPage,
-  getFeaturedEvents 
-} from "../../helpers/eventsData.js"
-import { address } from "../../constants.js"
+import { events, getFeaturedEvents } from "../helpers/eventsData.js"
+import { address } from "../constants.js"
 
-// Generate static paths for events that have detail pages
-export function getStaticPaths() {
-  const eventsWithPages = getEventsWithDetailPage()
-  return eventsWithPages.map((event) => ({
-    params: { id: String(event.id) },
-  }))
-}
-
-const { id } = Astro.params
-const event = getEventById(id)
-
-// If event doesn't exist or doesn't have a detail page, redirect
-if (!event) {
-  return Astro.redirect("/eventos")
-}
-
-// If event has a registration link but no detail page, redirect to registration
-if (!event.hasDetailPage && event.registrationLink) {
-  return Astro.redirect(event.registrationLink)
-}
+// Get the Encuentros CBI event data for dynamic info (date, image, etc.)
+const event = events.find(e => e.title === "Encuentros CBI")
 
 // Get other featured events for recommendations
 const otherEvents = getFeaturedEvents()
-  .filter(e => e.id !== event.id)
+  .filter(e => e.id !== event?.id)
   .slice(0, 3)
 
-const isLocalImage = typeof event.image !== "string"
+const isLocalImage = event && typeof event.image !== "string"
 ---
 
-<Layout title={`${event.title} - CBI Orlando`} navLogo="white">
+<Layout title="Encuentros CBI - CBI Orlando" navLogo="white">
   <!-- Hero Section -->
   <section class="relative min-h-[70vh] flex items-end overflow-hidden">
     {isLocalImage ? (
       <Image
         src={event.image as ImageMetadata}
-        alt={event.title}
+        alt="Encuentros CBI"
         width={1920}
         height={1080}
         quality={85}
@@ -63,8 +40,8 @@ const isLocalImage = typeof event.image !== "string"
       />
     ) : (
       <img
-        src={event.image as string}
-        alt={event.title}
+        src={event?.image as string}
+        alt="Encuentros CBI"
         class="absolute inset-0 w-full h-full object-cover"
         loading="eager"
       />
@@ -87,20 +64,20 @@ const isLocalImage = typeof event.image !== "string"
       <div class="max-w-6xl mx-auto px-6">
         <!-- Category badge -->
         <span class="inline-block bg-primary text-white text-xs font-semibold px-4 py-1.5 rounded-full uppercase tracking-wider mb-4">
-          {event.category}
+          {event?.category}
         </span>
         
         <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-4 font-bebas">
-          {event.title}
+          Encuentros CBI
         </h1>
         
         <p class="text-primary text-lg md:text-xl font-medium mb-6">
-          {event.tagline}
+          Un tiempo para conocer a Dios
         </p>
 
         <!-- Event meta -->
         <div class="flex flex-wrap gap-6 text-white/80">
-          {event.date && (
+          {event?.date && (
             <div class="flex items-center gap-2">
               <Calendar class="w-5 h-5 text-primary" />
               <span class="text-lg">{event.date}</span>
@@ -122,25 +99,38 @@ const isLocalImage = typeof event.image !== "string"
         <!-- Main Content -->
         <div class="lg:col-span-2">
           <h2 class="text-3xl font-bold text-accent mb-6 font-bebas">
-            Acerca del Evento
+            Acerca de los Encuentros
           </h2>
           
           <p class="text-gray-600 text-lg leading-relaxed mb-8">
-            {event.description}
+            Es una experiencia de sanidad interior, rompimiento de cadenas emocionales y espirituales que nos permitirán perdonar, ser libres para amar y ser felices.
           </p>
 
-          {event.longDescription && (
-            <div 
-              class="prose prose-lg max-w-none text-gray-700 
-                prose-headings:font-bebas prose-headings:text-accent prose-headings:mt-8 prose-headings:mb-4
-                prose-h3:text-2xl
-                prose-p:text-gray-600 prose-p:leading-relaxed
-                prose-li:text-gray-600
-                prose-strong:text-accent
-                prose-ul:space-y-2"
-              set:html={event.longDescription}
-            />
-          )}
+          <div class="prose prose-lg max-w-none text-gray-700 
+            prose-headings:font-bebas prose-headings:text-accent prose-headings:mt-8 prose-headings:mb-4
+            prose-h3:text-2xl
+            prose-p:text-gray-600 prose-p:leading-relaxed
+            prose-li:text-gray-600
+            prose-strong:text-accent
+            prose-ul:space-y-2">
+            
+            <p>Los Encuentros CBI son experiencias diseñadas para llevarte a un encuentro personal y transformador con Dios. Durante este retiro, tendrás la oportunidad de experimentar sanidad interior, liberación y renovación espiritual.</p>
+            
+            <h3>¿Qué puedes esperar?</h3>
+            <ul>
+              <li><strong>Sanidad interior:</strong> Tiempo de ministración personal donde Dios trae sanidad a áreas heridas de tu corazón.</li>
+              <li><strong>Liberación:</strong> Rompimiento de ataduras y cadenas que te han mantenido cautivo.</li>
+              <li><strong>Renovación:</strong> Un nuevo comienzo en tu relación con Dios.</li>
+              <li><strong>Comunidad:</strong> Conexión profunda con otros creyentes en un ambiente de amor y aceptación.</li>
+            </ul>
+            
+            <h3>Detalles del evento</h3>
+            <ul>
+              <li>Duración: Fin de semana completo (viernes a domingo)</li>
+              <li>Incluye: Hospedaje, alimentación y materiales</li>
+              <li>Cupo limitado</li>
+            </ul>
+          </div>
         </div>
 
         <!-- Sidebar -->
@@ -152,7 +142,7 @@ const isLocalImage = typeof event.image !== "string"
             </h3>
             
             <div class="space-y-4 mb-6">
-              {event.date && (
+              {event?.date ? (
                 <div class="flex items-start gap-3">
                   <div class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center shrink-0">
                     <Calendar class="w-5 h-5 text-primary" />
@@ -162,9 +152,7 @@ const isLocalImage = typeof event.image !== "string"
                     <p class="text-gray-800 font-semibold">{event.date}</p>
                   </div>
                 </div>
-              )}
-
-              {!event.date && (
+              ) : (
                 <div class="flex items-start gap-3">
                   <div class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center shrink-0">
                     <Calendar class="w-5 h-5 text-primary" />
@@ -175,6 +163,17 @@ const isLocalImage = typeof event.image !== "string"
                   </div>
                 </div>
               )}
+
+              <div class="flex items-start gap-3">
+                <div class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center shrink-0">
+                  <Clock class="w-5 h-5 text-primary" />
+                </div>
+                <div>
+                  <p class="text-sm text-gray-500 font-medium">Duración</p>
+                  <p class="text-gray-800 font-semibold">Fin de semana completo</p>
+                  <p class="text-gray-500 text-sm">Viernes a Domingo</p>
+                </div>
+              </div>
               
               <div class="flex items-start gap-3">
                 <div class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center shrink-0">
@@ -193,31 +192,19 @@ const isLocalImage = typeof event.image !== "string"
                 </div>
                 <div>
                   <p class="text-sm text-gray-500 font-medium">Categoría</p>
-                  <p class="text-gray-800 font-semibold">{event.category}</p>
+                  <p class="text-gray-800 font-semibold">{event?.category}</p>
                 </div>
               </div>
             </div>
 
             <!-- CTA Button -->
-            {event.registrationLink ? (
-              <a
-                href={event.registrationLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="w-full inline-flex items-center justify-center gap-2 bg-primary text-white font-semibold py-4 px-6 rounded-full hover:bg-primary/90 transition-all duration-300 hover:scale-[1.02] group"
-              >
-                Inscríbete Ahora
-                <ArrowRight class="w-5 h-5 transition-transform group-hover:translate-x-1" />
-              </a>
-            ) : (
-              <a
-                href="/conectate"
-                class="w-full inline-flex items-center justify-center gap-2 bg-primary text-white font-semibold py-4 px-6 rounded-full hover:bg-primary/90 transition-all duration-300 hover:scale-[1.02] group"
-              >
-                Más Información
-                <ArrowRight class="w-5 h-5 transition-transform group-hover:translate-x-1" />
-              </a>
-            )}
+            <a
+              href="/conectate"
+              class="w-full inline-flex items-center justify-center gap-2 bg-primary text-white font-semibold py-4 px-6 rounded-full hover:bg-primary/90 transition-all duration-300 hover:scale-[1.02] group"
+            >
+              Quiero Participar
+              <ArrowRight class="w-5 h-5 transition-transform group-hover:translate-x-1" />
+            </a>
 
             <!-- Secondary action -->
             <a
@@ -257,14 +244,14 @@ const isLocalImage = typeof event.image !== "string"
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {otherEvents.map((otherEvent) => {
             const otherIsLocal = typeof otherEvent.image !== "string"
-            const eventLink = otherEvent.hasDetailPage 
-              ? `/eventos/${otherEvent.id}` 
-              : (otherEvent.registrationLink || `/eventos/${otherEvent.id}`)
+            const eventLink = otherEvent.hasDetailPage && otherEvent.pageUrl
+              ? otherEvent.pageUrl
+              : (otherEvent.registrationLink || null)
             const isExternal = !otherEvent.hasDetailPage && otherEvent.registrationLink
             
             return (
               <a 
-                href={eventLink}
+                href={eventLink || "#"}
                 target={isExternal ? "_blank" : undefined}
                 rel={isExternal ? "noopener noreferrer" : undefined}
                 class="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
@@ -327,10 +314,10 @@ const isLocalImage = typeof event.image !== "string"
     
     <div class="relative z-10 max-w-3xl mx-auto px-6 text-center">
       <h2 class="text-4xl md:text-5xl font-bold text-white mb-4 font-bebas">
-        ¿Tienes <span class="text-primary">Preguntas</span>?
+        ¿Listo para un <span class="text-primary">encuentro</span> con Dios?
       </h2>
       <p class="text-white/70 text-lg mb-8">
-        Estamos aquí para ayudarte. Conéctate con nosotros y te daremos toda la información que necesitas.
+        Este fin de semana puede cambiar tu vida. Experimenta la libertad, sanidad y renovación que solo Dios puede darte.
       </p>
       <div class="flex flex-col sm:flex-row gap-4 justify-center">
         <a

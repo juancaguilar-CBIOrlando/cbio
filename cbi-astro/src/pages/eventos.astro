@@ -17,9 +17,10 @@ const upcomingEventsRaw = getUpcomingUnscheduledEvents()
 // Transform upcoming events to include proper links for the carousel
 const upcomingEvents = upcomingEventsRaw.map((event) => ({
   ...event,
-  link: event.hasDetailPage
-    ? `/eventos/${event.id}`
-    : event.registrationLink || `/eventos/${event.id}`,
+  link:
+    event.hasDetailPage && event.pageUrl
+      ? event.pageUrl
+      : event.registrationLink || undefined,
   isExternalLink: !event.hasDetailPage && !!event.registrationLink,
 }))
 ---
@@ -130,6 +131,7 @@ const upcomingEvents = upcomingEventsRaw.map((event) => ({
               featured={event.featured}
               index={index}
               hasDetailPage={event.hasDetailPage}
+              pageUrl={event.pageUrl}
               registrationLink={event.registrationLink}
             />
           ))

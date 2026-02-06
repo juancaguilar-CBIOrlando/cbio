@@ -5,12 +5,15 @@
  * 1. Add a new object to the events array
  * 2. Provide unique id, title, category, description, date, and image
  * 3. Set featured: true for events to highlight
- * 4. Set hasDetailPage: true for events that need their own page (baptisms, missions, CBI encounters)
+ * 4. Set hasDetailPage: true and pageUrl for events that have dedicated pages (/bautizos, /encuentros, /misiones)
  * 5. Set registrationLink for events that should redirect to external registration
  * 6. Set endDate (YYYY-MM-DD format) for auto-filtering - use the last day for date ranges
  * 
  * To remove an event:
  * Simply remove or comment out the event object from the array
+ * 
+ * Note: Events with dedicated pages (Bautizos, Encuentros CBI, Misiones) have their content
+ * defined directly in their respective page files under /src/pages/
  */
 import encuentros from "../assets/encuentros.jpeg"
 import mujeresImg from "../assets/mujeres.jpg"
@@ -62,28 +65,12 @@ export const events = [
     category: eventCategories[3],
     tagline: "Llevando esperanza a las naciones",
     description: "Únete a nuestro equipo misionero para llevar el amor de Cristo a Guatemala. Una oportunidad de servir, impactar vidas y experimentar el corazón de Dios por las naciones.",
-    longDescription: `
-      <p>Prepárate para una experiencia que cambiará tu vida. Nuestro viaje misionero a Guatemala es una oportunidad única de servir, amar y llevar esperanza a comunidades que lo necesitan.</p>
-      <h3>¿Qué haremos?</h3>
-      <ul>
-        <li>Construcción y proyectos comunitarios</li>
-        <li>Ministerio a niños y familias</li>
-        <li>Evangelismo y discipulado</li>
-        <li>Distribución de alimentos y provisiones</li>
-      </ul>
-      <h3>Incluye</h3>
-      <ul>
-        <li>Vuelo ida y vuelta</li>
-        <li>Hospedaje y alimentación</li>
-        <li>Transporte local</li>
-        <li>Materiales para proyectos</li>
-      </ul>
-    `,
     date: "Marzo 23 al 30, 2026",
     endDate: "2026-03-30", // Last day of the trip
     image: misionesImg,
     featured: true,
     hasDetailPage: true,
+    pageUrl: "/misiones",
     registrationLink: missionsRegistrationLink,
   },
   {
@@ -92,26 +79,12 @@ export const events = [
     category: eventCategories[0],
     tagline: "Un paso de obediencia, un acto de fe",
     description: "Al sumergirte en las aguas, renuevas tu compromiso de seguir a Jesús y ser transformado por su amor. En el bautismo, somos lavados y renovados por el poder del Espíritu Santo.",
-    longDescription: `
-      <p>El bautismo es un paso de obediencia que simboliza tu muerte al pecado y tu resurrección a una nueva vida en Cristo. Es una declaración pública de tu fe y tu decisión de seguir a Jesús.</p>
-      <h3>¿Por qué bautizarse?</h3>
-      <ul>
-        <li><strong>Es un mandamiento de Jesús:</strong> "Vayan y hagan discípulos de todas las naciones, bautizándolos en el nombre del Padre, del Hijo y del Espíritu Santo." - Mateo 28:19</li>
-        <li><strong>Es un símbolo de tu nueva vida:</strong> Representa tu muerte al pecado y tu resurrección a una nueva vida en Cristo.</li>
-        <li><strong>Es una declaración pública:</strong> Compartes con tu familia, amigos y la iglesia tu decisión de seguir a Jesús.</li>
-      </ul>
-      <h3>¿Qué necesito para bautizarme?</h3>
-      <ul>
-        <li>Haber aceptado a Jesús como tu Señor y Salvador</li>
-        <li>Completar la clase de bautismo</li>
-        <li>Traer ropa cómoda para el día del bautizo</li>
-      </ul>
-    `,
     date: "Abril 12, 2026",
     endDate: "2026-04-12",
     image: bautizosImg,
     featured: true,
     hasDetailPage: true,
+    pageUrl: "/bautizos",
     registrationLink: null,
   },
   {
@@ -120,27 +93,12 @@ export const events = [
     category: eventCategories[0],
     tagline: "Un tiempo para conocer a Dios",
     description: "Es una experiencia de sanidad interior, rompimiento de cadenas emocionales y espirituales que nos permitirán perdonar, ser libres para amar y ser felices.",
-    longDescription: `
-      <p>Los Encuentros CBI son experiencias diseñadas para llevarte a un encuentro personal y transformador con Dios. Durante este retiro, tendrás la oportunidad de experimentar sanidad interior, liberación y renovación espiritual.</p>
-      <h3>¿Qué puedes esperar?</h3>
-      <ul>
-        <li><strong>Sanidad interior:</strong> Tiempo de ministración personal donde Dios trae sanidad a áreas heridas de tu corazón.</li>
-        <li><strong>Liberación:</strong> Rompimiento de ataduras y cadenas que te han mantenido cautivo.</li>
-        <li><strong>Renovación:</strong> Un nuevo comienzo en tu relación con Dios.</li>
-        <li><strong>Comunidad:</strong> Conexión profunda con otros creyentes en un ambiente de amor y aceptación.</li>
-      </ul>
-      <h3>Detalles del evento</h3>
-      <ul>
-        <li>Duración: Fin de semana completo (viernes a domingo)</li>
-        <li>Incluye: Hospedaje, alimentación y materiales</li>
-        <li>Cupo limitado</li>
-      </ul>
-    `,
     date: null,
     endDate: null,
     image: encuentros,
     featured: false,
     hasDetailPage: true,
+    pageUrl: "/encuentros",
     registrationLink: null,
   },
   {
@@ -196,18 +154,15 @@ export const getUpcomingScheduledEvents = () => {
 // Helper to get event by id
 export const getEventById = (id) => events.find(event => event.id === Number(id));
 
-// Helper to get events with detail pages (for static generation)
-export const getEventsWithDetailPage = () => events.filter(event => event.hasDetailPage);
-
 // Helper to determine the link for an event card
 export const getEventLink = (event) => {
-  if (event.hasDetailPage) {
-    return `/eventos/${event.id}`;
+  if (event.hasDetailPage && event.pageUrl) {
+    return event.pageUrl;
   }
   if (event.registrationLink) {
     return event.registrationLink;
   }
-  return `/eventos/${event.id}`; // Fallback to detail page
+  return null; // No link for events without detail page or registration
 };
 
 // Helper to check if event link is external
