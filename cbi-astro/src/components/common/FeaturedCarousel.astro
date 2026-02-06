@@ -7,6 +7,7 @@ interface CarouselItem {
   tagline: string;
   date?: string | null;
   link?: string;
+  isExternalLink?: boolean;
 }
 
 interface Props {
@@ -39,6 +40,7 @@ const slidesId = `${id}-slides`;
     <div class="relative flex-1 overflow-hidden min-h-[240px] md:min-h-[360px] lg:min-h-[420px]" id={slidesId}>
       {items.map((item, index) => {
         const hasLink = !!item.link;
+        const isExternal = item.isExternalLink ?? item.link?.startsWith('http');
         const WrapperTag = hasLink ? 'a' : 'div';
         
         return (
@@ -48,8 +50,8 @@ const slidesId = `${id}-slides`;
             <!-- Mobile: Image with text overlay | Desktop: Side by side -->
             <WrapperTag 
               href={hasLink ? item.link : undefined}
-              target={hasLink ? "_blank" : undefined}
-              rel={hasLink ? "noopener noreferrer" : undefined}
+              target={isExternal ? "_blank" : undefined}
+              rel={isExternal ? "noopener noreferrer" : undefined}
               class={`w-full md:flex md:items-center md:gap-10 lg:gap-14 ${hasLink ? 'cursor-pointer group' : ''}`}>
               <!-- Image Container -->
               <div class="relative w-full md:w-1/2 lg:w-[55%] shrink-0">

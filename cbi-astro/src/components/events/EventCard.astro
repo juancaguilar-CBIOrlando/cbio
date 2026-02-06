@@ -1,7 +1,7 @@
 ---
 import { Image } from "astro:assets"
 import type { ImageMetadata } from "astro"
-import { Calendar1, Star } from "@lucide/astro"
+import { Calendar1, Star, ExternalLink } from "@lucide/astro"
 
 interface Props {
   id: number
@@ -13,6 +13,8 @@ interface Props {
   image: string | ImageMetadata
   featured?: boolean
   index?: number
+  hasDetailPage?: boolean
+  registrationLink?: string | null
 }
 
 const {
@@ -25,10 +27,18 @@ const {
   image,
   featured = false,
   index = 0,
+  hasDetailPage = true,
+  registrationLink = null,
 } = Astro.props
 
 // Check if image is a local import (ImageMetadata) or external URL
 const isLocalImage = typeof image !== "string"
+
+// Determine the link behavior
+const eventLink = hasDetailPage
+  ? `/eventos/${id}`
+  : registrationLink || `/eventos/${id}`
+const isExternalLink = !hasDetailPage && registrationLink
 ---
 
 <article
@@ -111,21 +121,30 @@ const isLocalImage = typeof image !== "string"
 
     <!-- Action Link -->
     <a
-      href={`/eventos/${id}`}
+      href={eventLink}
+      target={isExternalLink ? "_blank" : undefined}
+      rel={isExternalLink ? "noopener noreferrer" : undefined}
       class="inline-flex items-center gap-2 text-primary font-semibold text-sm group/link hover:gap-3 transition-all duration-300">
-      Más información
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        class="w-4 h-4 transition-transform duration-300 group-hover/link:translate-x-1"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-        stroke-width="2">
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
-      </svg>
+      {isExternalLink ? "Inscríbete" : "Más información"}
+      {
+        isExternalLink ? (
+          <ExternalLink class="w-4 h-4" />
+        ) : (
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="w-4 h-4 transition-transform duration-300 group-hover/link:translate-x-1"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="2">
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M17 8l4 4m0 0l-4 4m4-4H3"
+            />
+          </svg>
+        )
+      }
     </a>
   </div>
 
