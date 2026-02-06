@@ -1,369 +1,77 @@
 ---
-import Layout from "../layouts/Layout.astro"
 import { Image } from "astro:assets"
-import type { ImageMetadata } from "astro"
-import { 
-  ArrowLeft, 
-  Calendar, 
-  MapPin, 
-  ArrowRight,
-  ChevronRight,
-  Users,
-  Plane,
-  ExternalLink
-} from "@lucide/astro"
-import { events, getFeaturedEvents } from "../helpers/eventsData.js"
-import { address, missionsRegistrationLink } from "../constants.js"
-
-// Get the Misiones event data for dynamic info (date, image, etc.)
-const event = events.find(e => e.title === "Viaje Misionero Guatemala")
-
-// Get other featured events for recommendations
-const otherEvents = getFeaturedEvents()
-  .filter(e => e.id !== event?.id)
-  .slice(0, 3)
-
-const isLocalImage = event && typeof event.image !== "string"
+import Layout from "../layouts/Layout.astro"
+import MissionSection from "../components/missions/MissionSection.astro"
+import ImpactSlider from "../components/missions/ImpactSlider.astro"
+import {
+  missionsSlides,
+  impactSlides,
+  misionesHeroBg,
+} from "../helpers/missionsData.js"
 ---
 
-<Layout title="Viaje Misionero Guatemala - CBI Orlando" navLogo="white">
-  <!-- Hero Section -->
-  <section class="relative min-h-[70vh] flex items-end overflow-hidden">
-    {isLocalImage ? (
-      <Image
-        src={event.image as ImageMetadata}
-        alt="Viaje Misionero Guatemala"
-        width={1920}
-        height={1080}
-        quality={85}
-        class="absolute inset-0 w-full h-full object-cover"
-        loading="eager"
-      />
-    ) : (
-      <img
-        src={event?.image as string}
-        alt="Viaje Misionero Guatemala"
-        class="absolute inset-0 w-full h-full object-cover"
-        loading="eager"
-      />
-    )}
-    
-    <!-- Gradient overlay -->
-    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-black/30"></div>
-    
-    <!-- Back button -->
-    <a 
-      href="/eventos" 
-      class="absolute top-24 left-6 z-20 inline-flex items-center gap-2 text-white/80 hover:text-white transition-colors text-sm font-medium group"
-    >
-      <ArrowLeft class="w-4 h-4 transition-transform group-hover:-translate-x-1" />
-      Volver a eventos
-    </a>
-
-    <!-- Hero content -->
-    <div class="relative z-10 w-full pb-16 pt-40">
-      <div class="max-w-6xl mx-auto px-6">
-        <!-- Category badge -->
-        <span class="inline-block bg-primary text-white text-xs font-semibold px-4 py-1.5 rounded-full uppercase tracking-wider mb-4">
-          {event?.category}
-        </span>
-        
-        <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-4 font-bebas">
-          Viaje Misionero Guatemala
-        </h1>
-        
-        <p class="text-primary text-lg md:text-xl font-medium mb-6">
-          Llevando esperanza a las naciones
-        </p>
-
-        <!-- Event meta -->
-        <div class="flex flex-wrap gap-6 text-white/80">
-          {event?.date && (
-            <div class="flex items-center gap-2">
-              <Calendar class="w-5 h-5 text-primary" />
-              <span class="text-lg">{event.date}</span>
-            </div>
-          )}
-          <div class="flex items-center gap-2">
-            <MapPin class="w-5 h-5 text-primary" />
-            <span class="text-lg">Guatemala</span>
-          </div>
+<Layout navLogo="white" title="Misiones">
+  <main class="bg-white">
+    <header class="relative min-h-[70vh] flex items-center">
+      <div class="absolute inset-0">
+        <Image
+          src={misionesHeroBg}
+          alt="Misiones"
+          width={1920}
+          height={1080}
+          quality={75}
+          class="w-full h-full object-cover"
+          loading="eager"
+        />
+        <div
+          class="absolute inset-0 bg-linear-to-t from-black/80 via-black/55 to-black/10">
         </div>
       </div>
-    </div>
-  </section>
 
-  <!-- Content Section -->
-  <section class="py-16 bg-white">
-    <div class="max-w-6xl mx-auto px-6">
-      <div class="grid lg:grid-cols-3 gap-12">
-        <!-- Main Content -->
-        <div class="lg:col-span-2">
-          <h2 class="text-3xl font-bold text-accent mb-6 font-bebas">
-            Acerca del Viaje Misionero
-          </h2>
-          
-          <p class="text-gray-600 text-lg leading-relaxed mb-8">
-            Únete a nuestro equipo misionero para llevar el amor de Cristo a Guatemala. Una oportunidad de servir, impactar vidas y experimentar el corazón de Dios por las naciones.
+      <div class="relative z-10 w-full px-6 lg:px-16 pt-28 pb-16">
+        <div class="max-w-6xl mx-auto sm:pt-24">
+          <p
+            class="text-white/80 font-semibold tracking-widest text-center uppercase text-sm">
+            Misiones
           </p>
-
-          <div class="prose prose-lg max-w-none text-gray-700 
-            prose-headings:font-bebas prose-headings:text-accent prose-headings:mt-8 prose-headings:mb-4
-            prose-h3:text-2xl
-            prose-p:text-gray-600 prose-p:leading-relaxed
-            prose-li:text-gray-600
-            prose-strong:text-accent
-            prose-ul:space-y-2">
-            
-            <p>Prepárate para una experiencia que cambiará tu vida. Nuestro viaje misionero a Guatemala es una oportunidad única de servir, amar y llevar esperanza a comunidades que lo necesitan.</p>
-            
-            <h3>¿Qué haremos?</h3>
-            <ul>
-              <li>Construcción y proyectos comunitarios</li>
-              <li>Ministerio a niños y familias</li>
-              <li>Evangelismo y discipulado</li>
-              <li>Distribución de alimentos y provisiones</li>
-            </ul>
-            
-            <h3>Incluye</h3>
-            <ul>
-              <li>Vuelo ida y vuelta</li>
-              <li>Hospedaje y alimentación</li>
-              <li>Transporte local</li>
-              <li>Materiales para proyectos</li>
-            </ul>
-          </div>
-        </div>
-
-        <!-- Sidebar -->
-        <div class="lg:col-span-1">
-          <!-- Registration Card -->
-          <div class="sticky top-24 bg-slate-50 rounded-2xl p-6 border border-gray-100 shadow-sm">
-            <h3 class="text-xl font-bold text-accent mb-4 font-bebas">
-              Información del Viaje
-            </h3>
-            
-            <div class="space-y-4 mb-6">
-              {event?.date ? (
-                <div class="flex items-start gap-3">
-                  <div class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center shrink-0">
-                    <Calendar class="w-5 h-5 text-primary" />
-                  </div>
-                  <div>
-                    <p class="text-sm text-gray-500 font-medium">Fecha</p>
-                    <p class="text-gray-800 font-semibold">{event.date}</p>
-                  </div>
-                </div>
-              ) : (
-                <div class="flex items-start gap-3">
-                  <div class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center shrink-0">
-                    <Calendar class="w-5 h-5 text-primary" />
-                  </div>
-                  <div>
-                    <p class="text-sm text-gray-500 font-medium">Fecha</p>
-                    <p class="text-gray-800 font-semibold">Por confirmar</p>
-                  </div>
-                </div>
-              )}
-
-              <div class="flex items-start gap-3">
-                <div class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center shrink-0">
-                  <Plane class="w-5 h-5 text-primary" />
-                </div>
-                <div>
-                  <p class="text-sm text-gray-500 font-medium">Destino</p>
-                  <p class="text-gray-800 font-semibold">Guatemala</p>
-                </div>
-              </div>
-              
-              <div class="flex items-start gap-3">
-                <div class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center shrink-0">
-                  <MapPin class="w-5 h-5 text-primary" />
-                </div>
-                <div>
-                  <p class="text-sm text-gray-500 font-medium">Sale desde</p>
-                  <p class="text-gray-800 font-semibold">Orlando, FL</p>
-                </div>
-              </div>
-
-              <div class="flex items-start gap-3">
-                <div class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center shrink-0">
-                  <Users class="w-5 h-5 text-primary" />
-                </div>
-                <div>
-                  <p class="text-sm text-gray-500 font-medium">Categoría</p>
-                  <p class="text-gray-800 font-semibold">{event?.category}</p>
-                </div>
-              </div>
-            </div>
-
-            <!-- CTA Button -->
-            {event?.registrationLink ? (
-              <a
-                href={event.registrationLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="w-full inline-flex items-center justify-center gap-2 bg-primary text-white font-semibold py-4 px-6 rounded-full hover:bg-primary/90 transition-all duration-300 hover:scale-[1.02] group"
-              >
-                Inscríbete Ahora
-                <ExternalLink class="w-5 h-5 transition-transform group-hover:translate-x-1" />
-              </a>
-            ) : (
-              <a
-                href="/conectate"
-                class="w-full inline-flex items-center justify-center gap-2 bg-primary text-white font-semibold py-4 px-6 rounded-full hover:bg-primary/90 transition-all duration-300 hover:scale-[1.02] group"
-              >
-                Más Información
-                <ArrowRight class="w-5 h-5 transition-transform group-hover:translate-x-1" />
-              </a>
-            )}
-
-            <!-- Secondary action -->
-            <a
-              href="/conectate"
-              class="w-full mt-3 inline-flex items-center justify-center gap-2 bg-transparent border-2 border-accent text-accent font-semibold py-3 px-6 rounded-full hover:bg-accent hover:text-white transition-all duration-300"
-            >
-              ¿Tienes preguntas?
-            </a>
-          </div>
+          <h1
+            class="font-bebas text-5xl sm:text-7xl lg:text-8xl text-white text-center leading-[0.9] mt-3">
+            Creemos, <span class="text-primary">Amamos</span> y Servimos.
+            <br />
+          </h1>
         </div>
       </div>
-    </div>
-  </section>
+    </header>
 
-  <!-- Other Events Section -->
-  {otherEvents.length > 0 && (
-    <section class="py-16 bg-slate-50">
-      <div class="max-w-6xl mx-auto px-6">
-        <div class="flex items-center justify-between mb-10">
-          <div>
-            <span class="inline-block bg-accent/10 text-accent px-4 py-1 rounded-full text-sm font-semibold mb-2">
-              MÁS EVENTOS
-            </span>
-            <h2 class="text-3xl md:text-4xl font-bold text-accent font-bebas">
-              También Te Puede Interesar
-            </h2>
-          </div>
-          <a 
-            href="/eventos"
-            class="hidden md:inline-flex items-center gap-2 text-primary font-semibold hover:gap-3 transition-all"
-          >
-            Ver todos
-            <ChevronRight class="w-5 h-5" />
-          </a>
+    <MissionSection
+      eyebrow="Misiones"
+      title="Llevamos ayuda y esperanza a comunidades vulnerables."
+      description="Tu aporte permite que llevemos el amor de Cristo a cada lugar. ¡Gracias por tu generosidad!"
+      ctaText="Donar"
+      ctaHref="/donation"
+      sliderName="misiones"
+      slides={missionsSlides}
+    />
+
+    <section class="py-18 px-6 lg:px-16 bg-gray-50">
+      <div class="max-w-6xl mx-auto">
+        <div class="mb-10">
+          <h2
+            class="font-bebas text-5xl sm:text-6xl lg:text-7xl leading-[0.95] text-black">
+            Impacto de Misiones
+          </h2>
+          <p class="mt-4 text-black/70 text-lg leading-relaxed max-w-3xl">
+            Mira lo que Dios está haciendo y únete apoyando con oración,
+            donación o sirviendo.
+          </p>
         </div>
 
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {otherEvents.map((otherEvent) => {
-            const otherIsLocal = typeof otherEvent.image !== "string"
-            const eventLink = otherEvent.hasDetailPage && otherEvent.pageUrl
-              ? otherEvent.pageUrl
-              : (otherEvent.registrationLink || null)
-            const isExternal = !otherEvent.hasDetailPage && otherEvent.registrationLink
-            
-            return (
-              <a 
-                href={eventLink || "#"}
-                target={isExternal ? "_blank" : undefined}
-                rel={isExternal ? "noopener noreferrer" : undefined}
-                class="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
-              >
-                <div class="relative h-48 overflow-hidden">
-                  {otherIsLocal ? (
-                    <Image
-                      src={otherEvent.image as ImageMetadata}
-                      alt={otherEvent.title}
-                      width={400}
-                      height={300}
-                      class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                    />
-                  ) : (
-                    <img
-                      src={otherEvent.image as string}
-                      alt={otherEvent.title}
-                      class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                    />
-                  )}
-                  <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-                  <span class="absolute top-3 left-3 bg-primary text-white text-xs font-semibold px-3 py-1 rounded-full">
-                    {otherEvent.category}
-                  </span>
-                </div>
-                <div class="p-5">
-                  <h3 class="text-xl font-bold text-accent mb-2 group-hover:text-primary transition-colors font-bebas">
-                    {otherEvent.title}
-                  </h3>
-                  {otherEvent.date && (
-                    <p class="text-gray-500 text-sm flex items-center gap-2">
-                      <Calendar class="w-4 h-4" />
-                      {otherEvent.date}
-                    </p>
-                  )}
-                </div>
-              </a>
-            )
-          })}
-        </div>
-
-        <div class="mt-8 text-center md:hidden">
-          <a 
-            href="/eventos"
-            class="inline-flex items-center gap-2 text-primary font-semibold"
-          >
-            Ver todos los eventos
-            <ChevronRight class="w-5 h-5" />
-          </a>
-        </div>
+        <ImpactSlider
+          name="impacto-misiones"
+          slides={impactSlides}
+          ariaLabel="Impacto"
+        />
       </div>
     </section>
-  )}
-
-  <!-- CTA Section -->
-  <section class="py-20 bg-accent relative overflow-hidden">
-    <!-- Decorative elements -->
-    <div class="absolute top-0 left-0 w-64 h-64 bg-primary/10 rounded-full -translate-x-1/2 -translate-y-1/2"></div>
-    <div class="absolute bottom-0 right-0 w-96 h-96 bg-primary/5 rounded-full translate-x-1/3 translate-y-1/3"></div>
-    
-    <div class="relative z-10 max-w-3xl mx-auto px-6 text-center">
-      <h2 class="text-4xl md:text-5xl font-bold text-white mb-4 font-bebas">
-        ¿Listo para <span class="text-primary">impactar</span> vidas?
-      </h2>
-      <p class="text-white/70 text-lg mb-8">
-        Únete a nosotros en esta aventura de fe. Juntos podemos llevar esperanza y el amor de Cristo a quienes más lo necesitan.
-      </p>
-      <div class="flex flex-col sm:flex-row gap-4 justify-center">
-        {event?.registrationLink ? (
-          <a
-            href={event.registrationLink}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-primary text-white font-semibold rounded-full hover:bg-primary/90 transition-all duration-300 hover:scale-105"
-          >
-            Inscríbete Ahora
-            <ExternalLink class="w-5 h-5" />
-          </a>
-        ) : (
-          <a
-            href="/conectate"
-            class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-primary text-white font-semibold rounded-full hover:bg-primary/90 transition-all duration-300 hover:scale-105"
-          >
-            Contáctanos
-            <ArrowRight class="w-5 h-5" />
-          </a>
-        )}
-        <a
-          href="/conectate"
-          class="inline-flex items-center justify-center px-8 py-4 bg-transparent border-2 border-white text-white font-semibold rounded-full hover:bg-white hover:text-accent transition-all duration-300"
-        >
-          ¿Tienes Preguntas?
-        </a>
-      </div>
-    </div>
-  </section>
+  </main>
 </Layout>
-
-<style>
-  .font-bebas {
-    font-family: 'Bebas Neue', sans-serif;
-  }
-</style>
