@@ -1,6 +1,7 @@
 import marulandaImg from "../assets/marulanda.jpeg"
 import smitsImg from "../assets/smits.jpeg"
 import riverasImg from "../assets/riveras.jpg"
+import dianaCastilloImg from "../assets/pastora-diana.jpg"
 
 export const pastors = [
   {
@@ -62,4 +63,17 @@ Creemos que cada joven tiene un potencial increíble y estamos comprometidos a a
     // FIXME: Add actual image path when available
     image: riverasImg,
   },
+  {
+    name1: "Diana",
+    lastName:"Castillo",
+    role:"Pastora de CBI Kids",
+    description: `Soy Diana Castillo, pastora de CBI Kids de CBI Orlando.
+
+Nos apasiona ver a los niños crecer en su relación con Dios y ayudarles a descubrir su propósito.
+
+Creemos que los niños tienen un llamado único y poderoso, y estamos aquí para guiarlos, inspirarlos y acompañarlos en su caminar con Dios.
+
+¡Ven y sé parte de esta generación que está haciendo historia!`,
+    image: dianaCastilloImg,
+  }
 ]

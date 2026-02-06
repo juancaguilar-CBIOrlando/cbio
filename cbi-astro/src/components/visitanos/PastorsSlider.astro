@@ -25,9 +25,11 @@ import "swiper/css/navigation"
                       <div class="pastor-names absolute top-0 right-2 sm:top-2 sm:right-2 z-20 text-right">
                         <span class="font-script text-3xl sm:text-3xl lg:text-4xl text-white drop-shadow-lg block whitespace-nowrap">
                           {pastor.name1}
-                          <span class="text-primary italic text-xl sm:text-2xl lg:text-3xl">
-                            &
-                          </span>
+                          {pastor.name2 && (
+                            <span class="text-primary italic text-xl sm:text-2xl lg:text-3xl">
+                              &
+                            </span>
+                          )}
                           {pastor.name2}
                         </span>
                         <span class="font-script text-2xl sm:text-3xl lg:text-4xl text-white drop-shadow-lg block">
