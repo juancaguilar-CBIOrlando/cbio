@@ -5,7 +5,7 @@
  * 1. Add a new object to the events array
  * 2. Provide unique id, title, category, description, date, and image
  * 3. Set featured: true for events to highlight
- * 4. Set hasDetailPage: true and pageUrl for events that have dedicated pages (/bautizos, /encuentros, /misiones)
+ * 4. Set hasDetailPage: true and pageUrl for events that have dedicated pages (/bautizos, /encuentros, /viaje-misionero)
  * 5. Set registrationLink for events that should redirect to external registration
  * 6. Set endDate (YYYY-MM-DD format) for auto-filtering - use the last day for date ranges
  * 
@@ -70,7 +70,7 @@ export const events = [
     image: misionesImg,
     featured: true,
     hasDetailPage: true,
-    pageUrl: "/misiones",
+    pageUrl: "/viaje-misionero",
     registrationLink: missionsRegistrationLink,
   },
   {
