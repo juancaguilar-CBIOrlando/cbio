@@ -67,9 +67,7 @@ Creemos que cada joven tiene un potencial increíble y estamos comprometidos a a
     name1: "Diana",
     lastName:"Castillo",
     role:"Pastora de CBI Kids",
-    description: `Soy Diana Castillo, pastora de CBI Kids de CBI Orlando.
-
-Nos apasiona ver a los niños crecer en su relación con Dios y ayudarles a descubrir su propósito.
+    description: `Soy Diana Castillo, pastora de CBI Kids de CBI Orlando. Me apasiona ver a los niños crecer en su relación con Dios y ayudarles a descubrir su propósito.
 
 Creemos que los niños tienen un llamado único y poderoso, y estamos aquí para guiarlos, inspirarlos y acompañarlos en su caminar con Dios.
 
