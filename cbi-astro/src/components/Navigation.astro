@@ -24,9 +24,9 @@ const socialLinks = [
 const primaryLinks = [
   { name: "Visitanos", path: "/visitanos" },
   { name: "Conectate", path: "/conectate" },
+  { name: "Lo Mejor de Ti", path: "/uncorazon" },
   { name: "Devocional", path: "/devocional" },
   { name: "Eventos", path: "/eventos" },
-  { name: "Lo Mejor de Ti", path: "/uncorazon" },
 ]
 
 // Secondary links - only visible in the overlay menu (split into two columns)
@@ -148,7 +148,7 @@ const secondaryLinksColumn2 = [
             primaryLinks.map((link, index) => (
               <a
                 href={link.path}
-                class="menu-link primary-link text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-white py-1 lg:py-2 transition-all duration-300 hover:text-primary"
+                class={`menu-link primary-link text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold py-1 lg:py-2 transition-all duration-300 hover:text-primary ${link.path === "/uncorazon" ? "text-[#fcd22a]" : "text-white"}`}
                 style={`animation-delay: ${index * 50}ms;`}>
                 {link.name}
               </a>
