@@ -1,6 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro"
 import { ChevronDown, BookOpen, Cross, Flame, Church, Crown, ArrowRight } from "@lucide/astro"
+import ValuesContent from "../components/values/ValuesContent.astro"
 
 type FundamentalTruth = {
   id: number
@@ -347,6 +348,9 @@ const truthsByCategory = categories.map(category => ({
         </div>
       </div>
     </section>
+
+    <!-- Values Section -->
+    <ValuesContent />
 
     <!-- CTA Section -->
     <section class="py-20 lg:py-24 px-6 lg:px-16 bg-white">
