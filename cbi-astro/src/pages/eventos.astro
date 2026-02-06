@@ -2,21 +2,25 @@
 import Layout from "../layouts/Layout.astro"
 import EventCard from "../components/events/EventCard.astro"
 import FeaturedCarousel from "../components/common/FeaturedCarousel.astro"
-import { events, getUpcomingUnscheduledEvents } from "../helpers/eventsData.js"
+import {
+  getUpcomingScheduledEvents,
+  getUpcomingUnscheduledEvents,
+} from "../helpers/eventsData.js"
 import { ArrowRight } from "lucide-react"
 import { ArrowDown } from "@lucide/astro"
 import Marquee from "../components/Marquee.astro"
 
-const scheduledEvents = events.filter((event) => event.date !== null)
+// Get scheduled events that haven't passed yet (auto-filtered by date)
+const scheduledEvents = getUpcomingScheduledEvents()
 const upcomingEventsRaw = getUpcomingUnscheduledEvents()
 
 // Transform upcoming events to include proper links for the carousel
 const upcomingEvents = upcomingEventsRaw.map((event) => ({
   ...event,
-  link: event.hasDetailPage 
-    ? `/eventos/${event.id}` 
-    : (event.registrationLink || `/eventos/${event.id}`),
-  isExternalLink: !event.hasDetailPage && !!event.registrationLink
+  link: event.hasDetailPage
+    ? `/eventos/${event.id}`
+    : event.registrationLink || `/eventos/${event.id}`,
+  isExternalLink: !event.hasDetailPage && !!event.registrationLink,
 }))
 ---
 
