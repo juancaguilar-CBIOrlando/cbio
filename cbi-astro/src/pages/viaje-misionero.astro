@@ -57,22 +57,22 @@ const otherEvents = getFeaturedEvents()
                 <!-- Category badge -->
                 <span
                     class="inline-block bg-primary text-white text-xs font-semibold px-4 py-1.5 rounded-full uppercase tracking-wider mb-4">
-                    {event?.category}
+                    {event.category}
                 </span>
 
                 <h1
                     class="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-4 font-bebas">
-                    Viaje Misionero Guatemala
+                    {event.title}
                 </h1>
 
                 <p class="text-primary text-lg md:text-xl font-medium mb-6">
-                    Llevando esperanza a las naciones
+                    {event.tagline}
                 </p>
 
                 <!-- Event meta -->
                 <div class="flex flex-wrap gap-6 text-white/80">
                     {
-                        event?.date && (
+                        event.date && (
                             <div class="flex items-center gap-2">
                                 <Calendar class="w-5 h-5 text-primary" />
                                 <span class="text-lg">{event.date}</span>
@@ -81,7 +81,7 @@ const otherEvents = getFeaturedEvents()
                     }
                     <div class="flex items-center gap-2">
                         <MapPin class="w-5 h-5 text-primary" />
-                        <span class="text-lg">Guatemala</span>
+                        <span class="text-lg">{event.location}</span>
                     </div>
                 </div>
             </div>
@@ -95,14 +95,11 @@ const otherEvents = getFeaturedEvents()
                 <!-- Main Content -->
                 <div class="lg:col-span-2">
                     <h2 class="text-3xl font-bold text-accent mb-6 font-bebas">
-                        Acerca del Viaje Misionero
+                        Acerca del {event.title}
                     </h2>
 
                     <p class="text-gray-600 text-lg leading-relaxed mb-8">
-                        Únete a nuestro equipo misionero para llevar el amor de
-                        Cristo a Guatemala. Una oportunidad de servir, impactar
-                        vidas y experimentar el corazón de Dios por las
-                        naciones.
+                        {event.description}
                     </p>
 
                     <div
@@ -149,37 +146,21 @@ const otherEvents = getFeaturedEvents()
                         </h3>
 
                         <div class="space-y-4 mb-6">
-                            {
-                                event?.date ? (
-                                    <div class="flex items-start gap-3">
-                                        <div class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center shrink-0">
-                                            <Calendar class="w-5 h-5 text-primary" />
-                                        </div>
-                                        <div>
-                                            <p class="text-sm text-gray-500 font-medium">
-                                                Fecha
-                                            </p>
-                                            <p class="text-gray-800 font-semibold">
-                                                {event.date}
-                                            </p>
-                                        </div>
-                                    </div>
-                                ) : (
-                                    <div class="flex items-start gap-3">
-                                        <div class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center shrink-0">
-                                            <Calendar class="w-5 h-5 text-primary" />
-                                        </div>
-                                        <div>
-                                            <p class="text-sm text-gray-500 font-medium">
-                                                Fecha
-                                            </p>
-                                            <p class="text-gray-800 font-semibold">
-                                                Por confirmar
-                                            </p>
-                                        </div>
-                                    </div>
-                                )
-                            }
+                            <div class="flex items-start gap-3">
+                                <div
+                                    class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center shrink-0">
+                                    <Calendar class="w-5 h-5 text-primary" />
+                                </div>
+                                <div>
+                                    <p
+                                        class="text-sm text-gray-500 font-medium">
+                                        Fecha
+                                    </p>
+                                    <p class="text-gray-800 font-semibold">
+                                        {event.date || "Por confirmar"}
+                                    </p>
+                                </div>
+                            </div>
 
                             <div class="flex items-start gap-3">
                                 <div
@@ -192,26 +173,28 @@ const otherEvents = getFeaturedEvents()
                                         Destino
                                     </p>
                                     <p class="text-gray-800 font-semibold">
-                                        Guatemala
+                                        {event.location}
                                     </p>
                                 </div>
                             </div>
 
-                            <div class="flex items-start gap-3">
-                                <div
-                                    class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center shrink-0">
-                                    <MapPin class="w-5 h-5 text-primary" />
-                                </div>
-                                <div>
-                                    <p
-                                        class="text-sm text-gray-500 font-medium">
-                                        Sale desde
-                                    </p>
-                                    <p class="text-gray-800 font-semibold">
-                                        Orlando, FL
-                                    </p>
-                                </div>
-                            </div>
+                            {
+                                event.departsFrom && (
+                                    <div class="flex items-start gap-3">
+                                        <div class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center shrink-0">
+                                            <MapPin class="w-5 h-5 text-primary" />
+                                        </div>
+                                        <div>
+                                            <p class="text-sm text-gray-500 font-medium">
+                                                Sale desde
+                                            </p>
+                                            <p class="text-gray-800 font-semibold">
+                                                {event.departsFrom}
+                                            </p>
+                                        </div>
+                                    </div>
+                                )
+                            }
 
                             <div class="flex items-start gap-3">
                                 <div
@@ -224,7 +207,7 @@ const otherEvents = getFeaturedEvents()
                                         Categoría
                                     </p>
                                     <p class="text-gray-800 font-semibold">
-                                        {event?.category}
+                                        {event.category}
                                     </p>
                                 </div>
                             </div>
@@ -232,7 +215,7 @@ const otherEvents = getFeaturedEvents()
 
                         <!-- CTA Button -->
                         {
-                            event?.registrationLink ? (
+                            event.registrationLink ? (
                                 <a
                                     href={event.registrationLink}
                                     target="_blank"
