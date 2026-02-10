@@ -10,7 +10,7 @@ interface Props {
   tagline: string
   description: string
   date: string | null
-  image: string | ImageMetadata
+  image: string | ImageMetadata | null
   featured?: boolean
   index?: number
   hasDetailPage?: boolean
@@ -33,8 +33,9 @@ const {
   registrationLink = null,
 } = Astro.props
 
-// Check if image is a local import (ImageMetadata) or external URL
-const isLocalImage = typeof image !== "string"
+// Check if image exists and if it's a local import (ImageMetadata) or external URL
+const hasImage = image !== null && image !== undefined
+const isLocalImage = hasImage && typeof image !== "string"
 
 // Determine the link behavior
 const eventLink = hasDetailPage && pageUrl
@@ -53,24 +54,32 @@ const isExternalLink = !hasDetailPage && registrationLink
     <!-- Image Container -->
     <div class="relative h-56 overflow-hidden">
       {
-        isLocalImage ? (
-          <Image
-            src={image as ImageMetadata}
-            alt={title}
-            width={600}
-            height={400}
-            format="webp"
-            quality={80}
-            class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-            loading="lazy"
-          />
+        hasImage ? (
+          isLocalImage ? (
+            <Image
+              src={image as ImageMetadata}
+              alt={title}
+              width={600}
+              height={400}
+              format="webp"
+              quality={80}
+              class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+              loading="lazy"
+            />
+          ) : (
+            <img
+              src={image as string}
+              alt={title}
+              class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+              loading="lazy"
+            />
+          )
         ) : (
-          <img
-            src={image as string}
-            alt={title}
-            class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-            loading="lazy"
-          />
+          <div class="w-full h-full bg-linear-to-br from-gray-700 to-gray-900 flex items-center justify-center">
+            <span class="text-gray-500 text-lg">
+              Imagen próximamente
+            </span>
+          </div>
         )
       }
       <div
@@ -164,24 +173,32 @@ const isExternalLink = !hasDetailPage && registrationLink
     <!-- Image Container -->
     <div class="relative h-56 overflow-hidden">
       {
-        isLocalImage ? (
-          <Image
-            src={image as ImageMetadata}
-            alt={title}
-            width={600}
-            height={400}
-            format="webp"
-            quality={80}
-            class="w-full h-full object-cover"
-            loading="lazy"
-          />
+        hasImage ? (
+          isLocalImage ? (
+            <Image
+              src={image as ImageMetadata}
+              alt={title}
+              width={600}
+              height={400}
+              format="webp"
+              quality={80}
+              class="w-full h-full object-cover"
+              loading="lazy"
+            />
+          ) : (
+            <img
+              src={image as string}
+              alt={title}
+              class="w-full h-full object-cover"
+              loading="lazy"
+            />
+          )
         ) : (
-          <img
-            src={image as string}
-            alt={title}
-            class="w-full h-full object-cover"
-            loading="lazy"
-          />
+          <div class="w-full h-full bg-linear-to-br from-gray-700 to-gray-900 flex items-center justify-center">
+            <span class="text-gray-500 text-lg">
+              Imagen próximamente
+            </span>
+          </div>
         )
       }
       <div

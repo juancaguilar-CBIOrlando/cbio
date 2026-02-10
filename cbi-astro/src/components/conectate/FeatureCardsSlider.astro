@@ -1,10 +1,5 @@
 ---
-import {
-    Coffee,
-    Target,
-    Heart,
-    Footprints,
-} from "@lucide/astro"
+import { Coffee, Target, Heart, Footprints } from "@lucide/astro"
 import SliderArrow from "../common/SliderArrow.astro"
 import "swiper/css"
 import "swiper/css/navigation"
@@ -40,7 +35,8 @@ const featureCards = [
 ---
 
 <!-- Mobile Slider -->
-<div class="feature-cards-slider-mobile sm:hidden min-w-0 w-full overflow-hidden">
+<div
+    class="feature-cards-slider-mobile sm:hidden min-w-0 w-full overflow-hidden">
     <div class="flex items-center justify-end gap-3 mb-4">
         <SliderArrow
             direction="prev"

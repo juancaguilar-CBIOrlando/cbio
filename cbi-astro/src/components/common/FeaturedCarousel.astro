@@ -2,7 +2,7 @@
 import { Calendar } from "@lucide/astro";
 
 interface CarouselItem {
-  image: ImageMetadata | { src: string };
+  image: ImageMetadata | { src: string } | null;
   title: string;
   tagline: string;
   date?: string | null;
@@ -56,11 +56,19 @@ const slidesId = `${id}-slides`;
               <!-- Image Container -->
               <div class="relative w-full md:w-1/2 lg:w-[55%] shrink-0">
                 <div class={`relative aspect-video md:aspect-4/3 lg:aspect-video rounded-xl overflow-hidden ${hasLink ? 'group-hover:ring-2 group-hover:ring-primary/50 transition-all duration-300' : ''}`}>
-                  <img 
-                    src={'src' in item.image ? item.image.src : item.image} 
-                    alt={item.title}
-                    class={`w-full h-full object-cover ${hasLink ? 'group-hover:scale-105 transition-transform duration-500' : ''}`}
-                  />
+                  {item.image ? (
+                    <img 
+                      src={item.image && typeof item.image === 'object' && 'src' in item.image ? item.image.src : item.image} 
+                      alt={item.title}
+                      class={`w-full h-full object-cover ${hasLink ? 'group-hover:scale-105 transition-transform duration-500' : ''}`}
+                    />
+                  ) : (
+                    <div class="w-full h-full bg-linear-to-br from-gray-700 to-gray-900 flex items-center justify-center">
+                      <span class="text-gray-500 text-lg">
+                        Imagen próximamente
+                      </span>
+                    </div>
+                  )}
                   <!-- Gradient overlay - stronger on mobile for text readability -->
                   <div class="absolute inset-0 bg-linear-to-t from-black/80 via-black/40 to-transparent md:from-black/30 md:via-transparent md:to-transparent"></div>
                   
