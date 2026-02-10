@@ -5,7 +5,8 @@ import { getDevotionals } from "../../helpers/notion"
 import { Image } from "astro:assets"
 import bibleImg from "../../assets/bible.jpeg"
 import OpenBookIcon from "../../components/icons/OpenBookIcon.astro"
-import { ArrowRight, ArrowDown } from "@lucide/astro"
+import { ArrowRight } from "@lucide/astro"
+import Marquee from "../../components/Marquee.astro"
 
 // Disable prerender so this route fetches fresh data on each request
 export const prerender = false;
@@ -17,7 +18,7 @@ const devotionals = await getDevotionals()
 <Layout title="Devocionales - CBI Orlando" navLogo="white">
   <div class="relative overflow-hidden">
     <!-- Hero Section -->
-    <section class="relative h-[70vh] min-h-[520px] w-full overflow-hidden">
+    <section class="relative h-[94vh] min-h-[600px] w-full overflow-hidden">
       <Image
         src={bibleImg}
         alt="Devocionales - Biblia"
@@ -36,22 +37,15 @@ const devotionals = await getDevotionals()
         <h1 class="font-bebas text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-white mb-3 max-w-4xl leading-none animate-fade-in-up">
           Reflexiones que fortalecen tu <span class="text-primary">fe</span>
         </h1>
-        <p class="text-white/75 text-lg md:text-xl max-w-2xl mx-auto animate-fade-in-up" style="animation-delay: 0.2s;">
+        <p class="text-white/75 text-lg md:text-xl max-w-2xl mx-auto mb-4 animate-fade-in-up" style="animation-delay: 0.2s;">
           Lecturas diarias para caminar con Dios, con esperanza y propósito.
         </p>
 
-        <!-- Scroll indicator -->
-        <div class="mt-10 animate-fade-in-up" style="animation-delay: 0.35s;">
-          <a
-            href="#devocionales"
-            class="inline-flex flex-col items-center justify-center gap-2 text-white/60 hover:text-primary transition-colors duration-300"
-          >
-            <span class="text-xs uppercase tracking-widest">Ver lista</span>
-            <ArrowDown class="w-5 h-5 animate-bounce" />
-          </a>
-        </div>
       </div>
     </section>
+
+    <!-- Marquee Section -->
+    <Marquee text="LA PALABRA DE DIOS TRANSFORMA VIDAS" />
 
     <!-- Content -->
     <main id="devocionales" class="bg-slate-50 relative">
