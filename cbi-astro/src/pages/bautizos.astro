@@ -9,6 +9,12 @@ import {
     ChevronRight,
     Users,
     Clock,
+    BookOpen,
+    Heart,
+    Megaphone,
+    CheckCircle,
+    Shirt,
+    GraduationCap,
 } from "@lucide/astro"
 import { events, getFeaturedEvents } from "../helpers/eventsData.js"
 import { address } from "../constants.js"
@@ -25,15 +31,21 @@ const otherEvents = getFeaturedEvents()
 <Layout title="Bautizos - CBI Orlando" navLogo="white">
     <!-- Hero Section -->
     <section class="relative min-h-[70vh] flex items-end overflow-hidden">
-        <Image
-            src={event.image}
-            alt="Bautizos"
-            width={1920}
-            height={1080}
-            quality={85}
-            class="absolute inset-0 w-full h-full object-cover"
-            loading="eager"
-        />
+        {
+            event.image ? (
+                <Image
+                    src={event.image}
+                    alt="Bautizos"
+                    width={1920}
+                    height={1080}
+                    quality={85}
+                    class="absolute inset-0 w-full h-full object-cover"
+                    loading="eager"
+                />
+            ) : (
+                <div class="absolute inset-0 w-full h-full bg-linear-to-br from-gray-800 to-gray-950" />
+            )
+        }
 
         <!-- Gradient overlay -->
         <div
@@ -101,49 +113,197 @@ const otherEvents = getFeaturedEvents()
                         {event.description}
                     </p>
 
+                    <!-- Introduction Card -->
                     <div
-                        class="prose prose-lg max-w-none text-gray-700
-            prose-headings:font-bebas prose-headings:text-accent prose-headings:mt-8 prose-headings:mb-4
-            prose-h3:text-2xl
-            prose-p:text-gray-600 prose-p:leading-relaxed
-            prose-li:text-gray-600
-            prose-strong:text-accent
-            prose-ul:space-y-2">
-                        <p>
-                            El bautismo es un paso de obediencia que simboliza
-                            tu muerte al pecado y tu resurrección a una nueva
-                            vida en Cristo. Es una declaración pública de tu fe
-                            y tu decisión de seguir a Jesús.
-                        </p>
+                        class="bg-linear-to-br from-blue-50 to-primary/5 border border-primary/10 rounded-2xl mb-8">
+                        <div class="p-6">
+                            <p class="text-gray-700 text-lg leading-relaxed">
+                                El bautismo es un paso de obediencia que
+                                simboliza tu muerte al pecado y tu resurrección
+                                a una nueva vida en Cristo. Es una declaración
+                                pública de tu fe y tu decisión de seguir a
+                                Jesús.
+                            </p>
+                        </div>
+                    </div>
 
-                        <h3>¿Por qué bautizarse?</h3>
-                        <ul>
-                            <li>
-                                <strong>Es un mandamiento de Jesús:</strong> "Vayan
-                                y hagan discípulos de todas las naciones, bautizándolos
-                                en el nombre del Padre, del Hijo y del Espíritu Santo."
-                                - Mateo 28:19
+                    <!-- Why Get Baptized Section -->
+                    <div class="mb-10">
+                        <h3
+                            class="text-2xl font-bold text-accent mb-6 font-bebas flex items-center gap-3">
+                            <span
+                                class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center">
+                                <span class="text-primary text-lg">💧</span>
+                            </span>
+                            ¿Por qué bautizarse?
+                        </h3>
+
+                        <div class="space-y-4">
+                            <!-- Reason 1 -->
+                            <div
+                                class="bg-white rounded-2xl border border-gray-100 shadow-sm">
+                                <div class="p-5">
+                                    <div class="flex items-start gap-4">
+                                        <div
+                                            class="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center shrink-0">
+                                            <BookOpen
+                                                class="w-6 h-6 text-primary"
+                                            />
+                                        </div>
+                                        <div>
+                                            <h4
+                                                class="font-bold text-accent mb-2 text-lg">
+                                                Es un mandamiento de Jesús
+                                            </h4>
+                                            <p
+                                                class="text-gray-600 leading-relaxed mb-2">
+                                                "Vayan y hagan discípulos de
+                                                todas las naciones,
+                                                bautizándolos en el nombre del
+                                                Padre, del Hijo y del Espíritu
+                                                Santo."
+                                            </p>
+                                            <span
+                                                class="badge badge-primary badge-outline"
+                                                >Mateo 28:19</span
+                                            >
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Reason 2 -->
+                            <div
+                                class="bg-white rounded-2xl border border-gray-100 shadow-sm">
+                                <div class="p-5">
+                                    <div class="flex items-start gap-4">
+                                        <div
+                                            class="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center shrink-0">
+                                            <Heart
+                                                class="w-6 h-6 text-primary"
+                                            />
+                                        </div>
+                                        <div>
+                                            <h4
+                                                class="font-bold text-accent mb-2 text-lg">
+                                                Es un símbolo de tu nueva vida
+                                            </h4>
+                                            <p
+                                                class="text-gray-600 leading-relaxed">
+                                                Representa tu muerte al pecado y
+                                                tu resurrección a una nueva vida
+                                                en Cristo. Es el inicio de un
+                                                nuevo capítulo.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Reason 3 -->
+                            <div
+                                class="bg-white rounded-2xl border border-gray-100 shadow-sm">
+                                <div class="p-5">
+                                    <div class="flex items-start gap-4">
+                                        <div
+                                            class="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center shrink-0">
+                                            <Megaphone
+                                                class="w-6 h-6 text-primary"
+                                            />
+                                        </div>
+                                        <div>
+                                            <h4
+                                                class="font-bold text-accent mb-2 text-lg">
+                                                Es una declaración pública
+                                            </h4>
+                                            <p
+                                                class="text-gray-600 leading-relaxed">
+                                                Compartes con tu familia, amigos
+                                                y la iglesia tu decisión de
+                                                seguir a Jesús. Es un testimonio
+                                                poderoso de tu fe.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Requirements Section with Steps -->
+                    <div class="mb-8">
+                        <h3
+                            class="text-2xl font-bold text-accent mb-6 font-bebas flex items-center gap-3">
+                            <span
+                                class="w-10 h-10 bg-accent/10 rounded-full flex items-center justify-center">
+                                <span class="text-accent text-lg">📝</span>
+                            </span>
+                            ¿Qué necesito para bautizarme?
+                        </h3>
+
+                        <!-- Steps Component -->
+                        <ul class="steps steps-vertical w-full">
+                            <li class="step step-primary" data-content="1">
+                                <div class="text-left ml-4">
+                                    <div class="flex items-center gap-3 mb-1">
+                                        <CheckCircle
+                                            class="w-5 h-5 text-primary"
+                                        />
+                                        <span class="font-bold text-accent"
+                                            >Decisión Personal</span
+                                        >
+                                    </div>
+                                    <p class="text-gray-600 text-sm">
+                                        Haber aceptado a Jesús como tu Señor y
+                                        Salvador
+                                    </p>
+                                </div>
                             </li>
-                            <li>
-                                <strong>Es un símbolo de tu nueva vida:</strong> Representa
-                                tu muerte al pecado y tu resurrección a una nueva
-                                vida en Cristo.
+                            <li class="step step-primary" data-content="2">
+                                <div class="text-left ml-4">
+                                    <div class="flex items-center gap-3 mb-1">
+                                        <GraduationCap
+                                            class="w-5 h-5 text-primary"
+                                        />
+                                        <span class="font-bold text-accent"
+                                            >Preparación</span
+                                        >
+                                    </div>
+                                    <p class="text-gray-600 text-sm">
+                                        Completar la clase de bautismo
+                                    </p>
+                                </div>
                             </li>
-                            <li>
-                                <strong>Es una declaración pública:</strong> Compartes
-                                con tu familia, amigos y la iglesia tu decisión de
-                                seguir a Jesús.
+                            <li class="step step-primary" data-content="3">
+                                <div class="text-left ml-4">
+                                    <div class="flex items-center gap-3 mb-1">
+                                        <Shirt class="w-5 h-5 text-primary" />
+                                        <span class="font-bold text-accent"
+                                            >Día del Bautizo</span
+                                        >
+                                    </div>
+                                    <p class="text-gray-600 text-sm">
+                                        Traer ropa cómoda para el día del
+                                        bautizo
+                                    </p>
+                                </div>
                             </li>
                         </ul>
+                    </div>
 
-                        <h3>¿Qué necesito para bautizarme?</h3>
-                        <ul>
-                            <li>
-                                Haber aceptado a Jesús como tu Señor y Salvador
-                            </li>
-                            <li>Completar la clase de bautismo</li>
-                            <li>Traer ropa cómoda para el día del bautizo</li>
-                        </ul>
+                    <!-- Scripture Quote -->
+                    <div class="bg-accent text-white rounded-2xl">
+                        <div class="p-6">
+                            <blockquote class="text-lg italic leading-relaxed">
+                                "Por tanto, mediante el bautismo fuimos
+                                sepultados con él en su muerte, a fin de que,
+                                así como Cristo resucitó por el poder del Padre,
+                                también nosotros llevemos una vida nueva."
+                            </blockquote>
+                            <p class="text-primary font-semibold mt-3">
+                                — Romanos 6:4
+                            </p>
+                        </div>
                     </div>
                 </div>
 
@@ -159,11 +319,13 @@ const otherEvents = getFeaturedEvents()
 
                         <div class="space-y-4 mb-6">
                             <div class="flex items-start gap-3">
-                                <div class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center shrink-0">
+                                <div
+                                    class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center shrink-0">
                                     <Calendar class="w-5 h-5 text-primary" />
                                 </div>
                                 <div>
-                                    <p class="text-sm text-gray-500 font-medium">
+                                    <p
+                                        class="text-sm text-gray-500 font-medium">
                                         Fecha
                                     </p>
                                     <p class="text-gray-800 font-semibold">
@@ -172,21 +334,23 @@ const otherEvents = getFeaturedEvents()
                                 </div>
                             </div>
 
-                            {event.time && (
-                                <div class="flex items-start gap-3">
-                                    <div class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center shrink-0">
-                                        <Clock class="w-5 h-5 text-primary" />
+                            {
+                                event.time && (
+                                    <div class="flex items-start gap-3">
+                                        <div class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center shrink-0">
+                                            <Clock class="w-5 h-5 text-primary" />
+                                        </div>
+                                        <div>
+                                            <p class="text-sm text-gray-500 font-medium">
+                                                Hora
+                                            </p>
+                                            <p class="text-gray-800 font-semibold">
+                                                {event.time}
+                                            </p>
+                                        </div>
                                     </div>
-                                    <div>
-                                        <p class="text-sm text-gray-500 font-medium">
-                                            Hora
-                                        </p>
-                                        <p class="text-gray-800 font-semibold">
-                                            {event.time}
-                                        </p>
-                                    </div>
-                                </div>
-                            )}
+                                )
+                            }
 
                             <div class="flex items-start gap-3">
                                 <div
