@@ -12,7 +12,7 @@ interface Props {
 
 const {
 	title = "CBI Orlando",
-	description = "Centro Bíblico Internacional Orlando - Una iglesia comprometida con transformar vidas a través del amor de Cristo. Amar a Dios. Amar la Familia. Amar el Servicio.",
+	description = "CBI Orlando - Una iglesia comprometida con transformar vidas a través del amor de Cristo. Amar a Dios. Amar la Familia. Amar el Servicio.",
 	navLogo = "black",
 } = Astro.props
 
@@ -21,7 +21,7 @@ const canonicalURL = new URL(
 	Astro.url.pathname,
 	Astro.site ?? "https://cbiorlando.org",
 )
-const imageURL = new URL(ogImage.src, Astro.site ?? "https://cbiorlando.org")
+const imageURL = new URL(ogImage.src, canonicalURL)
 ---
 
 <!doctype html>
