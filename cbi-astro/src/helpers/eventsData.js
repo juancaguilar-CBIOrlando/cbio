@@ -57,7 +57,7 @@ export const events = [
     image: mujeresImg,
     featured: true,
     hasDetailPage: false,
-    registrationLink: null,
+    registrationLink:"https://cbichurch.churchcenter.com/registrations/events/3450739",
   },
   {
     id: 3,
