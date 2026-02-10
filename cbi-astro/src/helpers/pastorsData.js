@@ -2,6 +2,7 @@ import marulandaImg from "../assets/marulanda.jpeg"
 import smitsImg from "../assets/smits.jpeg"
 import riverasImg from "../assets/riveras.jpg"
 import dianaCastilloImg from "../assets/pastora-diana.jpg"
+import paizImg from "../assets/paiz.jpeg"
 
 export const pastors = [
   {
@@ -46,7 +47,7 @@ Creemos que los jóvenes tienen un llamado único y poderoso, y estamos aquí pa
 
 ¡Ven y sé parte de esta generación que está haciendo historia!`,
     // FIXME: Add actual image path when available
-    image: null,
+    image: paizImg,
   },
   {
     name1: "Emanuel",
