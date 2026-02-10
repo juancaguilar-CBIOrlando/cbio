@@ -6,6 +6,11 @@ import dreamTeamFunnyImg from "../assets/dreamTeam-funny.JPG"
 import alabanzaImg from "../assets/alabanza.JPG"
 import danzaImg from "../assets/alabanza-danza.jpg"
 import danzaImg2 from "../assets/alabanza-danza5.JPG"
+import dreamTeamUnidaImg from "../assets/dreamTeam-unidad.jpeg"
+import dreamTeamFamilyImg from "../assets/dreamTeam-familia.jpeg"
+import dreamTeamGroupImg from "../assets/dreamTeam-group.jpg"
+import dreamTeamAlegriaImg from "../assets/dreamTeam-alegria.jpg"
+import dreamTeamComunidadImg from "../assets/comunidad.jpeg"
 
 /**
  * Dream Team page content data
@@ -45,21 +50,21 @@ export const ourTeamSlides = [
     title: "Familia de Servidores",
     description:
       "Somos más que voluntarios, somos una familia unida por el amor de Cristo y el deseo de servir.",
-    image: dreamTeamFunnyImg,
+    image: dreamTeamFamilyImg,
   },
   {
     id: "team-2",
     title: "Unidos en Misión",
     description:
       "Cada servidor aporta sus dones únicos para cumplir la misión de llevar el amor de Cristo a todos.",
-    image: dreamTeam1Img,
+    image: dreamTeamUnidaImg,
   },
   {
     id: "team-3",
     title: "Equipados para Servir",
     description:
       "Te capacitamos y acompañamos para que puedas servir con excelencia y confianza.",
-    image: dreamTeam2Img,
+    image: dreamTeamGroupImg,
   },
 ]
 
@@ -78,7 +83,7 @@ export const valuesSlides = [
     title: "Comunidad",
     description:
       "No servimos solos. Creamos lazos de amistad y apoyo mutuo que van más allá del domingo.",
-    image: danzaImg,
+    image: dreamTeamComunidadImg,
     icon: "users",
   },
   {
@@ -94,7 +99,7 @@ export const valuesSlides = [
     title: "Alegría",
     description:
       "Servimos con gozo porque sabemos que estamos haciendo la obra del Señor. La alegría es contagiosa.",
-    image: danzaImg2,
+    image: dreamTeamAlegriaImg,
     icon: "heart",
   },
 ]
@@ -102,45 +107,52 @@ export const valuesSlides = [
 // Ministry areas where people can serve
 export const ministryAreas = [
   {
-    id: "worship",
+    id: "media",
+    name: "Media",
+    description: "Crea contenido visual y digital para comunicar el mensaje de la iglesia.",
+    icon: "video",
+    color: "from-blue-500 to-blue-600",
+  },
+  {
+    id: "adoracion",
     name: "Adoración",
-    description: "Lidera la adoración a través de la música, sonido, visuales y producción.",
+    description: "Lidera la adoración a través de la música y el canto.",
     icon: "music",
     color: "from-purple-500 to-purple-600",
   },
   {
-    id: "hospitality",
-    name: "Hospitalidad",
-    description: "Da la bienvenida y haz que cada persona se sienta en casa.",
-    icon: "heart-handshake",
-    color: "from-primary to-green-600",
+    id: "dance",
+    name: "Dance",
+    description: "Expresa adoración a Dios a través del movimiento y la danza.",
+    icon: "sparkles",
+    color: "from-pink-500 to-rose-600",
+  },
+  {
+    id: "operaciones",
+    name: "Operaciones",
+    description: "Mantén todo funcionando detrás de escena con excelencia.",
+    icon: "settings",
+    color: "from-gray-500 to-gray-600",
   },
   {
     id: "kids",
-    name: "CBI Kids",
+    name: "CBI KIDS",
     description: "Impacta la próxima generación enseñando a los niños el amor de Dios.",
     icon: "baby",
     color: "from-yellow-500 to-orange-500",
   },
   {
-    id: "production",
-    name: "Producción",
-    description: "Sonido, luces, cámaras y tecnología para llevar el mensaje a todos.",
-    icon: "video",
-    color: "from-blue-500 to-blue-600",
+    id: "guest-services",
+    name: "Guest Services",
+    description: "Da la bienvenida y haz que cada persona se sienta en casa.",
+    icon: "heart-handshake",
+    color: "from-primary to-green-600",
   },
   {
-    id: "prayer",
-    name: "Oración",
-    description: "Intercede por las necesidades de la iglesia y la comunidad.",
-    icon: "hands-praying",
-    color: "from-accent to-indigo-700",
-  },
-  {
-    id: "connections",
+    id: "conexiones",
     name: "Conexiones",
     description: "Ayuda a las personas a conectarse y encontrar su lugar en la iglesia.",
     icon: "link",
-    color: "from-pink-500 to-rose-600",
+    color: "from-accent to-indigo-700",
   },
 ]
