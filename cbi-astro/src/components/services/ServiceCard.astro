@@ -21,7 +21,12 @@ const { day, image, name, times, address, mapsLink, imageAlt, location } =
 const timesArray = Array.isArray(times) ? times : [times]
 ---
 
-<div class="box rounded-sm relative">
+<a
+  href={mapsLink}
+  target="_blank"
+  rel="noopener noreferrer"
+  class="box rounded-sm relative block group cursor-pointer transition-transform duration-300 hover:scale-[1.02]"
+  aria-label={`Abrir ${name} en Google Maps`}>
   <div class="absolute top-4 right-4 bg-white z-10 p-2 px-4 rounded-sm">
     <h2 class="text-black tracking-widest text-2xl font-bebas">
       {day}
@@ -59,14 +64,11 @@ const timesArray = Array.isArray(times) ? times : [times]
       </p>
     </div>
     <div class="relative">
-      <a
-        href={mapsLink}
-        target="_blank"
-        rel="noopener noreferrer"
-        class="text-white bg-primary rounded-full p-4 inline-block hover:bg-primary/90 transition-colors duration-300"
-        aria-label={`Abrir ${name} en Google Maps`}>
+      <div
+        class="text-white bg-primary rounded-full p-4 inline-block group-hover:bg-primary/90 transition-colors duration-300"
+        aria-hidden="true">
         <Navigation width={28} height={28} />
-      </a>
+      </div>
     </div>
   </div>
-</div>
+</a>
