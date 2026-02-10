@@ -1,7 +1,16 @@
 ---
 import Layout from "../layouts/Layout.astro"
 import { Image } from "astro:assets"
-import { ArrowRight, ArrowDown, Heart, Users, Sparkles } from "@lucide/astro"
+import {
+    ArrowRight,
+    ArrowDown,
+    Heart,
+    Users,
+    Coffee,
+    Compass,
+    Lightbulb,
+    HandHeart,
+} from "@lucide/astro"
 import Marquee from "../components/Marquee.astro"
 import DreamTeamSection from "../components/dreamteam/DreamTeamSection.astro"
 import ValuesSlider from "../components/dreamteam/ValuesSlider.astro"
@@ -144,6 +153,266 @@ import {
             <!-- Section 4: Ministry Areas -->
             <MinistryAreas areas={ministryAreas} />
 
+            <!-- Section 5: Connection Classes - Path to Serving -->
+            <section
+                id="como-empezar"
+                class="py-16 px-6 lg:px-16 bg-slate-50 relative overflow-hidden">
+                <!-- Background Pattern -->
+                <div class="absolute inset-0 opacity-[0.03]">
+                    <svg
+                        class="w-full h-full"
+                        viewBox="0 0 100 100"
+                        preserveAspectRatio="none">
+                        <pattern
+                            id="dots-pattern"
+                            width="20"
+                            height="20"
+                            patternUnits="userSpaceOnUse">
+                            <circle
+                                cx="10"
+                                cy="10"
+                                r="2"
+                                fill="currentColor"
+                                class="text-accent"></circle>
+                        </pattern>
+                        <rect width="100" height="100" fill="url(#dots-pattern)"
+                        ></rect>
+                    </svg>
+                </div>
+
+                <div class="max-w-7xl mx-auto relative z-10">
+                    <!-- Header -->
+                    <div class="text-center mb-16">
+                        <div
+                            class="inline-flex items-center gap-2 bg-amber-100 text-amber-800 px-4 py-2 rounded-full text-sm font-semibold mb-4">
+                            <Coffee class="w-4 h-4" />
+                            <span>CLASES DE CONEXIÓN</span>
+                        </div>
+                        <h2
+                            class="font-bebas text-4xl sm:text-5xl lg:text-6xl text-accent mb-4 leading-none">
+                            ¿Cómo Empiezo a <span class="text-primary"
+                                >Servir</span
+                            >?
+                        </h2>
+                        <p
+                            class="text-gray-600 text-lg max-w-3xl mx-auto leading-relaxed">
+                            Tu camino hacia el servicio comienza con nuestras <strong
+                                class="text-accent">Clases de Conexión</strong
+                            >. En estas sesiones descubrirás tu propósito, tus
+                            dones y cómo Dios quiere usarte para impactar vidas.
+                        </p>
+                    </div>
+
+                    <!-- Journey Steps -->
+                    <div
+                        class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 mb-16">
+                        <!-- Step 1: Descubre -->
+                        <div
+                            class="connection-step group relative bg-white rounded-3xl p-8 border border-slate-100 hover:border-amber-200 hover:shadow-xl transition-all duration-500">
+                            <div class="absolute top-4 right-4">
+                                <span
+                                    class="text-6xl font-bebas text-slate-100 group-hover:text-amber-100 transition-colors"
+                                    >01</span
+                                >
+                            </div>
+                            <div class="relative z-10">
+                                <div
+                                    class="w-14 h-14 rounded-2xl bg-amber-100 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300">
+                                    <Compass class="w-7 h-7 text-amber-700" />
+                                </div>
+                                <h3
+                                    class="text-2xl font-bold text-accent mb-3 font-bebas tracking-wide">
+                                    Descubre
+                                </h3>
+                                <p
+                                    class="text-gray-600 leading-relaxed text-sm">
+                                    Conoce nuestra visión, valores y lo que nos
+                                    impulsa como iglesia. Entiende hacia dónde
+                                    vamos juntos.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Step 2: Conecta -->
+                        <div
+                            class="connection-step group relative bg-white rounded-3xl p-8 border border-slate-100 hover:border-primary/30 hover:shadow-xl transition-all duration-500"
+                            style="animation-delay: 0.1s;">
+                            <div class="absolute top-4 right-4">
+                                <span
+                                    class="text-6xl font-bebas text-slate-100 group-hover:text-primary/20 transition-colors"
+                                    >02</span
+                                >
+                            </div>
+                            <div class="relative z-10">
+                                <div
+                                    class="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300">
+                                    <Users class="w-7 h-7 text-primary" />
+                                </div>
+                                <h3
+                                    class="text-2xl font-bold text-accent mb-3 font-bebas tracking-wide">
+                                    Conecta
+                                </h3>
+                                <p
+                                    class="text-gray-600 leading-relaxed text-sm">
+                                    Forma parte de nuestra comunidad. Encuentra
+                                    relaciones genuinas y un lugar donde
+                                    pertenecer.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Step 3: Crece -->
+                        <div
+                            class="connection-step group relative bg-white rounded-3xl p-8 border border-slate-100 hover:border-emerald-200 hover:shadow-xl transition-all duration-500"
+                            style="animation-delay: 0.2s;">
+                            <div class="absolute top-4 right-4">
+                                <span
+                                    class="text-6xl font-bebas text-slate-100 group-hover:text-emerald-100 transition-colors"
+                                    >03</span
+                                >
+                            </div>
+                            <div class="relative z-10">
+                                <div
+                                    class="w-14 h-14 rounded-2xl bg-emerald-100 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300">
+                                    <Lightbulb
+                                        class="w-7 h-7 text-emerald-700"
+                                    />
+                                </div>
+                                <h3
+                                    class="text-2xl font-bold text-accent mb-3 font-bebas tracking-wide">
+                                    Crece
+                                </h3>
+                                <p
+                                    class="text-gray-600 leading-relaxed text-sm">
+                                    Descubre tu diseño único. Identifica tus
+                                    dones, talentos y pasiones para alcanzar tu
+                                    potencial.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Step 4: Sirve -->
+                        <div
+                            class="connection-step group relative bg-white rounded-3xl p-8 border border-slate-100 hover:border-accent/20 hover:shadow-xl transition-all duration-500"
+                            style="animation-delay: 0.3s;">
+                            <div class="absolute top-4 right-4">
+                                <span
+                                    class="text-6xl font-bebas text-slate-100 group-hover:text-accent/20 transition-colors"
+                                    >04</span
+                                >
+                            </div>
+                            <div class="relative z-10">
+                                <div
+                                    class="w-14 h-14 rounded-2xl bg-accent/10 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300">
+                                    <HandHeart class="w-7 h-7 text-accent" />
+                                </div>
+                                <h3
+                                    class="text-2xl font-bold text-accent mb-3 font-bebas tracking-wide">
+                                    Sirve
+                                </h3>
+                                <p
+                                    class="text-gray-600 leading-relaxed text-sm">
+                                    Usa tus dones para hacer la diferencia.
+                                    Encuentra tu lugar en el Dream Team y marca
+                                    vidas.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- FamiCafe Highlight Box -->
+                    <div
+                        class="bg-accent rounded-3xl p-8 lg:p-12 relative overflow-hidden">
+                        <!-- Decorative elements -->
+                        <div
+                            class="absolute top-0 right-0 w-64 h-64 bg-primary/20 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl">
+                        </div>
+                        <Coffee
+                            class="absolute top-6 right-6 w-12 h-12 text-amber-700/30"
+                        />
+
+                        <div
+                            class="relative z-10 grid lg:grid-cols-2 gap-8 items-center">
+                            <div>
+                                <div class="flex items-center gap-3 mb-4">
+                                    <Coffee class="w-8 h-8 text-amber-600" />
+                                    <span
+                                        class="text-white font-semibold uppercase tracking-wider"
+                                        >FamiCafé</span
+                                    >
+                                </div>
+                                <h3
+                                    class="font-bebas text-3xl lg:text-4xl text-white mb-4">
+                                    Tu Primer Paso <span class="text-primary"
+                                        >Comienza Aquí</span
+                                    >
+                                </h3>
+                                <p class="text-white/80 leading-relaxed mb-6">
+                                    FamiCafé es donde todo comienza. En un
+                                    ambiente cálido con café y conversaciones
+                                    significativas, descubrirás la visión de la
+                                    iglesia, tu propósito y cómo puedes ser
+                                    parte del Dream Team.
+                                </p>
+                                <ul class="space-y-3 mb-8">
+                                    <li
+                                        class="flex items-center gap-3 text-white/90">
+                                        <div
+                                            class="w-5 h-5 rounded-full bg-primary/30 flex items-center justify-center shrink-0">
+                                            <span class="text-primary text-xs"
+                                                >✓</span
+                                            >
+                                        </div>
+                                        3 sesiones que transformarán tu perspectiva
+                                    </li>
+                                    <li
+                                        class="flex items-center gap-3 text-white/90">
+                                        <div
+                                            class="w-5 h-5 rounded-full bg-primary/30 flex items-center justify-center shrink-0">
+                                            <span class="text-primary text-xs"
+                                                >✓</span
+                                            >
+                                        </div>
+                                        Descubre tus dones y talentos únicos
+                                    </li>
+                                    <li
+                                        class="flex items-center gap-3 text-white/90">
+                                        <div
+                                            class="w-5 h-5 rounded-full bg-primary/30 flex items-center justify-center shrink-0">
+                                            <span class="text-primary text-xs"
+                                                >✓</span
+                                            >
+                                        </div>
+                                        Conexión directa con líderes del Dream Team
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="text-center lg:text-left">
+                                <div
+                                    class="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/10">
+                                    <h4
+                                        class="font-bebas text-2xl text-white mb-2">
+                                        ¿Listo Para Empezar?
+                                    </h4>
+                                    <p class="text-white/70 text-sm mb-6">
+                                        Inscríbete en nuestro próximo FamiCafé y
+                                        da el primer paso hacia tu llamado.
+                                    </p>
+                                    <a
+                                        href="/conectate#famicafe"
+                                        class="inline-flex items-center justify-center gap-2 bg-primary text-white px-8 py-4 rounded-full font-semibold text-lg hover:bg-primary/90 transition-all duration-300 hover:scale-105 group w-full sm:w-auto">
+                                        Inscríbete Ahora
+                                        <ArrowRight
+                                            class="w-5 h-5 transform group-hover:translate-x-1 transition-transform"
+                                        />
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             <!-- Testimonial/Quote Section -->
             <section class="py-20 bg-accent relative overflow-hidden">
                 <div class="absolute inset-0 opacity-10">
@@ -275,5 +544,25 @@ import {
     .animate-fade-in-up {
         opacity: 0;
         animation: fade-in-up 0.9s ease-out forwards;
+    }
+
+    /* Connection Step Cards */
+    .connection-step {
+        opacity: 0;
+        animation: fade-in-up 0.6s ease-out forwards;
+    }
+
+    /* Step Connection Line (desktop) */
+    @media (min-width: 1024px) {
+        .connection-step:not(:last-child)::after {
+            content: "";
+            position: absolute;
+            top: 2rem;
+            right: -1rem;
+            width: 2rem;
+            height: 2px;
+            background: linear-gradient(90deg, #e2e8f0 0%, transparent 100%);
+            opacity: 0.5;
+        }
     }
 </style>
