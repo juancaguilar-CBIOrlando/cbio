@@ -109,7 +109,7 @@ export const ministryAreas = [
   {
     id: "media",
     name: "Media",
-    description: "Crea contenido visual y digital para comunicar el mensaje de la iglesia.",
+    description: "Crea contenido visual y digital para comunicar el mensaje de Cristo.",
     icon: "video",
     color: "from-blue-500 to-blue-600",
   },
@@ -122,15 +122,15 @@ export const ministryAreas = [
   },
   {
     id: "dance",
-    name: "Dance",
-    description: "Expresa adoración a Dios a través del movimiento y la danza.",
+    name: "Danza",
+    description: "Expresa adoración a Dios a través de la danza.",
     icon: "sparkles",
     color: "from-pink-500 to-rose-600",
   },
   {
     id: "operaciones",
     name: "Operaciones",
-    description: "Mantén todo funcionando detrás de escena con excelencia.",
+    description: "Manténiene funcionando todos los procesos operativos en excelencia.",
     icon: "settings",
     color: "from-gray-500 to-gray-600",
   },
@@ -144,7 +144,7 @@ export const ministryAreas = [
   {
     id: "guest-services",
     name: "Guest Services",
-    description: "Da la bienvenida y haz que cada persona se sienta en casa.",
+    description: "Da la bienvenida y hace que cada persona se sienta en casa.",
     icon: "heart-handshake",
     color: "from-primary to-green-600",
   },

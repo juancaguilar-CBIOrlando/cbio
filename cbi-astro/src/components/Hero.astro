@@ -45,7 +45,7 @@ const slides: Slide[] = [
     image: null, // TODO: Add a third slide image
     videoUrl: null,
     title: "Unete a Nuestros Grupos de Conexión",
-    description: "Todos los Viernes a las 7:00 PM",
+    description: "Todos los Viernes a las 7:00 PM & 7:30 PM",
     cta: [
       {
         text: "Conéctate",
@@ -58,7 +58,8 @@ const slides: Slide[] = [
     id: 3,
     image: serviciosDominicalImg,
     title: "Servicios Dominicales",
-    description: "Todos los domingos a las 9:30 AM y 11:30 AM",
+    description:
+      "Todos los domingos a las 9:30 AM (Español) y 11:30 AM (Bilingüe)",
     cta: [
       {
         text: "Ver horarios",
@@ -106,7 +107,7 @@ const slides: Slide[] = [
             <div class="absolute inset-0 z-10 pointer-events-none bg-linear-to-t from-black/90 via-black/60 to-transparent" />
             <div class="absolute inset-0 z-20 flex flex-col items-center justify-center text-white p-4 text-center gap-y-2 mt-24 w-full">
               <div class="flex flex-col items-center justify-center mb-2 pt-28">
-                <h1 class="text-4xl md:text-5xl font-bold w-full">
+                <h1 class="text-2xl md:text-5xl font-bold w-full">
                   {slide.title}
                 </h1>
                 {slide.description && (

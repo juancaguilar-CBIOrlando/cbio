@@ -16,6 +16,7 @@ const channelUrl = getChannelUrl()
       </h2>
     </div>
     <div class="grid grid-cols-1 gap-8">
+      <!-- ANADIR MAS MENSJAES ON DESKTOP AND CHANGE TEXT ON MOBILE -->
       {sermons.map((sermon) => <SermonCard sermon={sermon} />)}
     </div>
     <div id="all-sermons-btn" class="mt-10 text-center">
@@ -23,8 +24,8 @@ const channelUrl = getChannelUrl()
         href={channelUrl}
         target="_blank"
         rel="noopener noreferrer"
-        class="inline-flex items-center text-primary font-medium hover:text-primary/90 hover:underline-offset-4 hover:underline">
-        Ver todos los sermones
+        class="inline-flex items-center text-primary text-xl font-medium hover:text-primary/90 hover:underline-offset-4 hover:underline">
+        Ver todos los Mensajes
         <ArrowRightIcon size={16} class="ml-2" />
       </a>
     </div>

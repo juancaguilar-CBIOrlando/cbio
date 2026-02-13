@@ -24,20 +24,25 @@ const socialLinks = [
 const primaryLinks = [
   { name: "Visitanos", path: "/visitanos" },
   { name: "Conectate", path: "/conectate" },
-  { name: "Lo Mejor de Ti", path: "/uncorazon" },
+  { name: "CBI Kids", path: "/kids" },
   { name: "Devocional", path: "/devocional" },
-  { name: "Eventos", path: "/eventos" },
+  { name: "Lo Mejor de Ti", path: "/uncorazon" },
+  { name: "Quienes Somos", path: "/nosotros" },
 ]
 
 // Secondary links - only visible in the overlay menu (split into two columns)
 const secondaryLinksColumn1 = [
   { name: "Inicio", path: "/" },
-  { name: "CBI Kids", path: "/kids" },
+  { name: "Eventos", path: "/eventos" },
   { name: "Misiones", path: "/misiones" },
-  { name: "Nosotros", path: "/nosotros" },
   {
     name: "Predicas",
     path: "https://www.youtube.com/@CBIOrlando",
+    target: "_blank",
+  },
+  {
+    name: "Nuestra Escuela",
+    path: "/https://murphychristianacademy.org/",
     target: "_blank",
   },
 ]
@@ -57,8 +62,8 @@ const secondaryLinksColumn2 = [
   class="absolute top-0 left-0 w-full z-50 px-6 sm:px-12 lg:px-24 lg:py-6 h-16 flex items-center justify-between bg-transparent">
   <div class="w-full flex items-center justify-between">
     <!-- Brand / Logo -->
-    <a href="/" class="inline-flex items-center h-16 mt-6">
-      <img src="/icon.png" alt="CBI Orlando" class="h-14 w-auto" />
+    <a href="/" class="inline-flex items-center h-26 mt-12">
+      <img src="/mainlogoWhite.png" alt="CBI Orlando" class="h-24 w-auto" />
     </a>
 
     <!-- Desktop menu links (hidden on mobile/tablet) -->
@@ -165,7 +170,7 @@ const secondaryLinksColumn2 = [
                 <a
                   href={link.path}
                   target={link.target || "_self"}
-                  class="menu-link secondary-link text-base lg:text-lg font-medium text-white/60 transition-all duration-300 hover:text-primary"
+                  class="menu-link secondary-link text-lg lg:text-[24px] font-medium text-white/60 transition-all duration-300 hover:text-primary"
                   style={`animation-delay: ${(primaryLinks.length + index) * 50}ms;`}>
                   {link.name}
                 </a>
@@ -181,7 +186,7 @@ const secondaryLinksColumn2 = [
                   href={link.path}
                   target={link.target || "_self"}
                   rel={link.target ? "noopener noreferrer" : ""}
-                  class="menu-link secondary-link text-base lg:text-lg font-medium text-white/60 transition-all duration-300 hover:text-primary"
+                  class="menu-link secondary-link text-lg lg:text-[24px] font-medium text-white/60 transition-all duration-300 hover:text-primary"
                   style={`animation-delay: ${(primaryLinks.length + secondaryLinksColumn1.length + index) * 50}ms;`}>
                   {link.name}
                 </a>

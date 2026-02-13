@@ -17,10 +17,18 @@ const serviceTimes = [
   },
   {
     name: "Servicio de Jovenes",
-    times: ["7:30 PM"],
+    times: ["7:00 PM"],
     day: "Viernes",
     location: address,
     image: "/images/services/youth.jpg"
+  },
+  {
+    name: "Grupos de Conexión",
+    times: ["7:30 PM"],
+    day: "Viernes",
+    location: "Multiple Locations",
+    image: "/images/services/groups.jpg",
+    link: "/servicios#grupos"
   },
   {
     name: "Noches de Oración",
@@ -36,14 +44,6 @@ const serviceTimes = [
     location: "Facebook Live",
     image: "/images/services/prayer.jpg",
     link: "https://www.facebook.com/cbiorlando"
-  },
-  {
-    name: "Grupos de Conexión",
-    times: ["7:30 PM"],
-    day: "Viernes",
-    location: "Multiple Locations",
-    image: "/images/services/groups.jpg",
-    link: "/servicios#grupos"
   }
 ]
 
