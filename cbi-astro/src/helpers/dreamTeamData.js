@@ -3,14 +3,9 @@ import dreamTeam2Img from "../assets/dreamTeam2.jpg"
 import dreamTeamHeroImg from "../assets/dreamTeam-hero.jpg"
 import dreamTeamWelcomeImg from "../assets/dreamTeam-welcome.jpg"
 import dreamTeamFunnyImg from "../assets/dreamTeam-funny.JPG"
-import alabanzaImg from "../assets/alabanza.JPG"
-import danzaImg from "../assets/alabanza-danza.jpg"
-import danzaImg2 from "../assets/alabanza-danza5.JPG"
 import dreamTeamUnidaImg from "../assets/dreamTeam-unidad.jpeg"
 import dreamTeamFamilyImg from "../assets/dreamTeam-familia.jpeg"
 import dreamTeamGroupImg from "../assets/dreamTeam-group.jpg"
-import dreamTeamAlegriaImg from "../assets/dreamTeam-alegria.jpg"
-import dreamTeamComunidadImg from "../assets/comunidad.jpeg"
 
 /**
  * Dream Team page content data
@@ -65,42 +60,6 @@ export const ourTeamSlides = [
     description:
       "Te capacitamos y acompañamos para que puedas servir con excelencia y confianza.",
     image: dreamTeamGroupImg,
-  },
-]
-
-// Section 3: What We Value - Full width slider with impact cards
-export const valuesSlides = [
-  {
-    id: "value-1",
-    title: "Excelencia",
-    description:
-      "Todo lo que hacemos, lo hacemos como para el Señor. Buscamos la excelencia en cada detalle porque servimos a un Dios excelente.",
-    image: alabanzaImg,
-    icon: "star",
-  },
-  {
-    id: "value-2",
-    title: "Comunidad",
-    description:
-      "No servimos solos. Creamos lazos de amistad y apoyo mutuo que van más allá del domingo.",
-    image: dreamTeamComunidadImg,
-    icon: "users",
-  },
-  {
-    id: "value-3",
-    title: "Crecimiento",
-    description:
-      "Cada servidor tiene oportunidades de crecer, liderar y desarrollar sus dones para el Reino.",
-    image: dreamTeam2Img,
-    icon: "trending-up",
-  },
-  {
-    id: "value-4",
-    title: "Alegría",
-    description:
-      "Servimos con gozo porque sabemos que estamos haciendo la obra del Señor. La alegría es contagiosa.",
-    image: dreamTeamAlegriaImg,
-    icon: "heart",
   },
 ]
 

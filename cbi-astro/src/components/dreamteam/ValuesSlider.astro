@@ -1,16 +1,16 @@
 ---
 import { Image } from "astro:assets"
 import SliderArrow from "../common/SliderArrow.astro"
-import { Star, Users, TrendingUp, Heart } from "@lucide/astro"
 import "swiper/css"
 import "swiper/css/navigation"
 
 type ValueSlide = {
-  id: string
+  id: number
+  number: string
   title: string
   description: string
+  svg: string
   image: ImageMetadata
-  icon: string
 }
 
 interface Props {
@@ -20,13 +20,6 @@ interface Props {
 }
 
 const { name, slides, ariaLabel } = Astro.props
-
-const iconMap: Record<string, any> = {
-  star: Star,
-  users: Users,
-  "trending-up": TrendingUp,
-  heart: Heart,
-}
 ---
 
 <section class="py-16 px-6 lg:px-16 bg-slate-50">
@@ -43,8 +36,7 @@ const iconMap: Record<string, any> = {
           Lo Que Nos Mueve
         </h2>
         <p class="mt-4 text-gray-600 text-lg leading-relaxed max-w-2xl">
-          Estos son los valores que definen cómo servimos y por qué lo hacemos
-          con todo el corazón.
+          Quienes somos y lo que hacemos, representa nuestro ADN.
         </p>
       </div>
       <div class="flex items-center gap-3">
@@ -69,41 +61,40 @@ const iconMap: Record<string, any> = {
           data-next-btn={`.${name}-swiper-next`}>
           <div class="swiper-wrapper">
             {
-              slides.map((slide) => {
-                const IconComponent = iconMap[slide.icon] || Heart
-                return (
-                  <div class="swiper-slide">
-                    <article class="rounded-3xl overflow-hidden bg-white h-full shadow-lg shadow-gray-200/50 hover:shadow-xl transition-shadow duration-300 border border-gray-100">
-                      <div class="relative aspect-16/10">
-                        <Image
-                          src={slide.image}
-                          alt={slide.title}
-                          width={1200}
-                          height={750}
-                          quality={80}
-                          class="w-full h-full object-cover"
-                          loading="lazy"
-                        />
-                        <div class="absolute inset-0 bg-linear-to-t from-accent/90 via-accent/20 to-transparent blur-sm" />
+              slides.map((slide) => (
+                <div class="swiper-slide">
+                  <article class="rounded-3xl overflow-hidden bg-white h-full shadow-lg shadow-gray-200/50 hover:shadow-xl transition-shadow duration-300 border border-gray-100">
+                    <div class="relative aspect-16/10">
+                      <Image
+                        src={slide.image}
+                        alt={slide.title}
+                        width={1200}
+                        height={750}
+                        quality={80}
+                        class="w-full h-full object-cover"
+                        loading="lazy"
+                      />
+                      <div class="absolute inset-0 bg-linear-to-t from-accent/90 via-accent/20 to-transparent" />
 
-                        {/* Icon badge */}
-                        <div class="absolute top-4 right-4 w-14 h-14 bg-primary rounded-2xl flex items-center justify-center shadow-lg">
-                          <IconComponent class="w-7 h-7 text-white" />
-                        </div>
-
-                        <div class="absolute inset-x-0 bottom-0 p-6 sm:p-8">
-                          <h3 class="text-white text-2xl sm:text-3xl font-bold font-bebas tracking-wide">
-                            {slide.title}
-                          </h3>
-                          <p class="text-white/85 mt-3 leading-relaxed text-base">
-                            {slide.description}
-                          </p>
-                        </div>
+                      {/* Number badge */}
+                      <div class="absolute top-4 right-4 w-14 h-14 bg-primary rounded-2xl flex items-center justify-center shadow-lg">
+                        <span class="text-white text-2xl font-bebas font-bold">
+                          {slide.number}
+                        </span>
                       </div>
-                    </article>
-                  </div>
-                )
-              })
+
+                      <div class="absolute inset-x-0 bottom-0 p-6 sm:p-8">
+                        <h3 class="text-white text-2xl sm:text-3xl font-bold font-bebas tracking-wide">
+                          {slide.title}
+                        </h3>
+                        <p class="text-white/85 mt-3 leading-relaxed text-base">
+                          {slide.description}
+                        </p>
+                      </div>
+                    </div>
+                  </article>
+                </div>
+              ))
             }
           </div>
         </div>
