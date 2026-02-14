@@ -3,6 +3,7 @@ import "../styles/global.css"
 import Navigation from "../components/Navigation.astro"
 import Footer from "../components/Footer.astro"
 import ogImage from "../assets/serviciosDominical.jpeg"
+import Analytics from "@vercel/analytics/astro"
 
 interface Props {
 	title?: string
@@ -59,6 +60,7 @@ const imageURL = new URL(ogImage.src, canonicalURL)
 			rel="stylesheet"
 		/>
 		<title>{title}</title>
+		<Analytics />
 	</head>
 	<body>
 		<Navigation logo={navLogo} />

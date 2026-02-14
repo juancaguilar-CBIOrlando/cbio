@@ -29,6 +29,9 @@ importers:
       '@types/swiper':
         specifier: ^6.0.0
         version: 6.0.0
+      '@vercel/analytics':
+        specifier: ^1.6.1
+        version: 1.6.1(react@19.2.3)
       astro:
         specifier: ^5.7.5
         version: 5.16.7(@vercel/functions@2.2.13)(jiti@2.6.1)(lightningcss@1.30.2)(rollup@4.55.1)(typescript@5.9.3)
