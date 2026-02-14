@@ -9,6 +9,8 @@ import { address } from "../constants"
 // Import optimized images from assets
 import heroVideoUrl from "../assets/heroVideo.mov"
 import serviciosDominicalImg from "../assets/serviciosDominical.jpeg"
+import collageImg from "../assets/collage.jpeg"
+import groupImg from "../assets/gruposBanner.jpeg"
 
 type Slide = {
   id: number
@@ -42,7 +44,7 @@ const slides: Slide[] = [
   },
   {
     id: 2,
-    image: null, // TODO: Add a third slide image
+    image: groupImg, // TODO: Add a third slide image
     videoUrl: null,
     title: "Unete a Nuestros Grupos de Conexión",
     description: "Todos los Viernes a las 7:00 PM & 7:30 PM",
@@ -56,7 +58,7 @@ const slides: Slide[] = [
   },
   {
     id: 3,
-    image: serviciosDominicalImg,
+    image: collageImg,
     title: "Servicios Dominicales",
     description:
       "Todos los domingos a las 9:30 AM (Español) y 11:30 AM (Bilingüe)",
@@ -84,8 +86,9 @@ const slides: Slide[] = [
                 alt={slide.title}
                 width={1920}
                 height={1080}
-                quality={75}
-                class="w-full h-full object-cover"
+                quality={100}
+                format="webp"
+                class="w-full h-full object-cover object-[12%_center] sm:object-[10%_center] md:object-[20%_center] lg:object-center"
                 loading={slide.id === 1 ? "eager" : "lazy"}
               />
             ) : slide.videoUrl ? (
