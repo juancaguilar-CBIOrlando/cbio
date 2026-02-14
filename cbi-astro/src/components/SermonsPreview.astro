@@ -4,7 +4,7 @@ import ArrowRightIcon from "./icons/ArrowRightIcon.astro"
 import { getLatestSermons, getChannelUrl } from "../helpers/youtubeData"
 
 // Fetch latest 3 sermons from YouTube
-const sermons = await getLatestSermons(1)
+const sermons = await getLatestSermons(2)
 const channelUrl = getChannelUrl()
 ---
 
@@ -12,12 +12,18 @@ const channelUrl = getChannelUrl()
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="text-center mb-12">
       <h2 class="text-3xl font-bold text-gray-900 font-bebas">
-        Ultimos Mensajes
+        <span class="md:hidden">Ultimo Mensaje</span>
+        <span class="hidden md:inline">Ultimos Mensajes</span>
       </h2>
     </div>
-    <div class="grid grid-cols-1 gap-8">
-      <!-- ANADIR MAS MENSJAES ON DESKTOP AND CHANGE TEXT ON MOBILE -->
-      {sermons.map((sermon) => <SermonCard sermon={sermon} />)}
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      {
+        sermons.map((sermon, i) => (
+          <div class={i === 0 ? "" : "hidden md:block"}>
+            <SermonCard sermon={sermon} />
+          </div>
+        ))
+      }
     </div>
     <div id="all-sermons-btn" class="mt-10 text-center">
       <a
