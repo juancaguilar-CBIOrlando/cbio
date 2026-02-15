@@ -24,7 +24,7 @@ export const pastors = [
     name2: "Patricia",
     lastName: "Marulanda",
     role: "Pastores Asociados",
-    description: `Somos Julian y Diana Marulanda, pastores asociados de CBI Orlando.
+    description: `Somos Julian y Patricia Marulanda, pastores asociados de CBI Orlando.
 
 Estamos comprometidos con servir a nuestra comunidad y ayudar a cada persona a crecer en su relación con Dios.
 
