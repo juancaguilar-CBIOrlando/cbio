@@ -32,14 +32,14 @@ const serviceTimes = [
   },
   {
     name: "Noches de Oración",
-    times: ["7:30 PM"],
+    times: ["7:00 PM"],
     day: "Martes",
     location: address,
     image: "/images/services/prayer.jpg"
   },
   {
     name: "Noches de Oración | Virtual",
-    times: ["7:30 PM"],
+    times: ["7:00 PM"],
     day: "Martes",
     location: "Facebook Live",
     image: "/images/services/prayer.jpg",

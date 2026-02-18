@@ -156,7 +156,7 @@ const prompts: string[] = [
     <div class="container mx-auto px-4 py-6 md:py-8">
       <a
         href={"/devocional"}
-        class="inline-flex items-center gap-1 text-white/80 hover:text-white transition-colors text-sm font-medium mt-12">
+        class="inline-flex items-center gap-1 text-white/80 hover:text-white transition-colors text-sm font-medium mt-22">
         <ArrowLeft size={18} />
         Volver
       </a>
@@ -164,14 +164,14 @@ const prompts: string[] = [
     <div
       class="min-h-[35vh] flex flex-col items-center justify-center text-center px-4">
       <p
-        class="text-xs uppercase tracking-[0.3em] text-white/70 font-semibold mb-3">
+        class="text-base uppercase tracking-[0.3em] text-white/80 font-semibold mb-3">
         Tiempo a solas con Dios
       </p>
       <h1
-        class="text-3xl md:text-5xl font-bold leading-tight max-w-3xl"
+        class="text-4xl md:text-5xl font-bold leading-tight max-w-4xl"
         set:html={title}
       />
-      <p class="mt-4 text-sm md:text-base text-white/70 capitalize">
+      <p class="mt-4 text-base md:text-lg text-white/80 capitalize">
         {formattedDate}
       </p>
     </div>
@@ -183,11 +183,13 @@ const prompts: string[] = [
       <!-- ADD VERSES EG: Mateo 2:19-21 -->
       {
         content && (
+        <p class="text-[18px] text-gray-600 text-center -mt-6 font-bold" set:html={verse} />
+
           <div
-            class="prose prose-lg max-w-none text-gray-800 leading-relaxed"
+            class="prose prose-lg max-w-none text-gray-800 leading-relaxed text-[20px]"
             set:html={content}
           />
-          <p class="text-sm text-gray-600 text-center -mt-6 font-bold" set:html={verse} />
+
         )
       }
       {
@@ -219,11 +221,11 @@ const prompts: string[] = [
       {
         explanation && (
           <div class="rounded-2xl bg-gray-50 px-2 py-4">
-            <p class="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-2 text-center">
+            <p class="text-[20px] font-semibold text-gray-700 uppercase tracking-wide mb-2 text-center">
               Estimado lector
             </p>
             <div
-              class="prose prose-lg max-w-none text-gray-800 leading-relaxed"
+              class="prose prose-lg max-w-none text-gray-800 leading-relaxed text-[20px]"
               set:html={explanation}
             />
           </div>
@@ -232,10 +234,10 @@ const prompts: string[] = [
 
       <div class="rounded-2xl border border-accent/20 bg-primary/5 px-5 py-4">
         <div class="space-y-1">
-          <p class="text-sm font-semibold text-accent text-center">
+          <p class="text-[18px] font-semibold text-accent text-center">
             Lleva la Palabra a tu día
           </p>
-          <p class="text-sm text-gray-800">
+          <p class="text-base text-gray-800">
             Pregúntale al Señor cómo puedes vivir esto hoy: en tu trabajo, en tu
             familia, en tu forma de servir y amar.
           </p>
@@ -254,7 +256,7 @@ const prompts: string[] = [
             class="text-xs uppercase tracking-[0.2em] text-primary/90 font-semibold">
             Guía diaria
           </p>
-          <h2 class="text-2xl font-bold text-gray-900 font-bebas">
+          <h2 class="text-3xl font-bold text-gray-900 font-bebas">
             4 pasos para tu tiempo con Dios
           </h2>
         </div>
@@ -341,7 +343,7 @@ const prompts: string[] = [
             <div class="bg-accent rounded-full p-2"> 
               <OpenBookIcon size={24} color="white" />
             </div>
-            <h2 class="text-2xl font-bold text-gray-900 leading-tight font-bebas">
+            <h2 class="text-3xl font-bold text-gray-900 leading-tight font-bebas">
               Devocionales recientes
             </h2>
           </div>
@@ -358,10 +360,10 @@ const prompts: string[] = [
                     <h3
                       class="text-md font-semibold text-gray-900 leading-snug capitalize group-hover:text-accent transition-colors"
                     >
-                      {item.title} | <span class="text-gray-500 text-sm capitalize" set:html={item.verse} />
+                      {item.title} | <span class="text-gray-500 text-base capitalize" set:html={item.verse} />
                     </h3>
                     </div>
-                    <div class="mt-2 flex items-center gap-2 text-xs text-gray-600 capitalize">
+                    <div class="mt-2 flex items-center gap-2 text-sm text-gray-600 capitalize">
                       <CalendarDays size={16} className="text-gray-500 shrink-0" />
                       <span>{formatCardDate(item.date)}</span>
                     </div>
