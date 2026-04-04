@@ -1,5 +1,6 @@
 ---
 import Layout from "@/layouts/Layout.astro"
+import GeometricHeartWatermark from "@/components/common/GeometricHeartWatermark.astro"
 import { Image } from "astro:assets"
 import campaignLogoWhite from "@/heart-assets/blanco.png"
 ---
@@ -19,15 +20,7 @@ import campaignLogoWhite from "@/heart-assets/blanco.png"
 			aria-hidden="true">
 		</div>
 
-		<!-- Geometric heart watermark -->
-		<svg
-			class="pointer-events-none absolute left-1/2 top-1/2 z-1 w-[min(120vw,720px)] -translate-x-1/2 -translate-y-1/2 rotate-[-14deg] text-white opacity-[0.04]"
-			viewBox="0 0 240 220"
-			fill="currentColor"
-			aria-hidden="true">
-			<!-- Faceted / origami-style heart silhouette -->
-			<path d="M120 205 15 85 50 28 120 98 190 28 225 85 120 205Z"></path>
-		</svg>
+		<GeometricHeartWatermark />
 
 		<!-- Film grain -->
 		<div
