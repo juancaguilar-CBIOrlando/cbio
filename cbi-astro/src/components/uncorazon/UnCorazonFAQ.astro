@@ -7,53 +7,43 @@ type FaqItem = {
 const faqs: readonly FaqItem[] = [
 	{
 		question: "¿Esta campaña es solo para recaudar dinero?",
-		answer:
-			"No. El enfoque real es crecer en generosidad, fe y unidad como iglesia. El dinero es solo una herramienta.",
+		answer: "No. El enfoque real es crecer en generosidad, fe y unidad como iglesia. El dinero es solo una herramienta.",
 	},
 	{
 		question: "¿La campaña tiene un llamado espiritual específico?",
-		answer:
-			"Sí. Es una invitación a confiar más en Dios y a crecer como una comunidad generosa.",
+		answer: "Sí. Es una invitación a confiar más en Dios y a crecer como una comunidad generosa.",
 	},
 	{
 		question: "¿Puedo usar mi diezmo mensual como compromiso?",
-		answer:
-			"No. El diezmo ya sostiene la iglesia. Esta campaña es una oportunidad adicional para dar con fe y de forma intencional.",
+		answer: "No. El diezmo ya sostiene la iglesia. Esta campaña es una oportunidad adicional para dar con fe y de forma intencional.",
 	},
 	{
 		question: "¿Para qué se usarán los fondos recogidos?",
-		answer:
-			"El objetivo es avanzar hacia la compra de un espacio propio que nos permita crecer como iglesia y brindar un espacio digno y cómodo para el colegio.",
+		answer: "El objetivo es avanzar hacia la compra de un espacio propio que nos permita crecer como iglesia y brindar un espacio digno y cómodo para el colegio.",
 	},
 	{
 		question: "¿Cuánto durará la campaña?",
-		answer:
-			"Nuestro compromiso durará 18 meses, pero lo que verdaderamente queremos formar es una cultura de generosidad que prevalezca.",
+		answer: "Nuestro compromiso durará 18 meses, pero lo que verdaderamente queremos formar es una cultura de generosidad que prevalezca.",
 	},
 	{
 		question: "¿Necesito dar una cantidad específica?",
-		answer:
-			"No. No hay una cantidad específica. Cada persona decide según su fe, su realidad y lo que sienta en su corazón dar.",
+		answer: "No. No hay una cantidad específica. Cada persona decide según su fe, su realidad y lo que sienta en su corazón dar.",
 	},
 	{
 		question: "¿Se espera que todos participen?",
-		answer:
-			"Sí, esto es un esfuerzo colectivo, que todos puedan ser parte, sin importar la cantidad. Lo importante es el corazón.",
+		answer: "Sí, esto es un esfuerzo colectivo, que todos puedan ser parte, sin importar la cantidad. Lo importante es el corazón.",
 	},
 	{
 		question: "¿Puedo participar solo con oración?",
-		answer:
-			"Sí. Orar, servir y apoyar también es ser parte. Sin dejar de ser obediente a lo que Dios nos manda.",
+		answer: "Sí. Orar, servir y apoyar también es ser parte. Sin dejar de ser obediente a lo que Dios nos manda.",
 	},
 	{
 		question: "¿El liderazgo también está involucrado?",
-		answer:
-			"Sí. El liderazgo es el primero en abrazar esta visión, somos conscientes de nuestra responsabilidad de modelar con ejemplo lo que Dios nos enseñó.",
+		answer: "Sí. El liderazgo es el primero en abrazar esta visión, somos conscientes de nuestra responsabilidad de modelar con ejemplo lo que Dios nos enseñó.",
 	},
 	{
 		question: "¿Es obligatorio comprar artículos promocionales?",
-		answer:
-			"No. Son opcionales y se ofrecen como una forma adicional de apoyar la campaña.",
+		answer: "No. Son opcionales y se ofrecen como una forma adicional de apoyar la campaña.",
 	},
 ]
 ---
@@ -89,9 +79,7 @@ const faqs: readonly FaqItem[] = [
 									class="uncorazon-faq__heart-svg"
 									viewBox="0 0 240 220"
 									fill="currentColor">
-									<path
-										d="M120 205 15 85 50 28 120 98 190 28 225 85 120 205Z"
-									/>
+									<path d="M120 205 15 85 50 28 120 98 190 28 225 85 120 205Z" />
 								</svg>
 							</span>
 						</summary>
@@ -165,6 +153,7 @@ const faqs: readonly FaqItem[] = [
 		background: white;
 		box-shadow: 0 1px 3px rgba(22, 30, 87, 0.06);
 		transition: box-shadow 0.25s ease;
+		padding: 0.75rem 1.25rem;
 	}
 
 	.uncorazon-faq__item[open] {
@@ -207,9 +196,9 @@ const faqs: readonly FaqItem[] = [
 	.uncorazon-faq__heart {
 		display: flex;
 		flex-shrink: 0;
-		width: 16px;
-		height: 16px;
-		min-width: 16px;
+		width: 22px;
+		height: 22px;
+		min-width: 22px;
 		color: var(--campaign-gold);
 		transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
 	}
@@ -221,7 +210,7 @@ const faqs: readonly FaqItem[] = [
 	}
 
 	.uncorazon-faq__item[open] .uncorazon-faq__heart {
-		transform: scale(1.08);
+		transform: scale(1.3);
 	}
 
 	.uncorazon-faq__item[open].closing .uncorazon-faq__heart {
