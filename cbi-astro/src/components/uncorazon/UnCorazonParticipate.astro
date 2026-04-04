@@ -1,0 +1,762 @@
+---
+import { HandHeart, Flame } from "@lucide/astro"
+---
+
+<section
+	class="uncorazon-participate"
+	aria-labelledby="uncorazon-participate-heading">
+	<div class="uncorazon-participate__sticky">
+		<header class="uncorazon-participate__header reveal">
+			<h2
+				id="uncorazon-participate-heading"
+				class="font-bebas text-4xl tracking-[0.04em] text-(--campaign-navy) sm:text-5xl">
+				Sé Parte
+			</h2>
+			<p
+				class="mx-auto mt-3 max-w-xl font-[Cormorant_Garamond,serif] text-lg text-(--campaign-navy)/60 italic sm:text-xl">
+				Hay tres formas de unirte a esta visión
+			</p>
+
+			<nav
+				class="uncorazon-participate__dots mt-6"
+				aria-label="Navegación de secciones">
+				<button
+					class="uncorazon-participate__dot is-active"
+					data-panel="0"
+					aria-label="Dar"
+					type="button">
+					<span></span>
+				</button>
+				<button
+					class="uncorazon-participate__dot"
+					data-panel="1"
+					aria-label="Orar"
+					type="button">
+					<span></span>
+				</button>
+				<button
+					class="uncorazon-participate__dot"
+					data-panel="2"
+					aria-label="Testimonio"
+					type="button">
+					<span></span>
+				</button>
+			</nav>
+		</header>
+
+		<div class="uncorazon-participate__viewport">
+			<div class="uncorazon-participate__track">
+				<!-- ── Panel 1: Dar ──────────────────────────── -->
+				<article class="uncorazon-participate__panel is-active">
+					<div class="uncorazon-participate__surface uncorazon-participate__surface--dar">
+						<div class="uncorazon-participate__panel-grid">
+							<div
+								class="uncorazon-participate__panel-visual"
+								aria-hidden="true">
+								<div class="uncorazon-participate__orb uncorazon-participate__orb--gold"></div>
+								<div class="uncorazon-participate__icon-ring">
+									<HandHeart
+										class="h-12 w-12 text-(--campaign-gold) sm:h-16 sm:w-16"
+										stroke-width={1.2}
+										aria-hidden="true"
+									/>
+								</div>
+							</div>
+
+							<div class="uncorazon-participate__panel-copy">
+								<p class="participate-stagger participate-stagger--d1 font-bebas text-sm tracking-[0.2em] text-(--campaign-navy)/45 sm:text-base">
+									01 · Generosidad
+								</p>
+								<h3 class="participate-stagger participate-stagger--d2 mt-2 font-bebas text-4xl leading-none tracking-[0.03em] text-(--campaign-navy) sm:text-5xl md:text-6xl">
+									Dar
+								</h3>
+								<p class="uncorazon-participate__body participate-stagger participate-stagger--d3 mt-4 max-w-md text-(--campaign-navy)/80">
+									Tu generosidad siembra en lo eterno. Cada ofrenda,
+									sin importar el monto, acerca la visión de un hogar
+									propio para la iglesia y el colegio.
+								</p>
+								<div class="participate-stagger participate-stagger--d4 mt-7 flex flex-col items-start gap-3 sm:flex-row sm:items-center">
+									<a
+										href="https://pushpay.com/g/cbiorlando"
+										target="_blank"
+										rel="noopener noreferrer"
+										class="uncorazon-participate__cta inline-flex items-center gap-2 rounded-sm bg-(--campaign-gold) px-9 py-3 font-bebas text-lg tracking-[0.12em] text-(--campaign-navy) shadow-[0_6px_32px_rgba(252,210,42,0.32)] transition-all duration-300 hover:shadow-[0_10px_40px_rgba(252,210,42,0.5)] hover:brightness-105 sm:text-xl">
+										Donar Ahora
+									</a>
+									<p class="font-[Cormorant_Garamond,serif] text-sm text-(--campaign-navy)/40 italic sm:pl-1">
+										Serás redirigido a nuestra plataforma segura
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</article>
+
+				<!-- ── Panel 2: Orar ─────────────────────────── -->
+				<article class="uncorazon-participate__panel">
+					<div class="uncorazon-participate__surface uncorazon-participate__surface--orar">
+						<div class="uncorazon-participate__panel-grid uncorazon-participate__panel-grid--reverse">
+							<div
+								class="uncorazon-participate__panel-visual"
+								aria-hidden="true">
+								<div class="uncorazon-participate__orb uncorazon-participate__orb--navy"></div>
+								<div class="uncorazon-participate__icon-ring uncorazon-participate__icon-ring--navy">
+									<Flame
+										class="h-12 w-12 text-(--campaign-navy) sm:h-16 sm:w-16"
+										stroke-width={1.2}
+										aria-hidden="true"
+									/>
+								</div>
+							</div>
+
+							<div class="uncorazon-participate__panel-copy">
+								<p class="participate-stagger participate-stagger--d1 font-bebas text-sm tracking-[0.2em] text-(--campaign-navy)/45 sm:text-base">
+									02 · Intercesión
+								</p>
+								<h3 class="participate-stagger participate-stagger--d2 mt-2 font-bebas text-4xl leading-none tracking-[0.03em] text-(--campaign-navy) sm:text-5xl md:text-6xl">
+									Orar
+								</h3>
+								<p class="uncorazon-participate__body participate-stagger participate-stagger--d3 mt-4 max-w-md text-(--campaign-navy)/80">
+									La oración es el fundamento de esta visión. Te
+									invitamos a interceder con nosotros por lo que Dios
+									está edificando.
+								</p>
+								<ul class="uncorazon-participate__prayer-list participate-stagger participate-stagger--d4 mt-6 text-left">
+									<li>
+										<span class="uncorazon-participate__prayer-diamond"></span>
+										<span>Provisión sobrenatural para la campaña</span>
+									</li>
+									<li>
+										<span class="uncorazon-participate__prayer-diamond"></span>
+										<span>Unidad y fe en toda la congregación</span>
+									</li>
+									<li>
+										<span class="uncorazon-participate__prayer-diamond"></span>
+										<span>Puertas abiertas para el lugar que Dios tiene preparado</span>
+									</li>
+								</ul>
+								<p class="participate-stagger participate-stagger--d5 mt-8 font-[Cormorant_Garamond,serif] text-base text-(--campaign-navy)/50 italic sm:text-lg">
+									Oramos contigo
+								</p>
+							</div>
+						</div>
+					</div>
+				</article>
+
+				<!-- ── Panel 3: Testimonio ───────────────────── -->
+				<article class="uncorazon-participate__panel">
+					<div class="uncorazon-participate__surface uncorazon-participate__surface--testimonio">
+						<div class="uncorazon-participate__panel-centered">
+							<div
+								class="uncorazon-participate__envelope"
+								role="button"
+								tabindex="0"
+								aria-label="Comparte tu testimonio">
+								<div class="uncorazon-participate__envelope-paper">
+									<span class="font-bebas text-[0.6rem] tracking-[0.15em] text-(--campaign-navy)/70 sm:text-xs">
+										Comparte
+									</span>
+								</div>
+								<div class="uncorazon-participate__envelope-body"></div>
+								<div class="uncorazon-participate__envelope-flap"></div>
+							</div>
+
+							<p class="participate-stagger participate-stagger--d1 mt-1 font-bebas text-sm tracking-[0.2em] text-(--campaign-navy)/45 sm:text-base">
+								03 · Tu historia
+							</p>
+							<h3 class="participate-stagger participate-stagger--d2 mt-2 font-bebas text-4xl leading-none tracking-[0.03em] text-(--campaign-navy) sm:text-5xl md:text-6xl">
+								Testimonio
+							</h3>
+							<p class="uncorazon-participate__body participate-stagger participate-stagger--d3 mt-4 max-w-sm text-center text-(--campaign-navy)/80">
+								Tu historia inspira fe. Cuéntanos cómo Dios está
+								obrando en tu vida y sé parte de lo que Él está
+								haciendo en Su casa.
+							</p>
+							<p class="participate-stagger participate-stagger--d4 mt-7 font-[Cormorant_Garamond,serif] text-sm text-(--campaign-navy)/40 italic">
+								Próximamente
+							</p>
+						</div>
+					</div>
+				</article>
+			</div>
+		</div>
+	</div>
+</section>
+
+<script>
+	;(() => {
+		const section = document.querySelector(
+			".uncorazon-participate",
+		) as HTMLElement | null
+		const track = document.querySelector(
+			".uncorazon-participate__track",
+		) as HTMLElement | null
+		const dots = document.querySelectorAll(".uncorazon-participate__dot")
+		const panels = document.querySelectorAll(
+			".uncorazon-participate__panel",
+		)
+
+		if (!section || !track) return
+
+		let ticking = false
+		let prevActive = 0
+
+		function update() {
+			const rect = section!.getBoundingClientRect()
+			const scrollable = section!.offsetHeight - window.innerHeight
+			if (scrollable <= 0) return
+
+			const scrolled = Math.max(0, -rect.top)
+			const progress = Math.min(1, scrolled / scrollable)
+
+			const maxTranslate = track!.scrollWidth - window.innerWidth
+			track!.style.transform = `translateX(-${progress * maxTranslate}px)`
+
+			const panelCount = 3
+			const activeIndex =
+				progress >= 1
+					? panelCount - 1
+					: Math.min(
+							panelCount - 1,
+							Math.floor(progress * panelCount),
+						)
+
+			dots.forEach((d, i) =>
+				d.classList.toggle("is-active", i === activeIndex),
+			)
+
+			if (activeIndex !== prevActive) {
+				panels.forEach((p, i) =>
+					p.classList.toggle("is-active", i === activeIndex),
+				)
+				prevActive = activeIndex
+			}
+
+			ticking = false
+		}
+
+		function onScroll() {
+			if (!ticking) {
+				requestAnimationFrame(update)
+				ticking = true
+			}
+		}
+
+		window.addEventListener("scroll", onScroll, { passive: true })
+		window.addEventListener("resize", update)
+		update()
+
+		const envelope = document.querySelector(
+			".uncorazon-participate__envelope",
+		)
+		if (envelope) {
+			const toggle = () => envelope.classList.toggle("is-open")
+			envelope.addEventListener("click", toggle)
+			envelope.addEventListener("keydown", (e) => {
+				if (
+					(e as KeyboardEvent).key === "Enter" ||
+					(e as KeyboardEvent).key === " "
+				) {
+					e.preventDefault()
+					toggle()
+				}
+			})
+		}
+	})()
+</script>
+
+<style>
+	/* ── Section wrapper ────────────────────────────── */
+
+	.uncorazon-participate {
+		position: relative;
+		z-index: 10;
+		height: 350vh;
+		background-color: #fff;
+		background-image: radial-gradient(
+			ellipse 65% 40% at 50% 6%,
+			var(--campaign-gold-soft) 0%,
+			transparent 60%
+		);
+		margin-top: -3.75rem;
+		padding-top: 3.75rem;
+		clip-path: polygon(0 3.75rem, 100% 0, 100% 100%, 0 100%);
+	}
+
+	/* ── Sticky container ───────────────────────────── */
+
+	.uncorazon-participate__sticky {
+		position: sticky;
+		top: 0;
+		height: 100vh;
+		display: flex;
+		flex-direction: column;
+		overflow: hidden;
+	}
+
+	/* ── Header ─────────────────────────────────────── */
+
+	.uncorazon-participate__header {
+		flex-shrink: 0;
+		padding: 2rem 1.25rem 0;
+		text-align: center;
+	}
+
+	@media (min-width: 640px) {
+		.uncorazon-participate__header {
+			padding-top: 2.5rem;
+		}
+	}
+
+	/* ── Navigation dots ────────────────────────────── */
+
+	.uncorazon-participate__dots {
+		display: flex;
+		justify-content: center;
+		gap: 0.75rem;
+	}
+
+	.uncorazon-participate__dot {
+		width: 14px;
+		height: 14px;
+		padding: 0;
+		border: none;
+		background: none;
+		cursor: pointer;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.uncorazon-participate__dot span {
+		display: block;
+		width: 10px;
+		height: 10px;
+		transform: rotate(45deg);
+		border: 2px solid color-mix(in srgb, var(--campaign-navy) 22%, transparent);
+		background: transparent;
+		transition:
+			background-color 0.35s ease,
+			border-color 0.35s ease,
+			transform 0.35s ease;
+	}
+
+	.uncorazon-participate__dot.is-active span {
+		background-color: var(--campaign-gold);
+		border-color: var(--campaign-gold);
+		transform: rotate(45deg) scale(1.25);
+	}
+
+	/* ── Viewport & track ───────────────────────────── */
+
+	.uncorazon-participate__viewport {
+		flex: 1;
+		overflow: hidden;
+		position: relative;
+	}
+
+	.uncorazon-participate__track {
+		display: flex;
+		height: 100%;
+		will-change: transform;
+		transition: transform 0.08s linear;
+	}
+
+	/* ── Panel (each 100 vw) ────────────────────────── */
+
+	.uncorazon-participate__panel {
+		flex: 0 0 100vw;
+		width: 100vw;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding: 1rem 1.25rem 2rem;
+	}
+
+	@media (min-width: 640px) {
+		.uncorazon-participate__panel {
+			padding: 1.5rem 2rem 2.5rem;
+		}
+	}
+
+	/* ── Surface (inner card wrapper) ───────────────── */
+
+	.uncorazon-participate__surface {
+		width: 100%;
+		max-width: 56rem;
+		padding: 2rem 1.5rem;
+		border-radius: 0.375rem;
+		background: white;
+		box-shadow: 0 1px 3px rgba(22, 30, 87, 0.05);
+	}
+
+	@media (min-width: 640px) {
+		.uncorazon-participate__surface {
+			padding: 2.5rem 3rem;
+		}
+	}
+
+	.uncorazon-participate__surface--dar {
+		border-top: 4px solid var(--campaign-gold);
+		box-shadow:
+			0 1px 3px rgba(22, 30, 87, 0.05),
+			0 8px 40px rgba(252, 210, 42, 0.1);
+	}
+
+	.uncorazon-participate__surface--orar {
+		border-top: 4px solid var(--campaign-navy);
+		transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+	}
+
+	.uncorazon-participate__surface--orar:hover {
+		transform: scale(1.01);
+	}
+
+	.uncorazon-participate__surface--testimonio {
+		border-top: 4px solid var(--campaign-gold);
+	}
+
+	/* ── Panel grid (2-col on md+) ──────────────────── */
+
+	.uncorazon-participate__panel-grid {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: 1.5rem;
+		align-items: center;
+	}
+
+	@media (min-width: 768px) {
+		.uncorazon-participate__panel-grid {
+			grid-template-columns: auto 1fr;
+			gap: 3rem;
+		}
+
+		.uncorazon-participate__panel-grid--reverse {
+			grid-template-columns: 1fr auto;
+		}
+
+		.uncorazon-participate__panel-grid--reverse
+			.uncorazon-participate__panel-visual {
+			order: 1;
+		}
+	}
+
+	@media (min-width: 1024px) {
+		.uncorazon-participate__panel-grid {
+			gap: 4rem;
+		}
+	}
+
+	/* ── Panel visual (icon + orb) ──────────────────── */
+
+	.uncorazon-participate__panel-visual {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		position: relative;
+	}
+
+	.uncorazon-participate__orb {
+		position: absolute;
+		width: 140px;
+		height: 140px;
+		border-radius: 50%;
+		filter: blur(36px);
+		opacity: 0.18;
+		pointer-events: none;
+	}
+
+	@media (min-width: 640px) {
+		.uncorazon-participate__orb {
+			width: 200px;
+			height: 200px;
+		}
+	}
+
+	.uncorazon-participate__orb--gold {
+		background: var(--campaign-gold);
+	}
+
+	.uncorazon-participate__orb--navy {
+		background: var(--campaign-navy);
+	}
+
+	.uncorazon-participate__icon-ring {
+		position: relative;
+		width: 6rem;
+		height: 6rem;
+		border-radius: 50%;
+		border: 1.5px solid color-mix(in srgb, var(--campaign-gold) 30%, transparent);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	@media (min-width: 640px) {
+		.uncorazon-participate__icon-ring {
+			width: 8rem;
+			height: 8rem;
+		}
+	}
+
+	.uncorazon-participate__icon-ring--navy {
+		border-color: color-mix(in srgb, var(--campaign-navy) 18%, transparent);
+	}
+
+	/* ── Panel copy ─────────────────────────────────── */
+
+	.uncorazon-participate__panel-copy {
+		text-align: center;
+	}
+
+	@media (min-width: 768px) {
+		.uncorazon-participate__panel-copy {
+			text-align: left;
+		}
+	}
+
+	/* ── Centered layout (Testimonio) ───────────────── */
+
+	.uncorazon-participate__panel-centered {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		text-align: center;
+	}
+
+	/* ── Body text ──────────────────────────────────── */
+
+	.uncorazon-participate__body {
+		font-family: "Cormorant Garamond", serif;
+		font-weight: 500;
+		font-size: 1.05rem;
+		line-height: 1.7;
+	}
+
+	@media (min-width: 640px) {
+		.uncorazon-participate__body {
+			font-size: 1.15rem;
+		}
+	}
+
+	/* ── Prayer list ────────────────────────────────── */
+
+	.uncorazon-participate__prayer-list {
+		font-family: "Cormorant Garamond", serif;
+		font-weight: 500;
+		font-size: 1rem;
+		color: color-mix(in srgb, var(--campaign-navy) 72%, transparent);
+		display: flex;
+		flex-direction: column;
+		gap: 0.6rem;
+	}
+
+	.uncorazon-participate__prayer-list li {
+		display: flex;
+		align-items: flex-start;
+		gap: 0.6rem;
+	}
+
+	.uncorazon-participate__prayer-diamond {
+		display: inline-block;
+		flex-shrink: 0;
+		width: 7px;
+		height: 7px;
+		margin-top: 0.45rem;
+		background: var(--campaign-navy);
+		transform: rotate(45deg);
+		opacity: 0.3;
+	}
+
+	/* ── CTA ────────────────────────────────────────── */
+
+	.uncorazon-participate__cta {
+		-webkit-tap-highlight-color: transparent;
+	}
+
+	/* ══════════════════════════════════════════════════
+	   Staggered reveal per active panel
+	   ══════════════════════════════════════════════════ */
+
+	.participate-stagger {
+		opacity: 0;
+		transform: translateY(14px);
+		transition:
+			opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+			transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+	}
+
+	.uncorazon-participate__panel.is-active .participate-stagger {
+		opacity: 1;
+		transform: translateY(0);
+	}
+
+	.participate-stagger--d1 {
+		transition-delay: 0.08s;
+	}
+	.participate-stagger--d2 {
+		transition-delay: 0.16s;
+	}
+	.participate-stagger--d3 {
+		transition-delay: 0.26s;
+	}
+	.participate-stagger--d4 {
+		transition-delay: 0.36s;
+	}
+	.participate-stagger--d5 {
+		transition-delay: 0.44s;
+	}
+
+	/* Reset stagger on inactive panels so re-entry replays */
+	.uncorazon-participate__panel:not(.is-active) .participate-stagger {
+		transition-delay: 0s;
+	}
+
+	/* ══════════════════════════════════════════════════
+	   Geometric envelope — diamond with 3D flap
+	   ══════════════════════════════════════════════════ */
+
+	.uncorazon-participate__envelope {
+		position: relative;
+		width: 110px;
+		height: 110px;
+		margin: 0 auto;
+		cursor: pointer;
+		perspective: 600px;
+		animation: participate-envelope-float 3s ease-in-out infinite;
+		-webkit-tap-highlight-color: transparent;
+	}
+
+	@media (min-width: 640px) {
+		.uncorazon-participate__envelope {
+			width: 130px;
+			height: 130px;
+		}
+	}
+
+	.uncorazon-participate__envelope-body {
+		position: absolute;
+		inset: 0;
+		background: var(--campaign-gold);
+		clip-path: polygon(0% 50%, 100% 50%, 50% 100%);
+		z-index: 2;
+		filter: drop-shadow(0 4px 12px rgba(252, 210, 42, 0.25));
+		animation: participate-envelope-glow 2.8s ease-in-out infinite;
+	}
+
+	.uncorazon-participate__envelope-flap {
+		position: absolute;
+		inset: 0;
+		background: linear-gradient(
+			to bottom,
+			color-mix(in srgb, var(--campaign-gold) 82%, #906d00),
+			var(--campaign-gold)
+		);
+		clip-path: polygon(50% 0%, 100% 50%, 0% 50%);
+		transform-origin: 50% 50%;
+		transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+		z-index: 3;
+		backface-visibility: hidden;
+	}
+
+	.uncorazon-participate__envelope-paper {
+		position: absolute;
+		top: 15%;
+		left: 15%;
+		width: 70%;
+		height: 70%;
+		background: white;
+		clip-path: polygon(50% 5%, 95% 50%, 50% 95%, 5% 50%);
+		z-index: 1;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.1s;
+	}
+
+	.uncorazon-participate__envelope:hover
+		.uncorazon-participate__envelope-flap,
+	.uncorazon-participate__envelope.is-open
+		.uncorazon-participate__envelope-flap {
+		transform: rotateX(180deg);
+	}
+
+	.uncorazon-participate__envelope:hover
+		.uncorazon-participate__envelope-paper,
+	.uncorazon-participate__envelope.is-open
+		.uncorazon-participate__envelope-paper {
+		transform: translateY(-38%);
+	}
+
+	@keyframes participate-envelope-float {
+		0%,
+		100% {
+			transform: translateY(0);
+		}
+		50% {
+			transform: translateY(-6px);
+		}
+	}
+
+	@keyframes participate-envelope-glow {
+		0%,
+		100% {
+			filter: drop-shadow(0 4px 12px rgba(252, 210, 42, 0.25));
+		}
+		50% {
+			filter: drop-shadow(0 6px 22px rgba(252, 210, 42, 0.45));
+		}
+	}
+
+	/* ── Scroll reveal (header only) ────────────────── */
+
+	.uncorazon-participate__header.reveal {
+		opacity: 0;
+		transform: translate3d(0, 20px, 0);
+		transition:
+			opacity 0.85s cubic-bezier(0.22, 1, 0.36, 1),
+			transform 0.85s cubic-bezier(0.22, 1, 0.36, 1);
+	}
+
+	.uncorazon-participate__header.reveal.visible {
+		opacity: 1;
+		transform: translate3d(0, 0, 0);
+	}
+
+	/* ── Reduced motion ─────────────────────────────── */
+
+	@media (prefers-reduced-motion: reduce) {
+		.participate-stagger {
+			opacity: 1;
+			transform: none;
+			transition: none;
+		}
+
+		.uncorazon-participate__envelope {
+			animation: none;
+		}
+
+		.uncorazon-participate__envelope-body {
+			animation: none;
+		}
+
+		.uncorazon-participate__envelope-flap,
+		.uncorazon-participate__envelope-paper {
+			transition: none;
+		}
+
+		.uncorazon-participate__surface--orar {
+			transition: none;
+		}
+
+		.uncorazon-participate__dot span {
+			transition: none;
+		}
+
+		.uncorazon-participate__header.reveal {
+			opacity: 1;
+			transform: none;
+			transition: none;
+		}
+	}
+</style>
