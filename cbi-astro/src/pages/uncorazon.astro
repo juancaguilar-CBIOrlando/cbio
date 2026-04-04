@@ -76,8 +76,9 @@ import campaignLogoWhite from "@/heart-assets/blanco.png"
 		<div
 			class="pointer-events-none absolute inset-0 overflow-hidden"
 			aria-hidden="true">
+			<!-- Campaign house logo: soft watermark, fades into cream via mask -->
 			<svg
-				class="absolute -right-[20%] top-1/2 w-[min(85vw,520px)] -translate-y-1/2 -rotate-12 text-(--campaign-navy) opacity-[0.035]"
+				class="uncorazon-vision__house-watermark"
 				viewBox="0 0 240 220"
 				fill="currentColor">
 				<path d="M120 205 15 85 50 28 120 98 190 28 225 85 120 205Z"></path>
@@ -231,6 +232,30 @@ import campaignLogoWhite from "@/heart-assets/blanco.png"
 			ellipse 85% 55% at 50% 0%,
 			var(--campaign-gold-soft) 0%,
 			transparent 62%
+		);
+	}
+
+	/* Same geometry as hero logo; large, low-contrast, radial fade into section bg */
+	.uncorazon-vision__house-watermark {
+		position: absolute;
+		left: 50%;
+		top: 38%;
+		width: min(110vw, 720px);
+		max-width: none;
+		height: auto;
+		translate: -50% -50%;
+		rotate: -10deg;
+		color: var(--campaign-navy);
+		opacity: 0.07;
+		-webkit-mask-image: radial-gradient(
+			ellipse 58% 52% at 50% 48%,
+			#000 18%,
+			transparent 72%
+		);
+		mask-image: radial-gradient(
+			ellipse 58% 52% at 50% 48%,
+			#000 18%,
+			transparent 72%
 		);
 	}
 
