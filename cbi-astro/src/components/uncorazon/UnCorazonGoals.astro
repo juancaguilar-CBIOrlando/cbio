@@ -45,7 +45,7 @@ const checkpoints: readonly Checkpoint[] = [
 ]
 
 const goalTotal = 7_000_000
-const raisedUsd = 140_000
+const raisedUsd = 20_000
 const progressPct = Math.round((raisedUsd / goalTotal) * 1000) / 10
 ---
 
@@ -86,7 +86,7 @@ const progressPct = Math.round((raisedUsd / goalTotal) * 1000) / 10
 		</header>
 
 		<div
-			class="uncorazon-goals__progress-wrap mb-12 max-w-2xl sm:mb-14 mx-auto"
+			class="uncorazon-goals__progress-wrap mb-12 max-w-2xl sm:mb-24 mx-auto"
 			role="group"
 			aria-labelledby="uncorazon-progress-label">
 			<div
@@ -96,14 +96,15 @@ const progressPct = Math.round((raisedUsd / goalTotal) * 1000) / 10
 					class="font-bebas tracking-wider">
 					Progreso de la campaña
 				</span>
-				<span class="font-[Cormorant_Garamond,serif] text-white/90">
+				<!-- FIXME: once we have donations in -->
+				<!-- <span class="font-[Cormorant_Garamond,serif] text-white/90">
 					<span
 						class="text-(--campaign-gold) font-semibold not-italic tabular-nums"
 						>${raisedUsd.toLocaleString("en-US")}</span
 					>
 					recaudados ·
 					<span class="tabular-nums">{progressPct}%</span> de la meta
-				</span>
+				</span> -->
 			</div>
 			<progress
 				class="uncorazon-goals__progress progress h-3 w-full rounded-full border-0 bg-white/15"
