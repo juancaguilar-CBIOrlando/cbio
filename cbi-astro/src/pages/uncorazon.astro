@@ -4,192 +4,216 @@ import GeometricHeartWatermark from "@/components/common/GeometricHeartWatermark
 import { Image } from "astro:assets"
 import { BookOpen, Church, Heart } from "@lucide/astro"
 import campaignLogoWhite from "@/heart-assets/blanco.png"
+
+const uncorazonPillarIconClass =
+	"mx-auto h-8 w-8 shrink-0 text-(--campaign-gold) sm:h-8 sm:w-8 md:mx-0"
+const uncorazonPillarLabelClass =
+	"mt-2 font-bebas text-[1.2rem] leading-tight tracking-[0.04em] text-(--campaign-navy) sm:mt-3 sm:text-md sm:tracking-wide md:text-[1.35rem] md:leading-none md:tracking-[0.06em]"
 ---
 
 <Layout title="Un Corazón Para Su Casa - CBI Orlando" navLogo="white">
 	<div class="uncorazon-page">
-	<section
-		class="uncorazon-hero relative flex min-h-dvh flex-col items-center justify-center overflow-hidden px-5 py-24 sm:py-28"
-		aria-label="Un Corazón para Su Casa">
-		<!-- Base -->
-		<div
-			class="pointer-events-none absolute inset-0 z-0 bg-(--campaign-navy)">
-		</div>
-
-		<!-- Warm halo behind logo -->
-		<div
-			class="pointer-events-none absolute inset-0 z-1 bg-[radial-gradient(ellipse_55%_45%_at_50%_42%,var(--campaign-gold-soft)_0%,transparent_72%)]"
-			aria-hidden="true">
-		</div>
-
-		<GeometricHeartWatermark />
-
-		<!-- Film grain -->
-		<div
-			class="uncorazon-hero__noise pointer-events-none absolute inset-0 z-2"
-			aria-hidden="true">
-		</div>
-
-		<div
-			class="relative z-10 flex w-full max-w-3xl flex-col items-center text-center">
-			<Image
-				src={campaignLogoWhite}
-				alt="Un Corazón para Su Casa — logo de la campaña"
-				class="uncorazon-hero__logo h-auto w-[min(85vw,300px)] drop-shadow-[0_8px_40px_rgba(0,0,0,0.35)]"
-				width={900}
-				height={519}
-				loading="eager"
-				decoding="async"
-			/>
-
-			<p
-				class="uncorazon-hero__tagline mt-8 max-w-xl text-pretty text-xl leading-snug text-white/95 sm:text-2xl md:text-[1.65rem]">
-				Estamos creyendo a Dios por un lugar propio para Su casa
-			</p>
-
+		<section
+			class="uncorazon-hero relative flex min-h-dvh flex-col items-center justify-center overflow-hidden px-5 py-24 sm:py-28"
+			aria-label="Un Corazón para Su Casa">
+			<!-- Base -->
 			<div
-				class="uncorazon-hero__rule mt-7 h-px w-24 rounded-full bg-(--campaign-gold)"
-				role="presentation">
+				class="pointer-events-none absolute inset-0 z-0 bg-(--campaign-navy)">
 			</div>
 
+			<!-- Warm halo behind logo -->
 			<div
-				class="uncorazon-hero__scroll mt-10 text-(--campaign-gold)"
+				class="pointer-events-none absolute inset-0 z-1 bg-[radial-gradient(ellipse_55%_45%_at_50%_42%,var(--campaign-gold-soft)_0%,transparent_72%)]"
 				aria-hidden="true">
-				<svg
-					class="mx-auto h-9 w-9"
-					viewBox="0 0 24 24"
-					fill="none"
-					stroke="currentColor"
-					stroke-width="1.75"
-					stroke-linecap="square"
-					stroke-linejoin="miter"
-					aria-hidden="true">
-					<path d="M6 9l6 6 6-6"></path>
-				</svg>
 			</div>
-		</div>
-	</section>
 
-	<section
-		class="uncorazon-vision reveal relative z-10 px-5 py-20 pb-24 sm:py-24 sm:pb-28"
-		aria-labelledby="uncorazon-vision-heading">
-		<div
-			class="pointer-events-none absolute inset-0 overflow-hidden"
-			aria-hidden="true">
-			<!-- Campaign house logo: soft watermark, fades into cream via mask -->
-			<svg
-				class="uncorazon-vision__house-watermark"
-				viewBox="0 0 240 220"
-				fill="currentColor">
-				<path d="M120 205 15 85 50 28 120 98 190 28 225 85 120 205Z"></path>
-			</svg>
-		</div>
+			<GeometricHeartWatermark />
 
-		<div class="relative mx-auto w-full max-w-3xl">
-			<header class="mb-10 text-center sm:mb-12">
+			<!-- Film grain -->
+			<div
+				class="uncorazon-hero__noise pointer-events-none absolute inset-0 z-2"
+				aria-hidden="true">
+			</div>
+
+			<div
+				class="relative z-10 flex w-full max-w-3xl flex-col items-center text-center">
+				<Image
+					src={campaignLogoWhite}
+					alt="Un Corazón para Su Casa — logo de la campaña"
+					class="uncorazon-hero__logo h-auto w-[min(85vw,300px)] drop-shadow-[0_8px_40px_rgba(0,0,0,0.35)]"
+					width={900}
+					height={519}
+					loading="eager"
+					decoding="async"
+				/>
+
+				<p
+					class="uncorazon-hero__tagline mt-8 max-w-xl text-pretty text-xl leading-snug text-white/95 sm:text-2xl md:text-[1.65rem]">
+					Estamos creyendo a Dios por un lugar propio para Su casa
+				</p>
+
 				<div
-					class="mb-4 flex justify-center text-(--campaign-gold)"
+					class="uncorazon-hero__rule mt-7 h-px w-24 rounded-full bg-(--campaign-gold)"
+					role="presentation">
+				</div>
+
+				<div
+					class="uncorazon-hero__scroll mt-10 text-(--campaign-gold)"
 					aria-hidden="true">
 					<svg
-						class="h-8 w-8 sm:h-9 sm:w-9"
-						viewBox="0 0 240 220"
-						fill="currentColor">
-						<path
-							d="M120 205 15 85 50 28 120 98 190 28 225 85 120 205Z"
-						></path>
+						class="mx-auto h-9 w-9"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="1.75"
+						stroke-linecap="square"
+						stroke-linejoin="miter"
+						aria-hidden="true">
+						<path d="M6 9l6 6 6-6"></path>
 					</svg>
 				</div>
-				<h2
-					id="uncorazon-vision-heading"
-					class="font-bebas text-4xl tracking-[0.02em] text-(--campaign-navy) sm:text-5xl">
-					La Visión
-				</h2>
-			</header>
+			</div>
+		</section>
 
+		<section
+			class="uncorazon-vision reveal relative z-10 px-5 py-20 pb-24 sm:py-24 sm:pb-28"
+			aria-labelledby="uncorazon-vision-heading">
 			<div
-				class="uncorazon-vision__body space-y-6 text-[1.25rem] leading-[1.75] text-(--campaign-navy)/90">
-				<p>
-					<strong class="font-semibold text-(--campaign-navy)"
-						>Un Corazón para Su Casa</strong
-					>
-					es la visión de levantar un espacio donde nuestra iglesia pueda vivir
-					plenamente su propósito:
-					<span class="uncorazon-vision__highlight"
-						>amar a Dios, amar a la familia y amar al servicio</span
-					>.
-				</p>
-				<p>
-					Este nuevo edificio será un lugar donde todos se conecten con Dios, las
-					familias sean fortalecidas y cada persona pueda encontrar libertad,
-					descubrir su propósito y vivir su llamado para servir a Dios.
-				</p>
-				<p>
-					Además, será el hogar de nuestro colegio cristiano, Murphy Christian
-					Academy, donde formaremos a niños y jóvenes con principios bíblicos,
-					desarrollando su fe, carácter y propósito para impactar el mundo.
-				</p>
-				<p class="mb-0">
-					Este proyecto no es solo para hoy, es para el futuro. Estamos
-					construyendo un lugar que servirá a las próximas generaciones y dejará
-					un legado espiritual, familiar y educativo.
-				</p>
+				class="pointer-events-none absolute inset-0 overflow-hidden"
+				aria-hidden="true">
+				<!-- Geometric heart: soft watermark, fades into cream via mask -->
+				<svg
+					class="uncorazon-vision__house-watermark"
+					viewBox="0 0 240 220"
+					fill="currentColor">
+					<path d="M120 205 15 85 50 28 120 98 190 28 225 85 120 205Z"
+					></path>
+				</svg>
+				<!-- House silhouette with geometric heart cutout (vector match to campaign asset) -->
+				<svg
+					class="uncorazon-vision__house-heart-watermark"
+					viewBox="0 0 240 220"
+					fill="currentColor"
+					aria-hidden="true">
+					<path
+						fill-rule="evenodd"
+						d="M40 205 40 100 120 20 200 100 200 205ZM120 175 85 140 105 115 120 125 135 115 155 140Z"
+					></path>
+				</svg>
 			</div>
 
-			<div
-				class="uncorazon-vision__pillars mt-14 border-t border-(--campaign-navy)/10 pt-12"
-				role="list">
+			<div class="relative mx-auto w-full max-w-3xl">
+				<header class="mb-10 text-center sm:mb-12">
+					<div
+						class="mb-4 flex justify-center text-(--campaign-gold)"
+						aria-hidden="true">
+						<svg
+							class="h-8 w-8 sm:h-9 sm:w-9"
+							viewBox="0 0 240 220"
+							fill="currentColor">
+							<path
+								d="M120 205 15 85 50 28 120 98 190 28 225 85 120 205Z"
+							></path>
+						</svg>
+					</div>
+					<h2
+						id="uncorazon-vision-heading"
+						class="font-bebas text-4xl tracking-[0.02em] text-(--campaign-navy) sm:text-5xl">
+						La Visión
+					</h2>
+				</header>
+
 				<div
-					class="grid grid-cols-1 gap-10 md:grid-cols-[1fr_1px_1fr_1px_1fr] md:items-start md:gap-0 md:gap-x-6 lg:gap-x-10">
+					class="uncorazon-vision__body space-y-6 text-[1.25rem] leading-[1.75] text-(--campaign-navy)/90">
+					<p>
+						<strong class="font-semibold text-(--campaign-navy)"
+							>Un Corazón para Su Casa</strong
+						>
+						es la visión de levantar un espacio donde nuestra iglesia
+						pueda vivir plenamente su propósito:
+						<span class="uncorazon-vision__highlight"
+							>amar a Dios, amar a la familia y amar al servicio</span
+						>.
+					</p>
+					<p>
+						Este nuevo edificio será un lugar donde todos se
+						conecten con Dios, las familias sean fortalecidas y cada
+						persona pueda encontrar libertad, descubrir su propósito
+						y vivir su llamado para servir a Dios.
+					</p>
+					<p>
+						Además, será el hogar de nuestro colegio cristiano,
+						Murphy Christian Academy, donde formaremos a niños y
+						jóvenes con principios bíblicos, desarrollando su fe,
+						carácter y propósito para impactar el mundo.
+					</p>
+					<p class="mb-0">
+						Este proyecto no es solo para hoy, es para el futuro.
+						Estamos construyendo un lugar que servirá a las próximas
+						generaciones y dejará un legado espiritual, familiar y
+						educativo.
+					</p>
+				</div>
+
+				<div
+					class="uncorazon-vision__pillars mt-14 border-t border-(--campaign-navy)/10 pt-12"
+					role="list">
 					<div
-						class="uncorazon-vision__pillar text-center md:text-left"
-						role="listitem">
-						<Church
-							class="uncorazon-vision__pillar-icon mx-auto h-8 w-8 md:mx-0"
-							stroke-width={1.5}
-							aria-hidden="true"
-						/>
-						<p class="uncorazon-vision__pillar-label mt-3">Adoración</p>
-					</div>
-					<div
-						class="hidden min-h-18 w-px justify-self-center bg-(--campaign-gold)/45 md:block"
-						role="presentation"
-						aria-hidden="true">
-					</div>
-					<div
-						class="uncorazon-vision__pillar text-center md:text-left"
-						role="listitem">
-						<Heart
-							class="uncorazon-vision__pillar-icon mx-auto h-8 w-8 md:mx-0"
-							stroke-width={1.5}
-							aria-hidden="true"
-						/>
-						<p class="uncorazon-vision__pillar-label mt-3">Familia</p>
-					</div>
-					<div
-						class="hidden min-h-18 w-px justify-self-center bg-(--campaign-gold)/45 md:block"
-						role="presentation"
-						aria-hidden="true">
-					</div>
-					<div
-						class="uncorazon-vision__pillar text-center md:text-left"
-						role="listitem">
-						<BookOpen
-							class="uncorazon-vision__pillar-icon mx-auto h-8 w-8 md:mx-0"
-							stroke-width={1.5}
-							aria-hidden="true"
-						/>
-						<p class="uncorazon-vision__pillar-label mt-3 text-balance">
-							Educación
-							<span
-								class="uncorazon-vision__pillar-sub mt-1 block text-sm font-normal italic leading-snug text-(--campaign-navy)/70">
-								Murphy Christian Academy
-							</span>
-						</p>
+						class="grid grid-cols-3 gap-x-2 sm:gap-x-4 md:grid-cols-[1fr_1px_1fr_1px_1fr] md:items-start md:gap-x-6 md:gap-y-0 lg:gap-x-10">
+						<div
+							class="uncorazon-vision__pillar min-w-0 text-center md:text-left"
+							role="listitem">
+							<Church
+								class={uncorazonPillarIconClass}
+								stroke-width={1.5}
+								aria-hidden="true"
+							/>
+							<p class={uncorazonPillarLabelClass}>Adoración</p>
+						</div>
+						<div
+							class="hidden min-h-18 w-px justify-self-center bg-(--campaign-gold)/45 md:block"
+							role="presentation"
+							aria-hidden="true">
+						</div>
+						<div
+							class="uncorazon-vision__pillar min-w-0 text-center md:text-left"
+							role="listitem">
+							<Heart
+								class={uncorazonPillarIconClass}
+								stroke-width={1.5}
+								aria-hidden="true"
+							/>
+							<p class={uncorazonPillarLabelClass}>Familia</p>
+						</div>
+						<div
+							class="hidden min-h-18 w-px justify-self-center bg-(--campaign-gold)/45 md:block"
+							role="presentation"
+							aria-hidden="true">
+						</div>
+						<div
+							class="uncorazon-vision__pillar min-w-0 text-center md:text-left"
+							role="listitem">
+							<BookOpen
+								class={uncorazonPillarIconClass}
+								stroke-width={1.5}
+								aria-hidden="true"
+							/>
+							<p
+								class:list={[
+									uncorazonPillarLabelClass,
+									"text-balance",
+								]}>
+								Educación
+								<span
+									class="mt-1 block font-[Cormorant_Garamond,serif] text-[0.75rem] font-normal italic leading-snug text-(--campaign-navy)/70 sm:text-sm md:text-sm">
+									Murphy Christian Academy
+								</span>
+							</p>
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-	</section>
+		</section>
 	</div>
 </Layout>
 
@@ -259,6 +283,37 @@ import campaignLogoWhite from "@/heart-assets/blanco.png"
 		);
 	}
 
+	.uncorazon-vision__house-heart-watermark {
+		position: absolute;
+		right: max(-4%, calc(50% - 50rem));
+		top: 4%;
+		width: min(42vw, 240px);
+		max-width: none;
+		height: auto;
+		translate: 18% -8%;
+		rotate: -10deg;
+		color: var(--campaign-navy);
+		opacity: 0.07;
+		-webkit-mask-image: radial-gradient(
+			ellipse 52% 48% at 58% 42%,
+			#000 16%,
+			transparent 70%
+		);
+		mask-image: radial-gradient(
+			ellipse 52% 48% at 58% 42%,
+			#000 16%,
+			transparent 70%
+		);
+	}
+
+	@media (min-width: 1024px) {
+		.uncorazon-vision__house-heart-watermark {
+			right: max(2%, calc(50% - 26rem));
+			top: 6%;
+			width: min(28vw, 260px);
+		}
+	}
+
 	.uncorazon-vision__body {
 		font-family: "Cormorant Garamond", serif;
 		font-weight: 500;
@@ -269,21 +324,6 @@ import campaignLogoWhite from "@/heart-assets/blanco.png"
 		-webkit-box-decoration-break: clone;
 		border-bottom: 2px solid var(--campaign-gold);
 		padding-bottom: 1px;
-	}
-
-	.uncorazon-vision__pillar-icon {
-		color: var(--campaign-gold);
-	}
-
-	.uncorazon-vision__pillar-label {
-		font-family: "Bebas Neue", sans-serif;
-		font-size: 1.35rem;
-		letter-spacing: 0.06em;
-		color: var(--campaign-navy);
-	}
-
-	.uncorazon-vision__pillar-sub {
-		font-family: "Cormorant Garamond", serif;
 	}
 
 	.uncorazon-vision.reveal {
