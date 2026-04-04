@@ -2,40 +2,47 @@
 /**
  * Section 3: Goal & checkpoints — DaisyUI timeline + funding progress.
  */
-const checkpoints = [
+type Checkpoint = {
+	amount: string
+	label?: string
+	side: "start" | "end"
+	active: boolean
+	lineClass: string
+	iconClass: string
+}
+
+const checkpoints: readonly Checkpoint[] = [
 	{
 		amount: "$900,000",
 		label: "Primer Paso de Fe",
-		side: "start" as const,
+		side: "start",
 		active: true,
 		lineClass: "bg-[var(--campaign-gold)]",
 		iconClass: "text-[var(--campaign-gold)]",
 	},
 	{
 		amount: "$2,000,000",
-		label: "Creciendo en Fe",
-		side: "end" as const,
+		// label: "Creciendo en Fe",
+		side: "end",
 		active: false,
 		lineClass: "bg-white/35",
 		iconClass: "text-white/50",
 	},
 	{
 		amount: "$4,000,000",
-		label: "Avanzando Juntos",
-		side: "start" as const,
+		side: "start",
 		active: false,
 		lineClass: "bg-white/25",
 		iconClass: "text-white/40",
 	},
 	{
 		amount: "$7,000,000",
-		label: "La Casa Completa",
-		side: "end" as const,
+		side: "end",
 		active: false,
 		lineClass: "bg-white/20",
 		iconClass: "text-white/35",
 	},
-] as const
+]
 
 const goalTotal = 7_000_000
 const raisedUsd = 140_000
@@ -121,9 +128,11 @@ const progressPct = Math.round((raisedUsd / goalTotal) * 1000) / 10
 							<p class="font-bebas text-xl tracking-[0.06em] text-(--campaign-gold) sm:text-2xl">
 								{c.amount}
 							</p>
-							<p class="mt-1 font-[Cormorant_Garamond,serif] text-base text-white/90 sm:text-lg">
-								{c.label}
-							</p>
+							{c.label ? (
+								<p class="mt-1 font-[Cormorant_Garamond,serif] text-base text-white/90 sm:text-lg">
+									{c.label}
+								</p>
+							) : null}
 						</>
 					)
 
