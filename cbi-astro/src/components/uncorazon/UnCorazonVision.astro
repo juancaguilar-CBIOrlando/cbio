@@ -10,7 +10,7 @@ const pillarLabelClass =
 ---
 
 <section
-	class="uncorazon-vision reveal relative z-10 px-5 py-20 pb-24 sm:py-24 sm:pb-28"
+	class="uncorazon-vision relative z-10 px-5 py-20 pb-24 sm:py-24 sm:pb-28"
 	aria-labelledby="uncorazon-vision-heading">
 	<div
 		class="pointer-events-none absolute inset-0 overflow-hidden"
@@ -28,7 +28,7 @@ const pillarLabelClass =
 			</div>
 			<h2
 				id="uncorazon-vision-heading"
-				class="font-bebas text-4xl tracking-[0.02em] text-(--campaign-navy) sm:text-5xl">
+				class="scroll-mt-24 font-bebas text-4xl tracking-[0.02em] text-(--campaign-navy) sm:text-5xl">
 				La Visión
 			</h2>
 		</header>
@@ -182,26 +182,5 @@ const pillarLabelClass =
 		-webkit-box-decoration-break: clone;
 		border-bottom: 2px solid var(--campaign-gold);
 		padding-bottom: 1px;
-	}
-
-	.uncorazon-vision.reveal {
-		opacity: 0;
-		transform: translate3d(0, 28px, 0);
-		transition:
-			opacity 0.85s cubic-bezier(0.22, 1, 0.36, 1),
-			transform 0.85s cubic-bezier(0.22, 1, 0.36, 1);
-	}
-
-	.uncorazon-vision.reveal.visible {
-		opacity: 1;
-		transform: translate3d(0, 0, 0);
-	}
-
-	@media (prefers-reduced-motion: reduce) {
-		.uncorazon-vision.reveal {
-			opacity: 1;
-			transform: none;
-			transition: none;
-		}
 	}
 </style>
