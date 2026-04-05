@@ -53,7 +53,7 @@ const progressPct = Math.round((raisedUsd / goalTotal) * 1000) / 10
 ---
 
 <section
-	class="uncorazon-goals relative z-10 px-5 pb-20 pt-0 sm:pb-28"
+	class="uncorazon-goals h-auto sm:h-full relative z-10 px-5 pb-20 pt-0 sm:pb-28"
 	aria-labelledby="uncorazon-goals-heading">
 	<div
 		class="pointer-events-none absolute inset-0 overflow-hidden"
@@ -66,12 +66,12 @@ const progressPct = Math.round((raisedUsd / goalTotal) * 1000) / 10
 		class="pointer-events-none absolute right-3 top-6 z-1 sm:right-6 sm:top-8"
 		aria-hidden="true">
 		<DoveIcon
-			class="h-auto w-16 sm:w-24 md:w-28"
+			class="h-auto w-20 sm:w-24 md:w-30"
 			color="text-(--campaign-gold)/35"
 		/>
 	</div>
 
-	<div class="relative z-10 mx-auto w-full max-w-4xl">
+	<div class="relative z-10 mx-auto w-full max-w-6xl">
 		<header class="mb-10 text-center sm:mb-14">
 			<h2
 				id="uncorazon-goals-heading"
@@ -90,7 +90,7 @@ const progressPct = Math.round((raisedUsd / goalTotal) * 1000) / 10
 		</header>
 
 		<div
-			class="uncorazon-goals__progress-wrap mb-12 max-w-2xl sm:mb-24 mx-auto"
+			class="uncorazon-goals__progress-wrap mb-6 max-w-2xl sm:mb-28 mx-auto"
 			role="group"
 			aria-labelledby="uncorazon-progress-label">
 			<div
@@ -118,15 +118,16 @@ const progressPct = Math.round((raisedUsd / goalTotal) * 1000) / 10
 		</div>
 
 		<ul
-			class="timeline timeline-vertical lg:timeline-horizontal timeline-snap-icon mx-auto mt-12 w-full max-w-4xl sm:mt-14">
+			class="timeline timeline-vertical lg:timeline-horizontal timeline-snap-icon mx-auto mt-4 w-full sm:mt-14">
 			{
 				checkpoints.map((c, i) => {
 					const isFirst = i === 0
 					const isLast = i === checkpoints.length - 1
 					const prev = !isFirst ? checkpoints[i - 1]! : null
+					// HERE: Change this to change the line size and the box of the timeline sizing...keep in mind vertical and horizontal layouts
 					const boxClass = c.active
-						? "uncorazon-goals__box uncorazon-goals__box--active timeline-box border-(--campaign-gold)/80 bg-white/10 text-white shadow-[0_0_28px_rgba(252,210,42,0.28)]"
-						: "timeline-box border-white/20 bg-white/5 text-white/85 opacity-[0.85]"
+						? "uncorazon-goals__box uncorazon-goals__box--active timeline-box px-6 py-4 border-(--campaign-gold)/80 bg-white/10 text-white shadow-[0_0_28px_rgba(252,210,42,0.28)]"
+						: "timeline-box p-4 my-12 sm:px-8 sm:py-4 sm:mx-8 sm:my-0 border-white/20 bg-white/5 text-white/85 opacity-[0.85]"
 
 					const inner = (
 						<>
@@ -164,7 +165,7 @@ const progressPct = Math.round((raisedUsd / goalTotal) * 1000) / 10
 									viewBox="0 0 20 20"
 									fill="currentColor"
 									class:list={[
-										"h-5 w-5 shrink-0",
+										"h-6 w-6 shrink-0",
 										c.iconClass,
 										c.active &&
 											"uncorazon-goals__icon--pulse",
@@ -210,7 +211,6 @@ const progressPct = Math.round((raisedUsd / goalTotal) * 1000) / 10
 		);
 		margin-top: -3.75rem;
 		padding-top: 5.25rem;
-		height: 100vh;
 	}
 
 	.uncorazon-goals__noise {
