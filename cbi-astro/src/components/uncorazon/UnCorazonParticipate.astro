@@ -1,12 +1,13 @@
 ---
 import { HandHeart, Flame } from "@lucide/astro"
+import "swiper/css"
 ---
 
 <section
 	class="uncorazon-participate"
 	aria-labelledby="uncorazon-participate-heading">
 	<div class="uncorazon-participate__sticky">
-		<header class="uncorazon-participate__header reveal">
+		<header class="uncorazon-participate__header">
 			<h2
 				id="uncorazon-participate-heading"
 				class="font-bebas text-4xl tracking-[0.04em] text-(--campaign-navy) sm:text-5xl">
@@ -24,6 +25,7 @@ import { HandHeart, Flame } from "@lucide/astro"
 					class="uncorazon-participate__dot is-active"
 					data-panel="0"
 					aria-label="Dar"
+					aria-current="true"
 					type="button">
 					<span></span>
 				</button>
@@ -31,6 +33,7 @@ import { HandHeart, Flame } from "@lucide/astro"
 					class="uncorazon-participate__dot"
 					data-panel="1"
 					aria-label="Orar"
+					aria-current="false"
 					type="button">
 					<span></span>
 				</button>
@@ -38,6 +41,7 @@ import { HandHeart, Flame } from "@lucide/astro"
 					class="uncorazon-participate__dot"
 					data-panel="2"
 					aria-label="Testimonio"
+					aria-current="false"
 					type="button">
 					<span></span>
 				</button>
@@ -45,9 +49,16 @@ import { HandHeart, Flame } from "@lucide/astro"
 		</header>
 
 		<div class="uncorazon-participate__viewport">
-			<div class="uncorazon-participate__track">
-				<!-- ── Panel 1: Dar ──────────────────────────── -->
-				<article class="uncorazon-participate__panel is-active">
+			<div
+				class="uncorazon-participate__swipe"
+				role="region"
+				aria-roledescription="carrusel"
+				aria-label="Formas de participar">
+				<div class="swiper uncorazon-participate-swiper">
+					<div class="swiper-wrapper">
+						<!-- ── Panel 1: Dar ──────────────────────────── -->
+						<div class="swiper-slide">
+							<article class="uncorazon-participate__panel is-active">
 					<div class="uncorazon-participate__surface uncorazon-participate__surface--dar">
 						<div class="uncorazon-participate__panel-grid">
 							<div
@@ -91,9 +102,11 @@ import { HandHeart, Flame } from "@lucide/astro"
 						</div>
 					</div>
 				</article>
+						</div>
 
-				<!-- ── Panel 2: Orar ─────────────────────────── -->
-				<article class="uncorazon-participate__panel">
+						<!-- ── Panel 2: Orar ─────────────────────────── -->
+						<div class="swiper-slide">
+							<article class="uncorazon-participate__panel">
 					<div class="uncorazon-participate__surface uncorazon-participate__surface--orar">
 						<div class="uncorazon-participate__panel-grid uncorazon-participate__panel-grid--reverse">
 							<div
@@ -142,13 +155,15 @@ import { HandHeart, Flame } from "@lucide/astro"
 						</div>
 					</div>
 				</article>
+						</div>
 
-				<!-- ── Panel 3: Testimonio ───────────────────── -->
-				<article class="uncorazon-participate__panel">
+						<!-- ── Panel 3: Testimonio ───────────────────── -->
+						<div class="swiper-slide">
+							<article class="uncorazon-participate__panel">
 					<div class="uncorazon-participate__surface uncorazon-participate__surface--testimonio">
 						<div class="uncorazon-participate__panel-centered">
 							<div
-								class="uncorazon-participate__envelope"
+								class="uncorazon-participate__envelope swiper-no-swiping"
 								role="button"
 								tabindex="0"
 								aria-label="Comparte tu testimonio">
@@ -178,73 +193,69 @@ import { HandHeart, Flame } from "@lucide/astro"
 						</div>
 					</div>
 				</article>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
 </section>
 
 <script>
-	;(() => {
-		const section = document.querySelector(
-			".uncorazon-participate",
-		) as HTMLElement | null
-		const track = document.querySelector(
-			".uncorazon-participate__track",
+	import Swiper from "swiper"
+	import { Keyboard } from "swiper/modules"
+
+	document.addEventListener("DOMContentLoaded", () => {
+		const swiperEl = document.querySelector(
+			".uncorazon-participate-swiper",
 		) as HTMLElement | null
 		const dots = document.querySelectorAll(".uncorazon-participate__dot")
 		const panels = document.querySelectorAll(
 			".uncorazon-participate__panel",
 		)
 
-		if (!section || !track) return
+		if (!swiperEl) return
 
-		let ticking = false
-		let prevActive = 0
+		const reducedMotion = window.matchMedia(
+			"(prefers-reduced-motion: reduce)",
+		).matches
 
-		function update() {
-			const rect = section!.getBoundingClientRect()
-			const scrollable = section!.offsetHeight - window.innerHeight
-			if (scrollable <= 0) return
+		const swiper = new Swiper(swiperEl, {
+			modules: [Keyboard],
+			slidesPerView: 1,
+			spaceBetween: 0,
+			speed: reducedMotion ? 0 : 420,
+			grabCursor: true,
+			keyboard: {
+				enabled: true,
+				onlyInViewport: true,
+			},
+			on: {
+				slideChange(sw) {
+					syncActive(sw.activeIndex)
+				},
+			},
+		})
 
-			const scrolled = Math.max(0, -rect.top)
-			const progress = Math.min(1, scrolled / scrollable)
-
-			const maxTranslate = track!.scrollWidth - window.innerWidth
-			track!.style.transform = `translateX(-${progress * maxTranslate}px)`
-
-			const panelCount = 3
-			const activeIndex =
-				progress >= 1
-					? panelCount - 1
-					: Math.min(
-							panelCount - 1,
-							Math.floor(progress * panelCount),
-						)
-
-			dots.forEach((d, i) =>
-				d.classList.toggle("is-active", i === activeIndex),
+		function syncActive(index: number) {
+			panels.forEach((p, i) =>
+				p.classList.toggle("is-active", i === index),
 			)
-
-			if (activeIndex !== prevActive) {
-				panels.forEach((p, i) =>
-					p.classList.toggle("is-active", i === activeIndex),
-				)
-				prevActive = activeIndex
-			}
-
-			ticking = false
+			dots.forEach((d, i) => {
+				d.classList.toggle("is-active", i === index)
+				d.setAttribute("aria-current", i === index ? "true" : "false")
+			})
 		}
 
-		function onScroll() {
-			if (!ticking) {
-				requestAnimationFrame(update)
-				ticking = true
-			}
-		}
+		dots.forEach((dot) => {
+			dot.addEventListener("click", () => {
+				const raw = dot.getAttribute("data-panel")
+				const i = raw !== null ? parseInt(raw, 10) : NaN
+				if (!Number.isNaN(i)) swiper.slideTo(i)
+			})
+		})
 
-		window.addEventListener("scroll", onScroll, { passive: true })
-		window.addEventListener("resize", update)
-		update()
+		syncActive(swiper.activeIndex)
 
 		const envelope = document.querySelector(
 			".uncorazon-participate__envelope",
@@ -253,16 +264,14 @@ import { HandHeart, Flame } from "@lucide/astro"
 			const toggle = () => envelope.classList.toggle("is-open")
 			envelope.addEventListener("click", toggle)
 			envelope.addEventListener("keydown", (e) => {
-				if (
-					(e as KeyboardEvent).key === "Enter" ||
-					(e as KeyboardEvent).key === " "
-				) {
+				const ke = e as KeyboardEvent
+				if (ke.key === "Enter" || ke.key === " ") {
 					e.preventDefault()
 					toggle()
 				}
 			})
 		}
-	})()
+	})
 </script>
 
 <style>
@@ -271,7 +280,6 @@ import { HandHeart, Flame } from "@lucide/astro"
 	.uncorazon-participate {
 		position: relative;
 		z-index: 10;
-		height: 350vh;
 		background-color: #fff;
 		background-image: radial-gradient(
 			ellipse 65% 40% at 50% 6%,
@@ -280,18 +288,37 @@ import { HandHeart, Flame } from "@lucide/astro"
 		);
 		margin-top: -3.75rem;
 		padding-top: 3.75rem;
+		padding-bottom: 4rem;
 		clip-path: polygon(0 3.75rem, 100% 0, 100% 100%, 0 100%);
 	}
 
-	/* ── Sticky container ───────────────────────────── */
+	@media (min-width: 640px) {
+		.uncorazon-participate {
+			padding-bottom: 5rem;
+		}
+	}
+
+	/* ── Section column ─────────────────────────────── */
 
 	.uncorazon-participate__sticky {
-		position: sticky;
-		top: 0;
-		height: 100vh;
 		display: flex;
 		flex-direction: column;
+	}
+
+	/* ── Swipeable carousel (replaces scroll-driven track) ─ */
+
+	.uncorazon-participate__swipe {
+		position: relative;
+		width: 100%;
+	}
+
+	.uncorazon-participate-swiper {
 		overflow: hidden;
+	}
+
+	.uncorazon-participate-swiper .swiper-slide {
+		height: auto;
+		box-sizing: border-box;
 	}
 
 	/* ── Header ─────────────────────────────────────── */
@@ -350,23 +377,17 @@ import { HandHeart, Flame } from "@lucide/astro"
 	/* ── Viewport & track ───────────────────────────── */
 
 	.uncorazon-participate__viewport {
-		flex: 1;
-		overflow: hidden;
 		position: relative;
+		width: 100%;
+		overflow: hidden;
 	}
 
-	.uncorazon-participate__track {
-		display: flex;
-		height: 100%;
-		will-change: transform;
-		transition: transform 0.08s linear;
-	}
-
-	/* ── Panel (each 100 vw) ────────────────────────── */
+	/* ── Panel (full width of swipe viewport) ───────── */
 
 	.uncorazon-participate__panel {
-		flex: 0 0 100vw;
-		width: 100vw;
+		width: 100%;
+		max-width: 100%;
+		box-sizing: border-box;
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -575,7 +596,7 @@ import { HandHeart, Flame } from "@lucide/astro"
 	}
 
 	/* ══════════════════════════════════════════════════
-	   Staggered reveal per active panel
+	   Staggered entrance per active panel
 	   ══════════════════════════════════════════════════ */
 
 	.participate-stagger {
@@ -708,21 +729,6 @@ import { HandHeart, Flame } from "@lucide/astro"
 		}
 	}
 
-	/* ── Scroll reveal (header only) ────────────────── */
-
-	.uncorazon-participate__header.reveal {
-		opacity: 0;
-		transform: translate3d(0, 20px, 0);
-		transition:
-			opacity 0.85s cubic-bezier(0.22, 1, 0.36, 1),
-			transform 0.85s cubic-bezier(0.22, 1, 0.36, 1);
-	}
-
-	.uncorazon-participate__header.reveal.visible {
-		opacity: 1;
-		transform: translate3d(0, 0, 0);
-	}
-
 	/* ── Reduced motion ─────────────────────────────── */
 
 	@media (prefers-reduced-motion: reduce) {
@@ -750,12 +756,6 @@ import { HandHeart, Flame } from "@lucide/astro"
 		}
 
 		.uncorazon-participate__dot span {
-			transition: none;
-		}
-
-		.uncorazon-participate__header.reveal {
-			opacity: 1;
-			transform: none;
 			transition: none;
 		}
 	}
