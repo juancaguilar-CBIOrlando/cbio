@@ -1,0 +1,293 @@
+---
+import DoveIcon from "../common/DoveIcon.astro"
+import HouseHeartIcon from "@/components/common/HouseHeartIcon.astro"
+import HouseIcon from "@/components/common/HouseIcon.astro"
+
+/**
+ * Section 3: Goal & checkpoints — DaisyUI timeline + funding progress.
+ */
+type Checkpoint = {
+	amount: string
+	label?: string
+	side: "start" | "end"
+	active: boolean
+	lineClass: string
+	iconClass: string
+}
+
+const checkpoints: readonly Checkpoint[] = [
+	{
+		amount: "$00.00",
+		label: "Primer Paso de Fe",
+		side: "start",
+		active: false,
+		lineClass: "bg-[var(--campaign-gold)] w-1.4 sm:w-38 md:46",
+		iconClass: "text-[var(--campaign-gold)]",
+	},
+	{
+		amount: "$900,000",
+		// label: "Creciendo en Fe",
+		side: "end",
+		active: false,
+		lineClass: "bg-white/35",
+		iconClass: "text-white/50",
+	},
+	{
+		amount: "$2,000,000",
+		side: "start",
+		active: false,
+		lineClass: "bg-white/25",
+		iconClass: "text-white/40",
+	},
+	{
+		amount: "$7,000,000",
+		side: "start",
+		active: true,
+		lineClass: "bg-white/20",
+		iconClass: "text-white/35",
+	},
+]
+
+const goalTotal = 7_000_000
+const raisedUsd = 20_000
+const progressPct = Math.round((raisedUsd / goalTotal) * 1000) / 10
+---
+
+<section
+	class="uncorazon-goals h-auto sm:h-full relative z-10 px-5 pb-20 pt-0 sm:pb-28"
+	aria-labelledby="uncorazon-goals-heading">
+	<div
+		class="pointer-events-none absolute inset-0 overflow-hidden"
+		aria-hidden="true">
+		<div class="uncorazon-goals__noise"></div>
+		<HouseHeartIcon class="uncorazon-goals__watermark" />
+	</div>
+
+	<div
+		class="pointer-events-none absolute right-3 top-6 z-1 sm:right-6 sm:top-8"
+		aria-hidden="true">
+		<DoveIcon
+			class="h-auto w-20 sm:w-24 md:w-30"
+			color="text-(--campaign-gold)/35"
+		/>
+	</div>
+
+	<div class="relative z-10 mx-auto w-full max-w-6xl">
+		<header class="mb-10 text-center sm:mb-14">
+			<h2
+				id="uncorazon-goals-heading"
+				class="font-bebas text-4xl tracking-[0.04em] text-white sm:text-5xl">
+				Nuestra Meta
+			</h2>
+			<p
+				class="mt-2 font-bebas text-6xl leading-none tracking-[0.02em] text-(--campaign-gold) sm:text-7xl md:text-8xl"
+				aria-label="Siete millones de dólares">
+				$7,000,000
+			</p>
+			<p
+				class="mx-auto mt-4 max-w-xl font-[Cormorant_Garamond,serif] text-lg text-white/75 italic sm:text-xl">
+				Pasos de fe en el camino hacia la casa completa
+			</p>
+		</header>
+
+		<div
+			class="uncorazon-goals__progress-wrap mb-6 max-w-2xl sm:mb-28 mx-auto"
+			role="group"
+			aria-labelledby="uncorazon-progress-label">
+			<div
+				class="mb-2 flex flex-wrap items-baseline justify-between gap-2 text-sm text-white/80">
+				<span
+					id="uncorazon-progress-label"
+					class="font-bebas text-xl tracking-wider">
+					Progreso de la campaña
+				</span>
+				<!-- FIXME: once we have donations in -->
+				<!-- <span class="font-[Cormorant_Garamond,serif] text-white/90">
+					<span
+						class="text-(--campaign-gold) font-semibold not-italic tabular-nums"
+						>${raisedUsd.toLocaleString("en-US")}</span
+					>
+					recaudados ·
+					<span class="tabular-nums">{progressPct}%</span> de la meta
+				</span> -->
+			</div>
+			<!-- <progress
+				class="uncorazon-goals__progress progress h-3 w-full rounded-full border-0 bg-white/15"
+				max={goalTotal}
+				value={raisedUsd}>
+			</progress> -->
+		</div>
+
+		<ul
+			class="timeline timeline-vertical lg:timeline-horizontal timeline-snap-icon mx-auto mt-4 w-full sm:mt-14">
+			{
+				checkpoints.map((c, i) => {
+					const isFirst = i === 0
+					const isLast = i === checkpoints.length - 1
+					const prev = !isFirst ? checkpoints[i - 1]! : null
+					// HERE: Change this to change the line size and the box of the timeline sizing...keep in mind vertical and horizontal layouts
+					const boxClass = c.active
+						? "uncorazon-goals__box uncorazon-goals__box--active timeline-box px-6 py-4 border-(--campaign-gold)/80 bg-white/10 text-white shadow-[0_0_28px_rgba(252,210,42,0.28)]"
+						: "timeline-box px-6 py-2 -mt-18 sm:mt-0 sm:px-8 sm:py-4 sm:mx-8 border-white/20 bg-white/5 text-white/85 opacity-[0.85]"
+
+					const inner = (
+						<>
+							<p class="font-bebas text-xl tracking-[0.06em] text-(--campaign-gold) sm:text-2xl">
+								{c.amount}
+							</p>
+							{c.label ? (
+								<p class="font-[Cormorant_Garamond,serif] text-base text-white/90 sm:text-lg">
+									{c.label}
+								</p>
+							) : null}
+						</>
+					)
+
+					return (
+						<li class="min-h-52 sm:min-h-auto">
+							{prev ? (
+								<hr
+									class:list={[
+										"border-0 py-2 sm:py-0",
+										prev.lineClass,
+									]}
+								/>
+							) : null}
+
+							{c.side === "start" ? (
+								<div
+									class:list={[
+										"timeline-start",
+										boxClass,
+										isLast && "-mt-22 sm:mt-0",
+										!c.active && "max-lg:mb-2",
+									]}>
+									{inner}
+								</div>
+							) : null}
+
+							<div class="timeline-middle my-4 mx-2">
+								<HouseIcon
+									class:list={[
+										"h-6 w-6 shrink-0 text-(--campaign-gold)",
+										c.iconClass,
+										c.active &&
+											"uncorazon-goals__icon--pulse",
+									]}
+									aria-hidden="true"
+								/>
+							</div>
+
+							{c.side === "end" ? (
+								<div
+									class:list={[
+										"timeline-end",
+										boxClass,
+										!c.active && "max-lg:mb-2",
+									]}>
+									{inner}
+								</div>
+							) : null}
+
+							{!isLast ? (
+								<hr class:list={["border-0", c.lineClass]} />
+							) : null}
+						</li>
+					)
+				})
+			}
+		</ul>
+	</div>
+</section>
+
+<style>
+	.uncorazon-goals {
+		background-color: var(--campaign-navy);
+		background-image: radial-gradient(
+			ellipse 70% 50% at 80% 20%,
+			var(--campaign-gold-soft) 0%,
+			transparent 55%
+		);
+		margin-top: -3.75rem;
+		padding-top: 5.25rem;
+	}
+
+	.uncorazon-goals__noise {
+		position: absolute;
+		inset: 0;
+		opacity: 0.07;
+		background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+		pointer-events: none;
+	}
+
+	.uncorazon-goals__watermark {
+		position: absolute;
+		left: max(-6%, calc(50% - 48rem));
+		bottom: 8%;
+		width: min(48vw, 320px);
+		height: auto;
+		color: var(--campaign-gold);
+		opacity: 0.045;
+		rotate: 12deg;
+	}
+
+	@media (min-width: 1024px) {
+		.uncorazon-goals__watermark {
+			left: max(2%, calc(50% - 36rem));
+			bottom: 12%;
+			width: min(32vw, 280px);
+		}
+	}
+
+	/* Gold progress fill (native <progress>) */
+	.uncorazon-goals__progress {
+		accent-color: var(--campaign-gold);
+	}
+
+	.uncorazon-goals__progress::-webkit-progress-bar {
+		border-radius: 9999px;
+		background-color: rgb(255 255 255 / 0.12);
+	}
+
+	.uncorazon-goals__progress::-webkit-progress-value {
+		border-radius: 9999px;
+		background: linear-gradient(
+			90deg,
+			var(--campaign-gold) 0%,
+			color-mix(in oklab, var(--campaign-gold) 88%, white) 100%
+		);
+	}
+
+	.uncorazon-goals__progress::-moz-progress-bar {
+		border-radius: 9999px;
+		background: linear-gradient(
+			90deg,
+			var(--campaign-gold) 0%,
+			color-mix(in oklab, var(--campaign-gold) 88%, white) 100%
+		);
+	}
+
+	.uncorazon-goals__box--active {
+		animation: uncorazon-goals-glow 2.8s ease-in-out infinite;
+	}
+
+	@keyframes uncorazon-goals-glow {
+		0%,
+		100% {
+			box-shadow: 0 0 22px rgba(252, 210, 42, 0.22);
+		}
+		50% {
+			box-shadow: 0 0 36px rgba(252, 210, 42, 0.42);
+		}
+	}
+
+	.uncorazon-goals__icon--pulse {
+		filter: drop-shadow(0 0 6px rgba(252, 210, 42, 0.55));
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.uncorazon-goals__box--active {
+			animation: none;
+		}
+	}
+</style>

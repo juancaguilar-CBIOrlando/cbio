@@ -1,0 +1,271 @@
+---
+import HouseIcon from "@/components/common/HouseIcon.astro"
+
+type FaqItem = {
+	question: string
+	answer: string
+}
+
+const faqs: readonly FaqItem[] = [
+	{
+		question: "¿Esta campaña es solo para recaudar dinero?",
+		answer: "No. El enfoque real es crecer en generosidad, fe y unidad como iglesia. El dinero es solo una herramienta.",
+	},
+	{
+		question: "¿La campaña tiene un llamado espiritual específico?",
+		answer: "Sí. Es una invitación a confiar más en Dios y a crecer como una comunidad generosa.",
+	},
+	{
+		question: "¿Puedo usar mi diezmo mensual como compromiso?",
+		answer: "No. El diezmo ya sostiene la iglesia. Esta campaña es una oportunidad adicional para dar con fe y de forma intencional.",
+	},
+	{
+		question: "¿Para qué se usarán los fondos recogidos?",
+		answer: "El objetivo es avanzar hacia la compra de un espacio propio que nos permita crecer como iglesia y brindar un espacio digno y cómodo para el colegio.",
+	},
+	{
+		question: "¿Cuánto durará la campaña?",
+		answer: "Nuestro compromiso durará 18 meses, pero lo que verdaderamente queremos formar es una cultura de generosidad que prevalezca.",
+	},
+	{
+		question: "¿Necesito dar una cantidad específica?",
+		answer: "No. No hay una cantidad específica. Cada persona decide según su fe, su realidad y lo que sienta en su corazón dar.",
+	},
+	{
+		question: "¿Se espera que todos participen?",
+		answer: "Sí, esto es un esfuerzo colectivo, que todos puedan ser parte, sin importar la cantidad. Lo importante es el corazón.",
+	},
+	{
+		question: "¿Puedo participar solo con oración?",
+		answer: "Sí. Orar, servir y apoyar también es ser parte. Sin dejar de ser obediente a lo que Dios nos manda.",
+	},
+	{
+		question: "¿El liderazgo también está involucrado?",
+		answer: "Sí. El liderazgo es el primero en abrazar esta visión, somos conscientes de nuestra responsabilidad de modelar con ejemplo lo que Dios nos enseñó.",
+	},
+	{
+		question: "¿Es obligatorio comprar artículos promocionales?",
+		answer: "No. Son opcionales y se ofrecen como una forma adicional de apoyar la campaña.",
+	},
+]
+---
+
+<section
+	class="uncorazon-faq relative z-10 px-5 pb-20 sm:pb-24"
+	aria-labelledby="uncorazon-faq-heading">
+	<div class="relative mx-auto w-full max-w-3xl">
+		<header class="mb-10 text-center sm:mb-14">
+			<h2
+				id="uncorazon-faq-heading"
+				class="font-bebas text-4xl tracking-[0.04em] text-(--campaign-navy) sm:text-5xl">
+				Preguntas Frecuentes
+			</h2>
+			<p
+				class="mx-auto mt-3 max-w-xl font-[Cormorant_Garamond,serif] text-lg text-(--campaign-navy)/60 italic sm:text-xl">
+				Lo que necesitas saber sobre la campaña
+			</p>
+		</header>
+
+		<div class="space-y-3 sm:space-y-4">
+			{
+				faqs.map((faq) => (
+					<details class="uncorazon-faq__item">
+						<summary class="uncorazon-faq__summary">
+							<span class="font-bebas text-[1.05rem] leading-snug tracking-wide text-(--campaign-navy) sm:text-lg md:text-xl">
+								{faq.question}
+							</span>
+							<span
+								class="uncorazon-faq__heart"
+								aria-hidden="true">
+								<HouseIcon class="uncorazon-faq__heart-svg" />
+							</span>
+						</summary>
+						<div class="uncorazon-faq__answer">
+							<div class="uncorazon-faq__answer-inner">
+								<p class="uncorazon-faq__answer-text">
+									{faq.answer}
+								</p>
+							</div>
+						</div>
+					</details>
+				))
+			}
+		</div>
+	</div>
+</section>
+
+<script>
+	document.querySelectorAll(".uncorazon-faq__item").forEach((el) => {
+		const summary = el.querySelector("summary")
+		if (!summary) return
+
+		summary.addEventListener("click", (e) => {
+			const details = el as HTMLDetailsElement
+			if (!details.open) return
+
+			e.preventDefault()
+			details.classList.add("closing")
+
+			const answer = details.querySelector(".uncorazon-faq__answer")
+			if (!answer) {
+				details.open = false
+				details.classList.remove("closing")
+				return
+			}
+
+			let done = false
+			const finish = () => {
+				if (done) return
+				done = true
+				details.open = false
+				details.classList.remove("closing")
+			}
+
+			answer.addEventListener("transitionend", finish, { once: true })
+			setTimeout(finish, 400)
+		})
+	})
+</script>
+
+<style>
+	/* ── Section ─────────────────────────────────────── */
+
+	.uncorazon-faq {
+		background-color: var(--campaign-cream);
+		background-image: radial-gradient(
+			ellipse 60% 40% at 50% 8%,
+			var(--campaign-gold-soft) 0%,
+			transparent 60%
+		);
+		margin-top: -3.75rem;
+		padding-top: 5.25rem;
+	}
+
+	/* ── Card ────────────────────────────────────────── */
+
+	.uncorazon-faq__item {
+		border-left: 3px solid var(--campaign-gold);
+		border-radius: 0.25rem;
+		background: white;
+		box-shadow: 0 1px 3px rgba(22, 30, 87, 0.06);
+		transition: box-shadow 0.25s ease;
+		padding: 0.75rem 1.25rem;
+	}
+
+	.uncorazon-faq__item[open] {
+		box-shadow: 0 2px 10px rgba(22, 30, 87, 0.09);
+	}
+
+	/* ── Summary ─────────────────────────────────────── */
+
+	.uncorazon-faq__summary {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 1rem;
+		padding: 1rem 1.25rem;
+		cursor: pointer;
+		list-style: none;
+		-webkit-tap-highlight-color: transparent;
+	}
+
+	@media (min-width: 640px) {
+		.uncorazon-faq__summary {
+			padding: 1.15rem 1.5rem;
+		}
+	}
+
+	.uncorazon-faq__summary::-webkit-details-marker {
+		display: none;
+	}
+
+	.uncorazon-faq__summary::marker {
+		content: "";
+	}
+
+	.uncorazon-faq__summary:hover {
+		background: rgba(252, 210, 42, 0.05);
+	}
+
+	/* ── Heart indicator (matches La Visión header icon) ─ */
+
+	.uncorazon-faq__heart {
+		display: flex;
+		flex-shrink: 0;
+		width: 22px;
+		height: 22px;
+		min-width: 22px;
+		color: var(--campaign-gold);
+		transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+	}
+
+	.uncorazon-faq__heart-svg {
+		display: block;
+		width: 100%;
+		height: 100%;
+	}
+
+	.uncorazon-faq__item[open] .uncorazon-faq__heart {
+		transform: scale(1.3);
+	}
+
+	.uncorazon-faq__item[open].closing .uncorazon-faq__heart {
+		transform: scale(1);
+	}
+
+	/* ── Animated answer (grid-template-rows) ────────── */
+
+	.uncorazon-faq__answer {
+		display: grid;
+		grid-template-rows: 0fr;
+		transition: grid-template-rows 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+	}
+
+	.uncorazon-faq__item[open] .uncorazon-faq__answer {
+		grid-template-rows: 1fr;
+	}
+
+	.uncorazon-faq__item[open].closing .uncorazon-faq__answer {
+		grid-template-rows: 0fr;
+	}
+
+	.uncorazon-faq__answer-inner {
+		overflow: hidden;
+	}
+
+	.uncorazon-faq__answer-text {
+		font-family: "Cormorant Garamond", serif;
+		font-weight: 500;
+		font-size: 1.1rem;
+		line-height: 1.65;
+		color: color-mix(in srgb, var(--campaign-navy) 75%, transparent);
+		border-top: 1px solid
+			color-mix(in srgb, var(--campaign-navy) 10%, transparent);
+		margin: 0 1.25rem;
+		padding: 0.75rem 0 1.25rem;
+	}
+
+	@media (min-width: 640px) {
+		.uncorazon-faq__answer-text {
+			font-size: 1.15rem;
+			margin: 0 1.5rem;
+			padding: 0.85rem 0 1.5rem;
+		}
+	}
+
+	/* ── Reduced motion ──────────────────────────────── */
+
+	@media (prefers-reduced-motion: reduce) {
+		.uncorazon-faq__answer {
+			transition: none;
+		}
+
+		.uncorazon-faq__heart {
+			transition: none;
+		}
+
+		.uncorazon-faq__item {
+			transition: none;
+		}
+	}
+</style>

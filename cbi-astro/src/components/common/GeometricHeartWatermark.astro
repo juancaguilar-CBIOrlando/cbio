@@ -1,0 +1,14 @@
+---
+import HouseIcon from "./HouseIcon.astro"
+
+interface Props {
+	class?: string
+}
+
+const {
+	class: className =
+		"pointer-events-none absolute left-1/2 top-1/2 z-1 w-[min(120vw,720px)] -translate-x-1/2 -translate-y-1/2 rotate-[-14deg] text-white opacity-[0.04]",
+} = Astro.props
+---
+
+<HouseIcon class={className} />
