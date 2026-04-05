@@ -1,4 +1,7 @@
 ---
+import DoveIcon from "../common/DoveIcon.astro"
+import HouseHeartIcon from "@/components/common/HouseHeartIcon.astro"
+
 /**
  * Section 3: Goal & checkpoints — DaisyUI timeline + funding progress.
  */
@@ -13,15 +16,15 @@ type Checkpoint = {
 
 const checkpoints: readonly Checkpoint[] = [
 	{
-		amount: "$900,000",
+		amount: "$00.00",
 		label: "Primer Paso de Fe",
 		side: "start",
-		active: true,
+		active: false,
 		lineClass: "bg-[var(--campaign-gold)]",
 		iconClass: "text-[var(--campaign-gold)]",
 	},
 	{
-		amount: "$2,000,000",
+		amount: "$900,000",
 		// label: "Creciendo en Fe",
 		side: "end",
 		active: false,
@@ -29,7 +32,7 @@ const checkpoints: readonly Checkpoint[] = [
 		iconClass: "text-white/50",
 	},
 	{
-		amount: "$4,000,000",
+		amount: "$2,000,000",
 		side: "start",
 		active: false,
 		lineClass: "bg-white/25",
@@ -37,7 +40,7 @@ const checkpoints: readonly Checkpoint[] = [
 	},
 	{
 		amount: "$7,000,000",
-		side: "end",
+		side: "start",
 		active: false,
 		lineClass: "bg-white/20",
 		iconClass: "text-white/35",
@@ -50,24 +53,25 @@ const progressPct = Math.round((raisedUsd / goalTotal) * 1000) / 10
 ---
 
 <section
-	class="uncorazon-goals reveal relative z-10 px-5 pb-20 pt-0 sm:pb-28"
+	class="uncorazon-goals relative z-10 px-5 pb-20 pt-0 sm:pb-28"
 	aria-labelledby="uncorazon-goals-heading">
 	<div
 		class="pointer-events-none absolute inset-0 overflow-hidden"
 		aria-hidden="true">
 		<div class="uncorazon-goals__noise"></div>
-		<svg
-			class="uncorazon-goals__watermark"
-			viewBox="0 0 240 220"
-			fill="currentColor">
-			<path
-				fill-rule="evenodd"
-				d="M40 205 40 100 120 20 200 100 200 205ZM120 175 85 140 105 115 120 125 135 115 155 140Z"
-			></path>
-		</svg>
+		<HouseHeartIcon class="uncorazon-goals__watermark" />
 	</div>
 
-	<div class="relative mx-auto w-full max-w-4xl">
+	<div
+		class="pointer-events-none absolute right-3 top-6 z-1 sm:right-6 sm:top-8"
+		aria-hidden="true">
+		<DoveIcon
+			class="h-auto w-16 sm:w-24 md:w-28"
+			color="text-(--campaign-gold)/35"
+		/>
+	</div>
+
+	<div class="relative z-10 mx-auto w-full max-w-4xl">
 		<header class="mb-10 text-center sm:mb-14">
 			<h2
 				id="uncorazon-goals-heading"
@@ -93,7 +97,7 @@ const progressPct = Math.round((raisedUsd / goalTotal) * 1000) / 10
 				class="mb-2 flex flex-wrap items-baseline justify-between gap-2 text-sm text-white/80">
 				<span
 					id="uncorazon-progress-label"
-					class="font-bebas tracking-wider">
+					class="font-bebas text-xl tracking-wider">
 					Progreso de la campaña
 				</span>
 				<!-- FIXME: once we have donations in -->
@@ -106,15 +110,15 @@ const progressPct = Math.round((raisedUsd / goalTotal) * 1000) / 10
 					<span class="tabular-nums">{progressPct}%</span> de la meta
 				</span> -->
 			</div>
-			<progress
+			<!-- <progress
 				class="uncorazon-goals__progress progress h-3 w-full rounded-full border-0 bg-white/15"
 				max={goalTotal}
 				value={raisedUsd}>
-			</progress>
+			</progress> -->
 		</div>
 
 		<ul
-			class="timeline timeline-vertical lg:timeline-horizontal timeline-snap-icon mx-auto mt-12 w-full max-w-3xl sm:mt-14">
+			class="timeline timeline-vertical lg:timeline-horizontal timeline-snap-icon mx-auto mt-12 w-full max-w-4xl sm:mt-14">
 			{
 				checkpoints.map((c, i) => {
 					const isFirst = i === 0
@@ -206,7 +210,7 @@ const progressPct = Math.round((raisedUsd / goalTotal) * 1000) / 10
 		);
 		margin-top: -3.75rem;
 		padding-top: 5.25rem;
-		clip-path: polygon(0 3.75rem, 100% 0, 100% 100%, 0 100%);
+		height: 100vh;
 	}
 
 	.uncorazon-goals__noise {
@@ -282,28 +286,9 @@ const progressPct = Math.round((raisedUsd / goalTotal) * 1000) / 10
 		filter: drop-shadow(0 0 6px rgba(252, 210, 42, 0.55));
 	}
 
-	.uncorazon-goals.reveal {
-		opacity: 0;
-		transform: translate3d(0, 28px, 0);
-		transition:
-			opacity 0.85s cubic-bezier(0.22, 1, 0.36, 1),
-			transform 0.85s cubic-bezier(0.22, 1, 0.36, 1);
-	}
-
-	.uncorazon-goals.reveal.visible {
-		opacity: 1;
-		transform: translate3d(0, 0, 0);
-	}
-
 	@media (prefers-reduced-motion: reduce) {
 		.uncorazon-goals__box--active {
 			animation: none;
-		}
-
-		.uncorazon-goals.reveal {
-			opacity: 1;
-			transform: none;
-			transition: none;
 		}
 	}
 </style>
