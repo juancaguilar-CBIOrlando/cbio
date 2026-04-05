@@ -1,5 +1,7 @@
 ---
 import { BookOpen, Church, Heart } from "@lucide/astro"
+import HouseIcon from "@/components/common/HouseIcon.astro"
+import HouseHeartIcon from "@/components/common/HouseHeartIcon.astro"
 
 const pillarIconClass =
 	"mx-auto h-8 w-8 shrink-0 text-(--campaign-gold) sm:h-8 sm:w-8 md:mx-0"
@@ -13,22 +15,8 @@ const pillarLabelClass =
 	<div
 		class="pointer-events-none absolute inset-0 overflow-hidden"
 		aria-hidden="true">
-		<svg
-			class="uncorazon-vision__house-watermark"
-			viewBox="0 0 240 220"
-			fill="currentColor">
-			<path d="M120 205 15 85 50 28 120 98 190 28 225 85 120 205Z"></path>
-		</svg>
-		<svg
-			class="uncorazon-vision__house-heart-watermark"
-			viewBox="0 0 240 220"
-			fill="currentColor"
-			aria-hidden="true">
-			<path
-				fill-rule="evenodd"
-				d="M40 205 40 100 120 20 200 100 200 205ZM120 175 85 140 105 115 120 125 135 115 155 140Z"
-			></path>
-		</svg>
+		<HouseIcon class="uncorazon-vision__house-watermark" />
+		<HouseHeartIcon class="uncorazon-vision__house-heart-watermark" />
 	</div>
 
 	<div class="relative mx-auto w-full max-w-3xl">
@@ -36,13 +24,7 @@ const pillarLabelClass =
 			<div
 				class="mb-4 flex justify-center text-(--campaign-gold)"
 				aria-hidden="true">
-				<svg
-					class="h-12 w-12 sm:h-14 sm:w-14"
-					viewBox="0 0 240 220"
-					fill="currentColor">
-					<path d="M120 205 15 85 50 28 120 98 190 28 225 85 120 205Z"
-					></path>
-				</svg>
+				<HouseIcon class="h-12 w-12 sm:h-14 sm:w-14" />
 			</div>
 			<h2
 				id="uncorazon-vision-heading"
@@ -171,32 +153,22 @@ const pillarLabelClass =
 
 	.uncorazon-vision__house-heart-watermark {
 		position: absolute;
-		right: max(-4%, calc(50% - 50rem));
-		top: 4%;
-		width: min(42vw, 240px);
+		right: max(-6%, calc(50% - 48rem));
+		top: 8%;
+		width: min(48vw, 320px);
 		max-width: none;
 		height: auto;
-		translate: 18% -8%;
-		rotate: -10deg;
-		color: var(--campaign-navy);
-		opacity: 0.3;
-		-webkit-mask-image: radial-gradient(
-			ellipse 52% 48% at 58% 42%,
-			#000 16%,
-			transparent 70%
-		);
-		mask-image: radial-gradient(
-			ellipse 52% 48% at 58% 42%,
-			#000 16%,
-			transparent 70%
-		);
+		color: var(--campaign-gold);
+		opacity: 0.2;
+		rotate: 12deg;
+		filter: blur(5px);
 	}
 
 	@media (min-width: 1024px) {
 		.uncorazon-vision__house-heart-watermark {
-			right: max(2%, calc(50% - 26rem));
-			top: 6%;
-			width: min(28vw, 260px);
+			right: max(2%, calc(50% - 36rem));
+			top: 12%;
+			width: min(32vw, 280px);
 		}
 	}
 

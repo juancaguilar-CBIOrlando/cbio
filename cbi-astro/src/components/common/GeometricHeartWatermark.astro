@@ -1,4 +1,6 @@
 ---
+import HouseIcon from "./HouseIcon.astro"
+
 interface Props {
 	class?: string
 }
@@ -9,11 +11,4 @@ const {
 } = Astro.props
 ---
 
-<!-- Faceted / origami-style heart silhouette (watermark) -->
-<svg
-	class={className}
-	viewBox="0 0 240 220"
-	fill="currentColor"
-	aria-hidden="true">
-	<path d="M120 205 15 85 50 28 120 98 190 28 225 85 120 205Z"></path>
-</svg>
+<HouseIcon class={className} />

@@ -1,4 +1,6 @@
 ---
+import HouseIcon from "@/components/common/HouseIcon.astro"
+
 type FaqItem = {
 	question: string
 	answer: string
@@ -75,12 +77,7 @@ const faqs: readonly FaqItem[] = [
 							<span
 								class="uncorazon-faq__heart"
 								aria-hidden="true">
-								<svg
-									class="uncorazon-faq__heart-svg"
-									viewBox="0 0 240 220"
-									fill="currentColor">
-									<path d="M120 205 15 85 50 28 120 98 190 28 225 85 120 205Z" />
-								</svg>
+								<HouseIcon class="uncorazon-faq__heart-svg" />
 							</span>
 						</summary>
 						<div class="uncorazon-faq__answer">
