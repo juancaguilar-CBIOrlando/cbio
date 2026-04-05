@@ -39,17 +39,18 @@ const pillarLabelClass =
 				<strong class="font-semibold text-(--campaign-navy)"
 					>Un Corazón para Su Casa</strong
 				>
-				es la visión de levantar un espacio donde nuestra iglesia pueda vivir
-				plenamente su propósito:
+				nace de una convicción sencilla: nuestra iglesia necesita un lugar
+				donde pueda vivir lo que cree:
 				<span class="uncorazon-vision__highlight"
-					>amar a Dios, amar a la familia y amar al servicio</span
+					>amar a Dios, amar a la familia y amar el servicio</span
 				>.
 			</p>
 			<p>
-				Este nuevo edificio será un lugar donde todos se conecten con
-				Dios, las familias sean fortalecidas y cada persona pueda
-				encontrar libertad, descubrir su propósito y vivir su llamado
-				para servir a Dios.
+				Este lugar será más que un edificio. Será el lugar donde muchas
+				personas encontrarán a Dios por primera vez, donde las familias
+				comienzan a sanar, donde cada persona descubre que tiene un
+				propósito y que ese propósito tiene un lugar aquí en el
+				servicio.
 			</p>
 			<p>
 				Además, será el hogar de nuestro colegio cristiano, Murphy
@@ -60,59 +61,60 @@ const pillarLabelClass =
 				mundo.
 			</p>
 			<p class="mb-0">
-				Este proyecto no es solo para hoy, es para el futuro. Estamos
-				construyendo un lugar que servirá a las <span
+				Por eso <span class="uncorazon-vision__highlight"
+					>este proyecto no termina con nosotros.</span
+				>
+				Lo que estamos construyendo hoy, otros lo van a heredar. Y ese <span
 					class="uncorazon-vision__highlight"
-					>próximas generaciones</span
-				> y dejará un legado espiritual, familiar y educativo.
+					>legado
+				</span> espiritual, familiar, educativo es parte de lo que Dios nos
+				ha llamado a dejar.
 			</p>
 		</div>
+	</div>
 
+	<div class="mt-14 border-t border-(--campaign-navy)/10 pt-12" role="list">
 		<div
-			class="mt-14 border-t border-(--campaign-navy)/10 pt-12"
-			role="list">
+			class="grid grid-cols-3 gap-x-2 sm:gap-x-4 md:grid-cols-[1fr_1px_1fr_1px_1fr] md:items-start md:gap-x-6 md:gap-y-0 lg:gap-x-10">
+			<div class="min-w-0 text-center md:text-left" role="listitem">
+				<Church
+					class={pillarIconClass}
+					stroke-width={1.5}
+					aria-hidden="true"
+				/>
+				<p class={pillarLabelClass}>Adoración</p>
+			</div>
 			<div
-				class="grid grid-cols-3 gap-x-2 sm:gap-x-4 md:grid-cols-[1fr_1px_1fr_1px_1fr] md:items-start md:gap-x-6 md:gap-y-0 lg:gap-x-10">
-				<div class="min-w-0 text-center md:text-left" role="listitem">
-					<Church
-						class={pillarIconClass}
-						stroke-width={1.5}
-						aria-hidden="true"
-					/>
-					<p class={pillarLabelClass}>Adoración</p>
-				</div>
-				<div
-					class="hidden min-h-18 w-px justify-self-center bg-(--campaign-gold)/45 md:block"
-					role="presentation"
-					aria-hidden="true">
-				</div>
-				<div class="min-w-0 text-center md:text-left" role="listitem">
-					<Heart
-						class={pillarIconClass}
-						stroke-width={1.5}
-						aria-hidden="true"
-					/>
-					<p class={pillarLabelClass}>Familia</p>
-				</div>
-				<div
-					class="hidden min-h-18 w-px justify-self-center bg-(--campaign-gold)/45 md:block"
-					role="presentation"
-					aria-hidden="true">
-				</div>
-				<div class="min-w-0 text-center md:text-left" role="listitem">
-					<BookOpen
-						class={pillarIconClass}
-						stroke-width={1.5}
-						aria-hidden="true"
-					/>
-					<p class:list={[pillarLabelClass, "text-balance"]}>
-						Educación
-						<span
-							class="mt-1 block font-[Cormorant_Garamond,serif] text-[0.75rem] font-normal italic leading-snug text-(--campaign-navy)/70 sm:text-sm md:text-sm">
-							Murphy Christian Academy
-						</span>
-					</p>
-				</div>
+				class="hidden min-h-18 w-px justify-self-center bg-(--campaign-gold)/45 md:block"
+				role="presentation"
+				aria-hidden="true">
+			</div>
+			<div class="min-w-0 text-center md:text-left" role="listitem">
+				<Heart
+					class={pillarIconClass}
+					stroke-width={1.5}
+					aria-hidden="true"
+				/>
+				<p class={pillarLabelClass}>Familia</p>
+			</div>
+			<div
+				class="hidden min-h-18 w-px justify-self-center bg-(--campaign-gold)/45 md:block"
+				role="presentation"
+				aria-hidden="true">
+			</div>
+			<div class="min-w-0 text-center md:text-left" role="listitem">
+				<BookOpen
+					class={pillarIconClass}
+					stroke-width={1.5}
+					aria-hidden="true"
+				/>
+				<p class:list={[pillarLabelClass, "text-balance"]}>
+					Educación
+					<span
+						class="mt-1 block font-[Cormorant_Garamond,serif] text-[0.75rem] font-normal italic leading-snug text-(--campaign-navy)/70 sm:text-sm md:text-sm">
+						Murphy Christian Academy
+					</span>
+				</p>
 			</div>
 		</div>
 	</div>
