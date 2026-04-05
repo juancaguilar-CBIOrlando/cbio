@@ -17,32 +17,17 @@ import UnCorazonParticipate from "@/components/uncorazon/UnCorazonParticipate.as
 	</div>
 </Layout>
 
-<script>
-	const prefersReduced =
-		typeof window !== "undefined" &&
-		window.matchMedia("(prefers-reduced-motion: reduce)").matches
-	if (!prefersReduced) {
-		const nodes = document.querySelectorAll(".uncorazon-page .reveal")
-		const io = new IntersectionObserver(
-			(entries) => {
-				for (const e of entries) {
-					if (e.isIntersecting) {
-						e.target.classList.add("visible")
-						io.unobserve(e.target)
-					}
-				}
-			},
-			{ rootMargin: "0px 0px -12% 0px", threshold: 0.12 },
-		)
-		nodes.forEach((n) => io.observe(n))
-	} else {
-		document.querySelectorAll(".uncorazon-page .reveal").forEach((el) => {
-			el.classList.add("visible")
-		})
-	}
-</script>
-
 <style is:global>
+	html:has(.uncorazon-page) {
+		scroll-behavior: smooth;
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		html:has(.uncorazon-page) {
+			scroll-behavior: auto;
+		}
+	}
+
 	.uncorazon-page {
 		--campaign-navy: #161e57;
 		--campaign-gold: #fcd22a;
