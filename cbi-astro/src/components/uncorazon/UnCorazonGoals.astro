@@ -49,7 +49,7 @@ const checkpoints: readonly Checkpoint[] = [
 ]
 
 const goalTotal = 7_000_000
-const raisedUsd = 20_000
+const raisedUsd = 39_239
 const progressPct = Math.round((raisedUsd / goalTotal) * 1000) / 10
 ---
 
@@ -102,20 +102,20 @@ const progressPct = Math.round((raisedUsd / goalTotal) * 1000) / 10
 					Progreso de la campaña
 				</span>
 				<!-- FIXME: once we have donations in -->
-				<!-- <span class="font-[Cormorant_Garamond,serif] text-white/90">
+				<span class="font-[Cormorant_Garamond,serif] text-white/90">
 					<span
 						class="text-(--campaign-gold) font-semibold not-italic tabular-nums"
 						>${raisedUsd.toLocaleString("en-US")}</span
 					>
 					recaudados ·
 					<span class="tabular-nums">{progressPct}%</span> de la meta
-				</span> -->
+				</span>
 			</div>
-			<!-- <progress
+			<progress
 				class="uncorazon-goals__progress progress h-3 w-full rounded-full border-0 bg-white/15"
 				max={goalTotal}
 				value={raisedUsd}>
-			</progress> -->
+			</progress>
 		</div>
 
 		<ul
