@@ -99,7 +99,7 @@ const checkpoints: readonly Checkpoint[] = [
 		</header>
 
 		<ul
-			class="timeline timeline-vertical lg:timeline-horizontal timeline-snap-icon mx-auto mt-4 w-full sm:mt-14"
+			class="timeline timeline-vertical lg:timeline-horizontal timeline-snap-icon mx-auto mt-4 w-full sm:mt-14 lg:mt-28"
 			role="list"
 			aria-label={`Progreso de la campaña: $${raisedUsd.toLocaleString("en-US")} recaudados, ${progressPct}% de la meta`}>
 			{
@@ -247,6 +247,13 @@ const checkpoints: readonly Checkpoint[] = [
 			left: max(2%, calc(50% - 36rem));
 			bottom: 12%;
 			width: min(32vw, 280px);
+		}
+	}
+
+	/* Stretch timeline lines to fill the container width on lg */
+	@media (min-width: 1024px) {
+		.timeline li {
+			flex-grow: 1;
 		}
 	}
 
