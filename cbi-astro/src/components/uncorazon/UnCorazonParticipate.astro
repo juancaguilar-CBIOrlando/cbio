@@ -1,6 +1,6 @@
 ---
 import { HandHeart, Flame } from "@lucide/astro"
-import "swiper/css"
+// Swiper removed — replaced with CSS scroll-snap + IntersectionObserver
 ---
 
 <section
@@ -50,15 +50,13 @@ import "swiper/css"
 
 		<div class="uncorazon-participate__viewport">
 			<div
-				class="uncorazon-participate__swipe"
+				class="uncorazon-participate__track"
 				role="region"
 				aria-roledescription="carrusel"
 				aria-label="Formas de participar">
-				<div class="swiper uncorazon-participate-swiper">
-					<div class="swiper-wrapper">
-						<!-- ── Panel 1: Dar ──────────────────────────── -->
-						<div class="swiper-slide">
-							<article class="uncorazon-participate__panel is-active">
+				<!-- ── Panel 1: Dar ──────────────────────────── -->
+				<div class="participate-slide">
+					<article class="uncorazon-participate__panel is-active">
 					<div class="uncorazon-participate__surface uncorazon-participate__surface--dar">
 						<div class="uncorazon-participate__panel-grid">
 							<div
@@ -102,11 +100,11 @@ import "swiper/css"
 						</div>
 					</div>
 				</article>
-						</div>
+				</div>
 
-						<!-- ── Panel 2: Orar ─────────────────────────── -->
-						<div class="swiper-slide">
-							<article class="uncorazon-participate__panel">
+				<!-- ── Panel 2: Orar ─────────────────────────── -->
+				<div class="participate-slide">
+					<article class="uncorazon-participate__panel">
 					<div class="uncorazon-participate__surface uncorazon-participate__surface--orar">
 						<div class="uncorazon-participate__panel-grid uncorazon-participate__panel-grid--reverse">
 							<div
@@ -155,15 +153,15 @@ import "swiper/css"
 						</div>
 					</div>
 				</article>
-						</div>
+				</div>
 
-						<!-- ── Panel 3: Testimonio ───────────────────── -->
-						<div class="swiper-slide">
-							<article class="uncorazon-participate__panel">
+				<!-- ── Panel 3: Testimonio ───────────────────── -->
+				<div class="participate-slide">
+					<article class="uncorazon-participate__panel">
 					<div class="uncorazon-participate__surface uncorazon-participate__surface--testimonio">
 						<div class="uncorazon-participate__panel-centered">
 							<div
-								class="uncorazon-participate__envelope swiper-no-swiping"
+								class="uncorazon-participate__envelope"
 								role="button"
 								tabindex="0"
 								aria-label="Comparte tu testimonio">
@@ -193,8 +191,6 @@ import "swiper/css"
 						</div>
 					</div>
 				</article>
-						</div>
-					</div>
 				</div>
 			</div>
 		</div>
@@ -202,40 +198,23 @@ import "swiper/css"
 </section>
 
 <script>
-	import Swiper from "swiper"
-	import { Keyboard } from "swiper/modules"
-
 	document.addEventListener("DOMContentLoaded", () => {
-		const swiperEl = document.querySelector(
-			".uncorazon-participate-swiper",
+		const track = document.querySelector(
+			".uncorazon-participate__track",
 		) as HTMLElement | null
-		const dots = document.querySelectorAll(".uncorazon-participate__dot")
+		const slides = document.querySelectorAll<HTMLElement>(".participate-slide")
+		const dots = document.querySelectorAll<HTMLElement>(
+			".uncorazon-participate__dot",
+		)
 		const panels = document.querySelectorAll(
 			".uncorazon-participate__panel",
 		)
 
-		if (!swiperEl) return
+		if (!track) return
 
 		const reducedMotion = window.matchMedia(
 			"(prefers-reduced-motion: reduce)",
 		).matches
-
-		const swiper = new Swiper(swiperEl, {
-			modules: [Keyboard],
-			slidesPerView: 1,
-			spaceBetween: 0,
-			speed: reducedMotion ? 0 : 420,
-			grabCursor: true,
-			keyboard: {
-				enabled: true,
-				onlyInViewport: true,
-			},
-			on: {
-				slideChange(sw) {
-					syncActive(sw.activeIndex)
-				},
-			},
-		})
 
 		function syncActive(index: number) {
 			panels.forEach((p, i) =>
@@ -247,16 +226,32 @@ import "swiper/css"
 			})
 		}
 
-		dots.forEach((dot) => {
+		// Dot click → scroll to that slide
+		dots.forEach((dot, i) => {
 			dot.addEventListener("click", () => {
-				const raw = dot.getAttribute("data-panel")
-				const i = raw !== null ? parseInt(raw, 10) : NaN
-				if (!Number.isNaN(i)) swiper.slideTo(i)
+				slides[i]?.scrollIntoView({
+					behavior: reducedMotion ? "instant" : "smooth",
+					block: "nearest",
+					inline: "start",
+				})
 			})
 		})
 
-		syncActive(swiper.activeIndex)
+		// IntersectionObserver → detect which slide is in view
+		const observer = new IntersectionObserver(
+			(entries) => {
+				entries.forEach((entry) => {
+					if (!entry.isIntersecting) return
+					const i = [...slides].indexOf(entry.target as HTMLElement)
+					if (i !== -1) syncActive(i)
+				})
+			},
+			{ root: track, threshold: 0.6 },
+		)
 
+		slides.forEach((slide) => observer.observe(slide))
+
+		// Envelope toggle (Testimonio panel)
 		const envelope = document.querySelector(
 			".uncorazon-participate__envelope",
 		)
@@ -271,6 +266,8 @@ import "swiper/css"
 				}
 			})
 		}
+
+		syncActive(0)
 	})
 </script>
 
@@ -303,22 +300,6 @@ import "swiper/css"
 	.uncorazon-participate__sticky {
 		display: flex;
 		flex-direction: column;
-	}
-
-	/* ── Swipeable carousel (replaces scroll-driven track) ─ */
-
-	.uncorazon-participate__swipe {
-		position: relative;
-		width: 100%;
-	}
-
-	.uncorazon-participate-swiper {
-		overflow: hidden;
-	}
-
-	.uncorazon-participate-swiper .swiper-slide {
-		height: auto;
-		box-sizing: border-box;
 	}
 
 	/* ── Header ─────────────────────────────────────── */
@@ -374,7 +355,7 @@ import "swiper/css"
 		transform: rotate(45deg) scale(1.25);
 	}
 
-	/* ── Viewport & track ───────────────────────────── */
+	/* ── Viewport ───────────────────────────────────── */
 
 	.uncorazon-participate__viewport {
 		position: relative;
@@ -382,7 +363,30 @@ import "swiper/css"
 		overflow: hidden;
 	}
 
-	/* ── Panel (full width of swipe viewport) ───────── */
+	/* ── Scroll-snap track (replaces Swiper) ────────── */
+
+	.uncorazon-participate__track {
+		display: flex;
+		overflow-x: scroll;
+		scroll-snap-type: x mandatory;
+		scrollbar-width: none;
+		-webkit-overflow-scrolling: touch;
+	}
+
+	.uncorazon-participate__track::-webkit-scrollbar {
+		display: none;
+	}
+
+	/* ── Individual slide ───────────────────────────── */
+
+	.participate-slide {
+		flex: 0 0 100%;
+		width: 100%;
+		scroll-snap-align: start;
+		box-sizing: border-box;
+	}
+
+	/* ── Panel (full width of slide) ────────────────── */
 
 	.uncorazon-participate__panel {
 		width: 100%;
