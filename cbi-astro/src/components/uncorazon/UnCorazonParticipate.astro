@@ -41,7 +41,7 @@ import TestimonyModal from "./TestimonyModal.astro"
 				<button
 					class="uncorazon-participate__dot"
 					data-panel="2"
-					aria-label="Testimonio"
+					aria-label="Testificar"
 					aria-current="false"
 					type="button">
 					<span></span>
@@ -50,6 +50,11 @@ import TestimonyModal from "./TestimonyModal.astro"
 		</header>
 
 		<div class="uncorazon-participate__viewport">
+			<div class="uncorazon-participate__swipe-hint" aria-hidden="true">
+				<span class="uncorazon-participate__swipe-arrow"></span>
+				<span class="uncorazon-participate__swipe-arrow"></span>
+				<span class="uncorazon-participate__swipe-label">Desliza</span>
+			</div>
 			<div
 				class="uncorazon-participate__track"
 				role="region"
@@ -58,145 +63,192 @@ import TestimonyModal from "./TestimonyModal.astro"
 				<!-- ── Panel 1: Dar ──────────────────────────── -->
 				<div class="participate-slide">
 					<article class="uncorazon-participate__panel is-active">
-					<div class="uncorazon-participate__surface uncorazon-participate__surface--dar">
-						<div class="uncorazon-participate__panel-grid">
-							<div
-								class="uncorazon-participate__panel-visual"
-								aria-hidden="true">
-								<div class="uncorazon-participate__orb uncorazon-participate__orb--gold"></div>
-								<div class="uncorazon-participate__icon-ring">
-									<HandHeart
-										class="h-12 w-12 text-(--campaign-gold) sm:h-16 sm:w-16"
-										stroke-width={1.2}
-										aria-hidden="true"
-									/>
+						<div
+							class="uncorazon-participate__surface uncorazon-participate__surface--dar">
+							<div class="uncorazon-participate__panel-grid">
+								<div
+									class="uncorazon-participate__panel-visual"
+									aria-hidden="true">
+									<div
+										class="uncorazon-participate__orb uncorazon-participate__orb--gold">
+									</div>
+									<div
+										class="uncorazon-participate__icon-ring">
+										<HandHeart
+											class="h-12 w-12 text-(--campaign-gold) sm:h-16 sm:w-16"
+											stroke-width={1.2}
+											aria-hidden="true"
+										/>
+									</div>
 								</div>
-							</div>
 
-							<div class="uncorazon-participate__panel-copy">
-								<p class="participate-stagger participate-stagger--d1 font-bebas text-sm tracking-[0.2em] text-(--campaign-navy)/45 sm:text-base">
-									01 · Generosidad
-								</p>
-								<h3 class="participate-stagger participate-stagger--d2 mt-2 font-bebas text-4xl leading-none tracking-[0.03em] text-(--campaign-navy) sm:text-5xl md:text-6xl">
-									Dar
-								</h3>
-								<p class="uncorazon-participate__body participate-stagger participate-stagger--d3 mt-4 max-w-md text-(--campaign-navy)/80">
-									Tu generosidad siembra en lo eterno. Cada ofrenda,
-									sin importar el monto, acerca la visión de un hogar
-									propio para la iglesia y el colegio.
-								</p>
-								<div class="participate-stagger participate-stagger--d4 mt-7 flex flex-col items-start gap-3 sm:flex-row sm:items-center">
-									<a
-										href="https://pushpay.com/g/cbiorlando"
-										target="_blank"
-										rel="noopener noreferrer"
-										class="uncorazon-participate__cta inline-flex items-center gap-2 rounded-sm bg-(--campaign-gold) px-9 py-3 font-bebas text-lg tracking-[0.12em] text-(--campaign-navy) shadow-[0_6px_32px_rgba(252,210,42,0.32)] transition-all duration-300 hover:shadow-[0_10px_40px_rgba(252,210,42,0.5)] hover:brightness-105 sm:text-xl">
-										Donar Ahora
-									</a>
-									<p class="font-[Cormorant_Garamond,serif] text-sm text-(--campaign-navy)/40 italic sm:pl-1">
-										Serás redirigido a nuestra plataforma segura
+								<div class="uncorazon-participate__panel-copy">
+									<p
+										class="participate-stagger participate-stagger--d1 font-bebas text-sm tracking-[0.2em] text-(--campaign-navy)/45 sm:text-base">
+										01 · Generosidad
 									</p>
+									<h3
+										class="participate-stagger participate-stagger--d2 mt-2 font-bebas text-4xl leading-none tracking-[0.03em] text-(--campaign-navy) sm:text-5xl md:text-6xl">
+										Dar
+									</h3>
+									<p
+										class="uncorazon-participate__body participate-stagger participate-stagger--d3 mt-4 max-w-md text-(--campaign-navy)/80">
+										Tu generosidad siembra en lo eterno.
+										Cada ofrenda, sin importar el monto,
+										acerca la visión de un hogar propio para
+										la iglesia y el colegio.
+									</p>
+									<div
+										class="participate-stagger participate-stagger--d4 mt-7 flex flex-col items-start gap-3 sm:flex-row sm:items-center">
+										<a
+											href="https://pushpay.com/g/cbiorlando"
+											target="_blank"
+											rel="noopener noreferrer"
+											class="uncorazon-participate__cta inline-flex items-center gap-2 rounded-sm bg-(--campaign-gold) px-9 py-3 font-bebas text-lg tracking-[0.12em] text-(--campaign-navy) shadow-[0_6px_32px_rgba(252,210,42,0.32)] transition-all duration-300 hover:shadow-[0_10px_40px_rgba(252,210,42,0.5)] hover:brightness-105 sm:text-xl">
+											Donar Ahora
+										</a>
+										<p
+											class="font-[Cormorant_Garamond,serif] text-sm text-(--campaign-navy)/40 italic sm:pl-1">
+											Serás redirigido a nuestra
+											plataforma segura
+										</p>
+									</div>
 								</div>
 							</div>
 						</div>
-					</div>
-				</article>
+					</article>
 				</div>
 
 				<!-- ── Panel 2: Orar ─────────────────────────── -->
 				<div class="participate-slide">
 					<article class="uncorazon-participate__panel">
-					<div class="uncorazon-participate__surface uncorazon-participate__surface--orar">
-						<div class="uncorazon-participate__panel-grid uncorazon-participate__panel-grid--reverse">
+						<div
+							class="uncorazon-participate__surface uncorazon-participate__surface--orar">
 							<div
-								class="uncorazon-participate__panel-visual"
-								aria-hidden="true">
-								<div class="uncorazon-participate__orb uncorazon-participate__orb--navy"></div>
-								<div class="uncorazon-participate__icon-ring uncorazon-participate__icon-ring--navy">
-									<Flame
-										class="h-12 w-12 text-(--campaign-navy) sm:h-16 sm:w-16"
-										stroke-width={1.2}
-										aria-hidden="true"
-									/>
+								class="uncorazon-participate__panel-grid uncorazon-participate__panel-grid--reverse">
+								<div
+									class="uncorazon-participate__panel-visual"
+									aria-hidden="true">
+									<div
+										class="uncorazon-participate__orb uncorazon-participate__orb--navy">
+									</div>
+									<div
+										class="uncorazon-participate__icon-ring uncorazon-participate__icon-ring--navy">
+										<Flame
+											class="h-12 w-12 text-(--campaign-navy) sm:h-16 sm:w-16"
+											stroke-width={1.2}
+											aria-hidden="true"
+										/>
+									</div>
+								</div>
+
+								<div class="uncorazon-participate__panel-copy">
+									<p
+										class="participate-stagger participate-stagger--d1 font-bebas text-sm tracking-[0.2em] text-(--campaign-navy)/45 sm:text-base">
+										02 · Intercesión
+									</p>
+									<h3
+										class="participate-stagger participate-stagger--d2 mt-2 font-bebas text-4xl leading-none tracking-[0.03em] text-(--campaign-navy) sm:text-5xl md:text-6xl">
+										Orar
+									</h3>
+									<p
+										class="uncorazon-participate__body participate-stagger participate-stagger--d3 mt-4 max-w-md text-(--campaign-navy)/80">
+										La oración es el fundamento de esta
+										visión. Te invitamos a interceder con
+										nosotros por lo que Dios está
+										edificando.
+									</p>
+									<ul
+										class="uncorazon-participate__prayer-list participate-stagger participate-stagger--d4 mt-6 text-left">
+										<li>
+											<span
+												class="uncorazon-participate__prayer-diamond"
+											></span>
+											<span
+												>Provisión sobrenatural para la
+												campaña</span
+											>
+										</li>
+										<li>
+											<span
+												class="uncorazon-participate__prayer-diamond"
+											></span>
+											<span
+												>Unidad y fe en toda la
+												congregación</span
+											>
+										</li>
+										<li>
+											<span
+												class="uncorazon-participate__prayer-diamond"
+											></span>
+											<span
+												>Puertas abiertas para el lugar
+												que Dios tiene preparado</span
+											>
+										</li>
+									</ul>
+									<p
+										class="participate-stagger participate-stagger--d5 mt-8 font-[Cormorant_Garamond,serif] text-base text-(--campaign-navy)/50 italic sm:text-lg">
+										Oramos contigo
+									</p>
 								</div>
 							</div>
-
-							<div class="uncorazon-participate__panel-copy">
-								<p class="participate-stagger participate-stagger--d1 font-bebas text-sm tracking-[0.2em] text-(--campaign-navy)/45 sm:text-base">
-									02 · Intercesión
-								</p>
-								<h3 class="participate-stagger participate-stagger--d2 mt-2 font-bebas text-4xl leading-none tracking-[0.03em] text-(--campaign-navy) sm:text-5xl md:text-6xl">
-									Orar
-								</h3>
-								<p class="uncorazon-participate__body participate-stagger participate-stagger--d3 mt-4 max-w-md text-(--campaign-navy)/80">
-									La oración es el fundamento de esta visión. Te
-									invitamos a interceder con nosotros por lo que Dios
-									está edificando.
-								</p>
-								<ul class="uncorazon-participate__prayer-list participate-stagger participate-stagger--d4 mt-6 text-left">
-									<li>
-										<span class="uncorazon-participate__prayer-diamond"></span>
-										<span>Provisión sobrenatural para la campaña</span>
-									</li>
-									<li>
-										<span class="uncorazon-participate__prayer-diamond"></span>
-										<span>Unidad y fe en toda la congregación</span>
-									</li>
-									<li>
-										<span class="uncorazon-participate__prayer-diamond"></span>
-										<span>Puertas abiertas para el lugar que Dios tiene preparado</span>
-									</li>
-								</ul>
-								<p class="participate-stagger participate-stagger--d5 mt-8 font-[Cormorant_Garamond,serif] text-base text-(--campaign-navy)/50 italic sm:text-lg">
-									Oramos contigo
-								</p>
-							</div>
 						</div>
-					</div>
-				</article>
+					</article>
 				</div>
 
 				<!-- ── Panel 3: Testimonio ───────────────────── -->
 				<div class="participate-slide">
 					<article class="uncorazon-participate__panel">
-					<div class="uncorazon-participate__surface uncorazon-participate__surface--testimonio">
-						<div class="uncorazon-participate__panel-centered">
-							<div
-								class="uncorazon-participate__envelope"
-								role="button"
-								tabindex="0"
-								aria-label="Comparte tu testimonio"
-								id="envelope-trigger">
-								<div class="uncorazon-participate__envelope-paper">
-									<span class="font-bebas text-[0.6rem] tracking-[0.15em] text-(--campaign-navy)/70 sm:text-xs">
-										Comparte
-									</span>
+						<div
+							class="uncorazon-participate__surface uncorazon-participate__surface--testimonio">
+							<div class="uncorazon-participate__panel-centered">
+								<div
+									class="uncorazon-participate__envelope"
+									role="button"
+									tabindex="0"
+									aria-label="Comparte tu testimonio"
+									id="envelope-trigger">
+									<div
+										class="uncorazon-participate__envelope-paper">
+										<span
+											class="font-bebas text-[0.6rem] tracking-[0.15em] text-(--campaign-navy)/70 sm:text-xs">
+											Comparte
+										</span>
+									</div>
+									<div
+										class="uncorazon-participate__envelope-body">
+									</div>
+									<div
+										class="uncorazon-participate__envelope-flap">
+									</div>
 								</div>
-								<div class="uncorazon-participate__envelope-body"></div>
-								<div class="uncorazon-participate__envelope-flap"></div>
-							</div>
 
-							<p class="participate-stagger participate-stagger--d1 mt-1 font-bebas text-sm tracking-[0.2em] text-(--campaign-navy)/45 sm:text-base">
-								03 · Tu historia
-							</p>
-							<h3 class="participate-stagger participate-stagger--d2 mt-2 font-bebas text-4xl leading-none tracking-[0.03em] text-(--campaign-navy) sm:text-5xl md:text-6xl">
-								Testimonio
-							</h3>
-							<p class="uncorazon-participate__body participate-stagger participate-stagger--d3 mt-4 max-w-sm text-center text-(--campaign-navy)/80">
-								Tu historia inspira fe. Cuéntanos cómo Dios está
-								obrando en tu vida y sé parte de lo que Él está
-								haciendo en Su casa.
-							</p>
-							<button
-								id="open-testimony-modal"
-								class="participate-stagger participate-stagger--d4 mt-7 inline-flex items-center gap-2 rounded-sm bg-(--campaign-navy) px-8 py-3 font-bebas text-lg tracking-[0.12em] text-white shadow-[0_6px_24px_rgba(22,30,87,0.22)] transition-all duration-300 hover:shadow-[0_10px_36px_rgba(22,30,87,0.32)] hover:brightness-110 sm:text-xl"
-								type="button"
-								aria-haspopup="dialog">
-								Compartir mi Testimonio
-							</button>
+								<p
+									class="participate-stagger participate-stagger--d1 mt-1 font-bebas text-sm tracking-[0.2em] text-(--campaign-navy)/45 sm:text-base">
+									03 · Tu historia
+								</p>
+								<h3
+									class="participate-stagger participate-stagger--d2 mt-2 font-bebas text-4xl leading-none tracking-[0.03em] text-(--campaign-navy) sm:text-5xl md:text-6xl">
+									Testificar
+								</h3>
+								<p
+									class="uncorazon-participate__body participate-stagger participate-stagger--d3 mt-4 max-w-sm text-center text-(--campaign-navy)/80">
+									Tu historia inspira fe. Cuéntanos cómo Dios
+									está obrando en tu vida y sé parte de lo que
+									Él está haciendo en Su casa.
+								</p>
+								<button
+									id="open-testimony-modal"
+									class="participate-stagger participate-stagger--d4 mt-7 inline-flex items-center gap-2 rounded-sm bg-(--campaign-navy) px-8 py-3 font-bebas text-lg tracking-[0.12em] text-white shadow-[0_6px_24px_rgba(22,30,87,0.22)] transition-all duration-300 hover:shadow-[0_10px_36px_rgba(22,30,87,0.32)] hover:brightness-110 sm:text-xl"
+									type="button"
+									aria-haspopup="dialog">
+									Compartir mi Testimonio
+								</button>
+							</div>
 						</div>
-					</div>
-				</article>
+					</article>
 				</div>
 			</div>
 		</div>
@@ -212,7 +264,8 @@ import TestimonyModal from "./TestimonyModal.astro"
 		const track = document.querySelector(
 			".uncorazon-participate__track",
 		) as HTMLElement | null
-		const slides = document.querySelectorAll<HTMLElement>(".participate-slide")
+		const slides =
+			document.querySelectorAll<HTMLElement>(".participate-slide")
 		const dots = document.querySelectorAll<HTMLElement>(
 			".uncorazon-participate__dot",
 		)
@@ -260,7 +313,9 @@ import TestimonyModal from "./TestimonyModal.astro"
 		slides.forEach((slide) => observer.observe(slide))
 
 		// Envelope decoration — clicking opens the testimony modal
-		const envelope = document.querySelector(".uncorazon-participate__envelope")
+		const envelope = document.querySelector(
+			".uncorazon-participate__envelope",
+		)
 		if (envelope) {
 			envelope.addEventListener("click", () => {
 				document.dispatchEvent(new CustomEvent("testimony:open"))
@@ -275,6 +330,21 @@ import TestimonyModal from "./TestimonyModal.astro"
 		}
 
 		syncActive(0)
+
+		// ── Swipe hint ─────────────────────────────────────────
+		const swipeHint = document.querySelector<HTMLElement>(
+			".uncorazon-participate__swipe-hint",
+		)
+		if (swipeHint) {
+			const hideHint = () => {
+				swipeHint.classList.add("is-hidden")
+				track.removeEventListener("scroll", hideHint)
+			}
+			track.addEventListener("scroll", hideHint, {
+				passive: true,
+				once: true,
+			})
+		}
 	})
 </script>
 
@@ -348,7 +418,8 @@ import TestimonyModal from "./TestimonyModal.astro"
 		width: 10px;
 		height: 10px;
 		transform: rotate(45deg);
-		border: 2px solid color-mix(in srgb, var(--campaign-navy) 22%, transparent);
+		border: 2px solid
+			color-mix(in srgb, var(--campaign-navy) 22%, transparent);
 		background: transparent;
 		transition:
 			background-color 0.35s ease,
@@ -518,7 +589,8 @@ import TestimonyModal from "./TestimonyModal.astro"
 		width: 6rem;
 		height: 6rem;
 		border-radius: 50%;
-		border: 1.5px solid color-mix(in srgb, var(--campaign-gold) 30%, transparent);
+		border: 1.5px solid
+			color-mix(in srgb, var(--campaign-gold) 30%, transparent);
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -740,9 +812,73 @@ import TestimonyModal from "./TestimonyModal.astro"
 		}
 	}
 
+	/* ── Swipe hint (mobile only) ──────────────────── */
+
+	.uncorazon-participate__swipe-hint {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 0.35rem;
+		padding: 0.5rem 0 0.25rem;
+		opacity: 1;
+		transition: opacity 0.5s ease;
+		pointer-events: none;
+	}
+
+	.uncorazon-participate__swipe-hint.is-hidden {
+		opacity: 0;
+	}
+
+	@media (min-width: 768px) {
+		.uncorazon-participate__swipe-hint {
+			display: none;
+		}
+	}
+
+	.uncorazon-participate__swipe-label {
+		font-family: "Cormorant Garamond", serif;
+		font-size: 0.75rem;
+		letter-spacing: 0.12em;
+		color: color-mix(in srgb, var(--campaign-navy) 38%, transparent);
+		font-style: italic;
+	}
+
+	.uncorazon-participate__swipe-arrow {
+		display: block;
+		width: 7px;
+		height: 7px;
+		border-right: 1.5px solid
+			color-mix(in srgb, var(--campaign-navy) 35%, transparent);
+		border-bottom: 1.5px solid
+			color-mix(in srgb, var(--campaign-navy) 35%, transparent);
+		transform: rotate(-45deg);
+		animation: swipe-hint-pulse 1.4s ease-in-out infinite;
+	}
+
+	.uncorazon-participate__swipe-arrow:nth-child(2) {
+		animation-delay: 0.18s;
+		opacity: 0.55;
+	}
+
+	@keyframes swipe-hint-pulse {
+		0%,
+		100% {
+			opacity: 0.5;
+			transform: rotate(-45deg) translateX(0);
+		}
+		50% {
+			opacity: 1;
+			transform: rotate(-45deg) translateX(3px);
+		}
+	}
+
 	/* ── Reduced motion ─────────────────────────────── */
 
 	@media (prefers-reduced-motion: reduce) {
+		.uncorazon-participate__swipe-arrow {
+			animation: none;
+		}
+
 		.participate-stagger {
 			opacity: 1;
 			transform: none;
@@ -770,5 +906,4 @@ import TestimonyModal from "./TestimonyModal.astro"
 			transition: none;
 		}
 	}
-
 </style>
