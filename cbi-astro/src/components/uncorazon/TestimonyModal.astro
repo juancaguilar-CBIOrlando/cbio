@@ -61,6 +61,29 @@
 							placeholder="Ej. 3 años, desde el 2019…"
 							maxlength="100" />
 					</div>
+					<div class="testimony-field">
+						<label class="testimony-label" for="t-phone">Teléfono <span aria-hidden="true">*</span></label>
+						<input
+							class="testimony-input"
+							id="t-phone"
+							name="phone"
+							type="tel"
+							placeholder="(407) 555-0000"
+							autocomplete="tel"
+							required
+							maxlength="30" />
+					</div>
+					<div class="testimony-field">
+						<label class="testimony-label" for="t-email">Correo electrónico (opcional)</label>
+						<input
+							class="testimony-input"
+							id="t-email"
+							name="email"
+							type="email"
+							placeholder="tu@correo.com"
+							autocomplete="email"
+							maxlength="120" />
+					</div>
 				</div>
 			</div>
 
@@ -222,9 +245,11 @@
 
 			const nameInput = document.getElementById("t-name") as HTMLInputElement
 			const memberInput = document.getElementById("t-member-since") as HTMLInputElement
+			const phoneInput = document.getElementById("t-phone") as HTMLInputElement
+			const emailInput = document.getElementById("t-email") as HTMLInputElement
 			const godInput = document.getElementById("t-god-working") as HTMLTextAreaElement
 			const encInput = document.getElementById("t-encouragement") as HTMLTextAreaElement
-			;[nameInput, memberInput, godInput, encInput].forEach((el) => { if (el) el.value = "" })
+			;[nameInput, memberInput, phoneInput, emailInput, godInput, encInput].forEach((el) => { if (el) el.value = "" })
 			document.querySelectorAll<HTMLElement>(".testimony-char-count").forEach((el) => {
 				const max = el.id.includes("god") ? "1200" : "600"
 				el.textContent = `0 / ${max}`
@@ -257,6 +282,8 @@
 			if (step === 1) {
 				const name = (document.getElementById("t-name") as HTMLInputElement).value.trim()
 				if (!name) return { valid: false, message: "Por favor ingresa tu nombre." }
+				const phone = (document.getElementById("t-phone") as HTMLInputElement).value.trim()
+				if (!phone) return { valid: false, message: "Por favor ingresa tu número de teléfono." }
 			}
 			if (step === 2) {
 				const godWorking = (document.getElementById("t-god-working") as HTMLTextAreaElement).value.trim()
@@ -291,6 +318,8 @@
 
 			const name = (document.getElementById("t-name") as HTMLInputElement).value.trim()
 			const memberSince = (document.getElementById("t-member-since") as HTMLInputElement).value.trim()
+			const phone = (document.getElementById("t-phone") as HTMLInputElement).value.trim()
+			const email = (document.getElementById("t-email") as HTMLInputElement).value.trim()
 			const godWorking = (document.getElementById("t-god-working") as HTMLTextAreaElement).value.trim()
 			const encouragement = (document.getElementById("t-encouragement") as HTMLTextAreaElement).value.trim()
 
@@ -302,7 +331,7 @@
 				const res = await fetch("/api/testimony", {
 					method: "POST",
 					headers: { "Content-Type": "application/json" },
-					body: JSON.stringify({ name, memberSince, godWorking, encouragement }),
+					body: JSON.stringify({ name, memberSince, phone, email, godWorking, encouragement }),
 				})
 
 				if (!res.ok) throw new Error("Server error")
