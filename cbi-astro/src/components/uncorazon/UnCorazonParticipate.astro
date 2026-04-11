@@ -1,5 +1,6 @@
 ---
 import { HandHeart, Flame } from "@lucide/astro"
+import TestimonyModal from "./TestimonyModal.astro"
 // Swiper removed — replaced with CSS scroll-snap + IntersectionObserver
 ---
 
@@ -164,7 +165,8 @@ import { HandHeart, Flame } from "@lucide/astro"
 								class="uncorazon-participate__envelope"
 								role="button"
 								tabindex="0"
-								aria-label="Comparte tu testimonio">
+								aria-label="Comparte tu testimonio"
+								id="envelope-trigger">
 								<div class="uncorazon-participate__envelope-paper">
 									<span class="font-bebas text-[0.6rem] tracking-[0.15em] text-(--campaign-navy)/70 sm:text-xs">
 										Comparte
@@ -185,9 +187,13 @@ import { HandHeart, Flame } from "@lucide/astro"
 								obrando en tu vida y sé parte de lo que Él está
 								haciendo en Su casa.
 							</p>
-							<p class="participate-stagger participate-stagger--d4 mt-7 font-[Cormorant_Garamond,serif] text-sm text-(--campaign-navy)/40 italic">
-								Próximamente
-							</p>
+							<button
+								id="open-testimony-modal"
+								class="participate-stagger participate-stagger--d4 mt-7 inline-flex items-center gap-2 rounded-sm bg-(--campaign-navy) px-8 py-3 font-bebas text-lg tracking-[0.12em] text-white shadow-[0_6px_24px_rgba(22,30,87,0.22)] transition-all duration-300 hover:shadow-[0_10px_36px_rgba(22,30,87,0.32)] hover:brightness-110 sm:text-xl"
+								type="button"
+								aria-haspopup="dialog">
+								Compartir mi Testimonio
+							</button>
 						</div>
 					</div>
 				</article>
@@ -197,8 +203,12 @@ import { HandHeart, Flame } from "@lucide/astro"
 	</div>
 </section>
 
+<!-- ── Testimony Modal ─────────────────────────────────────────── -->
+<TestimonyModal />
+
 <script>
 	document.addEventListener("DOMContentLoaded", () => {
+		// ── Carousel ──────────────────────────────────────────
 		const track = document.querySelector(
 			".uncorazon-participate__track",
 		) as HTMLElement | null
@@ -226,7 +236,6 @@ import { HandHeart, Flame } from "@lucide/astro"
 			})
 		}
 
-		// Dot click → scroll to that slide
 		dots.forEach((dot, i) => {
 			dot.addEventListener("click", () => {
 				slides[i]?.scrollIntoView({
@@ -237,7 +246,6 @@ import { HandHeart, Flame } from "@lucide/astro"
 			})
 		})
 
-		// IntersectionObserver → detect which slide is in view
 		const observer = new IntersectionObserver(
 			(entries) => {
 				entries.forEach((entry) => {
@@ -251,18 +259,17 @@ import { HandHeart, Flame } from "@lucide/astro"
 
 		slides.forEach((slide) => observer.observe(slide))
 
-		// Envelope toggle (Testimonio panel)
-		const envelope = document.querySelector(
-			".uncorazon-participate__envelope",
-		)
+		// Envelope decoration — clicking opens the testimony modal
+		const envelope = document.querySelector(".uncorazon-participate__envelope")
 		if (envelope) {
-			const toggle = () => envelope.classList.toggle("is-open")
-			envelope.addEventListener("click", toggle)
+			envelope.addEventListener("click", () => {
+				document.dispatchEvent(new CustomEvent("testimony:open"))
+			})
 			envelope.addEventListener("keydown", (e) => {
 				const ke = e as KeyboardEvent
 				if (ke.key === "Enter" || ke.key === " ") {
 					e.preventDefault()
-					toggle()
+					document.dispatchEvent(new CustomEvent("testimony:open"))
 				}
 			})
 		}
@@ -763,4 +770,5 @@ import { HandHeart, Flame } from "@lucide/astro"
 			transition: none;
 		}
 	}
+
 </style>

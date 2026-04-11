@@ -1,0 +1,710 @@
+---
+---
+
+<!-- ── Testimony Modal ─────────────────────────────────────────── -->
+<div
+	id="testimony-modal"
+	class="testimony-modal"
+	role="dialog"
+	aria-modal="true"
+	aria-labelledby="testimony-modal-title"
+	hidden>
+	<div class="testimony-modal__backdrop" id="testimony-backdrop"></div>
+	<div class="testimony-modal__sheet">
+		<!-- Close -->
+		<button
+			class="testimony-modal__close"
+			id="testimony-close"
+			type="button"
+			aria-label="Cerrar">
+			<svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+				<path d="M4 4l12 12M16 4L4 16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+			</svg>
+		</button>
+
+		<!-- Progress bar -->
+		<div class="testimony-modal__progress" aria-hidden="true">
+			<div class="testimony-modal__progress-track">
+				<div class="testimony-modal__progress-fill" id="testimony-progress"></div>
+			</div>
+			<span class="testimony-modal__progress-label" id="testimony-step-label">Paso 1 de 3</span>
+		</div>
+
+		<!-- Steps container -->
+		<div class="testimony-modal__steps" id="testimony-steps">
+
+			<!-- Step 1 -->
+			<div class="testimony-step" data-step="1">
+				<p class="testimony-eyebrow">01 · Cuéntanos de ti</p>
+				<h2 id="testimony-modal-title" class="testimony-heading">¿Cómo te llamas?</h2>
+				<p class="testimony-subtext">Un nombre es suficiente — solo queremos conocerte un poco.</p>
+				<div class="testimony-fields">
+					<div class="testimony-field">
+						<label class="testimony-label" for="t-name">Nombre <span aria-hidden="true">*</span></label>
+						<input
+							class="testimony-input"
+							id="t-name"
+							name="name"
+							type="text"
+							placeholder="Tu nombre"
+							autocomplete="given-name"
+							required
+							maxlength="80" />
+					</div>
+					<div class="testimony-field">
+						<label class="testimony-label" for="t-member-since">¿Cuánto tiempo llevas en CBI?</label>
+						<input
+							class="testimony-input"
+							id="t-member-since"
+							name="memberSince"
+							type="text"
+							placeholder="Ej. 3 años, desde el 2019…"
+							maxlength="100" />
+					</div>
+				</div>
+			</div>
+
+			<!-- Step 2 -->
+			<div class="testimony-step" data-step="2" hidden>
+				<p class="testimony-eyebrow">02 · Tu testimonio</p>
+				<h2 class="testimony-heading">¿Cómo está obrando Dios en tu vida?</h2>
+				<p class="testimony-subtext">Comparte lo que Él ha estado haciendo durante esta campaña — grande o pequeño, todo importa.</p>
+				<div class="testimony-fields">
+					<div class="testimony-field">
+						<label class="testimony-label" for="t-god-working">Tu respuesta <span aria-hidden="true">*</span></label>
+						<textarea
+							class="testimony-input testimony-textarea"
+							id="t-god-working"
+							name="godWorking"
+							placeholder="Escribe aquí tu testimonio…"
+							rows="5"
+							required
+							maxlength="1200"></textarea>
+						<span class="testimony-char-count" id="t-god-working-count">0 / 1200</span>
+					</div>
+				</div>
+			</div>
+
+			<!-- Step 3 -->
+			<div class="testimony-step" data-step="3" hidden>
+				<p class="testimony-eyebrow">03 · Una última cosa</p>
+				<h2 class="testimony-heading">¿Tienes una palabra de aliento para la iglesia?</h2>
+				<p class="testimony-subtext">Opcional — si el Señor ha puesto algo en tu corazón para compartir con la congregación.</p>
+				<div class="testimony-fields">
+					<div class="testimony-field">
+						<label class="testimony-label" for="t-encouragement">Tu palabra (opcional)</label>
+						<textarea
+							class="testimony-input testimony-textarea"
+							id="t-encouragement"
+							name="encouragement"
+							placeholder="Escribe tu palabra de aliento…"
+							rows="4"
+							maxlength="600"></textarea>
+						<span class="testimony-char-count" id="t-encouragement-count">0 / 600</span>
+					</div>
+				</div>
+			</div>
+
+			<!-- Success -->
+			<div class="testimony-step testimony-step--success" data-step="success" hidden>
+				<div class="testimony-success-icon" aria-hidden="true">
+					<svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+						<circle cx="24" cy="24" r="22" stroke="var(--campaign-gold)" stroke-width="2"/>
+						<path d="M14 24l7 7 13-14" stroke="var(--campaign-navy)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+					</svg>
+				</div>
+				<p class="testimony-eyebrow">¡Recibido!</p>
+				<h2 class="testimony-heading">Gracias por compartir</h2>
+				<p class="testimony-subtext">Tu testimonio ha sido enviado. Que el Señor continúe obrando en tu vida y en la de nuestra iglesia.</p>
+			</div>
+
+		</div>
+
+		<!-- Footer actions -->
+		<div class="testimony-modal__footer" id="testimony-footer">
+			<button
+				class="testimony-btn testimony-btn--ghost"
+				id="testimony-back"
+				type="button"
+				style="visibility:hidden">
+				← Atrás
+			</button>
+			<button
+				class="testimony-btn testimony-btn--primary"
+				id="testimony-next"
+				type="button">
+				Siguiente
+			</button>
+		</div>
+	</div>
+</div>
+
+<script>
+	document.addEventListener("DOMContentLoaded", () => {
+		const modal = document.getElementById("testimony-modal") as HTMLElement
+		const backdrop = document.getElementById("testimony-backdrop") as HTMLElement
+		const closeBtn = document.getElementById("testimony-close") as HTMLButtonElement
+		const openBtn = document.getElementById("open-testimony-modal") as HTMLButtonElement
+		const nextBtn = document.getElementById("testimony-next") as HTMLButtonElement
+		const backBtn = document.getElementById("testimony-back") as HTMLButtonElement
+		const progressFill = document.getElementById("testimony-progress") as HTMLElement
+		const stepLabel = document.getElementById("testimony-step-label") as HTMLElement
+		const footer = document.getElementById("testimony-footer") as HTMLElement
+		const stepEls = document.querySelectorAll<HTMLElement>(".testimony-step[data-step]")
+
+		if (!modal || !openBtn) return
+
+		const TOTAL_STEPS = 3
+		let currentStep = 1
+		let isSubmitting = false
+
+		// Char counters
+		function setupCharCount(textareaId: string, countId: string, max: number) {
+			const ta = document.getElementById(textareaId) as HTMLTextAreaElement | null
+			const counter = document.getElementById(countId) as HTMLElement | null
+			if (!ta || !counter) return
+			ta.addEventListener("input", () => {
+				counter.textContent = `${ta.value.length} / ${max}`
+			})
+		}
+		setupCharCount("t-god-working", "t-god-working-count", 1200)
+		setupCharCount("t-encouragement", "t-encouragement-count", 600)
+
+		function getStep(step: number | "success"): HTMLElement | null {
+			return modal.querySelector(`.testimony-step[data-step="${step}"]`)
+		}
+
+		function showStep(step: number | "success", direction: "forward" | "back" = "forward") {
+			const incoming = getStep(step)
+			if (!incoming) return
+
+			stepEls.forEach((el) => {
+				if (el !== incoming) {
+					el.setAttribute("hidden", "")
+					el.classList.remove("testimony-step--enter-forward", "testimony-step--enter-back")
+				}
+			})
+
+			incoming.removeAttribute("hidden")
+			incoming.classList.add(
+				direction === "forward" ? "testimony-step--enter-forward" : "testimony-step--enter-back"
+			)
+			incoming.addEventListener("animationend", () => {
+				incoming.classList.remove("testimony-step--enter-forward", "testimony-step--enter-back")
+			}, { once: true })
+
+			const firstInput = incoming.querySelector<HTMLElement>("input, textarea, button")
+			if (firstInput && step !== "success") {
+				setTimeout(() => firstInput.focus(), 180)
+			}
+		}
+
+		function updateProgress(step: number) {
+			const pct = ((step - 1) / TOTAL_STEPS) * 100
+			progressFill.style.width = `${pct}%`
+			stepLabel.textContent = `Paso ${step} de ${TOTAL_STEPS}`
+		}
+
+		function updateFooter(step: number | "success") {
+			if (step === "success") {
+				footer.setAttribute("hidden", "")
+				return
+			}
+			footer.removeAttribute("hidden")
+			;(backBtn as HTMLButtonElement).style.visibility = step === 1 ? "hidden" : "visible"
+			nextBtn.textContent = step === TOTAL_STEPS ? "Enviar Testimonio" : "Siguiente →"
+			nextBtn.disabled = false
+		}
+
+		function openModal() {
+			currentStep = 1
+			isSubmitting = false
+
+			const nameInput = document.getElementById("t-name") as HTMLInputElement
+			const memberInput = document.getElementById("t-member-since") as HTMLInputElement
+			const godInput = document.getElementById("t-god-working") as HTMLTextAreaElement
+			const encInput = document.getElementById("t-encouragement") as HTMLTextAreaElement
+			;[nameInput, memberInput, godInput, encInput].forEach((el) => { if (el) el.value = "" })
+			document.querySelectorAll<HTMLElement>(".testimony-char-count").forEach((el) => {
+				const max = el.id.includes("god") ? "1200" : "600"
+				el.textContent = `0 / ${max}`
+			})
+
+			showStep(1, "forward")
+			updateProgress(1)
+			updateFooter(1)
+
+			modal.removeAttribute("hidden")
+			document.body.style.overflow = "hidden"
+
+			requestAnimationFrame(() => {
+				modal.classList.add("is-open")
+			})
+
+			closeBtn.focus()
+		}
+
+		function closeModal() {
+			modal.classList.remove("is-open")
+			document.body.style.overflow = ""
+			modal.addEventListener("transitionend", () => {
+				modal.setAttribute("hidden", "")
+			}, { once: true })
+			openBtn?.focus()
+		}
+
+		function validateStep(step: number): { valid: boolean; message?: string } {
+			if (step === 1) {
+				const name = (document.getElementById("t-name") as HTMLInputElement).value.trim()
+				if (!name) return { valid: false, message: "Por favor ingresa tu nombre." }
+			}
+			if (step === 2) {
+				const godWorking = (document.getElementById("t-god-working") as HTMLTextAreaElement).value.trim()
+				if (!godWorking) return { valid: false, message: "Por favor comparte algo de tu testimonio." }
+			}
+			return { valid: true }
+		}
+
+		function showFieldError(message: string, stepNum: number) {
+			const stepEl = getStep(stepNum)
+			if (!stepEl) return
+			let err = stepEl.querySelector<HTMLElement>(".testimony-field-error")
+			if (!err) {
+				err = document.createElement("p")
+				err.className = "testimony-field-error"
+				err.setAttribute("role", "alert")
+				stepEl.querySelector(".testimony-fields")?.prepend(err)
+			}
+			err.textContent = message
+			err.style.display = "block"
+		}
+
+		function clearFieldErrors() {
+			modal.querySelectorAll<HTMLElement>(".testimony-field-error").forEach((el) => {
+				el.style.display = "none"
+			})
+		}
+
+		async function handleSubmit() {
+			if (isSubmitting) return
+			clearFieldErrors()
+
+			const name = (document.getElementById("t-name") as HTMLInputElement).value.trim()
+			const memberSince = (document.getElementById("t-member-since") as HTMLInputElement).value.trim()
+			const godWorking = (document.getElementById("t-god-working") as HTMLTextAreaElement).value.trim()
+			const encouragement = (document.getElementById("t-encouragement") as HTMLTextAreaElement).value.trim()
+
+			isSubmitting = true
+			nextBtn.disabled = true
+			nextBtn.textContent = "Enviando…"
+
+			try {
+				const res = await fetch("/api/testimony", {
+					method: "POST",
+					headers: { "Content-Type": "application/json" },
+					body: JSON.stringify({ name, memberSince, godWorking, encouragement }),
+				})
+
+				if (!res.ok) throw new Error("Server error")
+
+				showStep("success", "forward")
+				footer.setAttribute("hidden", "")
+				progressFill.style.width = "100%"
+				stepLabel.textContent = "¡Enviado!"
+			} catch {
+				isSubmitting = false
+				nextBtn.disabled = false
+				nextBtn.textContent = "Enviar Testimonio"
+				showFieldError("Hubo un problema al enviar. Por favor intenta de nuevo.", currentStep)
+			}
+		}
+
+		// Events
+		openBtn.addEventListener("click", openModal)
+		document.addEventListener("testimony:open", openModal)
+		backdrop.addEventListener("click", closeModal)
+		closeBtn.addEventListener("click", closeModal)
+
+		document.addEventListener("keydown", (e) => {
+			if (e.key === "Escape" && !modal.hasAttribute("hidden")) closeModal()
+		})
+
+		nextBtn.addEventListener("click", () => {
+			clearFieldErrors()
+			const { valid, message } = validateStep(currentStep)
+			if (!valid) {
+				showFieldError(message!, currentStep)
+				return
+			}
+
+			if (currentStep === TOTAL_STEPS) {
+				handleSubmit()
+				return
+			}
+
+			currentStep++
+			showStep(currentStep, "forward")
+			updateProgress(currentStep)
+			updateFooter(currentStep)
+		})
+
+		backBtn.addEventListener("click", () => {
+			if (currentStep <= 1) return
+			clearFieldErrors()
+			currentStep--
+			showStep(currentStep, "back")
+			updateProgress(currentStep)
+			updateFooter(currentStep)
+		})
+	})
+</script>
+
+<style>
+	.testimony-modal {
+		position: fixed;
+		inset: 0;
+		z-index: 9000;
+		display: flex;
+		align-items: flex-end;
+		justify-content: center;
+	}
+
+	@media (min-width: 640px) {
+		.testimony-modal {
+			align-items: center;
+		}
+	}
+
+	.testimony-modal__backdrop {
+		position: absolute;
+		inset: 0;
+		background: rgba(10, 14, 50, 0.55);
+		backdrop-filter: blur(4px);
+		-webkit-backdrop-filter: blur(4px);
+		opacity: 0;
+		transition: opacity 0.35s ease;
+	}
+
+	.testimony-modal.is-open .testimony-modal__backdrop {
+		opacity: 1;
+	}
+
+	.testimony-modal__sheet {
+		position: relative;
+		z-index: 1;
+		width: 100%;
+		max-width: 540px;
+		max-height: 92dvh;
+		overflow-y: auto;
+		background: #fff;
+		border-radius: 1rem 1rem 0 0;
+		padding: 1.5rem 1.5rem 2rem;
+		box-shadow: 0 -8px 60px rgba(22, 30, 87, 0.2);
+		transform: translateY(40px);
+		opacity: 0;
+		transition:
+			transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+			opacity 0.3s ease;
+		scrollbar-width: thin;
+		scrollbar-color: color-mix(in srgb, var(--campaign-navy) 20%, transparent) transparent;
+	}
+
+	@media (min-width: 640px) {
+		.testimony-modal__sheet {
+			border-radius: 0.75rem;
+			padding: 2rem 2.5rem 2.5rem;
+			max-height: 85dvh;
+		}
+	}
+
+	.testimony-modal.is-open .testimony-modal__sheet {
+		transform: translateY(0);
+		opacity: 1;
+	}
+
+	.testimony-modal__close {
+		position: absolute;
+		top: 1rem;
+		right: 1rem;
+		width: 2.25rem;
+		height: 2.25rem;
+		border: none;
+		background: color-mix(in srgb, var(--campaign-navy) 6%, transparent);
+		border-radius: 50%;
+		cursor: pointer;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		color: var(--campaign-navy);
+		transition: background 0.2s ease;
+	}
+
+	.testimony-modal__close:hover {
+		background: color-mix(in srgb, var(--campaign-navy) 12%, transparent);
+	}
+
+	.testimony-modal__progress {
+		display: flex;
+		align-items: center;
+		gap: 0.75rem;
+		margin-bottom: 1.75rem;
+		padding-right: 2.5rem;
+	}
+
+	.testimony-modal__progress-track {
+		flex: 1;
+		height: 3px;
+		background: color-mix(in srgb, var(--campaign-navy) 10%, transparent);
+		border-radius: 99px;
+		overflow: hidden;
+	}
+
+	.testimony-modal__progress-fill {
+		height: 100%;
+		background: var(--campaign-gold);
+		border-radius: 99px;
+		width: 0%;
+		transition: width 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+	}
+
+	.testimony-modal__progress-label {
+		font-family: "Bebas Neue", sans-serif;
+		font-size: 0.75rem;
+		letter-spacing: 0.1em;
+		color: color-mix(in srgb, var(--campaign-navy) 40%, transparent);
+		white-space: nowrap;
+	}
+
+	.testimony-modal__steps {
+		min-height: 280px;
+	}
+
+	@keyframes step-slide-forward {
+		from { opacity: 0; transform: translateX(28px); }
+		to   { opacity: 1; transform: translateX(0); }
+	}
+
+	@keyframes step-slide-back {
+		from { opacity: 0; transform: translateX(-28px); }
+		to   { opacity: 1; transform: translateX(0); }
+	}
+
+	.testimony-step--enter-forward {
+		animation: step-slide-forward 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
+	}
+
+	.testimony-step--enter-back {
+		animation: step-slide-back 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
+	}
+
+	.testimony-eyebrow {
+		font-family: "Bebas Neue", sans-serif;
+		font-size: 0.75rem;
+		letter-spacing: 0.18em;
+		color: color-mix(in srgb, var(--campaign-navy) 40%, transparent);
+		margin-bottom: 0.4rem;
+	}
+
+	.testimony-heading {
+		font-family: "Bebas Neue", sans-serif;
+		font-size: 2rem;
+		line-height: 1.05;
+		letter-spacing: 0.03em;
+		color: var(--campaign-navy);
+		margin-bottom: 0.5rem;
+	}
+
+	@media (min-width: 640px) {
+		.testimony-heading {
+			font-size: 2.5rem;
+		}
+	}
+
+	.testimony-subtext {
+		font-family: "Cormorant Garamond", serif;
+		font-size: 1rem;
+		line-height: 1.6;
+		color: color-mix(in srgb, var(--campaign-navy) 60%, transparent);
+		margin-bottom: 1.25rem;
+	}
+
+	.testimony-fields {
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+	}
+
+	.testimony-field {
+		display: flex;
+		flex-direction: column;
+		gap: 0.4rem;
+		position: relative;
+	}
+
+	.testimony-label {
+		font-family: "Bebas Neue", sans-serif;
+		font-size: 0.7rem;
+		letter-spacing: 0.14em;
+		color: color-mix(in srgb, var(--campaign-navy) 55%, transparent);
+	}
+
+	.testimony-input {
+		width: 100%;
+		border: 1.5px solid color-mix(in srgb, var(--campaign-navy) 14%, transparent);
+		border-radius: 0.375rem;
+		padding: 0.65rem 0.875rem;
+		font-family: "Cormorant Garamond", serif;
+		font-size: 1rem;
+		color: var(--campaign-navy);
+		background: color-mix(in srgb, var(--campaign-navy) 2%, transparent);
+		outline: none;
+		transition:
+			border-color 0.2s ease,
+			box-shadow 0.2s ease;
+		box-sizing: border-box;
+	}
+
+	.testimony-input::placeholder {
+		color: color-mix(in srgb, var(--campaign-navy) 30%, transparent);
+	}
+
+	.testimony-input:focus {
+		border-color: var(--campaign-gold);
+		box-shadow: 0 0 0 3px rgba(252, 210, 42, 0.18);
+	}
+
+	.testimony-textarea {
+		resize: vertical;
+		min-height: 110px;
+		line-height: 1.6;
+	}
+
+	.testimony-char-count {
+		font-size: 0.7rem;
+		font-family: "Bebas Neue", sans-serif;
+		letter-spacing: 0.08em;
+		color: color-mix(in srgb, var(--campaign-navy) 30%, transparent);
+		text-align: right;
+	}
+
+	.testimony-field-error {
+		display: flex;
+		align-items: flex-start;
+		gap: 0.5rem;
+		font-family: "Cormorant Garamond", serif;
+		font-size: 0.95rem;
+		font-weight: 600;
+		line-height: 1.5;
+		color: #9b1c1c;
+		background: rgba(220, 38, 38, 0.07);
+		border: 1.5px solid rgba(220, 38, 38, 0.35);
+		border-left: 4px solid #dc2626;
+		padding: 0.65rem 0.875rem;
+		border-radius: 0.375rem;
+		margin-bottom: 0.75rem;
+	}
+
+	.testimony-field-error::before {
+		content: "!";
+		flex-shrink: 0;
+		width: 1.1rem;
+		height: 1.1rem;
+		margin-top: 0.05rem;
+		background: #dc2626;
+		color: white;
+		border-radius: 50%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-family: "Bebas Neue", sans-serif;
+		font-size: 0.7rem;
+		letter-spacing: 0;
+		line-height: 1.1rem;
+		text-align: center;
+	}
+
+	.testimony-step--success {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		text-align: center;
+		padding: 1.5rem 0 1rem;
+	}
+
+	.testimony-success-icon {
+		margin-bottom: 1.25rem;
+		animation: success-pop 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+	}
+
+	@keyframes success-pop {
+		from { transform: scale(0.6); opacity: 0; }
+		to   { transform: scale(1); opacity: 1; }
+	}
+
+	.testimony-modal__footer {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		margin-top: 1.75rem;
+		padding-top: 1.25rem;
+		border-top: 1px solid color-mix(in srgb, var(--campaign-navy) 8%, transparent);
+	}
+
+	.testimony-btn {
+		border: none;
+		cursor: pointer;
+		font-family: "Bebas Neue", sans-serif;
+		font-size: 1rem;
+		letter-spacing: 0.1em;
+		border-radius: 0.25rem;
+		transition:
+			background 0.2s ease,
+			opacity 0.2s ease,
+			box-shadow 0.2s ease;
+		-webkit-tap-highlight-color: transparent;
+	}
+
+	.testimony-btn--ghost {
+		background: none;
+		color: color-mix(in srgb, var(--campaign-navy) 50%, transparent);
+		padding: 0.6rem 1rem;
+	}
+
+	.testimony-btn--ghost:hover {
+		color: var(--campaign-navy);
+	}
+
+	.testimony-btn--primary {
+		background: var(--campaign-navy);
+		color: white;
+		padding: 0.65rem 1.75rem;
+		box-shadow: 0 4px 18px rgba(22, 30, 87, 0.2);
+	}
+
+	.testimony-btn--primary:hover:not(:disabled) {
+		box-shadow: 0 6px 24px rgba(22, 30, 87, 0.32);
+		filter: brightness(1.1);
+	}
+
+	.testimony-btn--primary:disabled {
+		opacity: 0.55;
+		cursor: not-allowed;
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.testimony-modal__sheet,
+		.testimony-modal__backdrop,
+		.testimony-modal__progress-fill {
+			transition: none;
+		}
+
+		.testimony-step--enter-forward,
+		.testimony-step--enter-back {
+			animation: none;
+		}
+
+		.testimony-success-icon {
+			animation: none;
+		}
+	}
+</style>
