@@ -14,7 +14,7 @@ interface Props {
 const {
 	title = "CBI Orlando",
 	description = "CBI Orlando - Una iglesia comprometida con transformar vidas a través del amor de Cristo. Amar a Dios. Amar la Familia. Amar el Servicio.",
-	navLogo = "black",
+	navLogo = "white",
 } = Astro.props
 
 // Build canonical URL and image URL
@@ -55,10 +55,24 @@ const imageURL = new URL(ogImage.src, canonicalURL)
 
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<!-- Non-blocking font load: render isn't blocked, swap kicks in immediately -->
+		<link
+			rel="preload"
+			as="style"
+			href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap"
+		/>
 		<link
 			href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap"
 			rel="stylesheet"
+			media="print"
+			onload="this.media='all'"
 		/>
+		<noscript>
+			<link
+				href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap"
+				rel="stylesheet"
+			/>
+		</noscript>
 		<title>{title}</title>
 		<Analytics />
 	</head>
