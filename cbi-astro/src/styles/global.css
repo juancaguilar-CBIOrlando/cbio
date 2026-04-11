@@ -48,6 +48,13 @@
 :root {
   color-scheme: light only;
   --radius: 0.625rem;
+
+  /* Un Corazón para Su Casa campaign */
+  --campaign-navy: #161e57;
+  --campaign-gold: #fcd22a;
+  --campaign-gold-soft: #fcd22a33;
+  --campaign-cream: #faf8f2;
+  --campaign-green: #2eb576;
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);

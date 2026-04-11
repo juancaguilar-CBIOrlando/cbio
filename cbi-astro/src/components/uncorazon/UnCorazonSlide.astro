@@ -1,0 +1,110 @@
+---
+import { Image } from "astro:assets"
+import GeometricHeartWatermark from "@/components/common/GeometricHeartWatermark.astro"
+import campaignLogoDark from "@/heart-assets/negro.png"
+
+interface Props {
+  description: string | null
+  cta: { text: string; link: string; color: string; isExternal?: boolean }[]
+}
+
+const { description, cta } = Astro.props
+---
+
+<!-- Base -->
+<div class="pointer-events-none absolute inset-0 z-0 bg-(--campaign-cream)" />
+
+<!-- Green corner triangles -->
+<div
+  class="uncorazon-slide__corner-tr pointer-events-none absolute right-0 top-0 z-10"
+  aria-hidden="true"
+/>
+<div
+  class="uncorazon-slide__corner-bl pointer-events-none absolute bottom-0 left-0 z-10"
+  aria-hidden="true"
+/>
+
+<!-- Subtle warm center halo -->
+<div
+  class="pointer-events-none absolute inset-0 z-1 bg-[radial-gradient(ellipse_55%_35%_at_50%_42%,var(--campaign-gold-soft)_0%,transparent_72%)]"
+  aria-hidden="true"
+/>
+
+<GeometricHeartWatermark
+  class="pointer-events-none absolute left-1/2 top-1/2 z-1 w-[min(120vw,720px)] -translate-x-1/2 -translate-y-1/2 rotate-[-14deg] text-(--campaign-navy) opacity-[0.08]"
+/>
+
+<!-- Film grain -->
+<div class="uncorazon-slide__noise absolute inset-0 z-2 pointer-events-none" aria-hidden="true" />
+
+<!-- Content -->
+<div class="absolute inset-0 z-20 flex flex-col items-center justify-center p-4 text-center gap-y-2 w-full">
+  <Image
+    src={campaignLogoDark}
+    alt="Un Corazón para Su Casa"
+    width={900}
+    height={519}
+    loading="lazy"
+    decoding="async"
+    class="h-auto w-[min(75vw,300px)] drop-shadow-[0_8px_40px_rgba(0,0,0,0.12)] mb-4"
+  />
+  {description && (
+    <p class="uncorazon-slide__tagline max-w-xl text-pretty text-xl leading-snug text-(--campaign-navy)/80 sm:text-2xl md:text-[1.65rem]">
+      {description}
+    </p>
+  )}
+  <div class="mt-7 h-px w-24 rounded-full bg-(--campaign-green)" role="presentation" />
+  <div class="flex flex-col sm:flex-row gap-4 items-center justify-center mt-5">
+    {cta.map((c) => (
+      <a
+        href={c.link}
+        target={c.isExternal ? "_blank" : "_self"}
+        rel={c.isExternal ? "noopener noreferrer" : ""}
+        class="uncorazon-slide__cta inline-flex items-center gap-2 rounded-sm px-9 py-3 font-bebas text-lg tracking-[0.12em] sm:text-xl"
+      >
+        {c.text}
+      </a>
+    ))}
+  </div>
+</div>
+
+<style>
+  .uncorazon-slide__corner-tr {
+    width: clamp(200px, 22vw, 280px);
+    aspect-ratio: 1;
+    background-color: var(--campaign-green);
+    clip-path: polygon(100% 0, 100% 100%, 0 0);
+  }
+
+  .uncorazon-slide__corner-bl {
+    width: clamp(140px, 16vw, 200px);
+    aspect-ratio: 1;
+    background-color: var(--campaign-green);
+    clip-path: polygon(0 0, 0 100%, 100% 100%);
+  }
+
+  .uncorazon-slide__noise {
+    opacity: 0.22;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  .uncorazon-slide__tagline {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-weight: 500;
+  }
+
+  .uncorazon-slide__cta {
+    background-color: var(--campaign-gold);
+    color: var(--campaign-navy);
+    box-shadow: 0 6px 32px rgba(252, 210, 42, 0.32);
+    transition: box-shadow 0.3s ease, filter 0.3s ease;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .uncorazon-slide__cta:hover {
+    box-shadow: 0 10px 40px rgba(252, 210, 42, 0.5);
+    filter: brightness(1.05);
+  }
+</style>

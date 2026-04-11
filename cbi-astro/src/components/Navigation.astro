@@ -1,24 +1,23 @@
 ---
 import { MenuIcon, XIcon, Facebook, Instagram, Youtube } from "lucide-react"
 
-// Social links
-const socialLinks = [
-  {
-    name: "Facebook",
-    url: "https://www.facebook.com/cbiorlando",
-    icon: "facebook",
-  },
-  {
-    name: "Instagram",
-    url: "https://www.instagram.com/cbiorlando",
-    icon: "instagram",
-  },
-  {
-    name: "YouTube",
-    url: "https://www.youtube.com/channel/UC5xttzojPMWk73I66cI6rhw",
-    icon: "youtube",
-  },
-]
+interface Props {
+  color?: "white" | "black"
+  logo?: "white" | "black"
+}
+
+const { color = "white", logo: logoProp = "white" } = Astro.props
+// Support both `color` and the legacy `logo` prop from Layout
+const navColor =
+  color !== "white" ? color : logoProp !== "white" ? logoProp : "white"
+const isBlack = navColor === "black"
+const logoSrc = "/mainlogoWhite.png"
+const logoFilter = isBlack ? "invert(1)" : "none"
+const textColor = isBlack ? "text-black" : "text-white"
+const textColorMuted = isBlack
+  ? "text-black/60 hover:text-black"
+  : "text-white/70"
+const iconFill = isBlack ? "black" : "white"
 
 // Primary links - visible on desktop navbar AND in the overlay menu
 const primaryLinks = [
@@ -64,7 +63,12 @@ const secondaryLinksColumn2 = [
   <div class="w-full flex items-center justify-between">
     <!-- Brand / Logo -->
     <a href="/" class="inline-flex items-center h-26 mt-12">
-      <img src="/mainlogoWhite.png" alt="CBI Orlando" class="h-24 w-auto" />
+      <img
+        src={logoSrc}
+        alt="CBI Orlando"
+        class="h-24 w-auto"
+        style={`filter: ${logoFilter}`}
+      />
     </a>
 
     <!-- Desktop menu links (hidden on mobile/tablet) -->
@@ -73,7 +77,8 @@ const secondaryLinksColumn2 = [
         primaryLinks.map((link) => (
           <a
             href={link.path}
-            class={`nav-link inline-flex items-center font-semibold px-4 py-2 transition-all duration-300 hover:text-white/70 ${link.path === "/uncorazon" ? "text-[#fcd22a]" : "text-white"}`}>
+            class={`nav-link inline-flex items-center font-semibold px-4 py-2 transition-all duration-300 ${isBlack ? "hover:text-black/60" : "hover:text-white/70"} ${link.path === "/uncorazon" ? "text-[#fcd22a]" : textColor}`}
+            data-nav-color={navColor}>
             {link.name}
           </a>
         ))
@@ -86,7 +91,7 @@ const secondaryLinksColumn2 = [
       aria-label="Toggle menu"
       id="menu-button">
       <span
-        class="text-white font-semibold text-sm tracking-wide group-hover:text-white/70 transition-colors duration-300"
+        class={`${textColor} font-semibold text-sm tracking-wide group-hover:${textColorMuted} transition-colors duration-300`}
         >Menu</span
       >
       <svg
@@ -99,7 +104,7 @@ const secondaryLinksColumn2 = [
         id="menu-icon">
         <path
           d="M1.85714 0H11.1429C11.6354 0 12.1078 0.200178 12.4561 0.556497C12.8043 0.912816 13 1.39609 13 1.9C13 2.40391 12.8043 2.88718 12.4561 3.2435C12.1078 3.59982 11.6354 3.8 11.1429 3.8H1.85714C1.3646 3.8 0.892226 3.59982 0.543945 3.2435C0.195663 2.88718 0 2.40391 0 1.9C0 1.39609 0.195663 0.912816 0.543945 0.556497C0.892226 0.200178 1.3646 0 1.85714 0ZM14.8571 15.2H24.1429C24.6354 15.2 25.1078 15.4002 25.4561 15.7565C25.8043 16.1128 26 16.5961 26 17.1C26 17.6039 25.8043 18.0872 25.4561 18.4435C25.1078 18.7998 24.6354 19 24.1429 19H14.8571C14.3646 19 13.8922 18.7998 13.5439 18.4435C13.1957 18.0872 13 17.6039 13 17.1C13 16.5961 13.1957 16.1128 13.5439 15.7565C13.8922 15.4002 14.3646 15.2 14.8571 15.2ZM1.85714 7.6H24.1429C24.6354 7.6 25.1078 7.80018 25.4561 8.1565C25.8043 8.51282 26 8.99609 26 9.5C26 10.0039 25.8043 10.4872 25.4561 10.8435C25.1078 11.1998 24.6354 11.4 24.1429 11.4H1.85714C1.3646 11.4 0.892226 11.1998 0.543945 10.8435C0.195663 10.4872 0 10.0039 0 9.5C0 8.99609 0.195663 8.51282 0.543945 8.1565C0.892226 7.80018 1.3646 7.6 1.85714 7.6Z"
-          fill="white"></path>
+          fill={iconFill}></path>
       </svg>
     </button>
   </div>
@@ -336,7 +341,7 @@ const secondaryLinksColumn2 = [
     left: 50%;
     width: 0;
     height: 2px;
-    background: white;
+    background: currentColor;
     transition: all 0.3s ease;
     transform: translateX(-50%);
   }
