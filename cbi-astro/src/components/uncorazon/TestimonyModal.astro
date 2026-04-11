@@ -365,14 +365,9 @@
 		inset: 0;
 		z-index: 9000;
 		display: flex;
-		align-items: flex-end;
+		align-items: center;
 		justify-content: center;
-	}
-
-	@media (min-width: 640px) {
-		.testimony-modal {
-			align-items: center;
-		}
+		padding: 1rem;
 	}
 
 	.testimony-modal__backdrop {
@@ -394,13 +389,13 @@
 		z-index: 1;
 		width: 100%;
 		max-width: 540px;
-		max-height: 92dvh;
+		max-height: 90dvh;
 		overflow-y: auto;
 		background: #fff;
-		border-radius: 1rem 1rem 0 0;
+		border-radius: 0.75rem;
 		padding: 1.5rem 1.5rem 2rem;
-		box-shadow: 0 -8px 60px rgba(22, 30, 87, 0.2);
-		transform: translateY(40px);
+		box-shadow: 0 8px 60px rgba(22, 30, 87, 0.25);
+		transform: translateY(24px);
 		opacity: 0;
 		transition:
 			transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
@@ -411,9 +406,7 @@
 
 	@media (min-width: 640px) {
 		.testimony-modal__sheet {
-			border-radius: 0.75rem;
 			padding: 2rem 2.5rem 2.5rem;
-			max-height: 85dvh;
 		}
 	}
 
