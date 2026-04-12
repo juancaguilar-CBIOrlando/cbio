@@ -60,8 +60,8 @@ export const POST: APIRoute = async ({ request }) => {
 
 		if (!res.ok) {
 			const err = await res.text()
-			console.error("Web3Forms error:", err)
-			return new Response(JSON.stringify({ error: "Email delivery failed" }), {
+			console.error("Web3Forms error:", res.status, err)
+			return new Response(JSON.stringify({ error: "Email delivery failed", detail: err }), {
 				status: 502,
 				headers,
 			})
