@@ -1,10 +1,12 @@
 ---
+const web3FormsKey = import.meta.env.WEB3FORMS_ACCESS_KEY
 ---
 
 <!-- ── Testimony Modal ─────────────────────────────────────────── -->
 <div
 	id="testimony-modal"
 	class="testimony-modal"
+	data-w3f-key={web3FormsKey}
 	role="dialog"
 	aria-modal="true"
 	aria-labelledby="testimony-modal-title"
@@ -332,10 +334,25 @@
 			nextBtn.textContent = "Enviando…"
 
 			try {
-				const res = await fetch("/api/testimony", {
+				const accessKey = modal.dataset.w3fKey ?? ""
+				const message = [
+					`Teléfono: ${phone}`,
+					email ? `Correo: ${email}` : null,
+					memberSince ? `Tiempo en la iglesia: ${memberSince}` : null,
+					`¿Cómo está obrando Dios en tu vida?\n${godWorking}`,
+					encouragement ? `Palabra de aliento para la iglesia:\n${encouragement}` : null,
+					`\nEnviado desde la campaña Un Corazón · cbiorlando.org`,
+				].filter(Boolean).join("\n\n")
+
+				const res = await fetch("https://api.web3forms.com/submit", {
 					method: "POST",
 					headers: { "Content-Type": "application/json" },
-					body: JSON.stringify({ name, memberSince, phone, email, godWorking, encouragement }),
+					body: JSON.stringify({
+						access_key: accessKey,
+						subject: `Testimonio de ${name} — Un Corazón`,
+						from_name: name,
+						message,
+					}),
 				})
 
 				if (!res.ok) throw new Error("Server error")
