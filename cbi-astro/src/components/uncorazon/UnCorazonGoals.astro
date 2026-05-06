@@ -4,7 +4,7 @@ import HouseHeartIcon from "@/components/common/HouseHeartIcon.astro"
 import HouseIcon from "@/components/common/HouseIcon.astro"
 
 /**
- * Section 3: Goal & checkpoints — DaisyUI timeline with integrated progress fill.
+ * Section 3: Goal & checkpoints — timeline with integrated progress fill.
  */
 type Checkpoint = {
 	amount: string
@@ -19,7 +19,7 @@ type Checkpoint = {
 
 const goalTotal = 7_000_000
 const milestone1 = 900_000
-const raisedUsd = 39_239
+const raisedUsd = 44_103
 const pctToMilestone1 = Math.min(
 	100,
 	Math.round((raisedUsd / milestone1) * 10000) / 100,
