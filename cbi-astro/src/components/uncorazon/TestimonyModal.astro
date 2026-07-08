@@ -195,6 +195,15 @@ const web3FormsKey = import.meta.env.WEB3FORMS_ACCESS_KEY
 		setupCharCount("t-god-working", "t-god-working-count", 1200)
 		setupCharCount("t-encouragement", "t-encouragement-count", 600)
 
+		modal.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>(
+			".testimony-input",
+		).forEach((input) => {
+			input.addEventListener("input", () => {
+				input.classList.remove("is-invalid")
+				input.removeAttribute("aria-invalid")
+			})
+		})
+
 		function getStep(step: number | "success"): HTMLElement | null {
 			return modal.querySelector(`.testimony-step[data-step="${step}"]`)
 		}
@@ -251,7 +260,13 @@ const web3FormsKey = import.meta.env.WEB3FORMS_ACCESS_KEY
 			const emailInput = document.getElementById("t-email") as HTMLInputElement
 			const godInput = document.getElementById("t-god-working") as HTMLTextAreaElement
 			const encInput = document.getElementById("t-encouragement") as HTMLTextAreaElement
-			;[nameInput, memberInput, phoneInput, emailInput, godInput, encInput].forEach((el) => { if (el) el.value = "" })
+			;[nameInput, memberInput, phoneInput, emailInput, godInput, encInput].forEach((el) => {
+				if (!el) return
+				el.value = ""
+				el.classList.remove("is-invalid")
+				el.removeAttribute("aria-invalid")
+			})
+			clearFieldErrors()
 			document.querySelectorAll<HTMLElement>(".testimony-char-count").forEach((el) => {
 				const max = el.id.includes("god") ? "1200" : "600"
 				el.textContent = `0 / ${max}`
@@ -280,25 +295,65 @@ const web3FormsKey = import.meta.env.WEB3FORMS_ACCESS_KEY
 			openBtn?.focus()
 		}
 
-		function validateStep(step: number): { valid: boolean; message?: string } {
+		function validateStep(step: number): {
+			valid: boolean
+			message?: string
+			invalidFields?: string[]
+		} {
 			if (step === 1) {
+				const invalidFields: string[] = []
 				const name = (document.getElementById("t-name") as HTMLInputElement).value.trim()
-				if (!name) return { valid: false, message: "Por favor ingresa tu nombre." }
 				const phone = (document.getElementById("t-phone") as HTMLInputElement).value.trim()
-				if (!phone) return { valid: false, message: "Por favor ingresa tu número de teléfono." }
 				const email = (document.getElementById("t-email") as HTMLInputElement).value.trim()
+
+				if (!name) invalidFields.push("t-name")
+				if (!phone) invalidFields.push("t-phone")
 				if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-					return { valid: false, message: "Por favor ingresa un correo electrónico válido." }
+					invalidFields.push("t-email")
+				}
+
+				if (invalidFields.length) {
+					const message =
+						invalidFields.length > 1
+							? "Por favor completa los campos marcados en rojo."
+							: invalidFields[0] === "t-name"
+								? "Por favor ingresa tu nombre."
+								: invalidFields[0] === "t-phone"
+									? "Por favor ingresa tu número de teléfono."
+									: "Por favor ingresa un correo electrónico válido."
+					return { valid: false, message, invalidFields }
 				}
 			}
 			if (step === 2) {
 				const godWorking = (document.getElementById("t-god-working") as HTMLTextAreaElement).value.trim()
-				if (!godWorking) return { valid: false, message: "Por favor comparte algo de tu testimonio." }
+				if (!godWorking) {
+					return {
+						valid: false,
+						message: "Por favor comparte algo de tu testimonio.",
+						invalidFields: ["t-god-working"],
+					}
+				}
 			}
 			return { valid: true }
 		}
 
-		function showFieldError(message: string, stepNum: number) {
+		function markInvalidFields(fieldIds: string[]) {
+			fieldIds.forEach((id) => {
+				const el = document.getElementById(id)
+				if (el) {
+					el.classList.add("is-invalid")
+					el.setAttribute("aria-invalid", "true")
+				}
+			})
+			const first = document.getElementById(fieldIds[0])
+			first?.focus()
+		}
+
+		function showFieldError(
+			message: string,
+			stepNum: number,
+			invalidFields: string[] = [],
+		) {
 			const stepEl = getStep(stepNum)
 			if (!stepEl) return
 			let err = stepEl.querySelector<HTMLElement>(".testimony-field-error")
@@ -310,11 +365,16 @@ const web3FormsKey = import.meta.env.WEB3FORMS_ACCESS_KEY
 			}
 			err.textContent = message
 			err.style.display = "block"
+			if (invalidFields.length) markInvalidFields(invalidFields)
 		}
 
 		function clearFieldErrors() {
 			modal.querySelectorAll<HTMLElement>(".testimony-field-error").forEach((el) => {
 				el.style.display = "none"
+			})
+			modal.querySelectorAll<HTMLElement>(".testimony-input.is-invalid").forEach((el) => {
+				el.classList.remove("is-invalid")
+				el.removeAttribute("aria-invalid")
 			})
 		}
 
@@ -381,9 +441,9 @@ const web3FormsKey = import.meta.env.WEB3FORMS_ACCESS_KEY
 
 		nextBtn.addEventListener("click", () => {
 			clearFieldErrors()
-			const { valid, message } = validateStep(currentStep)
+			const { valid, message, invalidFields } = validateStep(currentStep)
 			if (!valid) {
-				showFieldError(message!, currentStep)
+				showFieldError(message!, currentStep, invalidFields ?? [])
 				return
 			}
 
@@ -623,6 +683,20 @@ const web3FormsKey = import.meta.env.WEB3FORMS_ACCESS_KEY
 	.testimony-input:focus {
 		border-color: var(--campaign-gold);
 		box-shadow: 0 0 0 3px rgba(252, 210, 42, 0.18);
+	}
+
+	.testimony-input.is-invalid {
+		border-color: #dc2626;
+		background: rgba(220, 38, 38, 0.03);
+	}
+
+	.testimony-input.is-invalid:focus {
+		border-color: #dc2626;
+		box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.18);
+	}
+
+	.testimony-field:has(.testimony-input.is-invalid) .testimony-label {
+		color: #b91c1c;
 	}
 
 	.testimony-textarea {
