@@ -5,6 +5,7 @@ import TestimonyModal from "./TestimonyModal.astro"
 ---
 
 <section
+	id="testimonio"
 	class="uncorazon-participate"
 	aria-labelledby="uncorazon-participate-heading">
 	<div class="uncorazon-participate__sticky">
@@ -279,6 +280,8 @@ import TestimonyModal from "./TestimonyModal.astro"
 			"(prefers-reduced-motion: reduce)",
 		).matches
 
+		const TESTIMONY_SLIDE_INDEX = 2
+
 		function syncActive(index: number) {
 			panels.forEach((p, i) =>
 				p.classList.toggle("is-active", i === index),
@@ -289,14 +292,35 @@ import TestimonyModal from "./TestimonyModal.astro"
 			})
 		}
 
-		dots.forEach((dot, i) => {
-			dot.addEventListener("click", () => {
-				slides[i]?.scrollIntoView({
-					behavior: reducedMotion ? "instant" : "smooth",
-					block: "nearest",
-					inline: "start",
-				})
+		function goToSlide(index: number) {
+			slides[index]?.scrollIntoView({
+				behavior: reducedMotion ? "instant" : "smooth",
+				block: "nearest",
+				inline: "start",
 			})
+			syncActive(index)
+		}
+
+		function handleTestimonyDeepLink() {
+			const hash = window.location.hash.slice(1).toLowerCase()
+			if (hash !== "testimonio") return
+
+			document.getElementById("testimonio")?.scrollIntoView({
+				behavior: reducedMotion ? "instant" : "smooth",
+				block: "start",
+			})
+
+			requestAnimationFrame(() => {
+				goToSlide(TESTIMONY_SLIDE_INDEX)
+				const delay = reducedMotion ? 50 : 450
+				setTimeout(() => {
+					document.dispatchEvent(new CustomEvent("testimony:open"))
+				}, delay)
+			})
+		}
+
+		dots.forEach((dot, i) => {
+			dot.addEventListener("click", () => goToSlide(i))
 		})
 
 		const observer = new IntersectionObserver(
@@ -329,7 +353,15 @@ import TestimonyModal from "./TestimonyModal.astro"
 			})
 		}
 
-		syncActive(0)
+		const isTestimonyDeepLink =
+			window.location.hash.slice(1).toLowerCase() === "testimonio"
+
+		if (isTestimonyDeepLink) {
+			syncActive(TESTIMONY_SLIDE_INDEX)
+			handleTestimonyDeepLink()
+		} else {
+			syncActive(0)
+		}
 
 		// ── Swipe hint ─────────────────────────────────────────
 		const swipeHint = document.querySelector<HTMLElement>(
