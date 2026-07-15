@@ -1,5 +1,6 @@
 ---
 import Text from "./common/Text.astro"
+import { phone } from "../constants.js"
 
 const routes = [
   { name: "Inicio", path: "/" },
@@ -45,7 +46,7 @@ const currentYear = new Date().getFullYear()
             >7507 Kingspointe Pkwy STE 104, Orlando, FL 32819</Text
           >
           <Text as="p" variant="subtitle" class="max-w-[200px] text-center"
-            >689-234-5678</Text
+            >{phone}</Text
           >
         </div>
 
