@@ -5,9 +5,68 @@ import UnCorazonVision from "@/components/uncorazon/UnCorazonVision.astro"
 import UnCorazonGoals from "@/components/uncorazon/UnCorazonGoals.astro"
 import UnCorazonFAQ from "@/components/uncorazon/UnCorazonFAQ.astro"
 import UnCorazonParticipate from "@/components/uncorazon/UnCorazonParticipate.astro"
+import ogImage from "@/assets/og-uncorazon.jpg"
+import { uncorazonFaqs } from "@/helpers/uncorazonFAQ.js"
+import { phone, email } from "@/constants.js"
+
+const title = "Un Corazón Para Su Casa | Campaña de CBI Orlando"
+const description =
+	"Un Corazón para Su Casa es la campaña de generosidad de CBI Orlando para adquirir un edificio propio para la iglesia y Murphy Christian Academy. Conoce la visión, las metas y cómo participar."
+const pageURL = new URL("/uncorazon", Astro.site).href
+
+const structuredData = {
+	"@context": "https://schema.org",
+	"@graph": [
+		{
+			"@type": "Church",
+			"@id": `${Astro.site}#church`,
+			name: "CBI Orlando",
+			url: Astro.site?.href,
+			telephone: phone,
+			email,
+			address: {
+				"@type": "PostalAddress",
+				streetAddress: "7507 Kingspointe Pkwy STE 104",
+				addressLocality: "Orlando",
+				addressRegion: "FL",
+				postalCode: "32819",
+				addressCountry: "US",
+			},
+		},
+		{
+			"@type": "WebPage",
+			"@id": pageURL,
+			url: pageURL,
+			name: title,
+			alternateName: "A Heart for His House",
+			description,
+			inLanguage: "es",
+			about: { "@id": `${Astro.site}#church` },
+			publisher: { "@id": `${Astro.site}#church` },
+		},
+		{
+			"@type": "FAQPage",
+			mainEntity: uncorazonFaqs.map((faq) => ({
+				"@type": "Question",
+				name: faq.question,
+				acceptedAnswer: { "@type": "Answer", text: faq.answer },
+			})),
+		},
+	],
+}
 ---
 
-<Layout title="Un Corazón Para Su Casa - CBI Orlando" navLogo="black">
+<Layout
+	title={title}
+	description={description}
+	image={ogImage}
+	navLogo="black">
+	<script
+		is:inline
+		slot="head"
+		type="application/ld+json"
+		set:html={JSON.stringify(structuredData)}
+	/>
 	<div class="uncorazon-page">
 		<UnCorazonHero />
 		<UnCorazonVision />

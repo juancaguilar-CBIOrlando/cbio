@@ -9,12 +9,14 @@ interface Props {
 	title?: string
 	description?: string
 	navLogo?: "black" | "white"
+	image?: ImageMetadata
 }
 
 const {
 	title = "CBI Orlando",
 	description = "CBI Orlando - Una iglesia comprometida con transformar vidas a través del amor de Cristo. Amar a Dios. Amar la Familia. Amar el Servicio.",
 	navLogo = "white",
+	image = ogImage,
 } = Astro.props
 
 // Build canonical URL and image URL
@@ -22,7 +24,7 @@ const canonicalURL = new URL(
 	Astro.url.pathname,
 	Astro.site ?? "https://cbiorlando.org",
 )
-const imageURL = new URL(ogImage.src, canonicalURL)
+const imageURL = new URL(image.src, canonicalURL)
 ---
 
 <!doctype html>
@@ -52,6 +54,8 @@ const imageURL = new URL(ogImage.src, canonicalURL)
 
 		<!-- Canonical URL -->
 		<link rel="canonical" href={canonicalURL} />
+		<link rel="sitemap" href="/sitemap-index.xml" />
+		<slot name="head" />
 
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
